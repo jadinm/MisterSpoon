@@ -53,11 +53,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String TABLE_Booking= "Reservation";
 	public static final String[] Booking_column = new String[]{_ID, "restNom", "email", "NbrReservation", "heure"};
 	
-	public static final String TABLE_Order= "Ordere";
+	public static final String TABLE_Order= "Commande";
 	public static final String[] Order_column = new String[]{_ID, "restNom", "email", "heure", "platNom", "quantite"};
 	
 	public static final String TABLE_Restaurant= "Restaurant";
-	public static final String[] Restaurant_column = new String[]{_ID, "restNom", "email", "heure", "platNom", "quantite"};
+	public static final String[] Restaurant_column = new String[]{_ID, "restNom", "emailPerso", "telephone", "gps", "capaTotale", "description"};
 	
 	public static final String TABLE_FavouriteRestaurant= "RestoFavori";
 	public static final String[] FavouriteRestaurant_column = new String[]{_ID, "email", "restNom"};
@@ -89,7 +89,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		populateDatabase(db);
 		if (!Additional_Orders.isEmpty()) {//If the program enter new Orders
 			for(int i=0; i<Additional_Orders.size(); i++) {//We execute them
-				db.execSQL(Additional_Orders.get(i), null);
+				db.execSQL(Additional_Orders.get(i));
 			}
 		}
 	}
@@ -101,21 +101,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE " + TABLE_Client + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Client_column[1] + " VARCHAR NOT NULL  UNIQUE, " + Client_column[2] + "  VARCHAR NOT NULL  UNIQUE , " + Client_column[4] + "  VARCHAR UNIQUE);");
 		db.execSQL("CREATE TABLE " + TABLE_Advantage + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Advantage_column[1] + " VARCHAR NOT NULL," + Advantage_column[2] + " VARCHAR NOT NULL, FOREIGN KEY (" + Advantage_column[1] + ") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Cook + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Cook_column[1] +" VARCHAR NOT NULL," + Cook_column[2] +" VARCHAR NOT NULL, FOREIGN KEY ("+Cook_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Shedule + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Shedule_column[1] +" VARCHAR NOT NULL, " + Shedule_column[2] + " VARCHAR NOT NULL, " + Shedule_column[3] +" NOT NULL, " + Shedule_column[4] +" NOT NULL, FOREIGN KEY (" + Shedule_column[1] +") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Shedule + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Shedule_column[1] +" VARCHAR NOT NULL, " + Shedule_column[2] + " VARCHAR NOT NULL, " + Shedule_column[3] +" VARCHAR NOT NULL, " + Shedule_column[4] +" VARCHAR NOT NULL, FOREIGN KEY (" + Shedule_column[1] +") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Menu + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Menu_column[1] + " VARCHAR NOT NULL, " + Menu_column[2] + " VARCHAR NOT NULL, " + Menu_column[3] + " VARCHAR NOT NULL,  FOREIGN KEY ("+Menu_column[2]+") REFERENCES Restaurant (restNom));");
 		db.execSQL("CREATE TABLE " + TABLE_MenuPrice + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + MenuPrice_column[1]  + " VARCHAR NOT NULL, " + MenuPrice_column[2] + " VARCHAR NOT NULL, " + MenuPrice_column[3] + "  DECIMAL(9,2) NOT NULL, UNIQUE ("+ MenuPrice_column[1]+", " + MenuPrice_column[2] +") ON CONFLICT REPLACE, FOREIGN KEY ("+MenuPrice_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Payment + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Payment_column[1] + " VARCHAR NOT NULL, " + Payment_column[2] + " VARCHAR NOT NULL,  FOREIGN KEY ("+Payment_column[1]+") REFERENCES Restaurant ("+Payment_column[2]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Meal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Meal_column[1] + " VARCHAR NOT NULL, " + Meal_column[2] + " VARCHAR NOT NULL, " + Meal_column[3] + " DECIMAL(9,2) NOT NULL, s" + Meal_column[4] + " INTEGER, " + Meal_column[5] + " VARCHAR, UNIQUE ("+Meal_column[1]+", " + Meal_column[2]+") ON CONFLICT REPLACE, FOREIGN KEY ("+Meal_column[2]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_FavouriteMeal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + FavouriteMeal_column[1] + " VARCHAR NOT NULL , " + FavouriteMeal_column[2] + " VARCHAR NOT NULL , FOREIGN KEY ("+FavouriteMeal_column[1]+") REFERENCES Client("+Client_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Meal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Meal_column[1] + " VARCHAR NOT NULL, " + Meal_column[2] + " VARCHAR NOT NULL, " + Meal_column[3] + " DECIMAL(9,2) NOT NULL, s" + Meal_column[4] + " INTEGER, " + Meal_column[5] + " TEXT, UNIQUE ("+Meal_column[1]+", " + Meal_column[2]+") ON CONFLICT REPLACE, FOREIGN KEY ("+Meal_column[2]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_FavouriteMeal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + FavouriteMeal_column[1] + " VARCHAR NOT NULL , " + FavouriteMeal_column[2] + " VARCHAR NOT NULL , FOREIGN KEY ("+FavouriteMeal_column[1]+") REFERENCES " + TABLE_Client + " ("+Client_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Booking + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Booking_column[1] + " VARCHAR NOT NULL, " + Booking_column[2] + " VARCHAR NOT NULL, " + Booking_column[3] + " INTEGER NOT NULL, " + Booking_column[4] + " VARCHAR NOT NULL, UNIQUE("+Booking_column[1]+", "+ Booking_column[4] + ", "+ Booking_column[2] +") ON CONFLICT REPLACE, FOREIGN KEY ("+Booking_column[1]+") REFERENCES "+ TABLE_Restaurant +"("+Restaurant_column[1]+"), FOREIGN KEY ("+Booking_column[2]+") REFERENCES "+TABLE_Client+ "("+Client_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Order + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Order_column[1] +" VARCHAR NOT NULL, " + Order_column[2] +" VARCHAR NOT NULL, " + Order_column[3] + " VARCHAR, " + Order_column[4] + " VARCHAR NOT NULL, " + Order_column[5] + " INTEGER NOT NULL, FOREIGN KEY ("+Order_column[1]+") REFERENCES Restaurant (restNom), FOREIGN KEY ("+Order_column[2]+") REFERENCES "+ TABLE_Client +"("+Client_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Order + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Order_column[1] +" VARCHAR NOT NULL, " + Order_column[2] +" VARCHAR NOT NULL, " + Order_column[3] + " VARCHAR, " + Order_column[4] + " VARCHAR NOT NULL, " + Order_column[5] + " INTEGER NOT NULL, FOREIGN KEY ("+Order_column[1]+") REFERENCES "+ TABLE_Restaurant + "(" + Restaurant_column[1] +"), FOREIGN KEY ("+Order_column[2]+") REFERENCES "+ TABLE_Client +"("+Client_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_FavouriteRestaurant + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + FavouriteRestaurant_column[1] + " VARCHAR NOT NULL , " + FavouriteRestaurant_column[2] + " VARCHAR NOT NULL, FOREIGN KEY ("+FavouriteRestaurant_column[1]+") REFERENCES " + TABLE_Client + "("+Client_column[1]+"), FOREIGN KEY ("+FavouriteRestaurant_column[2]+") REFERENCES " + TABLE_Restaurant + "("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Specificity + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Specificity_column[1] + " VARCHAR NOT NULL , " + Specificity_column[2] + " VARCHAR NOT NULL, FOREIGN KEY ("+Specificity_column[1]+") REFERENCES "+TABLE_Client+"("+Client_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Allergy + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Allergy_column[1] + " VARCHAR NOT NULL , " + Allergy_column[2] + " VARCHAR NOT NULL, FOREIGN KEY ("+Allergy_column[1]+") REFERENCES "+TABLE_Client+"("+Client_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_MealSpecificity + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + MealSpecificity_column[1] + " VARCHAR NOT NULL, " + MealSpecificity_column[2] + " VARCHAR NOT NULL, " + MealSpecificity_column[3] + " VARCHAR NOT NULL, FOREIGN KEY ("+MealSpecificity_column[2]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+"));");
 		
 	}
-	public void populateDatabase(SQLiteDatabase db) {//To correct (menuPrice) -> find menu with price but with some meals recorded
+	public void populateDatabase(SQLiteDatabase db) {//To correct (menuPrice) -> I don't find a good example
 		
 		db.execSQL("INSERT INTO " + TABLE_Address + " VALUES('50.668572,4.616146','1A','Place des Brabançons','Louvain-la-Neuve');");
 		db.execSQL("INSERT INTO " + TABLE_Address + " VALUES('50.6609,4.617962',NULL,'Place Polyvalente','Louvain-la-Neuve');");
