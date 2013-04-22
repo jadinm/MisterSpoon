@@ -7,10 +7,11 @@ public class Meal {
 
 	public MySQLiteHelper sqliteHelper;
 	
-	private String mealname;
-	private double mealprice;
-	private int stock; 
-	private String description;
+	String mealname;
+	String restName;
+	double mealprice;
+	int stock; 
+	String description;
 	
 	public Meal (String mealname) {
 		
@@ -23,25 +24,30 @@ public class Meal {
 		this.stock = stock;
 	}
 	
-	public Meal(String mealname, MySQLiteHelper sqliteHelper) { 
+	public Meal(String mealname, String restName, MySQLiteHelper sqliteHelper) { 
 		this.mealname = mealname;
+		this.restName = restName;
         this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
 		// Select the price
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname, null);
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname + " AND " + MySQLiteHelper.Meal_column[2] + " = " + restName, null);
 		if (cursor.moveToFirst()) {//If the information exists
 			this.mealprice = cursor.getDouble(0);
 		}
 		
-		// Check stock
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname, null);
-		if (cursor.moveToFirst()) {//If the information exists
+		// select stock
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname + " AND " + MySQLiteHelper.Meal_column[2] + " = " + restName, null);
+		if (cursor.moveToFirst() && cursor.getString(0)!=null) {//If the information exists
 			this.stock = cursor.getInt(0);
 		}
 		
 		db.close();
 		
+	}
+	
+	public String getRestName() {
+		return restName;
 	}
 	
 	public String getMealName () {
@@ -53,7 +59,7 @@ public class Meal {
 		
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname + " AND " + MySQLiteHelper.Meal_column[2] + " = " + restName, null);
 			if (cursor.moveToFirst()) {//If the information exists
 				this.stock = cursor.getInt(0);
 			}
@@ -66,7 +72,7 @@ public class Meal {
 		
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname + " AND " + MySQLiteHelper.Meal_column[2] + " = " + restName, null);
 			if (cursor.moveToFirst()) {//If the information exists
 				this.description = cursor.getString(0);
 			}
@@ -79,7 +85,7 @@ public class Meal {
 		
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + mealname + " AND " + MySQLiteHelper.Meal_column[2] + " = " + restName, null);
 			if (cursor.moveToFirst()) {//If the information exists
 				this.mealprice = cursor.getDouble(0);
 			}
