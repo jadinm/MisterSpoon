@@ -120,7 +120,7 @@ public class Client {
 			}
 		}
 		
-		this.db.close();//We don't forget to close the database
+		db.close();//We don't forget to close the database
 		
 	}
 	

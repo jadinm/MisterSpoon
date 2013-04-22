@@ -36,10 +36,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String[] Schedule_column = new String[]{_ID, "restNom", "jourOuverture", "openHour", "closeHour"};
 	
 	public static final String TABLE_Menu= "Menu";
-	public static final String[] Menu_column = new String[]{_ID, "menuNom", "restNom", "platNom"};
+	public static final String[] Menu_column = new String[]{_ID, "menuNom", "categorie", "restNom", "platNom"};
 	
 	public static final String TABLE_MenuPrice= "MenuPrix";
-	public static final String[] MenuPrice_column = new String[]{_ID, "restNom", "menuNom", "prix"};
+	public static final String[] MenuPrice_column = new String[]{_ID, "restNom", "menuNom", "categorie", "prix"};
 	
 	public static final String TABLE_Payment= "Paiement";
 	public static final String[] Payment_column = new String[]{_ID, "restNom", "typePaiement"};
@@ -102,8 +102,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE " + TABLE_Advantage + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Advantage_column[1] + " VARCHAR NOT NULL," + Advantage_column[2] + " VARCHAR NOT NULL, FOREIGN KEY (" + Advantage_column[1] + ") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Cook + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Cook_column[1] +" VARCHAR NOT NULL," + Cook_column[2] +" VARCHAR NOT NULL, FOREIGN KEY ("+Cook_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Schedule + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Schedule_column[1] +" VARCHAR NOT NULL, " + Schedule_column[2] + " VARCHAR NOT NULL, " + Schedule_column[3] +" VARCHAR NOT NULL, " + Schedule_column[4] +" VARCHAR NOT NULL, FOREIGN KEY (" + Schedule_column[1] +") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Menu + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Menu_column[1] + " VARCHAR NOT NULL, " + Menu_column[2] + " VARCHAR NOT NULL, " + Menu_column[3] + " VARCHAR NOT NULL,  FOREIGN KEY ("+Menu_column[2]+") REFERENCES Restaurant (restNom));");
-		db.execSQL("CREATE TABLE " + TABLE_MenuPrice + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + MenuPrice_column[1]  + " VARCHAR NOT NULL, " + MenuPrice_column[2] + " VARCHAR NOT NULL, " + MenuPrice_column[3] + "  DECIMAL(9,2) NOT NULL, UNIQUE ("+ MenuPrice_column[1]+", " + MenuPrice_column[2] +") ON CONFLICT REPLACE, FOREIGN KEY ("+MenuPrice_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Menu + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Menu_column[1] + " VARCHAR NOT NULL, " + Menu_column[2] + " VARCHAR NOT NULL, " + Menu_column[3] + " VARCHAR NOT NULL, " + Menu_column[4] + " VARCHAR NOT NULL, FOREIGN KEY ("+Menu_column[3]+") REFERENCES Restaurant (restNom));");
+		db.execSQL("CREATE TABLE " + TABLE_MenuPrice + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + MenuPrice_column[1]  + " VARCHAR NOT NULL, " + MenuPrice_column[2] + " VARCHAR NOT NULL, " + MenuPrice_column[3] + " VARCHAR NOT NULL, " + MenuPrice_column[4] + "  DECIMAL(9,2) NOT NULL, UNIQUE ("+ MenuPrice_column[1]+", " + MenuPrice_column[2] +", " + MenuPrice_column[3] +") ON CONFLICT REPLACE, FOREIGN KEY ("+MenuPrice_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Payment + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Payment_column[1] + " VARCHAR NOT NULL, " + Payment_column[2] + " VARCHAR NOT NULL,  FOREIGN KEY ("+Payment_column[1]+") REFERENCES Restaurant ("+Payment_column[2]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Meal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Meal_column[1] + " VARCHAR NOT NULL, " + Meal_column[2] + " VARCHAR NOT NULL, " + Meal_column[3] + " DECIMAL(9,2) NOT NULL, s" + Meal_column[4] + " INTEGER, " + Meal_column[5] + " TEXT, UNIQUE ("+Meal_column[1]+", " + Meal_column[2]+") ON CONFLICT REPLACE, FOREIGN KEY ("+Meal_column[2]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_FavouriteMeal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + FavouriteMeal_column[1] + " VARCHAR NOT NULL , " + FavouriteMeal_column[2] + " VARCHAR NOT NULL , FOREIGN KEY ("+FavouriteMeal_column[1]+") REFERENCES " + TABLE_Client + " ("+Client_column[1]+"));");
@@ -183,18 +183,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Vendredi','19:00:00','22:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Samedi','18:00:00','22:00:00'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Nos Viandes','Le Petit Vingtième','Entrecôte de Boeuf Belge Grillée +- 300gr'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Nos Entrées','Le Petit Vingtième','Carpaccio de Bresaola et Jambon de Parme'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Nos Poissons','Le Petit Vingtième','Gambas rôties au four'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Potage-Pâte-Salade-Préparation','Loungeatude','Potage de scampis et canard laqué à la thaïe'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Volailles','Loungeatude','Jambonnette de volaille aux scampis'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Viandes','Loungeatude','Filet pur de boeuf irlandais en Tagliata, parmigiano et rucola'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Salades','Crêperie Bretonne','Salade au roquefort'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Salades','Crêperie Bretonne','Salade Tomates Mozzarella'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Crêpe des Gourmets','Crêperie Bretonne','Crêpe La tartiflette'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +")  VALUES('Crêpe des Gourmets','Crêperie Bretonne','Crêpe au saumon fumé, sauce crème et citron à l''aneth'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Viandes','plat','Le Petit Vingtième','Entrecôte de Boeuf Belge Grillée +- 300gr'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Entrées','entree','Le Petit Vingtième','Carpaccio de Bresaola et Jambon de Parme'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Poissons','plat','Le Petit Vingtième','Gambas rôties au four'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Potage-Pâte-Salade-Préparation','entree','Loungeatude','Potage de scampis et canard laqué à la thaïe'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Volailles','plat','Loungeatude','Jambonnette de volaille aux scampis'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Viandes','plat','Loungeatude','Filet pur de boeuf irlandais en Tagliata, parmigiano et rucola'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Salades','entree','Crêperie Bretonne','Salade au roquefort'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Salades','entree','Crêperie Bretonne','Salade Tomates Mozzarella'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crêpe des Gourmets','plat','Crêperie Bretonne','Crêpe La tartiflette'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crêpe des Gourmets','plat','Crêperie Bretonne','Crêpe au saumon fumé, sauce crème et citron à l''aneth'); ");
 		//To correct -> find menu with price but with some meals recorded
-		db.execSQL("INSERT INTO " + TABLE_MenuPrice + "(" + MenuPrice_column[1] + ", " + MenuPrice_column[2] +") VALUES('Crêperie Bretonne','Déjeuner',7);  ");
+		db.execSQL("INSERT INTO " + TABLE_MenuPrice + "(" + MenuPrice_column[1] + ", " + MenuPrice_column[2] + ", " + MenuPrice_column[3] +") VALUES('Crêperie Bretonne','Déjeuner','plat',7);  ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Crêperie Bretonne','Cash'); ");
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Le Petit Vingtième','MasterCard'); ");
