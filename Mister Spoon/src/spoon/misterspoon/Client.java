@@ -23,7 +23,7 @@ public class Client {
 	private Restaurant restaurantEnCours;
 	
 	
-	//Rajouter un constructeur pour la cas où le restaurant Owner se connecte !!!!!!!
+	//Rajouter un constructeur pour la cas ou le restaurant Owner se connecte !!!!!!!
 	
 	/*
 	 * @param : sqliteHelper and email are initialized

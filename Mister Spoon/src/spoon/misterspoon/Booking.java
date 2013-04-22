@@ -1,5 +1,7 @@
 package spoon.misterspoon;
 
+import java.util.ArrayList;
+
 public class Booking extends PreBooking {
 		
 	private Time heureReservation;
