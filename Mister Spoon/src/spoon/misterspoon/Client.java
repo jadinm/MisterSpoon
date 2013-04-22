@@ -94,7 +94,7 @@ public class Client {
 					Commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 					cursor.moveToNext();
 				}
-				preBooking.add(new preBooking(currentResto, Commande));
+				preBooking.add(new PreBooking(currentResto, Commande));
 			}
 		}
 		
@@ -672,7 +672,7 @@ public class Client {
 						Commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 						cursor.moveToNext();
 					}
-					preBooking.add(new preBooking(currentResto, Commande));
+					preBooking.add(new PreBooking(currentResto, Commande));
 				}
 			}
 			
@@ -964,7 +964,7 @@ public class Client {
 		String restNom = booking.getRestaurant().getRestaurantName();
 		
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + RestaurantName + ", " + email + ", " + nbrPlace + ", " + time.toString() + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + RestaurantName + ", " + email + ", " + nbrPlace + ", " + time.gtoString() + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + RestaurantName + ", " + email + ", " + nbrPlace + ", " + time.toString() + ");");
 		
 		if (booking.getCommande().size() != null) {
 			for(int i=0; i<booking.getCommande().size(); i++) {
