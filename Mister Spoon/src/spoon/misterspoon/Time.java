@@ -1,13 +1,18 @@
 package spoon.misterspoon;
 
-public class Time implements Comparable<Time>{
+public class Time implements Comparable<Time> {
 	
 	private int hour;
 	private int minute;
 	private int second;
 	
-	public Time(String time) {//To implement
+	public Time(String time) {// (example: 10:30:00)
 		
+		String timeBis [] = time.split(":");
+		
+		this.hour = Integer.parseInt(timeBis[0]);
+		this.minute = Integer.parseInt(timeBis[1]);
+		this.second = Integer.parseInt(timeBis[2]);
 	}
 	
 	public Time(int hour, int minute, int second) { 
@@ -40,8 +45,8 @@ public class Time implements Comparable<Time>{
 		this.second = newSecond;
 	}
 	
-	public String toString () {//To implement
-		
+	public String toString () {
+		return hour + ":" + minute + ":" + second;
 	}
 	
 	public int compareTo(Time otherTime){
