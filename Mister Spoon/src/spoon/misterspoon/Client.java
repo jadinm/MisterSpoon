@@ -52,7 +52,7 @@ public class Client {
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.FavouriteRestaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + "=" + email, null);
 		if (cursor.moveToFirst()) {//If the information exists
 			while (!cursor.isAfterLast()) {//As long as there is one element to read
-				restFav.add(new Restaurant (cursor.getString(0)));
+				restFav.add(new Restaurant (sqliteHelper, cursor.getString(0)));
 				cursor.moveToNext();
 			}
 		}
@@ -189,6 +189,25 @@ public class Client {
 	}
 	
 	/*
+	 * @post : return the value of the instance variable 'restaurantEnCours'
+	 */
+	public Restaurant getRestaurantEnCours () {
+		
+		return restaurantEnCours;
+	}
+	
+	/*
+	 * @param : restaurant is not null
+	 * @post : the instance variable, 'restaurantEnCours', is set to the value restaurant
+	 */
+	public void setRestaurantEnCours (Restaurant restaurant) {
+		
+		if (restaurant != null) {
+			restaurantEnCours = restaurant;
+		}
+	}
+	
+	/*
 	 * @post : if getFormDatabase is true, we will get the information from the database (and set 'gsm')
 	 * else, we will return the current value of 'gsm'
 	 */
@@ -296,7 +315,7 @@ public class Client {
 			Cursor cursor = db.rawQuery("SELECT" + MySQLiteHelper.FavouriteRestaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + "=" + email, null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
-					restFav.add(new Restaurant (cursor.getString(0)));
+					restFav.add(new Restaurant (sqliteHelper, cursor.getString(0)));
 					cursor.moveToNext();
 				}
 			}
@@ -319,7 +338,7 @@ public class Client {
 		}
 		
 		for (int i; i<restFav.size(); i++) {
-			if ((restaurant.getRestaurantName).equals((restFav.get(i)).getRestaurantName())) {//If the restaurant is already in the list
+			if ((restaurant.getRestaurantName()).equals((restFav.get(i)).getRestaurantName())) {//If the restaurant is already in the list
 				return ;
 			}
 		}
@@ -349,7 +368,7 @@ public class Client {
 		int index;
 		
 		for (int i = 0; i<restFav.size() && !found; i++) {
-			if ((restaurant.getRestaurantName).equals((restFav.get(i)).getRestaurantName())) {//If the restaurant is in the list
+			if ((restaurant.getRestaurantName()).equals((restFav.get(i)).getRestaurantName())) {//If the restaurant is in the list
 				found = true;
 				index = i;
 			}
@@ -554,7 +573,7 @@ public class Client {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			platFav.clear();//We remove all Allergythe elements
+			platFav.clear();//We remove all the elements
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.FavouriteMeal_column[2] + " FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + "=" + email, null);
 			if (cursor.moveToFirst()) {//If the information exists
@@ -821,7 +840,7 @@ public class Client {
 	
 	/*
 	 * @param : commande != null
-	 * @post : try to prebook in a restaurant whith the parameters asked and return true or false if it's a success or not
+	 * @post : try to prebook in a restaurant with the parameters asked and return true or false if it's a success or not
 	 */
 	public boolean preBook (ArrayList <Meal> commande) {
 		
@@ -855,7 +874,7 @@ public class Client {
 			if (cursor.moveToFirst()) {//If the information exists
 				
 				ArrayList <Meal> Commande;
-				Restaurant currentResto = new Restaurant (cursor.getString(0));
+				Restaurant currentResto = new Restaurant (sqliteHelper, cursor.getString(0));
 				int nbrReservation = cursor.getInt(1);
 				Time time = new Time (cursor.getString(2));
 				
@@ -1080,7 +1099,7 @@ public class Client {
 	/*
 	 * @param : time != null
 	 * 			nbrPlaces > 0
-	 * @post : try to book in a restaurant whith the parameters asked and return true or false if it's a success or not
+	 * @post : try to book in a restaurant with the parameters asked and return true or false if it's a success or not
 	 */
 	public boolean book (ArrayList <Meal> commande, int nbrPlaces, Time time) {
 		
