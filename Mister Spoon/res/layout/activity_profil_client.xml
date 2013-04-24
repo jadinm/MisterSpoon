@@ -1,0 +1,212 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="15dp" >
+    
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profil_client_title"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="45sp"
+        android:paddingTop="50dp"
+        android:paddingBottom="35dp"/>
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:weightSum="3"
+        >
+   		<!-- For the input types of an editText -> http://developer.android.com/reference/android/R.styleable.html#SearchView_inputType -->
+    	<EditText
+        	android:id="@+id/profil_client_email_edit_text"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:inputType="textEmailAddress"
+        	android:textSize="30sp"
+        	android:gravity="left"
+        	android:layout_weight="1"
+        	android:hint="@string/profil_client_email" />
+    	<EditText
+        	android:id="@+id/profil_client_name_edit_text"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:inputType="textMultiLine"
+        	android:lines="2"
+       		android:textSize="30sp"
+       		android:gravity="center_horizontal"
+       		android:layout_weight="1"
+        	android:hint="@string/profil_client_name" />
+    	<EditText
+        	android:id="@+id/profil_client_gsm_edit_text"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:gravity="right"
+	        android:layout_weight="1"
+	        android:inputType="textMultiLine"
+    	    android:lines="2"
+        	android:textSize="30sp"
+        	android:hint="@string/profil_client_gsm" />
+    </LinearLayout>
+    
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profil_client_mandatory"
+        android:gravity="left"
+        android:textStyle="italic"
+        android:textSize="15sp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"/>
+    
+    <LinearLayout  
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:weightSum="2"
+    	android:orientation="horizontal"
+    	android:paddingBottom="10dp">
+        
+        <EditText
+        	android:id="@+id/profil_client_new_specificity_edit_text"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:inputType="textMultiLine"
+        	android:lines="2"
+        	android:textSize="30sp"
+        	android:hint="@string/profil_client_new_specificity"/>
+    	<!-- This button will start a dialog box that will show a list of checkbox with a button 'update' -->
+    	<Button
+        	android:id="@+id/profil_client_specificity_list_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_specificity_list"
+        	android:textSize="30sp"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout  
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:weightSum="2"
+    	android:orientation="horizontal"
+    	android:paddingBottom="10dp">
+     	<EditText
+        	android:id="@+id/profil_client_new_favourite_meal_edit_text"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:inputType="textMultiLine"
+        	android:lines="2"
+        	android:textSize="30sp"
+        	android:hint="@string/profil_client_new_favourite_meal" />
+     	<!-- This button will start a dialog box that will show a list of checkbox with a button 'update' -->
+    	<Button
+        	android:id="@+id/profil_client_favourite_meal_list_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_favourite_meal_list"
+        	android:textSize="30sp"/>
+    </LinearLayout>
+    
+    <LinearLayout  
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:weightSum="2"
+    	android:orientation="horizontal"
+    	android:paddingBottom="10dp">
+     	<EditText
+        	android:id="@+id/profil_client_new_favourite_restaurant_edit_text"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:inputType="textMultiLine"
+        	android:lines="2"
+        	android:textSize="30sp"
+        	android:hint="@string/profil_client_new_favourite_restaurant" />
+     	<!-- This button will start a dialog box that will show a list of checkbox with a button 'update' -->
+     	<Button
+        	android:id="@+id/profil_client_favourite_restaurant_list_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_favourite_restaurant_list"
+        	android:textSize="30sp"/>
+     </LinearLayout>
+     
+    <LinearLayout 
+       	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:weightSum="2"
+    	android:orientation="horizontal"
+    	android:paddingBottom="10dp">
+    	<!-- This button will start a dialog box that will show a list of checkbox with a button 'update' -->
+    	<Button
+        	android:id="@+id/profil_client_allergy_list_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:text="@string/profil_client_allergy_list"
+        	android:textSize="30sp"/>
+    </LinearLayout>
+    
+    <LinearLayout 
+       	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:weightSum="2"
+    	android:orientation="horizontal"
+    	android:paddingBottom="25dp">
+    	
+        <Button
+        	android:id="@+id/profil_client_preBooking_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_preBooking"
+        	android:textSize="30sp"/>
+        
+        <Button
+        	android:id="@+id/profil_client_booking_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_booking"
+        	android:textSize="30sp"/>
+    
+	</LinearLayout>
+    
+    <LinearLayout 
+       	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:weightSum="2"
+    	android:orientation="horizontal"
+    	android:paddingBottom="10dp">
+        <Button
+        	android:id="@+id/profil_client_update_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_update"
+        	android:textSize="30sp"/>
+        
+    <!-- Put an image like an arrow could be cool -->
+    	<Button
+        	android:id="@+id/profil_client_next_button"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:text="@string/profil_client_next"
+        	android:textSize="30sp"
+        	android:drawableRight="@drawable/ic_launcher"
+        	android:focusable="true"/>
+	</LinearLayout>
+    
+    
+    
+
+</LinearLayout>

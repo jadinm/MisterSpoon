@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Values for the application in general -->
     <string name="app_name">Mister Spoon</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Salut les amis !</string>
+    
+    <!-- Values for activity_login -->
+    
+    
+    <!-- Values for activity_profil_clien.xml -->
+    <string name="profil_client_title">Votre profil</string>
+    
+    <string name="profil_client_email">Email *</string>
+    <string name="profil_client_name">Nom *</string>
+    <string name="profil_client_gsm">GSM</string>
+    
+    <string name="profil_client_allergy_list">Liste d\'allergies</string>
+    	<string name="profil_client_gluten">Gluten</string>
+    	<string name="profil_client_noix">Noix</string>
+    	<string name="profil_client_cacahuete">Cacahuète</string>
+    	<string name="profil_client_banane">Banane</string>
+    
+    <string name="profil_client_new_specificity">Nouvelle spécificité</string>
+    <string name="profil_client_specificity_list">Vos spécificités</string>
+    
+    <string name="profil_client_new_favourite_meal">Nouveau plat favori</string>
+    <string name="profil_client_favourite_meal_list">Vos plats favoris</string>
+    
+    <string name="profil_client_new_favourite_restaurant">Nouveau restaurant favori</string>
+    <string name="profil_client_favourite_restaurant_list">Vos restaurants favoris</string>
+    
+    <string name="profil_client_booking">Réservations</string>
+    <string name="profil_client_preBooking">Pré-réservations</string>
+    
+    <string name="profil_client_update">Mettre à jour votre profil</string>
+    
+    <string name="profil_client_next">Passer à table!</string>
+    
+    <string name="profil_client_mandatory">* champs obligatoires</string>
+    
+    
+    
+    
+    
 
 </resources>
