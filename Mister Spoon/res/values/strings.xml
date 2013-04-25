@@ -17,10 +17,10 @@
     <string name="profil_client_gsm">GSM</string>
     
     <string name="profil_client_allergy_list">Liste d\'allergies</string>
-    	<string name="profil_client_gluten">Gluten</string>
-    	<string name="profil_client_noix">Noix</string>
-    	<string name="profil_client_cacahuete">Cacahuète</string>
-    	<string name="profil_client_banane">Banane</string>
+    	<string name="profil_client_allergy_gluten">Gluten</string>
+    	<string name="profil_client_allergy_noix">Noix</string>
+    	<string name="profil_client_allergy_cacahuete">Cacahuète</string>
+    	<string name="profil_client_allergy_banane">Banane</string>
     
     <string name="profil_client_new_specificity">Nouvelle spécificité</string>
     <string name="profil_client_specificity_list">Vos spécificités</string>
@@ -39,6 +39,14 @@
     <string name="profil_client_next">Passer à table!</string>
     
     <string name="profil_client_mandatory">* champs obligatoires</string>
+    
+    <string name="profil_client_alert_back">Annuler</string>
+    <string name="profil_client_alert_update">Mettre à jour</string>
+    <string name="profil_client_alert_message">Les éléments décochés seront supprimés</string>
+    <string name="profil_client_alert_null">Il n\'y a aucun élément à afficher</string>
+    
+    <string name="profil_client_toast_mandatory">doit être rempli</string>
+    <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
     
     
     

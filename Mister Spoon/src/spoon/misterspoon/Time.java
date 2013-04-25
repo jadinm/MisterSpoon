@@ -49,6 +49,10 @@ public class Time implements Comparable<Time> {
 		return hour + ":" + minute + ":" + second;
 	}
 	
+	public boolean equals (Time time) {
+		return (this.getHour()==time.getHour()) && (this.getMinute()==time.getMinute()) && (this.getSecond()==time.getSecond());
+	}
+	
 	public int compareTo(Time otherTime){
 		int t1 = this.getHour()*10000 + this.getMinute()*100 + this.getSecond();
 		System.out.println(t1);

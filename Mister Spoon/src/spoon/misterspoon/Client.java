@@ -151,6 +151,9 @@ public class Client {
 		if(email==null) {
 			return false;
 		}
+		if (email.equals(this.email)) {
+			return true;
+		}
 		
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		
@@ -249,6 +252,11 @@ public class Client {
 			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "NULL" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
 			db.close();
 			this.gsm = null;
+			return;
+		}
+		
+		if(this.gsm==null && gsm==null) {
+			return;
 		}
 		
 		if (gsm.equals(this.gsm)) {
@@ -368,7 +376,7 @@ public class Client {
 	 */
 	public void removeRestFav (Restaurant restaurant) {
 		
-		if (restaurant == null) {//If the restaurant is null
+		if (restaurant == null || restFav.size()==0) {//If the restaurant is null or if there is no element to remove
 			return ;
 		}
 		
@@ -456,7 +464,7 @@ public class Client {
 	 */
 	public void removeSpecificite (String specificite) {
 		
-		if (specificite == null) {//If the parameter is null
+		if (specificite == null || this.specificite.size()==0) {//If the parameter is null
 			return ;
 		}
 		
@@ -544,7 +552,7 @@ public class Client {
 	 */
 	public void removeAllergie (String allergie) {
 		
-		if (allergie == null) {//If the parameter is null
+		if (allergie == null || this.allergie.size()==0) {//If the parameter is null
 			return ;
 		}
 		
@@ -631,7 +639,7 @@ public class Client {
 	 */
 	public void removePlatFav (Meal platFav) {
 		
-		if (platFav == null) {//If the parameter is null
+		if (platFav == null || this.platFav.size()==0) {//If the parameter is null
 			return ;
 		}
 		
@@ -758,7 +766,7 @@ public class Client {
 	 */
 	public void removePreBooking (PreBooking preBooking) {
 		
-		if (preBooking == null) {//If the parameter is null
+		if (preBooking == null || this.preBooking.size()==0) {//If the parameter is null
 			return ;
 		}
 		
@@ -995,7 +1003,7 @@ public class Client {
 	 */
 	public void removeBooking (Booking booking) {
 		
-		if (booking == null) {//If the parameter is null
+		if (booking == null || this.booking.size()==0) {//If the parameter is null
 			return ;
 		}
 		
