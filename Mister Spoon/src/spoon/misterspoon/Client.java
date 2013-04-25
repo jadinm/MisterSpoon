@@ -12,18 +12,20 @@ public class Client {
 	
 	private String gsm;//data available in the database
 	private String name;
-	private ArrayList <Restaurant> restFav = new ArrayList <Restaurant> ();
-	private ArrayList <String> specificite = new ArrayList <String> ();
-	private ArrayList <String> allergie = new ArrayList <String> ();
-	private ArrayList <Meal> platFav = new ArrayList <Meal> ();
-	private ArrayList <PreBooking> preBooking = new ArrayList <PreBooking> ();
-	private ArrayList <Booking> booking = new ArrayList <Booking> ();
+	private ArrayList <Restaurant> restFav;
+	private ArrayList <String> specificite;
+	private ArrayList <String> allergie;
+	private ArrayList <Meal> platFav;
+	private ArrayList <PreBooking> preBooking;
+	private ArrayList <Booking> booking;
 	
 	private GPS position;//data actualized by the program
 	private Restaurant restaurantEnCours;
 	
 	
-	//Rajouter un constructeur pour la cas ou le restaurant Owner se connecte !!!!!!!
+	public Client (String email){
+		this.email = email;
+	}
 	
 	/*
 	 * @param : sqliteHelper and email are initialized
@@ -31,6 +33,13 @@ public class Client {
 	 * except position and restaurantEnCours.
 	 */
 	public Client (MySQLiteHelper sqliteHelper, String email) {
+		
+		this.restFav = new ArrayList <Restaurant> ();
+		this.specificite = new ArrayList <String> ();
+		this.allergie = new ArrayList <String> ();
+		this.platFav = new ArrayList <Meal> ();
+		this.preBooking = new ArrayList <PreBooking> ();
+		this.booking = new ArrayList <Booking> ();
 		
 		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();

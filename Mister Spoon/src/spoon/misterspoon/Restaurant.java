@@ -52,6 +52,10 @@ public class Restaurant {
 		
 		this.restaurantName = restaurantName;
 		this.sqliteHelper = sqliteHelper;
+		this.horaire = new ArrayList<OpenHour>();
+		this.avantages = new ArrayList<String>();
+		this.cuisine = new ArrayList<String>();
+		this.typePaiements = new ArrayList<String>();
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
@@ -128,6 +132,66 @@ public class Restaurant {
 		db.close();
 	}
 	
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+
+	public void setRestaurantNbrVotants(int nbrVotants) {
+		this.nbrVotants = nbrVotants;
+	}
+
+	public void setRestaurantNote(int note) {
+		this.note = note;
+	}
+
+	public void setRestaurantCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public void setRestaurantDescription(String description) {
+		Description = description;
+	}
+
+	public void setRestaurantPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setRestaurantEmail(String email) {
+		this.email = email;
+	}
+
+	public void setRestaurantFax(String fax) {
+		this.fax = fax;
+	}
+
+	public void setRestaurantWebSite(String webSite) {
+		this.webSite = webSite;
+	}
+
+	public void setRestaurantPosition(GPS position) {
+		this.position = position;
+	}
+
+	public void setRestaurantNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public void setRestaurantRue(String rue) {
+		this.rue = rue;
+	}
+
+	public void setRestaurantVille(String ville) {
+		this.ville = ville;
+	}
+
+	public void setRestaurantHoraire(ArrayList<OpenHour> horaire) {
+		this.horaire = horaire;
+	}
+
+	public void setRestaurantCarte(Carte carte) {
+		this.carte = carte;
+	}
+
 	/*
 	 * @post : return the value of 'restaurantName'
 	 */
@@ -422,7 +486,7 @@ public class Restaurant {
 	 * @post : return the value of 'typePaiments'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantTypePaiments (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();

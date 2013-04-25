@@ -11,10 +11,12 @@ public class RestaurantOwner {
 	
 	private String emailPerso;
 	private Restaurant restaurant;
-	private ArrayList<PreBooking> preBooking = new ArrayList<PreBooking>();
-	private ArrayList<Booking> booking = new ArrayList<Booking>();
+	private ArrayList<PreBooking> preBooking;
+	private ArrayList<Booking> booking;
 	
 	public RestaurantOwner(MySQLiteHelper sqliteHelper, String emailPerso) {
+		this.preBooking = new ArrayList<PreBooking>();
+		this.booking = new ArrayList<Booking>();
 		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		this.emailPerso = emailPerso;
@@ -30,43 +32,39 @@ public class RestaurantOwner {
 	}
 
 	public boolean setRestaurantEmail(String email) {
-		if(!email.equals(restaurant.getRestaurantEmail())){
+		if (email == null) {
+			return false;
+		}
+		if(!email.equals(restaurant.getRestaurantEmail(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (email != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + email + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + email + " ;");
 			db.close();
-			restaurant.setRestaurantEmail(email);//TODO
+			restaurant.setRestaurantEmail(email);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantName(String name) {
+		if (name == null) {
+			return false;
+		}
 		if(!name.equals(restaurant.getRestaurantName())){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (name != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[1] + " = " + name + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + name + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[1] + " = " + name + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + name + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
 			db.close();
-			restaurant.setRestaurantName(name);//TODO
+			restaurant.setRestaurantName(name);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantCapacity(int capacity) {
-		if(capacity != restaurant.getRestaurantCapacity()){
+		if(capacity != restaurant.getRestaurantCapacity(false)){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
 			if (capacity != 0) {
@@ -77,201 +75,196 @@ public class RestaurantOwner {
 				return false;
 			}
 			db.close();
-			restaurant.setRestaurantCapacity(capacity);//TODO
-			return true;
+			restaurant.setRestaurantCapacity(capacity);
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantDescription(String description) {
-		if(!description.equals(restaurant.getRestaurantDescription())){
+		if (description == null) {
+			return false;
+		}
+		if(!description.equals(restaurant.getRestaurantDescription(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (description != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[6] + " = " + description + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[6] + " = " + description + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[6] + " = " + description + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[6] + " = " + description + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
 			db.close();
-			restaurant.setRestaurantDescription(description);//TODO
+			restaurant.setRestaurantDescription(description);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantPhone(String phone) {
-		if(!phone.equals(restaurant.getRestaurantPhone())){
+		if (phone == null) {
+			return false;
+		}
+		if(!phone.equals(restaurant.getRestaurantPhone(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (phone != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[3] + " = " + phone + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[3] + " = " + phone + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[3] + " = " + phone + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[3] + " = " + phone + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso + " ;");
 			db.close();
-			restaurant.setRestaurantPhone(phone);//TODO
+			restaurant.setRestaurantPhone(phone);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantFax(String fax) {
-		if(!fax.equals(restaurant.getRestaurantFax())){
+		if (fax == null) {
+			return false;
+		}
+		if(!fax.equals(restaurant.getRestaurantFax(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (fax != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[3] + " = " + fax + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[3] + " = " + fax + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[3] + " = " + fax + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[3] + " = " + fax + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
 			db.close();
-			restaurant.setRestaurantFax(fax);//TODO
+			restaurant.setRestaurantFax(fax);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantWebSite(String webSite) {
-		if(!webSite.equals(restaurant.getRestaurantWebSite())){
+		if (webSite == null) {
+			return false;
+		}
+		if(!webSite.equals(restaurant.getRestaurantWebSite(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (webSite != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[5] + " = " + webSite + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[5] + " = " + webSite + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[5] + " = " + webSite + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[5] + " = " + webSite + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + emailPerso + " ;");
 			db.close();
-			restaurant.setRestaurantWebSite(webSite);//TODO
+			restaurant.setRestaurantWebSite(webSite);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantPosition(GPS position) {
-		if(position.getLongitude()!=restaurant.getRestaurantPosition().getLongitude() && position.getLatitude()!=restaurant.getRestaurantPosition().getLatitude()){
+		if (position == null) {
+			return false;
+		}
+		if(position.getLongitude()!=restaurant.getRestaurantPosition(false).getLongitude() && position.getLatitude()!=restaurant.getRestaurantPosition(false).getLatitude()){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (position != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[1] + " = " + position + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition() + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[1] + " = " + position + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition() + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[1] + " = " + position + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[1] + " = " + position + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
 			db.close();
-			restaurant.setRestaurantPosition(position);//TODO
+			restaurant.setRestaurantPosition(position);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantNumero(int numero) {
-		if(numero!=restaurant.getRestaurantNumero){
+		if(numero!=restaurant.getRestaurantNumero(false)){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
 			if (numero != 0) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[2] + " = " + numero + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getPosition() + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[2] + " = " + numero + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getPosition() + " ;");
+				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[2] + " = " + numero + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
+				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[2] + " = " + numero + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
 			}
 			else {
 				return false;
 			}
 			db.close();
-			restaurant.setRestaurantNumero(numero);//TODO
+			restaurant.setRestaurantNumero(numero);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantRue(String rue) {
-		if(!rue.equals(restaurant.getRestaurantRue())){
+		if (rue == null) {
+			return false;
+		}
+		if(!rue.equals(restaurant.getRestaurantRue(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (rue != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[3] + " = " + rue + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getPosition() + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[3] + " = " + rue + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getPosition() + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[3] + " = " + rue + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[3] + " = " + rue + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
 			db.close();
-			restaurant.setRestaurantRue(rue);//TODO
+			restaurant.setRestaurantRue(rue);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean setRestaurantVille(String ville) {
-		if(!ville.equals(restaurant.getRestaurantVille())){
+		if (ville == null) {
+			return false;
+		}
+		if(!ville.equals(restaurant.getRestaurantVille(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if (ville != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[4] + " = " + ville + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getPosition() + " ;");
-				db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[4] + " = " + ville + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getPosition() + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[4] + " = " + ville + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Address + " SET " + MySQLiteHelper.Address_column[4] + " = " + ville + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + restaurant.getRestaurantPosition(false) + " ;");
 			db.close();
-			restaurant.setRestaurantVille(ville);//TODO
+			restaurant.setRestaurantVille(ville);
 			return true;
 		}
 		return true;
 	}
 	
 	public boolean addRestaurantHoraire(OpenHour horaire) {
-		if(!(horaire.getOpenDay()).equals((restaurant.getRestaurantHoraire()).getOpenDay())){
+		if (horaire != null) {
+			if(restaurant.getRestaurantHoraire(false).size() != 0){
+				for(OpenHour currentHoraire : restaurant.getRestaurantHoraire(false)){
+					if(horaire.getOpenDay().equals(currentHoraire.getOpenDay()) && horaire.getCloseTime().equals(currentHoraire.getCloseTime()) && horaire.getOpenTime().equals(currentHoraire.getOpenTime())) return true;
+				}
+			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			
-			if ((restaurant.getRestaurantHoraire()).getOpenDay != null && (restaurant.getRestaurantHoraire()).getOpenTime != null && (restaurant.getRestaurantHoraire()).getCloseTime != null) {
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[2] + " = " + horaire.getOpenDay() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[2] + " = " + horaire.getOpenDay() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[3] + " = " + horaire.getOpenTime() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[3] + " = " + horaire.getOpenTime() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[4] + " = " + horaire.getCloseTime() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Shedule + " SET " + MySQLiteHelper.Shedule_column[4] + " = " + horaire.getCloseTime() + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
-			}
-			else {
-				return false;
-			}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[2] + " = " + horaire.getOpenDay() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[2] + " = " + horaire.getOpenDay() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[3] + " = " + horaire.getOpenTime() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[3] + " = " + horaire.getOpenTime() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.close();
 			restaurant.addRestaurantHoraire(horaire);//TODO
 			return true;
 		}
-		return true;
+		else return false;
 	}
 	
 	public boolean removeRestaurantHoraire(OpenHour horaire){
-		if(!(horaire.getOpenDay()).equals((restaurant.getRestaurantHoraire()).getOpenDay())){
-			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[2] + " = " + horaire.getOpenDay() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[2] + " = " + horaire.getOpenDay() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[3] + " = " + horaire.getOpenTime() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[3] + " = " + horaire.getOpenTime() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[4] + " = " + horaire.getCloseTime() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Shedule + " WHERE " + MySQLiteHelper.Shedule_column[4] + " = " + horaire.getCloseTime() + " AND " + MySQLiteHelper.Shedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
-			db.close();
-			restaurant.removeRestaurantHoraire(horaire);//TODO
-			return true;
+		if (horaire != null) {
+			boolean found = false;
+			for(OpenHour currentHoraire : restaurant.getRestaurantHoraire(false)){
+				if(horaire.getOpenDay().equals(currentHoraire.getOpenDay()) && horaire.getCloseTime().equals(currentHoraire.getCloseTime()) && horaire.getOpenTime().equals(currentHoraire.getOpenTime())) return true;
+			}
+			if (!found) {
+				return false;
+			}
+			else{
+				SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[2] + " = " + horaire.getOpenDay() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[2] + " = " + horaire.getOpenDay() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[3] + " = " + horaire.getOpenTime() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[3] + " = " + horaire.getOpenTime() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
+				db.close();
+				restaurant.removeRestaurantHoraire(horaire);//TODO
+				return true;
+			}
 		}
-		return false;
+		else
+			return false;
 	}
 	
 	public boolean addRestaurantTypePaiements(String typePaiement) {
 		if (typePaiement != null) {
-			for(String currentType : restaurant.getRestaurantTypePaiements){
+			for(String currentType : restaurant.getRestaurantTypePaiements(false)){
 				if(typePaiement.equals(currentType)) return true;
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
@@ -279,18 +272,18 @@ public class RestaurantOwner {
 			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " SET " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " SET " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.close();
+			restaurant.addRestaurantTypePaiements(typePaiement);//TODO
 		}
 		else {
 			return false;
 		}
-		restaurant.addRestaurantTypePaiements(typePaiement);//TODO
 		return true;
 	}
 	
 	public boolean removeRestaurantTypePaiements(String typePaiement){
 		if (typePaiement != null) {
 			boolean found = false;
-			for(String currentType : restaurant.getRestaurantTypePaiements){
+			for(String currentType : restaurant.getRestaurantTypePaiements(false)){
 				if(typePaiement.equals(currentType)) found = true;
 			}
 			if (!found) {
@@ -301,13 +294,15 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " AND " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " AND " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
+				restaurant.removeRestaurantTypePaiements(typePaiement);
 			}
+			return true;
 		}
 		else
 			return false;
 	}
 	
-	public ArrayList<Booking> getRestaurantPreReservation(boolean getFromDatabase){
+	public ArrayList<PreBooking> getRestaurantPreReservation(boolean getFromDatabase){
 		
 		if (getFromDatabase) {
 			
@@ -318,13 +313,13 @@ public class RestaurantOwner {
 			if (cursor.moveToFirst()) {//If the information exists
 				ArrayList <Meal> commande;
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
-					String currentClient = cursor.getString(0);
+					Client currentClient = new Client(cursor.getString(0));
 					commande = new ArrayList <Meal> ();
-					while(!cursor.isAfterLast() && currentClient == cursor.getString(0)) {
+					while(!cursor.isAfterLast() && currentClient.getEmail() == cursor.getString(0)) {
 						commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 						cursor.moveToNext();
 					}
-					preBooking.add(new preBooking(currentClient, commande));
+					preBooking.add(new PreBooking(currentClient, commande));
 				}
 			}
 			
@@ -347,21 +342,21 @@ public class RestaurantOwner {
 		}
 		
 		boolean found = false;
-		int index;
+		int index = 0;
 		
 		String ClientEmail = preBooking.getClient().getEmail();//Email of the client where we are ordering
 		
-		for (int i=0; i<preBooking.size() && !found; i++) {
+		for (int i=0; i<this.preBooking.size() && !found; i++) {
 			
-			String IemeClientEmail = preBooking.get(i).getClient().getEmail();//Email of the client where we have ordered
+			String IemeClientEmail = this.preBooking.get(i).getClient().getEmail();//Email of the client where we have ordered
 			
 			if (IemeClientEmail.equals(ClientEmail)) {//We compare the order
 				
 				int counter = 0;//Count the number of same meals in their ordered
 				
-				for (int j=0; j<preBooking.get(i).getCommande().size(); j++) {
+				for (int j=0; j<this.preBooking.get(i).getCommande().size(); j++) {
 					
-					Meal JemeMealoOrdered = (preBooking.get(i)).getCommande().get(j);// Jth meal of one order already registered
+					Meal JemeMealOrdered = (this.preBooking.get(i)).getCommande().get(j);// Jth meal of one order already registered
 					
 					boolean MealFound = false;
 					
@@ -369,14 +364,14 @@ public class RestaurantOwner {
 						
 						Meal KemeMealOrdered = preBooking.getCommande().get(k);// Kth meal of the order not registered
 						
-						if (JemeMealOrdered.getMealName().equals(KemeMealOrdered.getMealName()) && JemeMealOrdered.getMealStock() == KemeMealOrdered.getMealStock()) {//if it's the same meal in the same quantities
+						if (JemeMealOrdered.getMealName().equals(KemeMealOrdered.getMealName()) && JemeMealOrdered.getMealStock(false) == KemeMealOrdered.getMealStock(false)) {//if it's the same meal in the same quantities
 							counter++;
 							MealFound = true;
 						}
 					}
 				}
 				
-				if (counter == preBooking.get(i).getCommande().size()) {//All the order match -> the order is in the list
+				if (counter == this.preBooking.get(i).getCommande().size()) {//All the order match -> the order is in the list
 					found = true;
 					index = i;
 				}
@@ -387,7 +382,7 @@ public class RestaurantOwner {
 			return;
 		}
 		
-		preBooking.remove(index);
+		this.preBooking.remove(index);
 		
 		
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
@@ -410,17 +405,16 @@ public class RestaurantOwner {
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + restaurant.getRestaurantName() + " GROUP BY " + MySQLiteHelper.Booking_column[2], null);
 			if (cursor.moveToFirst()) {//If the information exists
 				
-				ArrayList <Meal> Commande;
-				Restaurant currentClient = new Client (cursor.getString(0));
+				ArrayList <Meal> Commande = new ArrayList<Meal>();
+				Client currentClient = new Client (cursor.getString(0));
 				int nbrReservation = cursor.getInt(1);
 				Time time = new Time (cursor.getString(2));
 				
-				Cursor cursor2 = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + email + " AND " + MySQLiteHelper.Order_column[1] + " = " + Cursor.getString(0) + " AND " + MySQLiteHelper.Order_column[3] + " = " + Cursor.getString(4) , null);
+				Cursor cursor2 = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Order_column[2] + " = " + currentClient.getEmail() + " AND " + MySQLiteHelper.Order_column[3] + " = " + time.toString() , null);
 				if (cursor2.moveToFirst()) {//If there is an order for this restaurant
 					
 					while (!cursor2.isAfterLast()) {//As long as there is one element to read
 						
-						Commande = new ArrayList <Meal> ();
 						while(!cursor2.isAfterLast()) {
 							Commande.add(new Meal (cursor2.getString(0), cursor2.getInt(1)));//We stock the quantity of the meal with the instance variable "stock"
 							cursor2.moveToNext();
@@ -452,7 +446,7 @@ public class RestaurantOwner {
 		}
 		
 		boolean found = false;
-		int index;
+		int index = 0;
 		
 		String ClientEmail = booking.getClient().getEmail();//Email of the client where we are reserving
 		int nbrPlace = booking.getNombrePlaces();//time when we are reserving
@@ -471,7 +465,7 @@ public class RestaurantOwner {
 				if (this.booking.get(i).getCommande() != null && booking.getCommande() != null) {//If both have an order
 					for (int j=0; j<this.booking.get(i).getCommande().size(); j++) {
 						
-						Meal JemeMealoOrdered = (this.booking.get(i)).getCommande().get(j);// Jth meal of one order already registered
+						Meal JemeMealOrdered = (this.booking.get(i)).getCommande().get(j);// Jth meal of one order already registered
 						
 						boolean MealFound = false;
 						
@@ -479,7 +473,7 @@ public class RestaurantOwner {
 							
 							Meal KemeMealOrdered = booking.getCommande().get(k);// Kth meal of the order not registered
 							
-							if (JemeMealOrdered.getMealName().equals(KemeMealOrdered.getMealName()) && JemeMealOrdered.getMealStock() == KemeMealOrdered.getMealStock()) {//if it's the same meal in the same quantities
+							if (JemeMealOrdered.getMealName().equals(KemeMealOrdered.getMealName()) && JemeMealOrdered.getMealStock(false) == KemeMealOrdered.getMealStock(false)) {//if it's the same meal in the same quantities
 								counter++;
 								MealFound = true;
 							}
@@ -509,12 +503,12 @@ public class RestaurantOwner {
 		
 		String clientEmail = booking.getClient().getEmail();
 		
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Booking_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.booking_column[4] + " = " + nbrPlaces + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Booking_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.booking_column[4] + " = " + nbrPlaces + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Booking_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Booking_column[4] + " = " + nbrPlace + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Booking_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Booking_column[4] + " = " + nbrPlace + ";");
 		
 		if(booking.getCommande()!=null) {//We had the order if it exists
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Order_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlaces + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Order_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlaces + ";");
+			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Order_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlace + ";");
+			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + clientEmail + " AND " + MySQLiteHelper.Order_column[1] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlace + ";");
 		}
 		
 		db.close();
@@ -522,7 +516,7 @@ public class RestaurantOwner {
 	
 	public boolean addRestaurantAvantage(String avantage) {
 		if (avantage != null) {
-			for(String currentAvantage : restaurant.getRestaurantAvantages){
+			for(String currentAvantage : restaurant.getRestaurantAvantages(false)){
 				if(avantage.equals(currentAvantage)) return true;
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
@@ -541,7 +535,7 @@ public class RestaurantOwner {
 	public boolean removeRestaurantAvantage(String avantage){
 		if (avantage != null) {
 			boolean found = false;
-			for(String currentAvantage : restaurant.getRestaurantAvantages){
+			for(String currentAvantage : restaurant.getRestaurantAvantages(false)){
 				if(avantage.equals(currentAvantage)) found = true;
 			}
 			if (!found) {
@@ -553,6 +547,7 @@ public class RestaurantOwner {
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[2] + " = " + avantage + " AND " + MySQLiteHelper.Advantage_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
 			}
+			return true;
 		}
 		else
 			return false;
@@ -560,7 +555,7 @@ public class RestaurantOwner {
 	
 	public boolean addRestaurantCuisine(String cuisine) {
 		if (cuisine != null) {
-			for(String currentCuisine : restaurant.getRestaurantCuisine){
+			for(String currentCuisine : restaurant.getRestaurantCuisine(false)){
 				if(cuisine.equals(currentCuisine)) return true;
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
@@ -579,7 +574,7 @@ public class RestaurantOwner {
 	public boolean removeRestaurantCuisine(String cuisine){
 		if (cuisine != null) {
 			boolean found = false;
-			for(String currentCuisine : restaurant.getRestaurantCuisine){
+			for(String currentCuisine : restaurant.getRestaurantCuisine(false)){
 				if(cuisine.equals(currentCuisine)) found = true;
 			}
 			if (!found) {
@@ -591,6 +586,7 @@ public class RestaurantOwner {
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[2] + " = " + cuisine + " AND " + MySQLiteHelper.Cook_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
 			}
+			return true;
 		}
 		else
 			return false;
