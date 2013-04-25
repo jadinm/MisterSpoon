@@ -549,6 +549,39 @@ public class Restaurant {
 		return cuisine;
 	}
 	
+	public void addRestaurantHoraire(OpenHour horaire){
+		this.horaire.add(horaire);
+	}
+	
+	public void removeRestaurantHoraire(int index){
+		this.horaire.remove(index);
+	}
+	
+	public void addRestaurantTypePaiements(String type){
+		this.typePaiements.add(type);
+	}
+	
+	public void removeRestaurantTypePaiements(int index){
+		this.typePaiements.remove(index);
+	}
+	
+	public void addRestaurantAvantages(String avantage){
+		this.avantages.add(avantage);
+	}
+	
+	public void removeRestaurantAvantages(int index){
+		this.avantages.remove(index);
+	}
+	
+	public void addRestaurantCuisine(String cuisine){
+		this.cuisine.add(cuisine);
+	}
+	
+	public void removeRestaurantCuisine(int index){
+		this.cuisine.remove(index);
+	}
+
+	
 	/*
 	 * TO DO !!!!!!
 	 * 

@@ -228,7 +228,7 @@ public class RestaurantOwner {
 			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.close();
-			restaurant.addRestaurantHoraire(horaire);//TODO
+			restaurant.addRestaurantHoraire(horaire);
 			return true;
 		}
 		else return false;
@@ -237,8 +237,10 @@ public class RestaurantOwner {
 	public boolean removeRestaurantHoraire(OpenHour horaire){
 		if (horaire != null) {
 			boolean found = false;
+			int index = 0;
 			for(OpenHour currentHoraire : restaurant.getRestaurantHoraire(false)){
 				if(horaire.getOpenDay().equals(currentHoraire.getOpenDay()) && horaire.getCloseTime().equals(currentHoraire.getCloseTime()) && horaire.getOpenTime().equals(currentHoraire.getOpenTime())) return true;
+				index++;
 			}
 			if (!found) {
 				return false;
@@ -254,7 +256,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[4] + " = " + horaire.getCloseTime() + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
-				restaurant.removeRestaurantHoraire(horaire);//TODO
+				restaurant.removeRestaurantHoraire(index);
 				return true;
 			}
 		}
@@ -272,7 +274,7 @@ public class RestaurantOwner {
 			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " SET " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " SET " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + " ;");
 			db.close();
-			restaurant.addRestaurantTypePaiements(typePaiement);//TODO
+			restaurant.addRestaurantTypePaiements(typePaiement);
 		}
 		else {
 			return false;
@@ -283,8 +285,10 @@ public class RestaurantOwner {
 	public boolean removeRestaurantTypePaiements(String typePaiement){
 		if (typePaiement != null) {
 			boolean found = false;
+			int index = 0;
 			for(String currentType : restaurant.getRestaurantTypePaiements(false)){
 				if(typePaiement.equals(currentType)) found = true;
+				index++;
 			}
 			if (!found) {
 				return false;
@@ -294,7 +298,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " AND " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[2] + " = " + typePaiement + " AND " + MySQLiteHelper.Payment_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
-				restaurant.removeRestaurantTypePaiements(typePaiement);
+				restaurant.removeRestaurantTypePaiements(index);
 			}
 			return true;
 		}
@@ -327,13 +331,6 @@ public class RestaurantOwner {
 		}
 		
 		return preBooking;
-	}
-
-	public void addPreBooking(PreBooking preBooking) {
-		//TODO WUT WUT
-		//TODO
-		//TODO
-		//TODO
 	}
 	
 	public void removeRestaurantPreReservation(PreBooking preBooking){
@@ -432,13 +429,6 @@ public class RestaurantOwner {
 		
 		return booking;
 	}
-
-	public void addBooking(Booking booking) {
-		//TODO WUT WUT ?
-		//TODO
-		//TODO
-		//TODO
-	}
 	
 	public void removeRestaurantReservation(Booking booking){
 		if (booking == null) {//If the parameter is null
@@ -528,15 +518,17 @@ public class RestaurantOwner {
 		else {
 			return false;
 		}
-		restaurant.addRestaurantAvantages(avantage);//TODO
+		restaurant.addRestaurantAvantages(avantage);
 		return true;
 	}
 	
 	public boolean removeRestaurantAvantage(String avantage){
 		if (avantage != null) {
 			boolean found = false;
+			int index = 0;
 			for(String currentAvantage : restaurant.getRestaurantAvantages(false)){
 				if(avantage.equals(currentAvantage)) found = true;
+				index++;
 			}
 			if (!found) {
 				return false;
@@ -546,6 +538,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[2] + " = " + avantage + " AND " + MySQLiteHelper.Advantage_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[2] + " = " + avantage + " AND " + MySQLiteHelper.Advantage_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
+				restaurant.removeRestaurantAvantages(index);
 			}
 			return true;
 		}
@@ -567,15 +560,17 @@ public class RestaurantOwner {
 		else {
 			return false;
 		}
-		restaurant.addRestaurantCuisine(cuisine);//TODO
+		restaurant.addRestaurantCuisine(cuisine);
 		return true;
 	}
 	
 	public boolean removeRestaurantCuisine(String cuisine){
 		if (cuisine != null) {
 			boolean found = false;
+			int index = 0;
 			for(String currentCuisine : restaurant.getRestaurantCuisine(false)){
 				if(cuisine.equals(currentCuisine)) found = true;
+				index++;
 			}
 			if (!found) {
 				return false;
@@ -585,6 +580,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[2] + " = " + cuisine + " AND " + MySQLiteHelper.Cook_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[2] + " = " + cuisine + " AND " + MySQLiteHelper.Cook_column[1] + " = " + restaurant.getRestaurantName() + ";");
 				db.close();
+				restaurant.removeRestaurantCuisine(index);
 			}
 			return true;
 		}
