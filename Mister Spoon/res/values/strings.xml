@@ -48,6 +48,15 @@
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
     
+    <string name="list_restaurant_filtre">Filtre</string>
+    <string name="list_restaurant_select">Selectionner restaurant</string>
+    <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>
+    <string name="prereservation_restaurant_heure">Heure</string>
+    <string name="prereservation_restaurant_nom">Nom</string>
+    <string name="prereservation_restaurant_telephone">Téléphone</string>
+    <string name="prereservation_restaurant_places">Places</string>
+    <string name="list_restaurant_title">Liste restaurants</string>
+    
     
     
     
