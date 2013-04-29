@@ -44,6 +44,8 @@
     <string name="prereservation_restaurant_telephone">Téléphone</string>
     <string name="prereservation_restaurant_places">Places</string>
     <string name="list_restaurant_title">Liste restaurants</string>
+    
+    <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
     <string name="profil_restaurant_tel">Tél :</string>
     <string name="profil_restaurant_web">Site Web :</string>
@@ -56,5 +58,16 @@
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
     <string name="profil_restaurant_carte">Afficher la carte</string>
+    
+    <!-- Values for (pre)reservation_client -->
+    <string name="prereservation_client_meal">Plat : </string>
+    <string name="prereservation_client_quantite">Quantité restante : </string>
+    <string name="prereservation_client_list"></string>
+    <string name="prereservation_client_total">Total : </string>
+    <string name="prereservation_client_hour">Heure : </string>
+    <string name="prereservation_client_places1">Il reste </string>
+    <string name="prereservation_client_places2"> places</string>
+    <string name="prereservation_client_prereserve">Pré-réserver !</string>
+    <string name="prereservation_client_reserve">Réserver !</string>
 
 </resources>
