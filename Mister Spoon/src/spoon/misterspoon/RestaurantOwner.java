@@ -14,12 +14,13 @@ public class RestaurantOwner {
 	private ArrayList<PreBooking> preBooking;
 	private ArrayList<Booking> booking;
 	
-	public RestaurantOwner(MySQLiteHelper sqliteHelper, String emailPerso) {
+	public RestaurantOwner(MySQLiteHelper sqliteHelper, String emailPerso, Restaurant restaurant) {
 		this.preBooking = new ArrayList<PreBooking>();
 		this.booking = new ArrayList<Booking>();
 		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		this.emailPerso = emailPerso;
+		this.restaurant = restaurant; // On en a besoin pour MealBuilder
 		
 		db.close();
 	}
@@ -29,6 +30,10 @@ public class RestaurantOwner {
 	 */
 	public String getEmail () {
 		return this.emailPerso;
+	}
+	
+	public Restaurant getRestaurant() {
+		return this.restaurant; // On en a besoin pour MealBuilder
 	}
 
 	public boolean setRestaurantEmail(String email) {
