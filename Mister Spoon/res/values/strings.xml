@@ -28,7 +28,7 @@
     <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir dans cet exemple, enfin du moins je l\'espere</string>
     <string name="update">Update / Add to favories</string>
     <string name="login_message">Si vous avez déjà un compte</string>
-    <string name="register_message">Si vous n'en avez pas</string>
+    <string name="register_message">Si vous n\'en avez pas</string>
 
     <!-- Values for activity_profil_clien.xml -->
     <string name="profil_client_title">Votre profil</string>
