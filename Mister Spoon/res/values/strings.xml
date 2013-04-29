@@ -36,7 +36,11 @@
     <string name="profil_client_alert_null">Il n\'y a aucun élément à afficher</string>
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
-    <string name="list_restaurant_filtre">Filtre</string>
+    <string name="list_restaurant_filtre_note">Filtre note</string>
+    <string name="list_restaurant_filtre_prix">Filtre prix</string>
+    <string name="list_restaurant_filtre_favori">Filtre favori</string>
+    <string name="list_restaurant_editText_note">Note</string>
+    <string name="list_restaurant_editText_prix">Prix</string>
     <string name="list_restaurant_select">Selectionner restaurant</string>
     <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>
     <string name="prereservation_restaurant_heure">Heure</string>
