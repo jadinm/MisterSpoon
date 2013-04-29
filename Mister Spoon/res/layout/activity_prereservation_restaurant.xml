@@ -15,12 +15,13 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="85dp" >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5" >
 
         <EditText
             android:id="@+id/prereservation_restaurant_heure"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:ems="10"
@@ -29,7 +30,7 @@
 
         <EditText
             android:id="@+id/prereservation_restaurant_nom"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:ems="10"
@@ -38,7 +39,7 @@
 
         <EditText
             android:id="@+id/prereservation_restaurant_telephone"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:ems="10"
@@ -50,7 +51,7 @@
 
         <EditText
             android:id="@+id/prereservation_restaurant_places"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:ems="10"
@@ -58,15 +59,16 @@
 
         <Spinner
             android:id="@+id/prereservation_restaurant_platQte"
-            android:layout_width="139dp"
-            android:layout_height="fill_parent" />
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/prereservation_restaurant_prereservationList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
     </ListView>
 
 </LinearLayout>
