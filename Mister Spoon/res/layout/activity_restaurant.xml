@@ -10,13 +10,13 @@
         android:orientation="vertical">
 
         <Gallery
-            android:id="@+id/profil_restaurant_gallery"
+            android:id="@+id/restaurant_gallery"
             android:layout_width="match_parent"
             android:layout_height="253dp"
             android:paddingBottom="20dp" />
 
         <RatingBar
-            android:id="@+id/profil_restaurant_ratingbar"
+            android:id="@+id/restaurant_ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -28,7 +28,7 @@
             android:weightSum="2" >
 
             <TextView
-                android:id="@+id/profil_restaurant_tel"
+                android:id="@+id/restaurant_tel"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -38,7 +38,7 @@
                 android:textIsSelectable="true" />
 
             <TextView
-                android:id="@+id/profil_restaurant_fax"
+                android:id="@+id/restaurant_fax"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
             android:weightSum="2" >
 
             <TextView
-                android:id="@+id/profil_restaurant_web"
+                android:id="@+id/restaurant_web"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -65,7 +65,7 @@
                 android:textIsSelectable="true" />
 
             <TextView
-                android:id="@+id/profil_restaurant_mail"
+                android:id="@+id/restaurant_mail"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -81,7 +81,7 @@
             android:paddingBottom="20dp" >
 
             <TextView
-                android:id="@+id/profil_restaurant_adress"
+                android:id="@+id/restaurant_adress"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="@string/profil_restaurant_adress"
@@ -89,7 +89,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/profil_restaurant_description"
+                android:id="@+id/restaurant_description"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/profil_restaurant_description"
@@ -98,7 +98,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/profil_restaurant_carte"
+            android:id="@+id/restaurant_carte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -115,14 +115,14 @@
             android:weightSum="2" >
 
             <Button
-                android:id="@+id/profil_restaurant_gps"
+                android:id="@+id/restaurant_gps"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_gps" />
 
             <Button
-                android:id="@+id/profil_restaurant_add"
+                android:id="@+id/restaurant_add"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -137,14 +137,14 @@
             android:weightSum="2" >
 
             <Button
-                android:id="@+id/profil_restaurant_reservation"
+                android:id="@+id/restaurant_reservation"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_reservation" />
 
             <Button
-                android:id="@+id/profil_restaurant_prereservation"
+                android:id="@+id/restaurant_prereservation"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
