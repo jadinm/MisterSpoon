@@ -108,16 +108,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:weightSum="1" >
+                android:paddingBottom="20dp" >
 
                 <Button
                     android:id="@+id/profil_restaurant_carte"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/profil_restaurant_carte" 
-                    android:drawableRight="@drawable/carte" />
+                    android:drawableRight="@drawable/carte"
+                    android:gravity="right"
+                    android:text="@string/profil_restaurant_carte" />
             </LinearLayout>
 
             <LinearLayout
