@@ -72,6 +72,26 @@ public class Menu {
 		return Categorie;
 	}
 	
+	public void setCategorie(String NewCategorie) {
+		this.Categorie = NewCategorie;
+	}
+	
+	public void setName(String NewName) {
+		this.MenuName = NewName;
+	}
+	
+	public void setRestName(String newName) {
+		this.restName = newName;
+	}
+	
+	public void setPrice(double NewPrice) {
+		this.MenuPrice = NewPrice;
+	}
+	
+	public void setMealList(ArrayList<Meal> NewML) {
+		this.MealList = NewML;
+	}
+	
 	public ArrayList <Meal> getMealList (boolean getFromDatabase) {
 		
 		if(getFromDatabase) {
