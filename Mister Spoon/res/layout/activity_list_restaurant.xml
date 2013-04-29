@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
     
     <TextView
         android:layout_width="fill_parent"
@@ -17,43 +17,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:weightSum="2" >
 
         <ListView
-            android:id="@+id/listView1"
-            android:layout_width="296dp"
+            android:id="@+id/list_restaurant_restaurants"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center" >
+            android:gravity="center"
+            android:layout_weight="1" >
         </ListView>
 
         <LinearLayout
-            android:layout_width="299dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="fill_parent" >
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/list_restaurant_ordre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/bot"
-                android:layout_marginTop="@dimen/top" />
+                android:layout_gravity="center" />
 
             <CheckBox
-                android:id="@+id/checkBox1"
+                android:id="@+id/list_restaurant_filtre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/bot"
-                android:layout_marginTop="@dimen/top"
                 android:text="@string/list_restaurant_filtre" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/list_restaurant_selection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/top"
                 android:text="@string/list_restaurant_select" />
         </LinearLayout>
     </LinearLayout>
