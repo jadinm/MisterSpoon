@@ -5,49 +5,37 @@
     <string name="app_name">Mister Spoon</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Salut les amis !</string>
-    
+
     <!-- Values for activity_login -->
-    
-    
+
+
     <!-- Values for activity_profil_clien.xml -->
     <string name="profil_client_title">Votre profil</string>
-    
     <string name="profil_client_email">Email *</string>
     <string name="profil_client_name">Nom *</string>
     <string name="profil_client_gsm">GSM</string>
-    
     <string name="profil_client_allergy_list">Liste d\'allergies</string>
-    	<string name="profil_client_allergy_gluten">Gluten</string>
-    	<string name="profil_client_allergy_noix">Noix</string>
-    	<string name="profil_client_allergy_cacahuete">Cacahuète</string>
-    	<string name="profil_client_allergy_banane">Banane</string>
-    
+    <string name="profil_client_allergy_gluten">Gluten</string>
+    <string name="profil_client_allergy_noix">Noix</string>
+    <string name="profil_client_allergy_cacahuete">Cacahuète</string>
+    <string name="profil_client_allergy_banane">Banane</string>
     <string name="profil_client_new_specificity">Nouvelle spécificité</string>
     <string name="profil_client_specificity_list">Vos spécificités</string>
-    
     <string name="profil_client_new_favourite_meal">Nouveau plat favori</string>
     <string name="profil_client_favourite_meal_list">Vos plats favoris</string>
-    
     <string name="profil_client_new_favourite_restaurant">Nouveau restaurant favori</string>
     <string name="profil_client_favourite_restaurant_list">Vos restaurants favoris</string>
-    
     <string name="profil_client_booking">Réservations</string>
     <string name="profil_client_preBooking">Pré-réservations</string>
-    
     <string name="profil_client_update">Mettre à jour votre profil</string>
-    
     <string name="profil_client_next">Passer à table!</string>
-    
     <string name="profil_client_mandatory">* champs obligatoires</string>
-    
     <string name="profil_client_alert_back">Annuler</string>
     <string name="profil_client_alert_update">Mettre à jour</string>
     <string name="profil_client_alert_message">Les éléments décochés seront supprimés</string>
     <string name="profil_client_alert_null">Il n\'y a aucun élément à afficher</string>
-    
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
-    
     <string name="list_restaurant_filtre">Filtre</string>
     <string name="list_restaurant_select">Selectionner restaurant</string>
     <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>
@@ -56,17 +44,17 @@
     <string name="prereservation_restaurant_telephone">Téléphone</string>
     <string name="prereservation_restaurant_places">Places</string>
     <string name="list_restaurant_title">Liste restaurants</string>
-    <string name="fax">Fax :</string>
-    <string name="tel">Tél :</string>
-    <string name="web">Site Web :</string>
-    <string name="mail">E-mail :</string>
-    <string name="adress">Adresse :</string>
-    <string name="mail_perso">E-mail personnel : </string>
-    <string />
-    
-    
-    
-    
-    
+    <string name="profil_restaurant_fax">Fax :</string>
+    <string name="profil_restaurant_tel">Tél :</string>
+    <string name="profil_restaurant_web">Site Web :</string>
+    <string name="profil_restaurant_mail">E-mail :</string>
+    <string name="profil_restaurant_adress">Adresse :</string>
+    <string name="profil_restaurant_mail_perso">E-mail personnel : </string>
+    <string name="profil_restaurant_description">Description : </string>
+    <string name="profil_restaurant_gps">GPS</string>
+    <string name="profil_restaurant_add">Ajouter le resto !</string>
+    <string name="profil_restaurant_reservation">Réserver</string>
+    <string name="profil_restaurant_prereservation">Pré-réserver</string>
+    <string name="profil_restaurant_carte">Afficher la carte</string>
 
 </resources>
