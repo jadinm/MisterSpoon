@@ -57,7 +57,7 @@
     <string name="profil_restaurant_add">Ajouter le resto !</string>
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
-    <string name="profil_restaurant_carte">Afficher la carte</string>
+    <string name="profil_restaurant_carte">Afficher la carte   </string>
     
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>
@@ -69,5 +69,6 @@
     <string name="prereservation_client_places2"> places</string>
     <string name="prereservation_client_prereserve">Pré-réserver !</string>
     <string name="prereservation_client_reserve">Réserver !</string>
+    <string name="prereservation_client_title1">Réservation</string>
 
 </resources>

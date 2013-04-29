@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <Gallery
+            android:id="@+id/profil_restaurant_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="253dp"
+            android:paddingBottom="20dp" />
+
+        <RatingBar
+            android:id="@+id/profil_restaurant_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="2" >
+
+            <TextView
+                android:id="@+id/profil_restaurant_tel"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/profil_restaurant_tel"
+                android:lines="2"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/profil_restaurant_fax"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/profil_restaurant_fax"
+                android:lines="2"
+                android:textIsSelectable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="2" >
+
+            <TextView
+                android:id="@+id/profil_restaurant_web"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/profil_restaurant_web"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/profil_restaurant_mail"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/profil_restaurant_mail"
+                android:textIsSelectable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp" >
+
+            <TextView
+                android:id="@+id/profil_restaurant_adress"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/profil_restaurant_adress"
+                android:textIsSelectable="true" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/profil_restaurant_description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profil_restaurant_description"
+                android:textIsSelectable="true" >
+            </TextView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/profil_restaurant_carte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:drawableRight="@drawable/carte"
+            android:gravity="left"
+            android:paddingBottom="20dp"
+            android:text="@string/profil_restaurant_carte"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/profil_restaurant_gps"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_gps" />
+
+            <Button
+                android:id="@+id/profil_restaurant_add"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_add" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/profil_restaurant_reservation"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_reservation" />
+
+            <Button
+                android:id="@+id/profil_restaurant_prereservation"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_prereservation" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

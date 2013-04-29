@@ -123,10 +123,8 @@ public class Restaurant {
 			}
 		}
 		
-		//Carte
-		
-		/* TO DO !!!!!!! */
-		
+		//Cartes
+		this.carte = new Carte (this.sqliteHelper, this.restaurantName);
 		
 		
 		db.close();
@@ -582,14 +580,27 @@ public class Restaurant {
 	}
 
 	
-	/*
-	 * TO DO !!!!!!
-	 * 
+	//TODO
+	/* 
 	 * @post : return the value of 'carte'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
 	public Carte getRestaurantCarte (boolean getFromDatabase) {
-		
+		if (getFromDatabase) {
+			this.carte = new Carte (this.sqliteHelper, this.restaurantName);
+		}
+		return this.carte;
+	}
+	
+	//TODO
+	public boolean setRestaurantCarte (Carte carte) {
+		if (carte==null) {
+			return false;
+		}
+		else {
+			this.carte = carte;
+		}
+		return true;
 	}
 	
 }
