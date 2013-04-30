@@ -8,7 +8,7 @@
 
     <!-- Values for activity_login -->
 	<string name="fax">Fax :</string>
-    <string name="tel">Tél :</string>
+    <string name="tel">Téléphone :</string>
     <string name="web">Site Web :</string>
     <string name="mail">E-mail :</string>
     <string name="adress">Adresse :</string>
@@ -17,20 +17,17 @@
     <string name="log_in">LOG IN !</string>
     <string name="client">Client</string>
     <string name="restaurant">Restaurant</string>
-    <string name="name">Name :</string>
-    <string name="phone">Phone :</string>
-    <string name="capacity">Capacity :</string>
+    <string name="name">Nom :</string>
+    <string name="capacity">Capacité :</string>
     <string name="gps">GPS :</string>
-    <string name="register">REGISTER !</string>
-    <string name="meal_title">Meal</string>
-    <string name="price">Price :</string>
-    <string name="stock">Stock :</string>
-    <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir dans cet exemple, enfin du moins je l\'espere</string>
-    <string name="update">Update / Add to favories</string>
+    <string name="register">S'enregister !</string>
     <string name="login_message">Si vous avez déjà un compte</string>
     <string name="register_message">Si vous n\'en avez pas</string>
+    <string name="activity_login_like">Choose your side of the force</string>
+    <string name="activity_login_light">Light</string>
+    <string name="activity_login_dark">Dark</string>
 
-    <!-- Values for activity_profil_clien.xml -->
+    <!-- Values for activity_profil_client.xml -->
     <string name="profil_client_title">Votre profil</string>
     <string name="profil_client_email">Email *</string>
     <string name="profil_client_name">Nom *</string>
@@ -57,9 +54,6 @@
     <string name="profil_client_alert_null">Il n\'y a aucun élément à afficher</string>
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
-    <string name="activity_login_like">Choose your side of the force</string>
-    <string name="activity_login_light">Light</string>
-    <string name="activity_login_dark">Dark</string>
     
     <!-- Values for activity_list_restaurant.xml -->
     <string name="list_restaurant_filtre_note">Filtre note</string>
@@ -90,6 +84,13 @@
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
     <string name="profil_restaurant_carte">Afficher la carte   </string>
+    
+    <!-- values for activity_meal.xml -->
+    <string name="meal_title">Plat</string>
+    <string name="price">Prix :</string>
+    <string name="stock">Stock :</string>
+    <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir dans cet exemple, enfin du moins je l\'espere</string>
+    <string name="update">Ajouter aux favoris</string>
     
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>

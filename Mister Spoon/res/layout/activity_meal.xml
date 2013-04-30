@@ -32,20 +32,22 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:hint="@string/price"
+                android:gravity="center"
+                android:text="@string/price"
                 android:lines="2"
-                android:textIsSelectable="true" />
+                android:textIsSelectable="true"
+                android:layout_marginBottom="20dp" />
 
             <TextView
                 android:id="@+id/stock"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:hint="@string/stock"
+                android:gravity="center"
+                android:text="@string/stock"
                 android:lines="2"
-                android:textIsSelectable="true" />
+                android:textIsSelectable="true"
+                android:layout_marginBottom="20dp" />
         </LinearLayout>
         
         <TextView
@@ -55,12 +57,14 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:text="@string/description"
-                android:textIsSelectable="true" />
+                android:textIsSelectable="true"
+                android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/update"
             android:layout_width="fill_parent"
-       		android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:text="@string/update" />
         
     </LinearLayout>

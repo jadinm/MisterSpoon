@@ -1,202 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="5dp" >
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="89dp"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textStyle="bold" />
-    
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:text="@string/login_message"/>
-    
     <LinearLayout
-		android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal"
-    	android:weightSum="2"
-    	android:paddingBottom="30dp">
-        <EditText
-            android:id="@+id/edmail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text="@string/mail"
-            android:layout_weight="1" >
-        </EditText>
-
-        <Button
-            android:id="@+id/butlogin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/log_in"
-            android:layout_weight="1" />
-    </LinearLayout>
-    
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:text="@string/register_message" />
-
-    <RadioGroup
-        android:id="@+id/radGrpRC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-       
+        android:layout_margin="5dp"
+        android:orientation="vertical" >
 
-        <RadioButton
-            	android:id="@+id/rad_resto"
-         		android:layout_width="wrap_content"
-         		android:layout_height="wrap_content"
-         		android:text="@string/restaurant" />
-        <RadioButton
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textSize="45sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/login_message" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp"
+            android:weightSum="2" >
+
+            <EditText
+                android:id="@+id/edmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"
+                android:text="@string/mail" >
+            </EditText>
+
+            <Button
+                android:id="@+id/butlogin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/log_in" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/register_message" />
+
+        <RadioGroup
+            android:id="@+id/radGrpRC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rad_resto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurant" />
+
+            <RadioButton
                 android:id="@+id/rad_client"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/client" />
-    </RadioGroup>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        </RadioGroup>
 
-    <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/name" />
 
-	    <EditText
-	        android:id="@+id/edit_name"
-	        android:layout_width="388dp"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="textPersonName"
-	        android:text="@string/name" />
-	
-	    <EditText
-	        android:id="@+id/edit_mail"
-	        android:layout_width="378dp"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="textEmailAddress"
-	        android:text="@string/mail" />
-	
-	    <EditText
-	        android:id="@+id/edit_phone"
-	        android:layout_width="384dp"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="phone"
-	        android:text="@string/phone" />
-	
-	    <EditText
-	        android:id="@+id/edit_gps"
-	        android:layout_width="406dp"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="numberDecimal"
-	        android:text="@string/gps" />
-	
-	    <EditText
-	        android:id="@+id/edit_capa"
-	        android:layout_width="381dp"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="number"
-	        android:text="@string/capacity" />
+        <EditText
+            android:id="@+id/edit_mail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="@string/mail" />
 
-    </LinearLayout>
-<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        <!-- These editText are invisible because client is chekced -->
 
-	    <EditText
-	        android:id="@+id/edit_name2"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="textPersonName"
-	        android:text="@string/name" />
-	
-	    <EditText
-	        android:id="@+id/edit_mail2"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="textEmailAddress"
-	        android:text="@string/mail" />
-	
-	    <EditText
-	        android:id="@+id/edit_phone2"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:inputType="phone"
-	        android:text="@string/phone" />
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:text="@string/tel"
+            android:visibility="invisible" />
 
-    </LinearLayout>
-    
+        <EditText
+            android:id="@+id/edit_gps"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text="@string/gps"
+            android:visibility="invisible" />
 
+        <EditText
+            android:id="@+id/edit_capa"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="@string/capacity"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp" >
+
+            <TextView
+                android:id="@+id/activity_login_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_login_like" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+
+            <Button
+                android:id="@+id/activity_login_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:text="@string/activity_login_light" />
+
+            <Button
+                android:id="@+id/activity_login_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:text="@string/activity_login_dark" />
+        </LinearLayout>
     </LinearLayout>
 
-    	    <Button
-	        android:id="@+id/register"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/register" />
-
-    	    <LinearLayout
-    	        android:layout_width="match_parent"
-    	        android:layout_height="wrap_content"
-    	        android:orientation="vertical" 
-    	        android:paddingTop="20dp">
-
-    	        <TextView
-    	            android:id="@+id/activity_login_like"
-    	            android:layout_width="wrap_content"
-    	            android:layout_height="wrap_content"
-    	            android:text="@string/activity_login_like" />
-
-    	    </LinearLayout>
-
-    	    <LinearLayout
-    	        android:layout_width="match_parent"
-    	        android:layout_height="wrap_content"
-    	        android:layout_gravity="center" >
-
-    	        <Button
-    	            android:id="@+id/activity_login_light"
-    	            android:layout_width="wrap_content"
-    	            android:layout_height="wrap_content"
-    	            android:layout_gravity="left"
-    	            android:layout_weight="1"
-    	            android:text="@string/activity_login_light" />
-
-    	        <Button
-    	            android:id="@+id/activity_login_dark"
-    	            android:layout_width="wrap_content"
-    	            android:layout_height="wrap_content"
-    	            android:layout_gravity="right"
-    	            android:layout_weight="1"
-    	            android:text="@string/activity_login_dark" />
-
-    	    </LinearLayout>
-
-</LinearLayout>
 </ScrollView>
