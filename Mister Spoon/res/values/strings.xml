@@ -20,7 +20,7 @@
     <string name="name">Nom :</string>
     <string name="capacity">Capacité :</string>
     <string name="gps">GPS :</string>
-    <string name="register">S'enregister !</string>
+    <string name="register">S\'enregister !</string>
     <string name="login_message">Si vous avez déjà un compte</string>
     <string name="register_message">Si vous n\'en avez pas</string>
     <string name="activity_login_like">Choose your side of the force</string>
@@ -91,6 +91,13 @@
     <string name="stock">Stock :</string>
     <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir dans cet exemple, enfin du moins je l\'espere</string>
     <string name="update">Ajouter aux favoris</string>
+    
+    <!-- Values for activity_meal_builder -->
+    <string name="meal_builder_meal_title">Modification de plats</string>
+    <string name="meal_builder_price">Prix</string>
+    <string name="meal_builder_stock">Stock</string>
+    <string name="meal_builder_description">Description</string>
+    <string name="meal_builder_update">Mettre à jour</string>
     
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>
