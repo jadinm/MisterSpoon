@@ -135,6 +135,23 @@ public class Client {
 	}
 	
 	/*
+	 * Check if the email is in the database and return true if it already exists
+	 */
+	 public static boolean isInDatabase(MySQLiteHelper sqliteHelper, String email) {
+		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+		
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[1] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email, null);
+		return cursor!=null;
+	}
+
+	 /*
+	  * Create a new Client in the database with the informations given
+	  */
+	 static public void addClient (MySQLiteHelper sql, String email, String nom) {
+		 
+	 }
+
+	/*
 	 * @post : return the email of the client
 	 */
 	public String getEmail () {

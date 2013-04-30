@@ -32,7 +32,7 @@
             android:weightSum="2" >
 
             <EditText
-                android:id="@+id/edmail"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

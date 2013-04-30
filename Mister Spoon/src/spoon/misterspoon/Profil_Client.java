@@ -49,7 +49,7 @@ public class Profil_Client extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailClient = i.getStringExtra(Login.email);//TODO
+		String emailClient = i.getStringExtra(Login.email);//TODO -> remplir les champs par defaut
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, Login.email);//TODO

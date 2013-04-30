@@ -26,6 +26,13 @@
     <string name="activity_login_like">Choose your side of the force</string>
     <string name="activity_login_light">Light</string>
     <string name="activity_login_dark">Dark</string>
+    <string name="activity_login_toast">Veuillez entrer votre email</string>
+    <string name="activity_login_toast_incorrect">Veuillez entrer un email valide</string>
+    <string name="activity_register_toast_empty">Veuillez remplir tous les champs</string>
+    <string name="activity_register_same_email">Cet email existe déjà</string>
+    <string name="activity_register_same_phone">Ce numéro existe déjà</string>
+    <string name="activity_register_same_gps">Cette coordonnée existe déjà</string>
+    <string name="activity_register_same_name">Ce nom existe déjà</string>
 
     <!-- Values for activity_profil_client.xml -->
     <string name="profil_client_title">Votre profil</string>
