@@ -57,6 +57,9 @@
     <string name="profil_client_alert_null">Il n\'y a aucun élément à afficher</string>
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
+    <string name="activity_login_like">Choose your side of the force</string>
+    <string name="activity_login_light">Light</string>
+    <string name="activity_login_dark">Dark</string>
     
     <!-- Values for activity_list_restaurant.xml -->
     <string name="list_restaurant_filtre_note">Filtre note</string>
