@@ -35,6 +35,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String TABLE_Schedule= "Horaire";
 	public static final String[] Schedule_column = new String[]{_ID, "restNom", "jourOuverture", "openHour", "closeHour"};
 	
+	public static final String TABLE_Closing ="Fermeture";
+	public static final String[] Closing_column = new String[]{_ID, "restNom", "date"};
+	
 	public static final String TABLE_Menu= "Menu";
 	public static final String[] Menu_column = new String[]{_ID, "menuNom", "categorie", "restNom", "platNom"};
 	
@@ -51,10 +54,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String[] FavouriteMeal_column = new String[]{_ID, "email", "platNom"};
 	
 	public static final String TABLE_Booking= "Reservation";
-	public static final String[] Booking_column = new String[]{_ID, "restNom", "email", "NbrReservation", "heure"};
+	public static final String[] Booking_column = new String[]{_ID, "restNom", "email", "NbrReservation", "heure", "date"};
 	
 	public static final String TABLE_Order= "Commande";
-	public static final String[] Order_column = new String[]{_ID, "restNom", "email", "heure", "platNom", "quantite"};
+	public static final String[] Order_column = new String[]{_ID, "restNom", "email", "heure", "date", "platNom", "quantite"};
 	
 	public static final String TABLE_Restaurant= "Restaurant";
 	public static final String[] Restaurant_column = new String[]{_ID, "restNom", "emailPerso", "telephone", "gps", "capaTotale", "description", "note", "nbrVotants"};
@@ -102,13 +105,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE " + TABLE_Advantage + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Advantage_column[1] + " VARCHAR NOT NULL," + Advantage_column[2] + " VARCHAR NOT NULL, FOREIGN KEY (" + Advantage_column[1] + ") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Cook + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Cook_column[1] +" VARCHAR NOT NULL," + Cook_column[2] +" VARCHAR NOT NULL, FOREIGN KEY ("+Cook_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Schedule + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Schedule_column[1] +" VARCHAR NOT NULL, " + Schedule_column[2] + " VARCHAR NOT NULL, " + Schedule_column[3] +" VARCHAR NOT NULL, " + Schedule_column[4] +" VARCHAR NOT NULL, FOREIGN KEY (" + Schedule_column[1] +") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Menu + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Menu_column[1] + " VARCHAR NOT NULL, " + Menu_column[2] + " VARCHAR NOT NULL, " + Menu_column[3] + " VARCHAR NOT NULL, " + Menu_column[4] + " VARCHAR NOT NULL, FOREIGN KEY ("+Menu_column[3]+") REFERENCES Restaurant (restNom));");
+		db.execSQL("CREATE TABLE " + TABLE_Closing + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Closing_column[1] +" VARCHAR NOT NULL, " + Closing_column[2] + " VARCHAR NOT NULL, " + "FOREIGN KEY ("+Closing_column[1]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Menu + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Menu_column[1] + " VARCHAR NOT NULL, " + Menu_column[2] + " VARCHAR NOT NULL, " + Menu_column[3] + " VARCHAR NOT NULL, " + Menu_column[4] + " VARCHAR NOT NULL, FOREIGN KEY ("+Menu_column[3]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_MenuPrice + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + MenuPrice_column[1]  + " VARCHAR NOT NULL, " + MenuPrice_column[2] + " VARCHAR NOT NULL, " + MenuPrice_column[3] + " VARCHAR NOT NULL, " + MenuPrice_column[4] + "  DECIMAL(9,2) NOT NULL, UNIQUE ("+ MenuPrice_column[1]+", " + MenuPrice_column[2] +", " + MenuPrice_column[3] +") ON CONFLICT REPLACE, FOREIGN KEY ("+MenuPrice_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Payment + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Payment_column[1] + " VARCHAR NOT NULL, " + Payment_column[2] + " VARCHAR NOT NULL,  FOREIGN KEY ("+Payment_column[1]+") REFERENCES Restaurant ("+Payment_column[2]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Meal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Meal_column[1] + " VARCHAR NOT NULL, " + Meal_column[2] + " VARCHAR NOT NULL, " + Meal_column[3] + " DECIMAL(9,2) NOT NULL, s" + Meal_column[4] + " INTEGER, " + Meal_column[5] + " TEXT, UNIQUE ("+Meal_column[1]+", " + Meal_column[2]+") ON CONFLICT REPLACE, FOREIGN KEY ("+Meal_column[2]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_FavouriteMeal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + FavouriteMeal_column[1] + " VARCHAR NOT NULL , " + FavouriteMeal_column[2] + " VARCHAR NOT NULL , FOREIGN KEY ("+FavouriteMeal_column[1]+") REFERENCES " + TABLE_Client + " ("+Client_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Booking + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Booking_column[1] + " VARCHAR NOT NULL, " + Booking_column[2] + " VARCHAR NOT NULL, " + Booking_column[3] + " INTEGER NOT NULL, " + Booking_column[4] + " VARCHAR NOT NULL, UNIQUE("+Booking_column[1]+", "+ Booking_column[4] + ", "+ Booking_column[2] +") ON CONFLICT REPLACE, FOREIGN KEY ("+Booking_column[1]+") REFERENCES "+ TABLE_Restaurant +"("+Restaurant_column[1]+"), FOREIGN KEY ("+Booking_column[2]+") REFERENCES "+TABLE_Client+ "("+Client_column[1]+"));");
-		db.execSQL("CREATE TABLE " + TABLE_Order + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Order_column[1] +" VARCHAR NOT NULL, " + Order_column[2] +" VARCHAR NOT NULL, " + Order_column[3] + " VARCHAR, " + Order_column[4] + " VARCHAR NOT NULL, " + Order_column[5] + " INTEGER NOT NULL, FOREIGN KEY ("+Order_column[1]+") REFERENCES "+ TABLE_Restaurant + "(" + Restaurant_column[1] +"), FOREIGN KEY ("+Order_column[2]+") REFERENCES "+ TABLE_Client +"("+Client_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Booking + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Booking_column[1] + " VARCHAR NOT NULL, " + Booking_column[2] + " VARCHAR NOT NULL, " + Booking_column[3] + " INTEGER NOT NULL, " + Booking_column[4] + " VARCHAR NOT NULL" + Booking_column[5] + " VARCHAR NOT NULL, UNIQUE("+Booking_column[1]+", "+ Booking_column[4] + ", "+ Booking_column[2]+ ", "+ Booking_column[5] +") ON CONFLICT REPLACE, FOREIGN KEY ("+Booking_column[1]+") REFERENCES "+ TABLE_Restaurant +"("+Restaurant_column[1]+"), FOREIGN KEY ("+Booking_column[2]+") REFERENCES "+TABLE_Client+ "("+Client_column[1]+"));");
+		db.execSQL("CREATE TABLE " + TABLE_Order + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Order_column[1] +" VARCHAR NOT NULL, " + Order_column[2] +" VARCHAR NOT NULL, " + Order_column[3] + " VARCHAR, " + Order_column[4] + " VARCHAR, " + Order_column[5] + " VARCHAR NOT NULL, " + Order_column[6] + " INTEGER NOT NULL, FOREIGN KEY ("+Order_column[1]+") REFERENCES "+ TABLE_Restaurant + "(" + Restaurant_column[1] +"), FOREIGN KEY ("+Order_column[2]+") REFERENCES "+ TABLE_Client +"("+Client_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_FavouriteRestaurant + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + FavouriteRestaurant_column[1] + " VARCHAR NOT NULL , " + FavouriteRestaurant_column[2] + " VARCHAR NOT NULL, FOREIGN KEY ("+FavouriteRestaurant_column[1]+") REFERENCES " + TABLE_Client + "("+Client_column[1]+"), FOREIGN KEY ("+FavouriteRestaurant_column[2]+") REFERENCES " + TABLE_Restaurant + "("+Restaurant_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Specificity + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Specificity_column[1] + " VARCHAR NOT NULL , " + Specificity_column[2] + " VARCHAR NOT NULL, FOREIGN KEY ("+Specificity_column[1]+") REFERENCES "+TABLE_Client+"("+Client_column[1]+"));");
 		db.execSQL("CREATE TABLE " + TABLE_Allergy + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Allergy_column[1] + " VARCHAR NOT NULL , " + Allergy_column[2] + " VARCHAR NOT NULL, FOREIGN KEY ("+Allergy_column[1]+") REFERENCES "+TABLE_Client+"("+Client_column[1]+"));");
@@ -183,6 +187,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Vendredi','19:00:00','22:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Samedi','18:00:00','22:00:00'); ");
 		
+		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Crêperie Bretonne','2013-05-01'); ");
+		
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Viandes','plat','Le Petit Vingtième','Entrecôte de Boeuf Belge Grillée +- 300gr'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Entrées','entree','Le Petit Vingtième','Carpaccio de Bresaola et Jambon de Parme'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Poissons','plat','Le Petit Vingtième','Gambas rôties au four'); ");
@@ -216,15 +222,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ") VALUES('toni@hotmail.com','Steak frites');  ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ")  VALUES('j.p@yahoo.fr','Steak fites'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +") VALUES('Le Petit Vingtième','toni@hotmail.com',3,'19:00:00');  ");
-		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Crêperie Bretonne','j.p@yahoo.fr',45,'20:00:00'); ");
-		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Crêperie Bretonne','toni@hotmail.com',6,'22:00:00'); ");
-		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Loungeatude','j.p@yahoo.fr',10,'20:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] + ", " + Booking_column[5] +") VALUES('Le Petit Vingtième','toni@hotmail.com',3,'19:00:00','2013-04-30');  ");
+		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] + ", " + Booking_column[5] +")  VALUES('Crêperie Bretonne','j.p@yahoo.fr',45,'20:00:00','2013-05-02'); ");
+		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] + ", " + Booking_column[5] +")  VALUES('Crêperie Bretonne','toni@hotmail.com',6,'22:00:00','2013-04-30'); ");
+		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] + ", " + Booking_column[5] +")  VALUES('Loungeatude','j.p@yahoo.fr',10,'20:00:00','2013-04-30'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5]  +")  VALUES('Le Petit Vingtième','toni@hotmail.com','19:00:00','Carpaccio de Bresaola et Jambon de Parme',3); ");
-		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5]  +")  VALUES('Crêperie Bretonne','j.p@yahoo.fr','20:00:00','Crêpe La tartiflette',40); ");
-		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Crêperie Bretonne','j.p@yahoo.fr','20:00:00','Crêpe au saumon fumé, sauce crème et citron à l''aneth',5); ");
-		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Loungeatude','j.p@yahoo.fr',NULL,'Jambonnette de volaille aux scampis',10); ");
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5]  + ", " + Order_column[6] +")  VALUES('Le Petit Vingtième','toni@hotmail.com','19:00:00','2013-04-30','Carpaccio de Bresaola et Jambon de Parme',3); ");
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5]  + ", " + Order_column[6] +")  VALUES('Crêperie Bretonne','j.p@yahoo.fr','20:00:00','2013-05-02','Crêpe La tartiflette',40); ");
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] + ", " + Order_column[6] +")  VALUES('Crêperie Bretonne','j.p@yahoo.fr','20:00:00','2013-04-30','Crêpe au saumon fumé, sauce crème et citron à l''aneth',5); ");
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] + ", " + Order_column[6] +")  VALUES('Loungeatude','j.p@yahoo.fr',NULL,NULL,'Jambonnette de volaille aux scampis',10); ");
 				
 		db.execSQL("INSERT INTO " + TABLE_FavouriteRestaurant + "(" + FavouriteRestaurant_column[1] + ", " + FavouriteRestaurant_column[2] + ")  VALUES('toni@hotmail.com','Crêperie Bretonne'); ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteRestaurant + "(" + FavouriteRestaurant_column[1] + ", " + FavouriteRestaurant_column[2] + ")  VALUES('j.p@yahoo.fr','Crêperie Bretonne'); ");

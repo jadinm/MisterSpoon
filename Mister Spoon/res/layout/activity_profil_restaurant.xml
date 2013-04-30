@@ -29,7 +29,7 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:inputType="phone"
-                android:text="@string/profil_restaurant_tel" />
+                android:hint="@string/profil_restaurant_tel" />
 
             <EditText
                 android:id="@+id/profil_restaurant_fax"
@@ -38,7 +38,7 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:inputType="phone"
-                android:text="@string/profil_restaurant_fax" />
+                android:hint="@string/profil_restaurant_fax" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,7 +54,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="@string/profil_restaurant_web" />
+                android:hint="@string/profil_restaurant_web" />
 
             <EditText
                 android:id="@+id/profil_restaurant_mail"
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:inputType="textEmailAddress"
-                android:text="@string/profil_restaurant_mail" />
+                android:hint="@string/profil_restaurant_mail" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:text="@string/profil_restaurant_mail_perso" >
+                android:hint="@string/profil_restaurant_mail_perso" >
             </EditText>
 
             <EditText
@@ -86,7 +86,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:inputType="textPostalAddress"
-                android:text="@string/profil_restaurant_adress" >
+                android:hint="@string/profil_restaurant_adress" >
             </EditText>
 
             <EditText
@@ -94,7 +94,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:text="@string/profil_restaurant_description" >
+                android:hint="@string/profil_restaurant_description" >
             </EditText>
         </LinearLayout>
 
@@ -108,14 +108,14 @@
             <Button
                 android:id="@+id/profil_restaurant_gps"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_gps" />
 
             <Button
                 android:id="@+id/profil_restaurant_carte"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_carte" />
         </LinearLayout>
