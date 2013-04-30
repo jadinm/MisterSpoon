@@ -102,7 +102,7 @@
     <string name="meal_title">Plat</string>
     <string name="price">Prix :</string>
     <string name="stock">Stock :</string>
-    <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir dans cet exemple, enfin du moins je l\'espere</string>
+    <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir ici, enfin du moins je l\'espere</string>
     <string name="update">Ajouter aux favoris</string>
     
     <!-- Values for activity_meal_builder -->

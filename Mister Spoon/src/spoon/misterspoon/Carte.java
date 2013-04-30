@@ -15,6 +15,10 @@ public class Carte {
 		this.filterList = filterList;
 	}
 	
+	public Carte(MySQLiteHelper sqliteHelper2, String restaurantName) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void sort(boolean sortPrixCroissant) {
 		//hello ?
 	}

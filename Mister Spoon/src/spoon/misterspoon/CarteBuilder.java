@@ -4,8 +4,6 @@ import static android.provider.BaseColumns._ID;
 
 import java.util.ArrayList;
 
-import android.database.sqlite.SQLiteDatabase;
-
 public class CarteBuilder {
 	
 	MySQLiteHelper sqliteHelper;
@@ -21,7 +19,7 @@ public class CarteBuilder {
 	}
 	
 	public void setMenuName(Menu menuToChange, String name) {
-		if ( menuToChange == null) {
+		/*if ( menuToChange == null) {
 			return;
 		}
 		
@@ -30,7 +28,7 @@ public class CarteBuilder {
 		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Menu + " SET " + MySQLiteHelper.Menu_column[2] + " = " + name + " WHERE " + MySQLiteHelper.Menu_column[2] + " = " + email + " ;");
 		db.close();
 		
-		this.gsm = gsm;
+		this.gsm = gsm;*/
 	}//yg
 	
 	public static final String TABLE_Menu= "Menu";

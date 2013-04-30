@@ -186,10 +186,6 @@ public class Restaurant {
 		this.horaire = horaire;
 	}
 
-	public void setRestaurantCarte(Carte carte) {
-		this.carte = carte;
-	}
-
 	/*
 	 * @post : return the value of 'restaurantName'
 	 */

@@ -1,6 +1,7 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -115,7 +116,13 @@ public class Client {
 
 				String currentResto = cursor.getString(0);
 				int nbrPlaces = cursor.getInt(1);
-				String time = cursor.getString(2);
+				
+				String temp [] = cursor.getString(2).split(" "); 
+				String date = temp[0];
+				String time = temp[1];
+				temp = date.split("-");
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
 
 				Commande = new ArrayList <Meal> ();
 				while(!cursor.isAfterLast() && currentResto == cursor.getString(0)) {//We take a command if it exists
@@ -126,7 +133,7 @@ public class Client {
 				}
 				cursor.moveToNext();
 
-				booking.add(new Booking(new Restaurant (currentResto), nbrPlaces, new Time(time) , Commande));
+				booking.add(new Booking(new Restaurant (currentResto), nbrPlaces, new Time(time), calendar , Commande));
 			}
 		}
 
@@ -938,7 +945,13 @@ public class Client {
 				ArrayList <Meal> Commande = new ArrayList <Meal> ();
 				Restaurant currentResto = new Restaurant (cursor.getString(0));
 				int nbrReservation = cursor.getInt(1);
-				Time time = new Time (cursor.getString(2));
+				
+				String temp [] = cursor.getString(2).split(" "); 
+				String date = temp[0];
+				Time time = new Time (temp[1]);
+				temp = date.split("-");
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
 
 				Cursor cursor2 = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + email + " AND " + MySQLiteHelper.Order_column[1] + " = " + cursor.getString(0) + " AND " + MySQLiteHelper.Order_column[3] + " = " + cursor.getString(4) , null);
 				if (cursor2.moveToFirst()) {//If there is an order for this restaurant
@@ -950,10 +963,10 @@ public class Client {
 				}
 
 				if (!Commande.isEmpty()) {
-					booking.add(new Booking(currentResto, nbrReservation, time, Commande));
+					booking.add(new Booking(currentResto, nbrReservation, time, calendar, Commande));
 				}
 				else {
-					booking.add(new Booking(currentResto, nbrReservation, time, null));
+					booking.add(new Booking(currentResto, nbrReservation, time, calendar, null));
 				}
 
 				cursor.moveToNext();
@@ -980,15 +993,16 @@ public class Client {
 		String RestaurantName = booking.getRestaurant().getRestaurantName();//Name of the restaurant where we are reserving
 		int nbrPlace = booking.getNombrePlaces();//time when we are reserving
 		Time time = booking.getHeureReservation();//number of places we are reserving
-
+		Calendar calendar = booking.getDate();//the date
 
 		for (int i=0; i<this.booking.size(); i++) {//We test if the booking isn't already registered
 
 			String IemeRestaurantName = this.booking.get(i).getRestaurant().getRestaurantName();//Name of the restaurant where we have reserved
 			Time IemeTime = this.booking.get(i).getHeureReservation();//time when we have reserved
 			int IemeNbrPlace = this.booking.get(i).getNombrePlaces();//number of places we have reserved
+			Calendar Iemecalendar = this.booking.get(i).getDate();//the date
 
-			if (IemeRestaurantName.equals(RestaurantName) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace) {//We compare reservations
+			if (IemeRestaurantName.equals(RestaurantName) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace && calendar.get(Calendar.YEAR)==Iemecalendar.get(Calendar.YEAR) && calendar.get(Calendar.MONTH)==Iemecalendar.get(Calendar.MONTH) && calendar.get(Calendar.DATE)==Iemecalendar.get(Calendar.DATE)) {//We compare reservations
 
 				int counter = 0;//Count the number of same meals in their ordered
 
@@ -1026,8 +1040,8 @@ public class Client {
 
 		String restNom = booking.getRestaurant().getRestaurantName();
 
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + restNom + ", " + email + ", " + nbrPlace + ", " + time.toString() + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + restNom + ", " + email + ", " + nbrPlace + ", " + time.toString() + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + restNom + ", " + email + ", " + nbrPlace + ", " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + restNom + ", " + email + ", " + nbrPlace + ", " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ");");
 
 		if (booking.getCommande() != null) {
 			for(int i=0; i<booking.getCommande().size(); i++) {
@@ -1059,14 +1073,16 @@ public class Client {
 		String RestaurantName = booking.getRestaurant().getRestaurantName();//Name of the restaurant where we are reserving
 		int nbrPlace = booking.getNombrePlaces();//time when we are reserving
 		Time time = booking.getHeureReservation();//number of places we are reserving
+		Calendar calendar = booking.getDate();//the date
 
 		for (int i=0; i<this.booking.size() && !found; i++) {//We test if the booking isn't already registered
 
 			String IemeRestaurantName = this.booking.get(i).getRestaurant().getRestaurantName();//Name of the restaurant where we have reserved
 			Time IemeTime = this.booking.get(i).getHeureReservation();//time when we have reserved
 			int IemeNbrPlace = this.booking.get(i).getNombrePlaces();//number of places we have reserved
+			Calendar Iemecalendar = this.booking.get(i).getDate();//the date
 
-			if (IemeRestaurantName.equals(RestaurantName) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace) {//We compare reservations
+			if (IemeRestaurantName.equals(RestaurantName) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace && calendar.get(Calendar.YEAR)==Iemecalendar.get(Calendar.YEAR) && calendar.get(Calendar.MONTH)==Iemecalendar.get(Calendar.MONTH) && calendar.get(Calendar.DATE)==Iemecalendar.get(Calendar.DATE)) {//We compare reservations
 
 				int counter = 0;//Count the number of same meals in their ordered
 
@@ -1111,12 +1127,12 @@ public class Client {
 
 		String restNom = booking.getRestaurant().getRestaurantName();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + email + " AND " + MySQLiteHelper.Booking_column[4] + " = " + nbrPlace + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + email + " AND " + MySQLiteHelper.Booking_column[4] + " = " + nbrPlace + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + email + " AND " + MySQLiteHelper.Booking_column[4] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + email + " AND " + MySQLiteHelper.Booking_column[4] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
 
 		if(booking.getCommande()!=null) {//We had the order if it exists
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlace + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlace + ";");
+			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
+			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
 		}
 
 		db.close();
@@ -1147,7 +1163,7 @@ public class Client {
 			}
 		}
 
-		//Test for the schedule
+		//Test for the schedule TODO
 		Cursor cursor2 = db.rawQuery("SELECT DISTINCT R.restNom FROM Restaurant R, Reservation B, Horaire H, (SELECT R.restNom, total(B.NbrReservation) AS total FROM Restaurant R, Reservation B WHERE R.restNom = " + booking.getRestaurant().getRestaurantName() + " (R.restNom = B.restNom AND B.heure=" + booking.getHeureReservation().toString() + ") GROUP BY B.restNom) AS TotalReservation WHERE R.restNom=B.restNom AND B.restNom=H.restNom AND ((R.restNom=TotalReservation.restNom AND R.capaTotale - TotalReservation.total >= "+ booking.getNombrePlaces() +")	OR (R.restNom not in (SELECT DISTINCT B.restNom FROM Reservation B WHERE B.heure=" + booking.getHeureReservation() + " GROUP BY B.restNom) AND R.capaTotale >= "+ booking.getNombrePlaces() +")) AND H.openHour <=" + booking.getHeureReservation() + " AND H.closeHour > " + booking.getHeureReservation() + " AND R.restNom = H.restNom AND H.jourOuverture in (SELECT case cast(strftime('%w','now') as INTEGER) when 0 then 'Dimanche' when 1 then 'Lundi' when 2 then 'Mardi' when 3 then 'Mercredi' when 4 then 'Jeudi' when 5 then 'Vendredi' else 'Samedi' end as DayOfWeek)", null);
 		if (cursor2.moveToNext()) {//If it's possible
 			db.close();
@@ -1164,13 +1180,13 @@ public class Client {
 	 * 			nbrPlaces > 0
 	 * @post : try to book in a restaurant with the parameters asked and return true or false if it's a success or not
 	 */
-	public boolean book (ArrayList <Meal> commande, int nbrPlaces, Time time) {
+	public boolean book (ArrayList <Meal> commande, int nbrPlaces, Time time, Calendar calendar) {
 
 		if (restaurantEnCours == null || time == null || nbrPlaces <= 0) {//If the reservation has no sense
 			return false;
 		}
 
-		Booking booking = new Booking (restaurantEnCours, nbrPlaces, time, commande);
+		Booking booking = new Booking (restaurantEnCours, nbrPlaces, time, calendar, commande);
 		if (!isReservationPossible(booking)) {
 			return false;
 		}

@@ -49,10 +49,10 @@ public class Profil_Client extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailClient = i.getStringExtra(Login.email);//TODO -> remplir les champs par defaut
+		String emailClient = i.getStringExtra(Login.email);
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
-		c = new Client (sqliteHelper, Login.email);//TODO
+		c = new Client (sqliteHelper, emailClient);//TODO
 		
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
@@ -319,18 +319,22 @@ public class Profil_Client extends Activity {
 		preBooking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, PreBooking_Client.class);//TODO
+				Toast toast = Toast.makeText(context, "Un client veut voir ses pré-réservations", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(Profil_Client.this, PreBooking_Client.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);
+				startActivity(i);*/
 			}
 		});
 		
 		booking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, Booking_Client.class);//TODO
+				Toast toast = Toast.makeText(context, "Un client veut voir ses réservations", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(Profil_Client.this, Booking_Client.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);
+				startActivity(i);*/
 			}
 		});
 		
@@ -371,9 +375,11 @@ public class Profil_Client extends Activity {
 		next.setOnClickListener(new View.OnClickListener() {//launch an other activity with an intent with the object Client
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, City_List.class);//TODO
+				Toast toast = Toast.makeText(context, "Un client veut passer à la suite", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(Profil_Client.this, City_List.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);
+				startActivity(i);*/
 			}
 		});
 		

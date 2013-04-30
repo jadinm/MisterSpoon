@@ -123,9 +123,12 @@ public class Login extends Activity {
 
 			}
 			else if (RestaurantOwner.isInDatabase(sql, email_login.toString())) {
-				Intent i = new Intent(Login.this, Profil_Restaurant.class);
+				Toast toast = Toast.makeText(context, "Un restaurant vient de se connecter correctement", Toast.LENGTH_SHORT);
+				toast.show();
+				
+				/*TODO Intent i = new Intent(Login.this, Profil_Restaurant.class);
 				i.putExtra(email, email_login.toString());
-				startActivity(i);
+				startActivity(i);*/
 				return;
 			}
 			else {
@@ -189,15 +192,14 @@ public class Login extends Activity {
 
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_email), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 					break;
 				case 2:
 
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_name), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 					break;
 				}
+				return;
 			}
 			else {//If we have a restaurantOwner
 				int InDatabase = RestaurantOwner.isInDatabase(sql, email_register.toString(), nom_register.toString(), gps_longitude_register.toString() + "," + gps_latitude_register.toString(), phone_register.toString());
@@ -209,9 +211,11 @@ public class Login extends Activity {
 					else {
 						RestaurantOwner.createRestaurant(sql, email_register.toString(), nom_register.toString(), gps_longitude_register.toString() + "," + gps_latitude_register.toString(), 0, rue.toString(), ville.toString(), phone_register.toString(), Integer.parseInt(capacite_register.toString()));
 					}
-					Intent i = new Intent(Login.this, Profil_Restaurant.class);
-					i.putExtra(email, email_login.toString());
-					startActivity(i);
+					Toast toast = Toast.makeText(context, "Un restaurant vient de s'enregister correctement", Toast.LENGTH_SHORT);
+					toast.show();
+					//TODO Intent i = new Intent(Login.this, Profil_Restaurant.class);
+					//i.putExtra(email, email_register.toString());
+					//startActivity(i);
 					return;
 				}
 				Toast toast;
@@ -221,30 +225,27 @@ public class Login extends Activity {
 
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_email), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 					break;
 				case 2:
 
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_name), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 					break;
 				case 3:
 
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_gps), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 					break;
 				case 4:
 
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_phone), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 					break;
+				default:
+					toast = Toast.makeText(context, getString(R.string.activity_register_toast_empty), Toast.LENGTH_SHORT);
+					toast.show();
 				}
-
-				toast = Toast.makeText(context, getString(R.string.activity_register_toast_empty), Toast.LENGTH_SHORT);
-				toast.show();
+				
 			}
 
 		}
