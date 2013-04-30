@@ -31,9 +31,9 @@ public class RestaurantOwner {
 	public static boolean isInDatabase(MySQLiteHelper sql, String emailPerso) {
 		SQLiteDatabase db = sql.getReadableDatabase();
 
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso, null);
-		db.close();
-		return cursor!=null;
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'", null);
+		//db.close();
+		return cursor.moveToFirst();
 	}
 
 
@@ -48,30 +48,30 @@ public class RestaurantOwner {
 	public static int isInDatabase(MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone) {
 		SQLiteDatabase db = sql.getReadableDatabase();
 
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + emailPerso, null);
-		if (cursor != null) {
-			db.close();
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'", null);
+		if (cursor.moveToFirst()) {
+			//db.close();
 			return 1;
 		}
 
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[1] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restNom, null);
-		if (cursor != null) {
-			db.close();
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[1] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restNom+"'", null);
+		if (cursor.moveToFirst()) {
+			//db.close();
 			return 2;
 		}
 
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[4] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[4] + " = " + gps, null);
-		if (cursor != null) {
-			db.close();
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[4] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[4] + " = " + "'"+gps+"'", null);
+		if (cursor.moveToFirst()) {
+			//db.close();
 			return 3;
 		}
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[3] + " = " + phone, null);
-		if (cursor != null) {
-			db.close();
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[3] + " = " + "'"+phone+"'", null);
+		if (cursor.moveToFirst()) {
+			//db.close();
 			return 4;
 		}
 
-		db.close();
+		//db.close();
 		return 0;
 	}
 

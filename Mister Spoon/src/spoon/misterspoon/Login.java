@@ -3,6 +3,8 @@ package spoon.misterspoon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -84,6 +86,9 @@ public class Login extends Activity {
 		resto_client.setOnCheckedChangeListener(radioGroupListener);
 
 		register.setOnClickListener(registerListener);
+
+
+
 	}
 
 	@Override
@@ -111,21 +116,22 @@ public class Login extends Activity {
 	private OnClickListener loginListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			if (email_login.toString()==null) {
+			if (email_login.getText().toString().length()==0) {
 				Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
 				toast.show();
 				return;
 			}
-			if (Client.isInDatabase(sql, email_login.toString())) {
+
+			if (Client.isInDatabase(sql, email_login.getText().toString())) {
 				Intent i = new Intent(Login.this, Profil_Client.class);
-				i.putExtra(email, email_login.toString());
+				i.putExtra(email, email_login.getText().toString());
 				startActivity(i);
 
 			}
-			else if (RestaurantOwner.isInDatabase(sql, email_login.toString())) {
+			else if (RestaurantOwner.isInDatabase(sql, email_login.getText().toString())) {
 				Toast toast = Toast.makeText(context, "Un restaurant vient de se connecter correctement", Toast.LENGTH_SHORT);
 				toast.show();
-				
+
 				/*TODO Intent i = new Intent(Login.this, Profil_Restaurant.class);
 				i.putExtra(email, email_login.toString());
 				startActivity(i);*/
@@ -170,17 +176,17 @@ public class Login extends Activity {
 	private OnClickListener registerListener = new OnClickListener() { 
 		@Override
 		public void onClick(View v) {
-			if (email_register.toString()==null || nom_register.toString()==null) {
+			if (email_register.getText().toString().length()==0 || nom_register.getText().toString().length()==0) {
 				Toast toast = Toast.makeText(context, getString(R.string.activity_register_toast_empty), Toast.LENGTH_SHORT);
 				toast.show();
 				return;
 			}
 			if (!rad_resto.isChecked()) {//if we have a Client
-				int InDatabase = Client.isInDatabase(sql, email_register.toString(), nom_register.toString());
+				int InDatabase = Client.isInDatabase(sql, email_register.getText().toString(), nom_register.getText().toString());
 				if (InDatabase==0) {//If there is no problem
-					Client.createClient(sql, email_register.toString(), nom_register.toString());
+					Client.createClient(sql, email_register.getText().toString(), nom_register.getText().toString());
 					Intent i = new Intent(Login.this, Profil_Client.class);
-					i.putExtra(email, email_login.toString());
+					i.putExtra(email, email_login.getText().toString());
 					startActivity(i);
 					return;
 
@@ -202,14 +208,14 @@ public class Login extends Activity {
 				return;
 			}
 			else {//If we have a restaurantOwner
-				int InDatabase = RestaurantOwner.isInDatabase(sql, email_register.toString(), nom_register.toString(), gps_longitude_register.toString() + "," + gps_latitude_register.toString(), phone_register.toString());
+				int InDatabase = RestaurantOwner.isInDatabase(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), phone_register.getText().toString());
 
-				if (!rad_resto.isChecked() && gps_longitude_register.toString()!=null && gps_latitude_register.toString()!=null && rue.toString()!=null && ville.toString()!=null && capacite_register.toString()!=null  && InDatabase==0) {
-					if (numero.toString()!=null) {
-						RestaurantOwner.createRestaurant(sql, email_register.toString(), nom_register.toString(), gps_longitude_register.toString() + "," + gps_latitude_register.toString(), Integer.parseInt(numero.toString()), rue.toString(), ville.toString(), phone_register.toString(), Integer.parseInt(capacite_register.toString()));
+				if (rad_resto.isChecked() && gps_longitude_register.getText().toString().length()!=0 && gps_latitude_register.getText().toString().length()!=0 && rue.getText().toString().length()!=0 && ville.getText().toString().length()!=0 && capacite_register.getText().toString().length()!=0  && InDatabase==0) {
+					if (numero.toString().length()!=0) {
+						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), Integer.parseInt(numero.getText().toString()), rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()));
 					}
 					else {
-						RestaurantOwner.createRestaurant(sql, email_register.toString(), nom_register.toString(), gps_longitude_register.toString() + "," + gps_latitude_register.toString(), 0, rue.toString(), ville.toString(), phone_register.toString(), Integer.parseInt(capacite_register.toString()));
+						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), 0, rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()));
 					}
 					Toast toast = Toast.makeText(context, "Un restaurant vient de s'enregister correctement", Toast.LENGTH_SHORT);
 					toast.show();
@@ -245,7 +251,7 @@ public class Login extends Activity {
 					toast = Toast.makeText(context, getString(R.string.activity_register_toast_empty), Toast.LENGTH_SHORT);
 					toast.show();
 				}
-				
+
 			}
 
 		}

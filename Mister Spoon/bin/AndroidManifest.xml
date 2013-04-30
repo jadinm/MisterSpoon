@@ -22,15 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <!-- We declare the activity Profil_Client -->
         <activity 
-            android:name="sppon.misterspoon.Profil_Client"
+            android:name="spoon.misterspoon.Profil_Client"
             android:label="@string/app_name">
         </activity>
         
         <!-- We declare the activity Booking CHANGING NAME IN EVERY VIEW !!!!-->
         <activity 
-            android:name="sppon.misterspoon.Booking"
+            android:name="spoon.misterspoon.Booking"
             android:label="@string/prereservation_client_title1"> 
         </activity>
     </application>
