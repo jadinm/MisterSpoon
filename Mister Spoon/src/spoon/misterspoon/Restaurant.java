@@ -33,7 +33,7 @@ public class Restaurant {
 	
 	ArrayList <String> cuisine;
 	
-	Carte carte;// TO DO !!!!
+	Carte carte;
 	
 	/*
 	 * @param: the parameter is not null
@@ -128,23 +128,6 @@ public class Restaurant {
 		
 		
 		db.close();
-	}
-	
-	/*
-	 * Check if the informations didn't exists in the database
-	 */
-	 public static boolean isInDatabase(MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone) {
-		SQLiteDatabase db = sql.getReadableDatabase();
-		
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[1] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email, null);
-		return cursor!=null;
-	}
-	
-	/*
-	 * Create a new restaurant in the database with the informations given
-	 */
-	static public void addRestaurant (MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone, int capacite) {
-		
 	}
 	
 	public void setRestaurantName(String restaurantName) {

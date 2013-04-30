@@ -19,7 +19,13 @@
     <string name="restaurant">Restaurant</string>
     <string name="name">Nom :</string>
     <string name="capacity">Capacité :</string>
-    <string name="gps">GPS :</string>
+    <string name="gps">Coordonnée GPS :</string>
+    <string name="gps2">,</string>
+    <string name="gps_longitude">Longitude :</string>
+    <string name="gps_latitude">Latitude :</string>
+    <string name="numero">Numéro :</string>
+    <string name="rue">Rue :</string>
+    <string name="ville">Ville :</string>
     <string name="register">S\'enregister !</string>
     <string name="login_message">Si vous avez déjà un compte</string>
     <string name="register_message">Si vous n\'en avez pas</string>
