@@ -126,6 +126,7 @@ public class Login extends Activity {
 				Intent i = new Intent(Login.this, Profil_Client.class);
 				i.putExtra(email, email_login.getText().toString());
 				startActivity(i);
+				
 
 			}
 			else if (RestaurantOwner.isInDatabase(sql, email_login.getText().toString())) {
