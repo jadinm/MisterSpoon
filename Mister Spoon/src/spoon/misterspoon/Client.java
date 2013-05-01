@@ -137,7 +137,7 @@ public class Client {
 			}
 		}
 
-		db.close();//We don't forget to close the database
+		//db.close();//We don't forget to close the database
 
 	}
 

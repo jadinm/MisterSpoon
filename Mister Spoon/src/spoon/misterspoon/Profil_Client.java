@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -74,14 +75,14 @@ public class Profil_Client extends Activity {
 		next = (Button) findViewById(R.id.profil_client_next_button);
 		
 		//We already fill the data of the Client if they exist
-		email.setText(c.getEmail());
-		name.setText(c.getName(false));
+		email.setText(c.getEmail()); //NullPointerException
+		name.setText(c.getName(false)); //NullPointerException
 		if (c.getGsm(false)!=null) {
 			gsm.setText(c.getGsm(false));
 		}
 		
 		//We define all the listeners
-		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box
+		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box //NullPointerException
 			@Override
 			public void onClick(View v) {
 				
