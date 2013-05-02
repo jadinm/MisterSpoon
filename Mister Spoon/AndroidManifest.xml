@@ -29,9 +29,9 @@
             android:label="@string/profil_client_title">
         </activity>
         
-        <!-- We declare the activity Profil_Client -->
+        <!-- We declare the activity Profil_Restaurant -->
         <activity 
-            android:name="spoon.misterspoon.Restaurant"
+            android:name="spoon.misterspoon.Profil_Restaurant"
             android:label="@string/profil_restaurant_title">
         </activity>
         

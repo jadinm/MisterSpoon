@@ -34,6 +34,10 @@ public class GPS {
 		this.longitude = newLong;
 	}
 	
+	public boolean equals(GPS in) {
+		return this.longitude == in.getLongitude() && this.latitude == in.getLatitude();
+	}
+	
 	public void setLatitude(double newLat) {
 		this.latitude = newLat;
 	}

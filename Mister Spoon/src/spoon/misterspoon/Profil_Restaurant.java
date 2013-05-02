@@ -2,350 +2,203 @@ package spoon.misterspoon;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Gallery;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Profil_Restaurant extends Activity {
 
-	private Restaurant r;
+	private RestaurantOwner r;
 	private MySQLiteHelper sqliteHelper;
-	
+
 	//Elements of the view
-	private TextView email;
-	private EditText name;
+	private TextView email_perso;
+	private TextView email_public;
+	private EditText web;
 	private EditText gsm;
-	
-	private EditText new_specificity;
-	private EditText new_favourite_meal;
-	private EditText new_favourite_restaurant;
-	
-	private Button specificity_list;
-	private Button favourite_meal_list;
-	private Button favourite_restaurant_list;
-	private Button allergy_list;
-	private Button preBooking;
-	private Button booking;
-	
+	private EditText fax;
+	private EditText rue;
+	private EditText num;
+	private EditText town;
+	private EditText description;
+	private EditText longitude;
+	private EditText latitude;
+	private EditText capa;
+
 	private Button update;
-	private Button next;
-	
+	private Button menu;
+
+	private Button prebook;
+	private Button book;
+
+	private Gallery galerie;
 	//Useful for the alertBoxes
 	private Context context = this;
-	private boolean [] checkedItems;
-	private String [] items;
-	
-	
-	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Utils.onActivityCreateSetTheme(this);
-		setContentView(R.layout.activity_profil_client);
-		
+		setContentView(R.layout.activity_profil_restaurant);
+
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailClient = i.getStringExtra(Login.email);
-		
-		
+		String emailPerso = i.getStringExtra(Login.email);
+
+
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
-		c = new Client (sqliteHelper, emailClient);
-		Log.v("start",emailClient);
+		r = new RestaurantOwner (sqliteHelper, emailPerso);
+
 		//We can now define all the widgets
-		email = (TextView) findViewById(R.id.profil_client_email_text_view);
-		name = (EditText) findViewById(R.id.profil_client_name_edit_text);
-		gsm = (EditText) findViewById(R.id.profil_client_gsm_edit_text);
-		
-		new_specificity = (EditText) findViewById(R.id.profil_client_new_specificity_edit_text);
-		new_favourite_meal = (EditText) findViewById(R.id.profil_client_new_favourite_meal_edit_text);
-		new_favourite_restaurant = (EditText) findViewById(R.id.profil_client_new_favourite_restaurant_edit_text);
-		
-		specificity_list = (Button) findViewById(R.id.profil_client_specificity_list_button);
-		favourite_meal_list = (Button) findViewById(R.id.profil_client_favourite_meal_list_button);
-		favourite_restaurant_list = (Button) findViewById(R.id.profil_client_favourite_restaurant_list_button);
-		allergy_list = (Button) findViewById(R.id.profil_client_allergy_list_button);
-		preBooking = (Button) findViewById(R.id.profil_client_preBooking_button);
-		booking = (Button) findViewById(R.id.profil_client_booking_button);
-		
-		update = (Button) findViewById(R.id.profil_client_update_button);
-		next = (Button) findViewById(R.id.profil_client_next_button);
-		
+		email_perso = (TextView) findViewById(R.id.profil_restaurant_mail);
+		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
+		gsm = (EditText) findViewById(R.id.profil_restaurant_tel);
+		web = (EditText) findViewById(R.id.profil_restaurant_web);
+		fax = (EditText) findViewById(R.id.profil_restaurant_fax);
+		rue = (EditText) findViewById(R.id.profil_restaurant_edit_rue); 
+		num = (EditText) findViewById(R.id.profil_restaurant_edit_numero);
+		town = (EditText) findViewById(R.id.profil_restaurant_edit_ville);
+		description = (EditText) findViewById(R.id.profil_restaurant_description);
+		longitude = (EditText) findViewById(R.id.profil_restaurant_edit_gps_longitude);
+		latitude = (EditText) findViewById(R.id.profil_restaurant_edit_gps_latitude);
+		capa = (EditText) findViewById(R.id.profil_restaurant_capacite);
+
+		menu = (Button) findViewById(R.id.profil_restaurant_carte);		
+		update = (Button) findViewById(R.id.profil_restaurant_appliquer);
+		prebook = (Button) findViewById(R.id.profil_restaurant_prebooking_button);		
+		book = (Button) findViewById(R.id.profil_restaurant_booking_button);
+
 		//We already fill the data of the Client if they exist
 		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
-		
-		email.setText(email.getText() + " " + c.getEmail()); 
-		name.setText(c.getName(true));
-		if (c.getGsm(true)!=null) {
-			gsm.setText(c.getGsm(true));
+
+		email_perso.setText(email_perso.getText() + " " + r.getEmail()); 
+		email_public.setText(r.getRestaurant().getRestaurantEmail(false));
+		gsm.setText(r.getRestaurant().getRestaurantPhone(false));
+		rue.setText(r.getRestaurant().getRestaurantRue(false));
+		town.setText(r.getRestaurant().getRestaurantVille(false));
+		capa.setText(r.getRestaurant().getRestaurantCapacity(false)+ "");
+		longitude.setText(r.getRestaurant().getRestaurantPosition(false).getLongitude()+ "");
+		latitude.setText(r.getRestaurant().getRestaurantPosition(false).getLatitude() + "");
+
+		if (r.getRestaurant().getRestaurantFax(false)!=null) {
+			fax.setText(r.getRestaurant().getRestaurantFax(false));
+		}
+		if (r.getRestaurant().getRestaurantWebSite(false)!=null) {
+			web.setText(r.getRestaurant().getRestaurantWebSite(false));
+		}
+		if (r.getRestaurant().getRestaurantNumero(false)!=0) {
+			num.setText(r.getRestaurant().getRestaurantNumero(false)+ "");
+		}
+		if (r.getRestaurant().getRestaurantDescription(false)!=null) {
+			description.setText(r.getRestaurant().getRestaurantDescription(false));
 		}
 
 		//We define all the listeners
-		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box 
+		update.setOnClickListener(new View.OnClickListener() {//Update the informations
 			@Override
 			public void onClick(View v) {
-				
-				if (c.getSpecificite(true).size()==0) {//If there is no element to show
-					Toast toast = Toast.makeText(context, getString(R.string.profil_client_alert_null), Toast.LENGTH_SHORT);
+				int value = RestaurantOwner.isInDatabase(sqliteHelper,r.getEmail(), r.getRestaurant().getRestaurantName(), longitude.getText().toString() + "," + latitude.getText().toString(), gsm.getText().toString() );
+				if(value==3 && r.getRestaurant().getRestaurantPhone(false).equals(gsm.getText().toString())) {//If it already exists
+					num.setText(r.getRestaurant().getRestaurantNumero(false));
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_phone), Toast.LENGTH_SHORT);
 					toast.show();
+
 					return;
 				}
-				
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		 
-				//set title and message
-				alertDialogBuilder.setTitle(R.string.profil_client_specificity_list);
-				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				//if (items == null) Log.v("fuck","me");
-				//set the list of checkBoxes
-				items = new String [c.getSpecificite(false).size()];
-				(c.getSpecificite(false)).toArray(items);
-				checkedItems = new boolean [items.length];
-				for(int i = 0; i<checkedItems.length; i++) {//Indicates whether or not the checkBox is checked
-					checkedItems[i] = true;
-				}
-
-				alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-					
-					@Override
-					public void onClick (DialogInterface dialog, int which, boolean isChecked) {
-						checkedItems[which]=isChecked;
-					}
-				});
-				
-				
-				alertDialogBuilder.setCancelable(true);//We can go back with the return button
-				
-				//The other buttons
-				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						dialog.cancel();
-					}
-				});
-				
-				alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-						
-						for(int i = 0; i<checkedItems.length; i++) {
-							if (!checkedItems[i]) {//If one element has to be removed
-								c.removeSpecificite(items[i]);
-							}
-						}
-						
-						dialog.cancel();
-					}
-				});
-		 
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-				// show it
-				alertDialog.show();
-			}
-		});
-		
-		favourite_restaurant_list.setOnClickListener(new View.OnClickListener() {//launch an alert box
-			@Override
-			public void onClick(View v) {
-
-				if (c.getRestFav(false).size()==0) {//If there is no element to show
-					Toast toast = Toast.makeText(context, getString(R.string.profil_client_alert_null), Toast.LENGTH_SHORT);
+				if(value==4 && r.getRestaurant().getRestaurantPosition(false).equals(new GPS(Double.parseDouble(longitude.getText().toString()), Double.parseDouble(latitude.getText().toString())))) {//If it already exists
+					longitude.setText(r.getRestaurant().getRestaurantDescription(false));
+					latitude.setText(r.getRestaurant().getRestaurantDescription(false));
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_gps), Toast.LENGTH_SHORT);
 					toast.show();
+
 					return;
 				}
-				
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-				 
-				//set title and message
-				alertDialogBuilder.setTitle(R.string.profil_client_favourite_restaurant_list);
-				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				
-				//set the list of checkBoxes
-				items = new String [c.getRestFav(false).size()];
-				checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
-				for(int i = 0; i<checkedItems.length; i++) {
-					items[i] = (c.getRestFav(false).get(i)).getRestaurantName();
-					checkedItems[i] = true;
-				}
 
-				alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-					
-					@Override
-					public void onClick (DialogInterface dialog, int which, boolean isChecked) {
-						checkedItems[which]=isChecked;
-					}
-				});
-				
-				
-				alertDialogBuilder.setCancelable(true);//We can go back with the return button
-				
-				//The other buttons
-				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						dialog.cancel();
-					}
-				});
-				
-				alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-						
-						for(int i = 0; i<checkedItems.length; i++) {
-							if (!checkedItems[i]) {//If one element has to be removed
-								c.removeRestFav(new Restaurant(items[i]));
-							}
-						}
-						
-						dialog.cancel();
-					}
-				});
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-				// show it
-				alertDialog.show();
-			}
-		});
-		
-		favourite_meal_list.setOnClickListener(new View.OnClickListener() {//launch an alert box
-			@Override
-			public void onClick(View v) {
-				
-				if (c.getPlatFav(false).size()==0) {//If there is no element to show
-					Toast toast = Toast.makeText(context, getString(R.string.profil_client_alert_null), Toast.LENGTH_SHORT);
+
+				if (gsm.getText().toString().length()>0) {
+					r.setRestaurantPhone(gsm.getText().toString());
+				}
+				else {
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
 					toast.show();
-					return;
 				}
-				
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-				 
-				//set title and message
-				alertDialogBuilder.setTitle(R.string.profil_client_favourite_meal_list);
-				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				
-				//set the list of checkBoxes
-				items = new String [c.getPlatFav(false).size()];
-				checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
-				for(int i = 0; i<checkedItems.length; i++) {
-					items[i] = (c.getPlatFav(false).get(i)).getMealName();
-					checkedItems[i] = true;
+				if (fax.getText().toString().length()>0) {
+					r.setRestaurantFax(fax.getText().toString());
 				}
 
-				alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-					
-					@Override
-					public void onClick (DialogInterface dialog, int which, boolean isChecked) {
-						checkedItems[which]=isChecked;
-					}
-				});
-				
-				
-				alertDialogBuilder.setCancelable(true);//We can go back with the return button
-				
-				//The other buttons
-				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						dialog.cancel();
-					}
-				});
-				
-				alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-						
-						for(int i = 0; i<checkedItems.length; i++) {
-							if (!checkedItems[i]) {//If one element has to be removed
-								c.removePlatFav(new Meal(items[i]));
-							}
-						}
-						
-						dialog.cancel();
-					}
-				});
-		 
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-				// show it
-				alertDialog.show();
+				if (web.getText().toString().length()>0) {
+					r.setRestaurantWebSite(web.getText().toString());
+				}
+
+				if (email_public.getText().toString().length()>0) {
+					r.setRestaurantEmail(email_public.getText().toString());
+				}
+
+				if (num.getText().toString().length()>0) {
+					r.setRestaurantNumero(Integer.parseInt(num.getText().toString()));
+				}
+
+
+				if (rue.getText().toString().length()>0) {
+					r.setRestaurantRue(rue.getText().toString());
+				}
+				else {
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
+					toast.show();
+				}
+				if (town.getText().toString().length()>0) {
+					r.setRestaurantVille(town.getText().toString());
+				}
+				else {
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
+					toast.show();
+				}
+				if (longitude.getText().toString().length()>0 && latitude.getText().toString().length()>0) {
+					r.setRestaurantPosition(new GPS(Double.parseDouble(longitude.getText().toString()), Double.parseDouble(latitude.getText().toString())));
+				}
+				else {
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
+					toast.show();
+				}
+				if (capa.getText().toString().length()>0) {
+					r.setRestaurantCapacity(Integer.parseInt(capa.getText().toString()));
+				}
+				else {
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
+					toast.show();
+				}
+				if (description.getText().toString().length()>0) {
+					r.setRestaurantDescription(description.getText().toString());
+				}
+
+
+				Toast toasted = Toast.makeText(context, getString(R.string.profil_client_toast_uptodate), Toast.LENGTH_SHORT);
+				toasted.show();
+
+
+
 			}
+
 		});
-		
-		
-		
-		allergy_list.setOnClickListener(new View.OnClickListener() {//launch an alert box
+
+		menu.setOnClickListener(new View.OnClickListener() {//launch an alert box
 			@Override
 			public void onClick(View v) {
-				
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-				 
-				//set title and message
-				alertDialogBuilder.setTitle(R.string.profil_client_allergy_list);
-				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				
-				//set the list of checkBoxes
-				items = new String []{getString(R.string.profil_client_allergy_gluten), getString(R.string.profil_client_allergy_noix), getString(R.string.profil_client_allergy_cacahuete), getString(R.string.profil_client_allergy_banane)};
-				checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
-				for(int i = 0; i<c.getAllergie(true).size(); i++) {
-					
-					for(int j=0; j<items.length; j++) {
-						if(c.getAllergie(true).get(i).equals(items[j])) {
-							checkedItems[j]=true;
-						}
-					}
-					
-					
-				}
-
-				alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-					
-					@Override
-					public void onClick (DialogInterface dialog, int which, boolean isChecked) {
-						checkedItems[which]=isChecked;
-					}
-				});
-				
-				
-				alertDialogBuilder.setCancelable(true);//We can go back with the return button
-				
-				//The other buttons
-				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						dialog.cancel();
-					}
-				});
-				
-				alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-						
-						for(int i = 0; i<checkedItems.length; i++) {
-							if (checkedItems[i]) {//If one element has to be added
-								c.addAllergie(items[i]);
-							}
-							else {//or removed
-								c.removeAllergie(items[i]);
-							}
-						}
-						
-						dialog.cancel();
-					}
-				});
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-				// show it
-				alertDialog.show();
+				Toast toasted = Toast.makeText(context, "Le resto veut montrer sa carte mais ce n'est pas encore possibl :p ", Toast.LENGTH_SHORT);
+				toasted.show();
 			}
 		});
-		
-		preBooking.setOnClickListener(new View.OnClickListener() {//launch another view
+
+		prebook.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
 				Toast toast = Toast.makeText(context, "Un client veut voir ses pr�-r�servations", Toast.LENGTH_SHORT);
@@ -355,8 +208,8 @@ public class Profil_Restaurant extends Activity {
 				startActivity(i);*/
 			}
 		});
-		
-		booking.setOnClickListener(new View.OnClickListener() {//launch another view
+
+		book.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
 				Toast toast = Toast.makeText(context, "Un client veut voir ses r�servations", Toast.LENGTH_SHORT);
@@ -366,74 +219,12 @@ public class Profil_Restaurant extends Activity {
 				startActivity(i);*/
 			}
 		});
-		
-		update.setOnClickListener(new View.OnClickListener() {//Update the informations
-			@Override
-			public void onClick(View v) {
-				if(name.getText().toString()==null) {//If important information is not filled
-					name.setText(c.getName(false));
-					Toast toast = Toast.makeText(context, getString(R.string.profil_client_name) + getString(R.string.profil_client_toast_mandatory), Toast.LENGTH_SHORT);
-					toast.show();
-					
-					return;
-				}
-				int value = Client.isInDatabase(sqliteHelper, (String) c.getEmail(), name.getText().toString());
-				if(value==2 && c.getName(false).equals(name.getText().toString())) {//If it already exists
-					name.setText(c.getName(false));
-					Toast toast = Toast.makeText(context, name.getText().toString() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
-					toast.show();
-					
-					return;
-				}
-				c.setName(name.getText().toString());
-				
-				if (gsm.getText().toString().length()>0) {
-					c.setGsm(gsm.getText().toString());
-				}
-				
-				if (new_specificity.getText().toString().length()>0) {
-					c.addSpecificite(new_specificity.getText().toString());
-					new_specificity.setText("");
-				}
-				if (new_favourite_meal.getText().toString().length()>0) {
-					c.addPlatFav(new Meal (new_favourite_meal.getText().toString()));
-					new_favourite_meal.setText("");
-				}
-				if (new_favourite_restaurant.getText().toString().length()>0) {
-					c.addRestFav(new Restaurant (new_favourite_restaurant.getText().toString()));
-					new_favourite_restaurant.setText("");
-				}
-				
-				Toast toasted = Toast.makeText(context, getString(R.string.profil_client_toast_uptodate), Toast.LENGTH_SHORT);
-				toasted.show();
-				
-				
-				
-			}
-			
-		});
-		
-		next.setOnClickListener(new View.OnClickListener() {//launch an other activity with an intent with the object Client
-			@Override
-			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut passer � la suite", Toast.LENGTH_SHORT);
-				toast.show();
-				/*Intent i = new Intent(Profil_Client.this, City_List.class);//TODO
-				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);*/
-			}
-		});
-		
+
+
+
+
 	}
-	
-	@Override
-	public void onStop() {
-		
-		new_specificity.setText("");
-		new_favourite_meal.setText("");
-		new_favourite_restaurant.setText("");
-		
-		super.onStop();
-	}
-	
+
+
+
 }
