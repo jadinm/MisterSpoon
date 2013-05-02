@@ -93,7 +93,7 @@ public class Profil_Client extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				if (c.getSpecificite(false).size()==0) {//If there is no element to show
+				if (c.getSpecificite(true).size()==0) {//If there is no element to show
 					Toast toast = Toast.makeText(context, getString(R.string.profil_client_alert_null), Toast.LENGTH_SHORT);
 					toast.show();
 					return;
@@ -103,9 +103,10 @@ public class Profil_Client extends Activity {
 		 
 				//set title and message
 				alertDialogBuilder.setTitle(R.string.profil_client_specificity_list);
-				alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				
+				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
+				//if (items == null) Log.v("fuck","me");
 				//set the list of checkBoxes
+				items = new String [c.getSpecificite(false).size()];
 				(c.getSpecificite(false)).toArray(items);
 				checkedItems = new boolean [items.length];
 				for(int i = 0; i<checkedItems.length; i++) {//Indicates whether or not the checkBox is checked
@@ -165,7 +166,7 @@ public class Profil_Client extends Activity {
 				 
 				//set title and message
 				alertDialogBuilder.setTitle(R.string.profil_client_favourite_meal_list);
-				alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
+				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
 				
 				//set the list of checkBoxes
 				items = new String [c.getPlatFav(false).size()];
@@ -228,7 +229,7 @@ public class Profil_Client extends Activity {
 				 
 				//set title and message
 				alertDialogBuilder.setTitle(R.string.profil_client_favourite_restaurant_list);
-				alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
+				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
 				
 				//set the list of checkBoxes
 				items = new String [c.getRestFav(false).size()];
@@ -279,7 +280,7 @@ public class Profil_Client extends Activity {
 				 
 				//set title and message
 				alertDialogBuilder.setTitle(R.string.profil_client_favourite_restaurant_list);
-				alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
+				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
 				
 				//set the list of checkBoxes
 				items = new String []{getString(R.string.profil_client_allergy_gluten), getString(R.string.profil_client_allergy_noix), getString(R.string.profil_client_allergy_cacahuete), getString(R.string.profil_client_allergy_banane)};
@@ -349,35 +350,51 @@ public class Profil_Client extends Activity {
 		update.setOnClickListener(new View.OnClickListener() {//Update the informations
 			@Override
 			public void onClick(View v) {
-				if(email.getText()==null) {//If important information is not filled
+				if(email.getText().toString()==null) {//If important information is not filled
 					Toast toast = Toast.makeText(context, getString(R.string.profil_client_email) + getString(R.string.profil_client_toast_mandatory), Toast.LENGTH_SHORT);
 					toast.show();
 					email.setText(c.getEmail());
 					return;
 				}
-				if(name.getText()==null) {//If important information is not filled
+				if(name.getText().toString()==null) {//If important information is not filled
 					Toast toast = Toast.makeText(context, getString(R.string.profil_client_name) + getString(R.string.profil_client_toast_mandatory), Toast.LENGTH_SHORT);
 					toast.show();
 					name.setText(c.getName(false));
 					return;
 				}
-				if (!(c.setEmail((String) email.getText()))) {//If it already exists
-					Toast toast = Toast.makeText(context, email.getText() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
+				if (!(c.setEmail(email.getText().toString()))) {//If it already exists
+					Toast toast = Toast.makeText(context, email.getText().toString() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
 					toast.show();
 					email.setText(c.getEmail());
 				}
-				if(!(c.setName((String) name.getText()))) {//If it already exists
-					Toast toast = Toast.makeText(context, name.getText() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
+				if(!(c.setName(name.getText().toString()))) {//If it already exists
+					Toast toast = Toast.makeText(context, name.getText().toString() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
 					toast.show();
 					name.setText(c.getName(false));
 					return;
 				}
-				c.setGsm((String) gsm.getText());
+				c.setGsm(gsm.getText().toString());
 				
-				c.addSpecificite((String) new_specificity.getText());
-				c.addPlatFav(new Meal ((String) new_favourite_meal.getText()));
-				c.addRestFav(new Restaurant ((String) new_favourite_restaurant.getText()));
+				if (new_specificity.getText().toString().length()>0) {
+					c.addSpecificite(new_specificity.getText().toString());
+					new_specificity.setText("");
+				}
+				if (new_favourite_meal.getText().toString().length()>0) {
+					c.addPlatFav(new Meal (new_favourite_meal.getText().toString()));
+					new_favourite_meal.setText("");
+				}
+				if (new_favourite_restaurant.getText().toString().length()>0) {
+					c.addRestFav(new Restaurant (new_favourite_restaurant.getText().toString()));
+					new_favourite_restaurant.setText("");
+				}
+				
+				Toast toasted = Toast.makeText(context, getString(R.string.profil_client_toast_uptodate), Toast.LENGTH_SHORT);
+				toasted.show();
+				
+				
+				
 			}
+			
 		});
 		
 		next.setOnClickListener(new View.OnClickListener() {//launch an other activity with an intent with the object Client
