@@ -24,13 +24,13 @@ public class Menu {
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
 		//MenuPrice
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.MenuPrice_column[4] + " FROM " + MySQLiteHelper.TABLE_MenuPrice + " WHERE " + MySQLiteHelper.MenuPrice_column[1] + " = " + restName + " AND " + MySQLiteHelper.MenuPrice_column[2] + " = " + MenuName + " AND " + MySQLiteHelper.MenuPrice_column[3] + " = " + Categorie, null);
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.MenuPrice_column[4] + " FROM " + MySQLiteHelper.TABLE_MenuPrice + " WHERE " + MySQLiteHelper.MenuPrice_column[1] + " = " + "'"+restName+"'" + " AND " + MySQLiteHelper.MenuPrice_column[2] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.MenuPrice_column[3] + " = " + "'"+Categorie+"'", null);
 		if (cursor.moveToFirst() && cursor.getString(0) != null) {//If the information exists
 			MenuPrice = cursor.getDouble(0);
 		}
 		
 		//MealList
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + MenuName + " AND " + MySQLiteHelper.Menu_column[2] + " = " + Categorie + " AND " + MySQLiteHelper.Menu_column[3] + " = " + restName, null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.Menu_column[2] + " = " + "'"+Categorie+"'" + " AND " + MySQLiteHelper.Menu_column[3] + " = " + "'"+restName+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists
 			MealList = new ArrayList <Meal> ();
 			while (cursor.isAfterLast()) {
@@ -58,7 +58,7 @@ public class Menu {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.MenuPrice_column[4] + " FROM " + MySQLiteHelper.TABLE_MenuPrice + " WHERE " + MySQLiteHelper.MenuPrice_column[1] + " = " + restName + " AND " + MySQLiteHelper.MenuPrice_column[2] + " = " + MenuName + " AND " + MySQLiteHelper.MenuPrice_column[3] + " = " + Categorie, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.MenuPrice_column[4] + " FROM " + MySQLiteHelper.TABLE_MenuPrice + " WHERE " + MySQLiteHelper.MenuPrice_column[1] + " = " + "'"+restName+"'" + " AND " + MySQLiteHelper.MenuPrice_column[2] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.MenuPrice_column[3] + " = " + "'"+Categorie+"'", null);
 			if (cursor.moveToFirst() && cursor.getString(0) != null) {//If the information exists
 				MenuPrice = cursor.getDouble(0);
 			}
@@ -100,7 +100,7 @@ public class Menu {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + MenuName + " AND " + MySQLiteHelper.Menu_column[2] + " = " + Categorie + " AND " + MySQLiteHelper.Menu_column[3] + " = " + restName, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.Menu_column[2] + " = " + "'"+Categorie+"'" + " AND " + MySQLiteHelper.Menu_column[3] + " = " + "'"+restName+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while (cursor.isAfterLast()) {
 					
