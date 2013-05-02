@@ -11,11 +11,14 @@ public class CityList {
 	
 	ArrayList<City> cityList;
 	String ordre;
+	Client client;
+	Boolean getFromDatabase;
 	
-	public CityList (MySQLiteHelper sqliteHelper) {
+	public CityList (MySQLiteHelper sqliteHelper, Client client, Boolean getFromDatabase) {
 		
-		cityList = new ArrayList<City>();
-		
+		this.cityList = new ArrayList<City>();
+		this.getFromDatabase = getFromDatabase;
+		this.client = client;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
 		
@@ -54,7 +57,7 @@ public class CityList {
 	
 	public GPS getClientPosition() {
 		boolean updateData;
-		return client.getPosition(updateData);
+		return client.getPosition(getFromDatabase);
 	}
 	
 

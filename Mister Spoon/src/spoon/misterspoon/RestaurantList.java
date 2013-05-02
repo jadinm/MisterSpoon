@@ -11,14 +11,19 @@ public class RestaurantList {
 	
 	String ordre;
 	String town;
+	Client client;
+	Boolean getFromDatabase;
 	
-	ArrayList<Restaurant> restaurantList;
-	ArrayList<String> listFilter;
+	ArrayList<Restaurant> removedRestaurant;
+	ArrayList<Restaurant> filterList;
 	
-	public RestaurantList (MySQLiteHelper sqliteHelper, String town) {
+	public RestaurantList (MySQLiteHelper sqliteHelper, String town, Client client, Boolean getFromDatabase) {
 		
+		this.getFromDatabase = getFromDatabase;
+		this.client = client;
 		this.town = town;
-		restaurantList = new ArrayList <Restaurant> ();
+		filterList = new ArrayList <Restaurant> ();
+		removedRestaurant = new ArrayList <Restaurant> ();
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
@@ -26,7 +31,7 @@ public class RestaurantList {
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {
 				
-				restaurantList.add(new Restaurant(cursor.getString(1)));
+				filterList.add(new Restaurant(cursor.getString(1)));
 				cursor.moveToNext();
 			}
 		}
@@ -39,12 +44,12 @@ public class RestaurantList {
 		return town;
 	}
 	
-	public Restaurant getRestaurantListVisible() {
-		
+	public ArrayList<Restaurant> getfilterListVisible() {
+		return this.filterList;
 	}
 	
-	public Restaurant getRestaurantListUnVisible() {
-		
+	public ArrayList<Restaurant> getfilterListUnVisible() {
+		return this.removedRestaurant;
 	}
 	
 	public void sort(String Ordre) {
@@ -54,11 +59,11 @@ public class RestaurantList {
 		
 		if (Ordre.equals("abc")) {
 			while (!state) {
-				for(int i = 0; i < this.restaurantList.size() - 1; i++) {
-					if (this.restaurantList.get(i).restaurantName.compareTo(this.restaurantList.get(i + 1).restaurantName) > 0) {
-						currentRestaurant = this.restaurantList.get(i);
-						this.restaurantList.set(i, this.restaurantList.get(i + 1));
-						this.restaurantList.set(i + 1, currentRestaurant);
+				for(int i = 0; i < this.filterList.size() - 1; i++) {
+					if (this.filterList.get(i).restaurantName.compareTo(this.filterList.get(i + 1).restaurantName) > 0) {
+						currentRestaurant = this.filterList.get(i);
+						this.filterList.set(i, this.filterList.get(i + 1));
+						this.filterList.set(i + 1, currentRestaurant);
 					}
 					else state = true;
 				}
@@ -68,11 +73,11 @@ public class RestaurantList {
 		
 		else if (Ordre.equals("note")) {
 			while (!state) {
-				for(int i = 0; i < this.restaurantList.size() - 1; i++) {
-					if (this.restaurantList.get(i).note < this.restaurantList.get(i + 1).note) {
-						currentRestaurant = this.restaurantList.get(i);
-						this.restaurantList.set(i, this.restaurantList.get(i + 1));
-						this.restaurantList.set(i + 1, currentRestaurant);
+				for(int i = 0; i < this.filterList.size() - 1; i++) {
+					if (this.filterList.get(i).note < this.filterList.get(i + 1).note) {
+						currentRestaurant = this.filterList.get(i);
+						this.filterList.set(i, this.filterList.get(i + 1));
+						this.filterList.set(i + 1, currentRestaurant);
 					}
 					else state = true;
 				}
@@ -85,11 +90,11 @@ public class RestaurantList {
 		
 		if (Ordre.equals("proximite")) {
 			while (!state) {
-				for(int i = 0; i < this.restaurantList.size() - 1; i++) {
-					if (distance(this.restaurantList.get(i).getPosition(), getClientPosition()) <  distance(this.restaurantList.get(i + 1).getPosition(), getClientPosition())) {
-						currentRestaurant = this.restaurantList.get(i);
-						this.restaurantList.set(i, this.restaurantList.get(i + 1));
-						this.restaurantList.set(i + 1, currentRestaurant);
+				for(int i = 0; i < this.filterList.size() - 1; i++) {
+					if (distance(this.filterList.get(i).getRestaurantPosition(getFromDatabase), this.client.getPosition(getFromDatabase)) <  distance(this.filterList.get(i + 1).getRestaurantPosition(getFromDatabase), this.client.getPosition(getFromDatabase))) {
+						currentRestaurant = this.filterList.get(i);
+						this.filterList.set(i, this.filterList.get(i + 1));
+						this.filterList.set(i + 1, currentRestaurant);
 					}
 					else state = true;
 				}
@@ -100,21 +105,18 @@ public class RestaurantList {
 	
 	
 	public void listFilter(String Filter, int value) {
-		ArrayList<Restaurant> removedRestaurant;
 		
 		if (Filter.equals("favori")) {
-			removedRestaurant = new ArrayList <Restaurant> ();
-			for(int i = 0; i < this.restaurantList.size() - 1; i++) {
-				removedRestaurant.add(this.restaurantList.get(i));
+			for(int i = 0; i < this.filterList.size() - 1; i++) {
+				this.removedRestaurant.add(this.filterList.get(i));
 			}
 		}
 		
 		else if (Filter.equals("note")) {
-			removedRestaurant = new ArrayList <Restaurant> ();
-			for(int i = 0; i < this.restaurantList.size() - 1; i++) {
-				if (this.restaurantList.get(i).note < value) {
-					removedRestaurant.add(this.restaurantList.get(i));
-					this.restaurantList.remove(i);
+			for(int i = 0; i < this.filterList.size() - 1; i++) {
+				if (this.filterList.get(i).note < value) {
+					this.removedRestaurant.add(this.filterList.get(i));
+					this.filterList.remove(i);
 				}
 			}
 		}
@@ -129,5 +131,9 @@ public class RestaurantList {
 		return result;
 	}
 	
-	
+	public void resetfilterList() {
+		for (int i = 0; i < this.removedRestaurant.size() - 1; i++) {
+			this.filterList.add(this.removedRestaurant.get(i));
+		}
+	}
 }
