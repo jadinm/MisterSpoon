@@ -39,10 +39,15 @@
     <string name="activity_register_same_phone">Ce numéro existe déjà</string>
     <string name="activity_register_same_gps">Cette coordonnée existe déjà</string>
     <string name="activity_register_same_name">Ce nom existe déjà</string>
+    
+    <string name="exit_title">Communication système</string>
+    <string name="exit">Voulez-vous vraiment quitter?</string>
+    <string name="exit_confirm">Oui</string>
+    <string name="exit_cancel">Non</string>
 
     <!-- Values for activity_profil_client.xml -->
     <string name="profil_client_title">Votre profil</string>
-    <string name="profil_client_email">Email *</string>
+    <string name="profil_client_email">Connecté en tant que </string>
     <string name="profil_client_name">Nom *</string>
     <string name="profil_client_gsm">GSM</string>
     <string name="profil_client_allergy_list">Liste d\'allergies</string>

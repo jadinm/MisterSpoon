@@ -2,15 +2,14 @@ package spoon.misterspoon;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -105,19 +104,19 @@ public class Login extends Activity {
 
 	//C'est la partie pour le changement de theme
 
-	private OnClickListener themeLListener = new OnClickListener() { @Override
+	private View.OnClickListener themeLListener = new View.OnClickListener() { @Override
 		public void onClick(View v) {
 		Utils.changeToTheme(Login.this, Utils.THEME_DEFAULT); 
 	}
 	};
 
-	private OnClickListener themeDListener = new OnClickListener() { @Override
+	private View.OnClickListener themeDListener = new View.OnClickListener() { @Override
 		public void onClick(View v) {
 		Utils.changeToTheme(Login.this, Utils.THEME_DARK); 
 	}
 	};
 
-	private OnClickListener loginListener = new OnClickListener() {
+	private View.OnClickListener loginListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			if (email_login.getText().toString().length()==0) {
@@ -178,7 +177,7 @@ public class Login extends Activity {
 		}
 	};
 
-	private OnClickListener registerListener = new OnClickListener() { 
+	private View.OnClickListener registerListener = new View.OnClickListener() { 
 		@Override
 		public void onClick(View v) {
 			if (email_register.getText().toString().length()==0 || nom_register.getText().toString().length()==0) {
@@ -191,7 +190,7 @@ public class Login extends Activity {
 				if (InDatabase==0) {//If there is no problem
 					Client.createClient(sql, email_register.getText().toString(), nom_register.getText().toString());
 					Intent i = new Intent(Login.this, Profil_Client.class);
-					i.putExtra(email, email_login.getText().toString());
+					i.putExtra(email, email_register.getText().toString());
 					startActivity(i);
 					return;
 
@@ -262,4 +261,38 @@ public class Login extends Activity {
 		}
 	};
 
+	@Override
+	public void onStop() {
+
+		email_login.setText("");
+
+		nom_register.setText("");
+		email_register.setText("");
+		phone_register.setText("");
+		gps_longitude_register.setText("");
+		gps_latitude_register.setText("");
+		numero.setText("");
+		rue.setText("");
+		ville.setText("");
+		capacite_register.setText("");
+
+		super.onStop();
+	}
+
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(context)
+		.setTitle(getString(R.string.exit_title))
+		.setMessage(getString(R.string.exit))
+		.setNegativeButton(getString(R.string.exit_cancel), null)
+		.setPositiveButton(getString(R.string.exit_confirm), new OnClickListener() {
+
+			@Override
+			public void onClick (DialogInterface arg0, int arg1) {
+				Login.super.onBackPressed();
+			}
+		}).create().show();
+
+
+	}
 }

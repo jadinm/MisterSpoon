@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +21,12 @@ public class Profil_Client extends Activity {
 	
 	//Elements of the view
 	private TextView email;
-	private TextView name;
-	private TextView gsm;
+	private EditText name;
+	private EditText gsm;
 	
-	private TextView new_specificity;
-	private TextView new_favourite_meal;
-	private TextView new_favourite_restaurant;
+	private EditText new_specificity;
+	private EditText new_favourite_meal;
+	private EditText new_favourite_restaurant;
 	
 	private Button specificity_list;
 	private Button favourite_meal_list;
@@ -61,13 +62,13 @@ public class Profil_Client extends Activity {
 		c = new Client (sqliteHelper, emailClient);
 		Log.v("start",emailClient);
 		//We can now define all the widgets
-		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
-		name = (TextView) findViewById(R.id.profil_client_name_edit_text);
-		gsm = (TextView) findViewById(R.id.profil_client_gsm_edit_text);
+		email = (TextView) findViewById(R.id.profil_client_email_text_view);
+		name = (EditText) findViewById(R.id.profil_client_name_edit_text);
+		gsm = (EditText) findViewById(R.id.profil_client_gsm_edit_text);
 		
-		new_specificity = (TextView) findViewById(R.id.profil_client_new_specificity_edit_text);
-		new_favourite_meal = (TextView) findViewById(R.id.profil_client_new_favourite_meal_edit_text);
-		new_favourite_restaurant = (TextView) findViewById(R.id.profil_client_new_favourite_restaurant_edit_text);
+		new_specificity = (EditText) findViewById(R.id.profil_client_new_specificity_edit_text);
+		new_favourite_meal = (EditText) findViewById(R.id.profil_client_new_favourite_meal_edit_text);
+		new_favourite_restaurant = (EditText) findViewById(R.id.profil_client_new_favourite_restaurant_edit_text);
 		
 		specificity_list = (Button) findViewById(R.id.profil_client_specificity_list_button);
 		favourite_meal_list = (Button) findViewById(R.id.profil_client_favourite_meal_list_button);
@@ -81,10 +82,11 @@ public class Profil_Client extends Activity {
 		
 		//We already fill the data of the Client if they exist
 		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
-		email.setText(c.getEmail()); 
-		name.setText(c.getName(false));
-		if (c.getGsm(false)!=null) {
-			gsm.setText(c.getGsm(false));
+		
+		email.setText(email.getText() + " " + c.getEmail()); 
+		name.setText(c.getName(true));
+		if (c.getGsm(true)!=null) {
+			gsm.setText(c.getGsm(true));
 		}
 
 		//We define all the listeners
@@ -368,30 +370,26 @@ public class Profil_Client extends Activity {
 		update.setOnClickListener(new View.OnClickListener() {//Update the informations
 			@Override
 			public void onClick(View v) {
-				if(email.getText().toString()==null) {//If important information is not filled
-					Toast toast = Toast.makeText(context, getString(R.string.profil_client_email) + getString(R.string.profil_client_toast_mandatory), Toast.LENGTH_SHORT);
-					toast.show();
-					email.setText(c.getEmail());
-					return;
-				}
 				if(name.getText().toString()==null) {//If important information is not filled
+					name.setText(c.getName(false));
 					Toast toast = Toast.makeText(context, getString(R.string.profil_client_name) + getString(R.string.profil_client_toast_mandatory), Toast.LENGTH_SHORT);
 					toast.show();
-					name.setText(c.getName(false));
+					
 					return;
 				}
-				if (!(c.setEmail(email.getText().toString()))) {//If it already exists
-					Toast toast = Toast.makeText(context, email.getText().toString() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
-					toast.show();
-					email.setText(c.getEmail());
-				}
-				if(!(c.setName(name.getText().toString()))) {//If it already exists
+				int value = Client.isInDatabase(sqliteHelper, (String) c.getEmail(), name.getText().toString());
+				if(value==2 && c.getName(false).equals(name.getText().toString())) {//If it already exists
+					name.setText(c.getName(false));
 					Toast toast = Toast.makeText(context, name.getText().toString() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
 					toast.show();
-					name.setText(c.getName(false));
+					
 					return;
 				}
-				c.setGsm(gsm.getText().toString());
+				c.setName(name.getText().toString());
+				
+				if (gsm.getText().toString().length()>0) {
+					c.setGsm(gsm.getText().toString());
+				}
 				
 				if (new_specificity.getText().toString().length()>0) {
 					c.addSpecificite(new_specificity.getText().toString());
@@ -426,6 +424,16 @@ public class Profil_Client extends Activity {
 			}
 		});
 		
+	}
+	
+	@Override
+	public void onStop() {
+		
+		new_specificity.setText("");
+		new_favourite_meal.setText("");
+		new_favourite_restaurant.setText("");
+		
+		super.onStop();
 	}
 	
 }

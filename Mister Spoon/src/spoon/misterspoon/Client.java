@@ -5,7 +5,6 @@ import java.util.Calendar;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class Client {
 
@@ -200,51 +199,51 @@ public class Client {
 		return this.email;
 	}
 
-	/* 
-	 * @param : email is not null and not already in the database
-	 * @post : try to change the database and return true or false
-	 * if it's a success or not
-	 */
-	public boolean setEmail (String email) {
-
-		if(email==null) {
-			return false;
-		}
-		if (email.equals(this.email)) {
-			return true;
-		}
-
-		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-
-		//Test
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[1] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'", null);
-		if (cursor.moveToFirst()) {//If the email already exists
-			db.close();
-			return false;
-		}
-
-		// We modify the database
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_FavouriteMeal + " SET " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_FavouriteMeal + " SET " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + "'"+email+"'" + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Booking + " SET " + MySQLiteHelper.Booking_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Booking + " SET " + MySQLiteHelper.Booking_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Order + " SET " + MySQLiteHelper.Order_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Order + " SET " + MySQLiteHelper.Order_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_FavouriteRestaurant + " SET " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_FavouriteRestaurant + " SET " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + "'"+email+"'" + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Specificity + " SET " + MySQLiteHelper.Specificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Specificity_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Specificity + " SET " + MySQLiteHelper.Specificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Specificity_column[1] + " = " + "'"+email+"'" + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Allergy + " SET " + MySQLiteHelper.Allergy_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Allergy_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Allergy + " SET " + MySQLiteHelper.Allergy_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Allergy_column[1] + " = " + "'"+email+"'" + " ;");
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_MealSpecificity + " SET " + MySQLiteHelper.MealSpecificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.MealSpecificity_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_MealSpecificity + " SET " + MySQLiteHelper.MealSpecificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.MealSpecificity_column[1] + " = " + "'"+email+"'" + " ;");
-
-		db.close();
-		this.email = email;
-		return true;
-	}
+//	/* 
+//	 * @param : email is not null and not already in the database
+//	 * @post : try to change the database and return true or false
+//	 * if it's a success or not
+//	 */
+//	public boolean setEmail (String email) {
+//
+//		if(email==null) {
+//			return false;
+//		}
+//		if (email.equals(this.email)) {
+//			return true;
+//		}
+//
+//		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+//
+//		//Test
+//		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[1] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'", null);
+//		if (cursor.moveToFirst()) {//If the email already exists
+//			db.close();
+//			return false;
+//		}
+//
+//		// We modify the database
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_FavouriteMeal + " SET " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_FavouriteMeal + " SET " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + "'"+email+"'" + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Booking + " SET " + MySQLiteHelper.Booking_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Booking + " SET " + MySQLiteHelper.Booking_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Order + " SET " + MySQLiteHelper.Order_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Order + " SET " + MySQLiteHelper.Order_column[2] + " = " + email + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_FavouriteRestaurant + " SET " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_FavouriteRestaurant + " SET " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + email + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + "'"+email+"'" + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Specificity + " SET " + MySQLiteHelper.Specificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Specificity_column[1] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Specificity + " SET " + MySQLiteHelper.Specificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Specificity_column[1] + " = " + "'"+email+"'" + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Allergy + " SET " + MySQLiteHelper.Allergy_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Allergy_column[1] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Allergy + " SET " + MySQLiteHelper.Allergy_column[1] + " = " + email + " WHERE " + MySQLiteHelper.Allergy_column[1] + " = " + "'"+email+"'" + " ;");
+//		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_MealSpecificity + " SET " + MySQLiteHelper.MealSpecificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.MealSpecificity_column[1] + " = " + "'"+email+"'" + " ;");
+//		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_MealSpecificity + " SET " + MySQLiteHelper.MealSpecificity_column[1] + " = " + email + " WHERE " + MySQLiteHelper.MealSpecificity_column[1] + " = " + "'"+email+"'" + " ;");
+//
+//		db.close();
+//		this.email = email;
+//		return true;
+//	}
 
 	/*
 	 * @post : if updateData is true, we will ask to the Class GPS to get the new coordinates
@@ -366,8 +365,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + "'"+gsm+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + "'"+gsm+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + "'"+name+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + "'"+name+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
 
 		db.close();
 
