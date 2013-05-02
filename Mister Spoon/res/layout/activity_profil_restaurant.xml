@@ -203,9 +203,6 @@
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_appliquer" />
         </LinearLayout>
-
-        <EditText>
-        </EditText>
     </LinearLayout>
 
 </ScrollView>
