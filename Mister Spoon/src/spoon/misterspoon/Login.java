@@ -188,6 +188,7 @@ public class Login extends Activity {
 				int InDatabase = Client.isInDatabase(sql, email_register.getText().toString(), nom_register.getText().toString());
 				if (InDatabase==0) {//If there is no problem
 					Client.createClient(sql, email_register.getText().toString(), nom_register.getText().toString());
+					Log.v("fuck","me");
 					Intent i = new Intent(Login.this, Profil_Client.class);
 					i.putExtra(email, email_login.getText().toString());
 					startActivity(i);

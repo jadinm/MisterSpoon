@@ -52,10 +52,11 @@ public class Profil_Client extends Activity {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailClient = i.getStringExtra(Login.email);
+		
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);//TODO
-
+		Log.v("fuck","la");
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
 		name = (TextView) findViewById(R.id.profil_client_name_edit_text);
@@ -74,8 +75,9 @@ public class Profil_Client extends Activity {
 		
 		update = (Button) findViewById(R.id.profil_client_update_button);
 		next = (Button) findViewById(R.id.profil_client_next_button);
-		
+		Log.v("fuck","la");
 		//We already fill the data of the Client if they exist
+		Log.v("fuck",c.getName(false));
 		email.setText(c.getEmail()); 
 		name.setText(c.getName(false)); 
 		if (c.getGsm(false)!=null) {
