@@ -288,7 +288,7 @@ public class Client {
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[3] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + email,null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[3] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'",null);
 			if (cursor.moveToFirst()) {
 				gsm = cursor.getString(0);
 			}
@@ -307,8 +307,8 @@ public class Client {
 
 		if (gsm == null && this.gsm != null) {
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "NULL" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
-			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "NULL" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "NULL" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "NULL" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
 			db.close();
 			this.gsm = null;
 			return;
@@ -323,8 +323,8 @@ public class Client {
 		}
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + gsm + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + gsm + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "'"+gsm+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[3] + " = " + "'"+gsm+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
 		db.close();
 
 		this.gsm = gsm;
@@ -340,7 +340,7 @@ public class Client {
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[2] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + email,null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[2] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'",null);
 			if (cursor.moveToFirst()) {
 				name = cursor.getString(0);
 			}
@@ -366,8 +366,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + gsm + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + gsm + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + email + " ;");
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + "'"+gsm+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[2] + " = " + "'"+gsm+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
 
 		db.close();
 
@@ -387,7 +387,7 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			restFav.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT" + MySQLiteHelper.FavouriteRestaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + "=" + email, null);
+			Cursor cursor = db.rawQuery("SELECT" + MySQLiteHelper.FavouriteRestaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + "=" + "'"+email+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
 					restFav.add(new Restaurant (cursor.getString(0)));
@@ -422,8 +422,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + email + ", " + restaurant.getRestaurantName() + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + email + ", " + restaurant.getRestaurantName() + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+restaurant.getRestaurantName()+"'" + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+restaurant.getRestaurantName()+"'" + ");");
 
 		db.close();
 	}
@@ -457,8 +457,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[2] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + email + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[2] + " = " + restaurant.getRestaurantName() + " AND " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + email + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[2] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + "'"+email+"'" + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[2] + " = " + "'"+email+"'" + ", " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.FavouriteRestaurant_column[1] + " = " + "'"+email+"'" + ";");
 
 		db.close();
 
@@ -475,7 +475,7 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			specificite.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Specificity_column[2] + " FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[1] + "=" + email, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Specificity_column[2] + " FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[1] + "=" + "'"+email+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
 					specificite.add(cursor.getString(0));
@@ -510,8 +510,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Specificity + "(" + MySQLiteHelper.Specificity_column[1] + ", "  + MySQLiteHelper.Specificity_column[2] + ") VALUES (" + email + ", " + specificite + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Specificity + "(" + MySQLiteHelper.Specificity_column[1] + ", "  + MySQLiteHelper.Specificity_column[2] + ") VALUES (" + email + ", " + specificite + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Specificity + "(" + MySQLiteHelper.Specificity_column[1] + ", "  + MySQLiteHelper.Specificity_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+specificite+"'" + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Specificity + "(" + MySQLiteHelper.Specificity_column[1] + ", "  + MySQLiteHelper.Specificity_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+specificite+"'" + ");");
 
 		db.close();
 	}
@@ -545,8 +545,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[2] + " = " + specificite + " AND " + MySQLiteHelper.Specificity_column[1] + " = " + email + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[2] + " = " + specificite + " AND " + MySQLiteHelper.Specificity_column[1] + " = " + email + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[2] + " = " + "'"+specificite+"'" + " AND " + MySQLiteHelper.Specificity_column[1] + " = " + "'"+email+"'" + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[2] + " = " + "'"+specificite+"'" + " AND " + MySQLiteHelper.Specificity_column[1] + " = " + "'"+email+"'" + ";");
 
 		db.close();
 	}
@@ -562,7 +562,7 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			allergie.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Allergy_column[2] + " FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[1] + "=" + email, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Allergy_column[2] + " FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[1] + "=" + "'"+email+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
 					allergie.add(cursor.getString(0));
@@ -597,8 +597,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Allergy + "(" + MySQLiteHelper.Allergy_column[1] + ", "  + MySQLiteHelper.Allergy_column[2] + ") VALUES (" + email + ", " + allergie + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Allergy + "(" + MySQLiteHelper.Allergy_column[1] + ", "  + MySQLiteHelper.Allergy_column[2] + ") VALUES (" + email + ", " + allergie + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Allergy + "(" + MySQLiteHelper.Allergy_column[1] + ", "  + MySQLiteHelper.Allergy_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+allergie+"'" + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Allergy + "(" + MySQLiteHelper.Allergy_column[1] + ", "  + MySQLiteHelper.Allergy_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+allergie+"'" + ");");
 
 		db.close();
 	}
@@ -633,8 +633,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[2] + " = " + allergie + " AND " + MySQLiteHelper.Allergy_column[1] + " = " + email + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[2] + " = " + allergie + " AND " + MySQLiteHelper.Allergy_column[1] + " = " + email + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[2] + " = " + "'"+allergie+"'" + " AND " + MySQLiteHelper.Allergy_column[1] + " = " + "'"+email+"'" + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[2] + " = " + "'"+allergie+"'" + " AND " + MySQLiteHelper.Allergy_column[1] + " = " + "'"+email+"'" + ";");
 
 		db.close();
 	}
@@ -650,7 +650,7 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			platFav.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.FavouriteMeal_column[2] + " FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + "=" + email, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.FavouriteMeal_column[2] + " FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + "=" + "'"+email+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
 					platFav.add(new Meal (cursor.getString(0)));
@@ -685,8 +685,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteMeal + "(" + MySQLiteHelper.FavouriteMeal_column[1] + ", "  + MySQLiteHelper.FavouriteMeal_column[2] + ") VALUES (" + email + ", " + platFav.getMealName() + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteMeal + "(" + MySQLiteHelper.FavouriteMeal_column[1] + ", "  + MySQLiteHelper.FavouriteMeal_column[2] + ") VALUES (" + email + ", " + platFav.getMealName() + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteMeal + "(" + MySQLiteHelper.FavouriteMeal_column[1] + ", "  + MySQLiteHelper.FavouriteMeal_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+platFav.getMealName()+"'" + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteMeal + "(" + MySQLiteHelper.FavouriteMeal_column[1] + ", "  + MySQLiteHelper.FavouriteMeal_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+platFav.getMealName()+"'" + ");");
 
 		db.close();
 	}
@@ -720,8 +720,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[2] + " = " + platFav.getMealName() + " AND " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + email + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[2] + " = " + platFav.getMealName() + " AND " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + email + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[2] + " = " + "'"+platFav.getMealName()+"'" + " AND " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + "'"+email+"'" + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[2] + " = " + "'"+platFav.getMealName()+"'" + " AND " + MySQLiteHelper.FavouriteMeal_column[1] + " = " + "'"+email+"'" + ";");
 
 		db.close();
 	}
@@ -737,7 +737,7 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			preBooking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + email + " GROUP BY " + MySQLiteHelper.Order_column[1], null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " GROUP BY " + MySQLiteHelper.Order_column[1], null);
 			if (cursor.moveToFirst()) {//If the information exists
 				ArrayList <Meal> Commande;
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
@@ -811,8 +811,8 @@ public class Client {
 			String MealName = (preBooking.getCommande().get(i)).getMealName();
 			int quantite = (preBooking.getCommande().get(i)).getMealStock(false);
 
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + email + ", " + MealName + ", " + quantite + ");");
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + email + ", " + MealName + ", " + quantite + ");");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + "'"+email+"'" + ", " + MealName + ", " + quantite + ");");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + MealName + ", " + quantite + ");");
 		}
 
 		db.close();
@@ -877,8 +877,8 @@ public class Client {
 
 		String restNom = preBooking.getRestaurant().getRestaurantName();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " is NULL ;");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " is NULL ;");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restNom+"'" + " AND " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " AND " + MySQLiteHelper.Order_column[3] + " is NULL ;");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " AND " + MySQLiteHelper.Order_column[3] + " is NULL ;");
 
 		db.close();
 
@@ -900,7 +900,7 @@ public class Client {
 
 			Meal currentMeal = preBooking.getCommande().get(i);
 
-			Cursor cursor = db.rawQuery("SELECT DISTINCT P.platNom FROM Plat P, Commande C, (SELECT C.platNom, total(C.quantite) as quantite FROM Commande C WHERE C.restNom = "+ preBooking.getRestaurant().getRestaurantName() +" GROUP BY C.platNom) AS Somme WHERE P.platNom = " + currentMeal.getMealName() + " AND P.platNom = C.platNom AND P.RestNom = C.restNom AND  C.RestNom = " + preBooking.getRestaurant().getRestaurantName() + " AND P.platNom=Somme.platNom AND P.stock - Somme.quantite - " + currentMeal.getMealStock(false) + " >= 0 ", null);
+			Cursor cursor = db.rawQuery("SELECT DISTINCT P.platNom FROM Plat P, Commande C, (SELECT C.platNom, total(C.quantite) as quantite FROM Commande C WHERE C.restNom = "+ "'"+preBooking.getRestaurant().getRestaurantName()+"'" +" GROUP BY C.platNom) AS Somme WHERE P.platNom = " + "'"+currentMeal.getMealName()+"'" + " AND P.platNom = C.platNom AND P.RestNom = C.restNom AND  C.RestNom = " + "'"+preBooking.getRestaurant().getRestaurantName()+"'" + " AND P.platNom=Somme.platNom AND P.stock - Somme.quantite - " + currentMeal.getMealStock(false) + " >= 0 ", null);
 			if (!cursor.moveToFirst()) {//If there isn't enough stock for that meal
 				db.close();
 				return false;
@@ -945,7 +945,7 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			booking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + email + " GROUP BY " + MySQLiteHelper.Booking_column[1], null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " GROUP BY " + MySQLiteHelper.Booking_column[1], null);
 			if (cursor.moveToFirst()) {//If the information exists
 
 				ArrayList <Meal> Commande = new ArrayList <Meal> ();
@@ -959,7 +959,7 @@ public class Client {
 				Calendar calendar = Calendar.getInstance();
 				calendar.set(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
 
-				Cursor cursor2 = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + email + " AND " + MySQLiteHelper.Order_column[1] + " = " + cursor.getString(0) + " AND " + MySQLiteHelper.Order_column[3] + " = " + cursor.getString(4) , null);
+				Cursor cursor2 = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " AND " + MySQLiteHelper.Order_column[1] + " = " + "'"+cursor.getString(0)+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursor.getString(4)+"'" , null);
 				if (cursor2.moveToFirst()) {//If there is an order for this restaurant
 
 					while(!cursor2.isAfterLast()) {
@@ -1046,16 +1046,16 @@ public class Client {
 
 		String restNom = booking.getRestaurant().getRestaurantName();
 
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + restNom + ", " + email + ", " + nbrPlace + ", " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ");");
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + restNom + ", " + email + ", " + nbrPlace + ", " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ");");
 
 		if (booking.getCommande() != null) {
 			for(int i=0; i<booking.getCommande().size(); i++) {
 				String MealName = (booking.getCommande().get(i)).getMealName();
 				int quantite = (booking.getCommande().get(i)).getMealStock(false);
 
-				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + email + ", " + time.toString() + ", " + MealName + ", " + quantite + ");");
-				MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + email + ", " + time.toString() + ", " + MealName + ", " + quantite + ");");
+				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + "'"+email+"'" + ", " + time.toString() + ", " + MealName + ", " + quantite + ");");
+				MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + "'"+email+"'" + ", " + time.toString() + ", " + MealName + ", " + quantite + ");");
 			}
 		}
 
@@ -1133,12 +1133,12 @@ public class Client {
 
 		String restNom = booking.getRestaurant().getRestaurantName();
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + email + " AND " + MySQLiteHelper.Booking_column[4] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + email + " AND " + MySQLiteHelper.Booking_column[4] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " AND " + MySQLiteHelper.Booking_column[4] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " AND " + MySQLiteHelper.Booking_column[4] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
 
 		if(booking.getCommande()!=null) {//We had the order if it exists
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + email + " AND " + MySQLiteHelper.Order_column[3] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
+			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
+			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + restNom + " AND " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE) + " " +  time.toString() + ";");
 		}
 
 		db.close();
