@@ -115,5 +115,14 @@ public class Menu {
 		return MealList;
 	}
 	
+	public void addMeal(Meal meal) {
+		MealList.add(meal);
+	}
+	
+	public void removeMeal(String mealName) {
+		MealList.remove(mealName);//TODO
+	}	
+	
+	
 	
 }

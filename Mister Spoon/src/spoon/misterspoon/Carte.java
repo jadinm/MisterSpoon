@@ -7,20 +7,26 @@ public class Carte {
 	boolean ordrePrixCroissant;
 	ArrayList <Meal> platsFav;
 	ArrayList <String> filterList;
+	ArrayList <Menu> menuList;
 	
-	public Carte(MySQLiteHelper sqliteHelper, boolean ordrePrixCroissant, ArrayList <Meal> platsFav,	ArrayList <String> filterList) {
+	public Carte(MySQLiteHelper sqliteHelper, ArrayList<Menu> menuList, boolean ordrePrixCroissant, ArrayList <Meal> platsFav,	ArrayList <String> filterList) {
 		this.sqliteHelper = sqliteHelper;
 		this.ordrePrixCroissant = ordrePrixCroissant;
 		this.platsFav = platsFav;
 		this.filterList = filterList;
+		this.menuList = menuList;
 	}
 	
-	public Carte(MySQLiteHelper sqliteHelper2, String restaurantName) {
-		// TODO Auto-generated constructor stub
-	}
-
 	public void sort(boolean sortPrixCroissant) {
-		//hello ?
+		//TODO
 	}
+	
+	public void addMenu(Menu menu) {
+		menuList.add(menu);
+	}
+	
+	public void removeMeal(Menu menu) {
+		menuList.remove(menu);
+	}	
 
 }
