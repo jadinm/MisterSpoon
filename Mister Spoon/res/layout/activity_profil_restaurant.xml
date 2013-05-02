@@ -9,12 +9,6 @@
         android:layout_margin="15dp"
         android:orientation="vertical" >
 
-        <Gallery
-            android:id="@+id/profil_restaurant_gallery"
-            android:layout_width="match_parent"
-            android:layout_height="253dp"
-            android:paddingBottom="30dp" />
-
         <TextView
             android:id="@+id/profil_restaurant_mail"
             android:layout_width="fill_parent"
