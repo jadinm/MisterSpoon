@@ -108,6 +108,7 @@
     <string name="profil_restaurant_capacite">Capacité :</string>
     <string name="profil_restaurant_toast_gps">Ces coordonnées existent déjà</string>
     <string name="profil_restaurant_toast_phone">Ce numéro existe déjà</string>
+    <string name="profil_restaurant_toast_missing">Veuillez entrer tous le champs</string>
 
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>

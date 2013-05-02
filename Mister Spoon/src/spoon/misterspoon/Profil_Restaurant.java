@@ -81,7 +81,7 @@ public class Profil_Restaurant extends Activity {
 		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
 
 		email_perso.setText(email_perso.getText() + " " + r.getEmail()); 
-		email_public.setText(r.getRestaurant().getRestaurantName());
+		email_public.setText(r.getRestaurant().getRestaurantEmail(false));
 		gsm.setText(r.getRestaurant().getRestaurantPhone(false));
 		rue.setText(r.getRestaurant().getRestaurantRue(false));
 		town.setText(r.getRestaurant().getRestaurantVille(false));
@@ -128,72 +128,58 @@ public class Profil_Restaurant extends Activity {
 					r.setRestaurantPhone(gsm.getText().toString());
 				}
 				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
 					toast.show();
 				}
 				if (fax.getText().toString().length()>0) {
 					r.setRestaurantFax(fax.getText().toString());
 				}
-				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
-					toast.show();
-				}
+
 				if (web.getText().toString().length()>0) {
 					r.setRestaurantWebSite(web.getText().toString());
 				}
-				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
-					toast.show();
-				}
+
 				if (email_public.getText().toString().length()>0) {
 					r.setRestaurantEmail(email_public.getText().toString());
 				}
-				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
-					toast.show();
-				}
+
 				if (num.getText().toString().length()>0) {
 					r.setRestaurantNumero(Integer.parseInt(num.getText().toString()));
 				}
-				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
-					toast.show();
-				}
+
+
 				if (rue.getText().toString().length()>0) {
 					r.setRestaurantRue(rue.getText().toString());
 				}
 				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
 					toast.show();
 				}
 				if (town.getText().toString().length()>0) {
 					r.setRestaurantVille(town.getText().toString());
 				}
 				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
 					toast.show();
 				}
 				if (longitude.getText().toString().length()>0 && latitude.getText().toString().length()>0) {
 					r.setRestaurantPosition(new GPS(Double.parseDouble(longitude.getText().toString()), Double.parseDouble(latitude.getText().toString())));
 				}
 				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
 					toast.show();
 				}
 				if (capa.getText().toString().length()>0) {
 					r.setRestaurantCapacity(Integer.parseInt(capa.getText().toString()));
 				}
 				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context, getString(R.string.profil_restaurant_toast_missing), Toast.LENGTH_SHORT);
 					toast.show();
 				}
 				if (description.getText().toString().length()>0) {
 					r.setRestaurantDescription(description.getText().toString());
 				}
-				else {
-					Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
-					toast.show();
-				}
+
 
 				Toast toasted = Toast.makeText(context, getString(R.string.profil_client_toast_uptodate), Toast.LENGTH_SHORT);
 				toasted.show();

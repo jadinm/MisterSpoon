@@ -122,8 +122,8 @@ public class RestaurantOwner {
 		if(!email.equals(restaurant.getRestaurantEmail(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+email+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " +"'"+emailPerso+"'" + " ;");
-			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+email+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+email+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[3] + " = " + "'"+email+"'" + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " +"'"+restaurant.getRestaurantPhone(false)+"'" + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[3] + " = " + "'"+email+"'" + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " +"'"+restaurant.getRestaurantPhone(false)+"'" + " ;");
 			db.close();
 			restaurant.setRestaurantEmail(email);
 			return true;
@@ -219,8 +219,8 @@ public class RestaurantOwner {
 		if(!webSite.equals(restaurant.getRestaurantWebSite(false))){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[5] + " = " + "'"+webSite+"'" + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + "'"+emailPerso+"'" + " ;");
-			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[5] + " = " + "'"+webSite+"'" + " WHERE " + MySQLiteHelper.Contact_column[4] + " = " + "'"+emailPerso+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[4] + " = " + "'"+webSite+"'" + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+restaurant.getRestaurantPhone(false)+"'" + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Contact + " SET " + MySQLiteHelper.Contact_column[4] + " = " + "'"+webSite+"'" + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+restaurant.getRestaurantPhone(false)+"'" + " ;");
 			db.close();
 			restaurant.setRestaurantWebSite(webSite);
 			return true;
