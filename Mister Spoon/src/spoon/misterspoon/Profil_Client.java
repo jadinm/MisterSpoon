@@ -1,5 +1,6 @@
 package spoon.misterspoon;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -47,6 +48,7 @@ public class Profil_Client extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_profil_client);
 		
 		//We get the intent sent by Login
@@ -58,7 +60,7 @@ public class Profil_Client extends Activity {
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);//TODO
-		
+		Log.v("start",emailClient);
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
 		name = (TextView) findViewById(R.id.profil_client_name_edit_text);
@@ -77,11 +79,7 @@ public class Profil_Client extends Activity {
 		
 		update = (Button) findViewById(R.id.profil_client_update_button);
 		next = (Button) findViewById(R.id.profil_client_next_button);
-		Log.v("start","start");
-		Log.v("mail",c.getEmail());
-		if (c.getEmail()!=null) Log.v("null","null");
-		//Log.v("nom",c.getName(false));
-		Log.v("start","end");
+		
 		//We already fill the data of the Client if they exist
 		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
 		email.setText(c.getEmail()); 

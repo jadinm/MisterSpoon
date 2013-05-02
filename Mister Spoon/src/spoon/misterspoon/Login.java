@@ -1,5 +1,6 @@
 package spoon.misterspoon;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +52,7 @@ public class Login extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_login);
 
 		themeD = (Button)findViewById(R.id.activity_login_dark);
