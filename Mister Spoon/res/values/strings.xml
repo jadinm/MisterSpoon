@@ -106,6 +106,7 @@
     <string name="profil_restaurant_appliquer">Appliquer</string>
     <string name="profil_restaurant_title">Restaurant</string>
     <string name="profil_restaurant_mail_public">Email :</string>
+    <string name="profil_restaurant_capacite">Capacité :</string>
     
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>

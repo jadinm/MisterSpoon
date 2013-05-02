@@ -148,6 +148,15 @@
                 android:inputType="numberDecimal"/>
         </LinearLayout>
         
+        <EditText
+            android:id="@+id/profil_restaurant_capacite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/profil_restaurant_capacite"
+            android:inputType="number"
+            android:layout_marginBottom="20dp" >
+        </EditText>
+        
 
         <EditText
             android:id="@+id/profil_restaurant_description"
