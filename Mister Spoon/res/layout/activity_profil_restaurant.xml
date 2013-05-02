@@ -19,9 +19,9 @@
             android:id="@+id/profil_restaurant_mail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:gravity="left"
-            android:text="@string/profil_restaurant_mail"
-            android:layout_marginBottom="20dp" >
+            android:text="@string/profil_restaurant_mail" >
         </TextView>
 
         <LinearLayout
@@ -50,38 +50,32 @@
                 android:inputType="phone" />
         </LinearLayout>
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/profil_restaurant_web"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            android:weightSum="2" >
+            android:layout_weight="1"
+            android:gravity="left"
+            android:hint="@string/profil_restaurant_web"
+            android:inputType="textUri" >
+        </EditText>
 
-            <EditText
-                android:id="@+id/profil_restaurant_web"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:hint="@string/profil_restaurant_web" />
-
-            <EditText
-                android:id="@+id/profil_restaurant_mail_public"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:hint="@string/profil_restaurant_mail_public"
-                android:inputType="textEmailAddress" >
-            </EditText>
-        </LinearLayout>
+        <EditText
+            android:id="@+id/profil_restaurant_mail_public"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:hint="@string/profil_restaurant_mail_public"
+            android:inputType="textEmailAddress" >
+        </EditText>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="5"            
-            android:paddingBottom="20dp" >
+            android:paddingBottom="20dp"
+            android:weightSum="5" >
 
             <EditText
                 android:id="@+id/profil_restaurant_edit_numero"
@@ -89,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/numero"
-                android:inputType="number"/>
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/profil_restaurant_edit_rue"
@@ -105,15 +99,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="@string/ville"
-                android:inputType="text"/>
+                android:inputType="text" />
         </LinearLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="5"
-            android:paddingBottom="20dp" >
+            android:paddingBottom="20dp"
+            android:weightSum="5" >
 
             <TextView
                 android:id="@+id/gps"
@@ -121,7 +115,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="@string/gps"/>
+                android:text="@string/gps" />
 
             <EditText
                 android:id="@+id/profil_restaurant_edit_gps_longitude"
@@ -129,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="@string/gps_longitude"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:id="@+id/gps2"
@@ -137,7 +131,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/gps2"/>
+                android:text="@string/gps2" />
 
             <EditText
                 android:id="@+id/profil_restaurant_edit_gps_latitude"
@@ -145,28 +139,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="@string/gps_latitude"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
         </LinearLayout>
-        
+
         <EditText
             android:id="@+id/profil_restaurant_capacite"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:hint="@string/profil_restaurant_capacite"
-            android:inputType="number"
-            android:layout_marginBottom="20dp" >
+            android:inputType="number" >
         </EditText>
-        
 
         <EditText
             android:id="@+id/profil_restaurant_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:hint="@string/profil_restaurant_description"
-            android:inputType="textMultiLine"
-            android:layout_marginBottom="20dp" >
+            android:inputType="textMultiLine" >
         </EditText>
-        
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -210,6 +203,9 @@
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_appliquer" />
         </LinearLayout>
+
+        <EditText>
+        </EditText>
     </LinearLayout>
 
 </ScrollView>
