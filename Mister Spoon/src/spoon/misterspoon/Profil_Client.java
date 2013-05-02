@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ public class Profil_Client extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_profil_client);
 		
 		//We get the intent sent by Login
 		Intent i = getIntent();
@@ -54,7 +55,7 @@ public class Profil_Client extends Activity {
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);//TODO
-		
+
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
 		name = (TextView) findViewById(R.id.profil_client_name_edit_text);
@@ -75,14 +76,14 @@ public class Profil_Client extends Activity {
 		next = (Button) findViewById(R.id.profil_client_next_button);
 		
 		//We already fill the data of the Client if they exist
-		email.setText(c.getEmail()); //NullPointerException
-		name.setText(c.getName(false)); //NullPointerException
+		email.setText(c.getEmail()); 
+		name.setText(c.getName(false)); 
 		if (c.getGsm(false)!=null) {
 			gsm.setText(c.getGsm(false));
 		}
 		
 		//We define all the listeners
-		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box //NullPointerException
+		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box 
 			@Override
 			public void onClick(View v) {
 				

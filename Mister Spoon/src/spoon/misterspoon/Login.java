@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +57,7 @@ public class Login extends Activity {
 		themeL = (Button)findViewById(R.id.activity_login_light);
 
 		email_login = (EditText) findViewById(R.id.email);
+		
 		login = (Button) findViewById(R.id.butlogin);
 
 		resto_client = (RadioGroup) findViewById(R.id.radGrpRC);

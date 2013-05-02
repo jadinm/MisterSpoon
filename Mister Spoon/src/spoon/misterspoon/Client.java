@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class Client {
 
@@ -45,7 +46,7 @@ public class Client {
 		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		this.email = email;
-
+		
 		//GSM
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[3] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists
@@ -57,7 +58,8 @@ public class Client {
 		if (cursor.moveToFirst()) {//If the information exists
 			this.name = cursor.getString(0);
 		}
-
+		
+		
 		//restFav
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.FavouriteRestaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_FavouriteRestaurant + " WHERE " + MySQLiteHelper.FavouriteRestaurant_column[1] + "=" + "'"+email+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists
@@ -66,15 +68,18 @@ public class Client {
 				cursor.moveToNext();
 			}
 		}
-
+		
+		
 		//specificite
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Specificity_column[2] + " FROM " + MySQLiteHelper.TABLE_Specificity + " WHERE " + MySQLiteHelper.Specificity_column[1] + "=" + "'"+email+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists
 			while (!cursor.isAfterLast()) {//As long as there is one element to read
 				specificite.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 
+		
 		//allergie
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Allergy_column[2] + " FROM " + MySQLiteHelper.TABLE_Allergy + " WHERE " + MySQLiteHelper.Allergy_column[1] + "=" + "'"+email+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists
@@ -83,6 +88,7 @@ public class Client {
 				cursor.moveToNext();
 			}
 		}
+		
 
 		//platFav
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.FavouriteMeal_column[2] + " FROM " + MySQLiteHelper.TABLE_FavouriteMeal + " WHERE " + MySQLiteHelper.FavouriteMeal_column[1] + "=" + "'"+email+"'", null);
@@ -93,6 +99,7 @@ public class Client {
 			}
 		}
 
+		
 		//preBooking
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " GROUP BY " + MySQLiteHelper.Order_column[1], null);
 		if (cursor.moveToFirst()) {//If the information exists
@@ -100,14 +107,14 @@ public class Client {
 			while (!cursor.isAfterLast()) {//As long as there is one element to read
 				String currentResto = cursor.getString(0);
 				Commande = new ArrayList <Meal> ();
-				while(!cursor.isAfterLast() && currentResto == cursor.getString(0)) {
+				while(!cursor.isAfterLast() && currentResto.equals(cursor.getString(0))) {
 					Commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 					cursor.moveToNext();
 				}
 				preBooking.add(new PreBooking(new Restaurant (currentResto), Commande));
 			}
 		}
-
+		
 		//Booking
 		cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[1] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " AND B." + MySQLiteHelper.Booking_column[1] + " = O." + MySQLiteHelper.Order_column[1] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[1], null);
 		if (cursor.moveToFirst()) {//If the information exists
