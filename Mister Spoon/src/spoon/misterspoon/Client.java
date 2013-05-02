@@ -190,8 +190,7 @@ public class Client {
 
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ");");
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ");");
-
-		db.close();
+		//db.close();
 	}
 
 	/*

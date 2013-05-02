@@ -43,6 +43,7 @@ public class Profil_Client extends Activity {
 	private String [] items;
 	
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,10 +54,11 @@ public class Profil_Client extends Activity {
 		//We take the informations about the person who's logged (!!!! label)
 		String emailClient = i.getStringExtra(Login.email);
 		
+		
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);//TODO
-		Log.v("fuck","la");
+		
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
 		name = (TextView) findViewById(R.id.profil_client_name_edit_text);
@@ -75,15 +77,19 @@ public class Profil_Client extends Activity {
 		
 		update = (Button) findViewById(R.id.profil_client_update_button);
 		next = (Button) findViewById(R.id.profil_client_next_button);
-		Log.v("fuck","la");
+		Log.v("start","start");
+		Log.v("mail",c.getEmail());
+		if (c.getEmail()!=null) Log.v("null","null");
+		//Log.v("nom",c.getName(false));
+		Log.v("start","end");
 		//We already fill the data of the Client if they exist
-		Log.v("fuck",c.getName(false));
+		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
 		email.setText(c.getEmail()); 
 		name.setText(c.getName(false)); 
 		if (c.getGsm(false)!=null) {
 			gsm.setText(c.getGsm(false));
 		}
-		
+
 		//We define all the listeners
 		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box 
 			@Override
