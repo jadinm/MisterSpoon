@@ -46,10 +46,10 @@
     <string name="profil_client_name">Nom *</string>
     <string name="profil_client_gsm">GSM</string>
     <string name="profil_client_allergy_list">Liste d\'allergies</string>
-    <string name="profil_client_allergy_gluten">Gluten</string>
-    <string name="profil_client_allergy_noix">Noix</string>
-    <string name="profil_client_allergy_cacahuete">Cacahuète</string>
-    <string name="profil_client_allergy_banane">Banane</string>
+    <string name="profil_client_allergy_gluten">gluten</string>
+    <string name="profil_client_allergy_noix">noix</string>
+    <string name="profil_client_allergy_cacahuete">cacahuète</string>
+    <string name="profil_client_allergy_banane">banane</string>
     <string name="profil_client_new_specificity">Nouvelle spécificité</string>
     <string name="profil_client_specificity_list">Vos spécificités</string>
     <string name="profil_client_new_favourite_meal">Nouveau plat favori</string>
