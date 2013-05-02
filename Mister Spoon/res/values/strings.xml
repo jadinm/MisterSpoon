@@ -62,7 +62,7 @@
     <string name="profil_client_new_favourite_restaurant">Nouveau restaurant favori</string>
     <string name="profil_client_favourite_restaurant_list">Vos restaurants favoris</string>
     <string name="profil_client_booking">Réservations</string>
-    <string name="profil_client_preBooking">Pré-réservations</string>
+    <string name="profil_client_prebooking">Pré-réservations</string>
     <string name="profil_client_update">Mettre à jour votre profil</string>
     <string name="profil_client_next">Passer à table!</string>
     <string name="profil_client_mandatory">* champs obligatoires</string>

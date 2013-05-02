@@ -74,7 +74,7 @@ public class Profil_Client extends Activity {
 		favourite_meal_list = (Button) findViewById(R.id.profil_client_favourite_meal_list_button);
 		favourite_restaurant_list = (Button) findViewById(R.id.profil_client_favourite_restaurant_list_button);
 		allergy_list = (Button) findViewById(R.id.profil_client_allergy_list_button);
-		preBooking = (Button) findViewById(R.id.profil_client_preBooking_button);
+		preBooking = (Button) findViewById(R.id.profil_client_prebooking_button);
 		booking = (Button) findViewById(R.id.profil_client_booking_button);
 		
 		update = (Button) findViewById(R.id.profil_client_update_button);

@@ -150,11 +150,11 @@
             android:weightSum="2" >
 
             <Button
-                android:id="@+id/profil_client_preBooking_button"
+                android:id="@+id/profil_client_prebooking_button"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:text="@string/profil_client_preBooking" />
+                android:text="@string/profil_client_prebooking" />
 
             <Button
                 android:id="@+id/profil_client_booking_button"
