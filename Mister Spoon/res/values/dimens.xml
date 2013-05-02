@@ -5,5 +5,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="top">100dp</dimen>
     <dimen name="bot">50dp</dimen>
+    <dimen name="SpaceBetweenTextAndPics">2dp</dimen>
 
 </resources>

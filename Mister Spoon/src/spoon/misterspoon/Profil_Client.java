@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -44,16 +46,17 @@ public class Profil_Client extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_profil_client);
 		
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailClient = i.getStringExtra(Login.email);//TODO
+		String emailClient = i.getStringExtra(Login.email);
+		
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
-		c = new Client (sqliteHelper, Login.email);//TODO
-		
+		c = new Client (sqliteHelper, emailClient);//TODO
+		Log.v("fuck","la");
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_edit_text);
 		name = (TextView) findViewById(R.id.profil_client_name_edit_text);
@@ -72,16 +75,17 @@ public class Profil_Client extends Activity {
 		
 		update = (Button) findViewById(R.id.profil_client_update_button);
 		next = (Button) findViewById(R.id.profil_client_next_button);
-		
+		Log.v("fuck","la");
 		//We already fill the data of the Client if they exist
-		email.setText(c.getEmail());
-		name.setText(c.getName(false));
+		Log.v("fuck",c.getName(false));
+		email.setText(c.getEmail()); 
+		name.setText(c.getName(false)); 
 		if (c.getGsm(false)!=null) {
 			gsm.setText(c.getGsm(false));
 		}
 		
 		//We define all the listeners
-		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box
+		specificity_list.setOnClickListener(new View.OnClickListener() {//launch an alert box 
 			@Override
 			public void onClick(View v) {
 				
@@ -319,18 +323,22 @@ public class Profil_Client extends Activity {
 		preBooking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, PreBooking_Client.class);//TODO
+				Toast toast = Toast.makeText(context, "Un client veut voir ses pré-réservations", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(Profil_Client.this, PreBooking_Client.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);
+				startActivity(i);*/
 			}
 		});
 		
 		booking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, Booking_Client.class);//TODO
+				Toast toast = Toast.makeText(context, "Un client veut voir ses réservations", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(Profil_Client.this, Booking_Client.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);
+				startActivity(i);*/
 			}
 		});
 		
@@ -371,9 +379,11 @@ public class Profil_Client extends Activity {
 		next.setOnClickListener(new View.OnClickListener() {//launch an other activity with an intent with the object Client
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, City_List.class);//TODO
+				Toast toast = Toast.makeText(context, "Un client veut passer à la suite", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(Profil_Client.this, City_List.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);
+				startActivity(i);*/
 			}
 		});
 		

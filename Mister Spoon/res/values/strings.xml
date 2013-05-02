@@ -7,9 +7,40 @@
     <string name="hello_world">Salut les amis !</string>
 
     <!-- Values for activity_login -->
+	<string name="fax">Fax :</string>
+    <string name="tel">Téléphone :</string>
+    <string name="web">Site Web :</string>
+    <string name="mail">E-mail :</string>
+    <string name="adress">Adresse :</string>
+    <string name="mail_perso">E-mail personnel : </string>
+    <string name="login">Login</string>
+    <string name="log_in">LOG IN !</string>
+    <string name="client">Client</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="name">Nom :</string>
+    <string name="capacity">Capacité :</string>
+    <string name="gps">Coordonnée GPS :</string>
+    <string name="gps2">,</string>
+    <string name="gps_longitude">Longitude :</string>
+    <string name="gps_latitude">Latitude :</string>
+    <string name="numero">Numéro :</string>
+    <string name="rue">Rue :</string>
+    <string name="ville">Ville :</string>
+    <string name="register">S\'enregister !</string>
+    <string name="login_message">Si vous avez déjà un compte</string>
+    <string name="register_message">Si vous n\'en avez pas</string>
+    <string name="activity_login_like">Choose your side of the force</string>
+    <string name="activity_login_light">Light</string>
+    <string name="activity_login_dark">Dark</string>
+    <string name="activity_login_toast">Veuillez entrer votre email</string>
+    <string name="activity_login_toast_incorrect">Veuillez entrer un email valide</string>
+    <string name="activity_register_toast_empty">Veuillez remplir tous les champs</string>
+    <string name="activity_register_same_email">Cet email existe déjà</string>
+    <string name="activity_register_same_phone">Ce numéro existe déjà</string>
+    <string name="activity_register_same_gps">Cette coordonnée existe déjà</string>
+    <string name="activity_register_same_name">Ce nom existe déjà</string>
 
-
-    <!-- Values for activity_profil_clien.xml -->
+    <!-- Values for activity_profil_client.xml -->
     <string name="profil_client_title">Votre profil</string>
     <string name="profil_client_email">Email *</string>
     <string name="profil_client_name">Nom *</string>
@@ -36,14 +67,22 @@
     <string name="profil_client_alert_null">Il n\'y a aucun élément à afficher</string>
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
-    <string name="list_restaurant_filtre">Filtre</string>
+    
+    <!-- Values for activity_list_restaurant.xml -->
+    <string name="list_restaurant_filtre_note">Filtre note</string>
+    <string name="list_restaurant_filtre_prix">Filtre prix</string>
+    <string name="list_restaurant_filtre_favori">Filtre favori</string>
+    <string name="list_restaurant_editText_note">Note</string>
+    <string name="list_restaurant_editText_prix">Prix</string>
     <string name="list_restaurant_select">Selectionner restaurant</string>
+    <string name="list_restaurant_title">Liste restaurants</string>
+    
+    <!-- Values for activity_prereservation_restaurant.xml -->
     <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>
     <string name="prereservation_restaurant_heure">Heure</string>
     <string name="prereservation_restaurant_nom">Nom</string>
     <string name="prereservation_restaurant_telephone">Téléphone</string>
     <string name="prereservation_restaurant_places">Places</string>
-    <string name="list_restaurant_title">Liste restaurants</string>
     
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
@@ -57,7 +96,21 @@
     <string name="profil_restaurant_add">Ajouter le resto !</string>
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
-    <string name="profil_restaurant_carte">Afficher la carte</string>
+    <string name="profil_restaurant_carte">Afficher la carte   </string>
+    
+    <!-- values for activity_meal.xml -->
+    <string name="meal_title">Plat</string>
+    <string name="price">Prix :</string>
+    <string name="stock">Stock :</string>
+    <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir ici, enfin du moins je l\'espere</string>
+    <string name="update">Ajouter aux favoris</string>
+    
+    <!-- Values for activity_meal_builder -->
+    <string name="meal_builder_meal_title">Modification de plats</string>
+    <string name="meal_builder_price">Prix</string>
+    <string name="meal_builder_stock">Stock</string>
+    <string name="meal_builder_description">Description</string>
+    <string name="meal_builder_update">Mettre à jour</string>
     
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>
@@ -69,5 +122,6 @@
     <string name="prereservation_client_places2"> places</string>
     <string name="prereservation_client_prereserve">Pré-réserver !</string>
     <string name="prereservation_client_reserve">Réserver !</string>
+    <string name="prereservation_client_title1">Réservation</string>
 
 </resources>
