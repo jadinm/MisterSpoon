@@ -133,12 +133,12 @@ public class Login extends Activity {
 
 			}
 			else if (RestaurantOwner.isInDatabase(sql, email_login.getText().toString())) {
-				Toast toast = Toast.makeText(context, "Un restaurant vient de se connecter correctement", Toast.LENGTH_SHORT);
-				toast.show();
+				//Toast toast = Toast.makeText(context, "Un restaurant vient de se connecter correctement", Toast.LENGTH_SHORT);
+				//toast.show();
 
-				/*TODO Intent i = new Intent(Login.this, Profil_Restaurant.class);
-				i.putExtra(email, email_login.toString());
-				startActivity(i);*/
+				Intent i = new Intent(Login.this, Profil_Restaurant.class);
+				i.putExtra(email, email_login.getText().toString());
+				startActivity(i);
 				return;
 			}
 			else {
@@ -221,11 +221,11 @@ public class Login extends Activity {
 					else {
 						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), 0, rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()));
 					}
-					Toast toast = Toast.makeText(context, "Un restaurant vient de s'enregister correctement", Toast.LENGTH_SHORT);
-					toast.show();
-					//TODO Intent i = new Intent(Login.this, Profil_Restaurant.class);
-					//i.putExtra(email, email_register.toString());
-					//startActivity(i);
+//					Toast toast = Toast.makeText(context, "Un restaurant vient de s'enregister correctement", Toast.LENGTH_SHORT);
+//					toast.show();
+					Intent i = new Intent(Login.this, Profil_Restaurant.class);
+					i.putExtra(email, email_register.getText().toString());
+					startActivity(i);
 					return;
 				}
 				Toast toast;
