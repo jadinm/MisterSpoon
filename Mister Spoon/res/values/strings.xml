@@ -95,9 +95,8 @@
     <string name="profil_restaurant_fax">Fax :</string>
     <string name="profil_restaurant_tel">Tél :</string>
     <string name="profil_restaurant_web">Site Web :</string>
-    <string name="profil_restaurant_mail">E-mail :</string>
+    <string name="profil_restaurant_mail">Connecté en tant que </string>
     <string name="profil_restaurant_adress">Adresse :</string>
-    <string name="profil_restaurant_mail_perso">E-mail personnel : </string>
     <string name="profil_restaurant_description">Description : </string>
     <string name="profil_restaurant_gps">GPS</string>
     <string name="profil_restaurant_add">Ajouter le resto !</string>
@@ -105,6 +104,8 @@
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
     <string name="profil_restaurant_carte">Afficher la carte   </string>
     <string name="profil_restaurant_appliquer">Appliquer</string>
+    <string name="profil_restaurant_title">Restaurant</string>
+    <string name="profil_restaurant_mail_public">Email :</string>
     
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>

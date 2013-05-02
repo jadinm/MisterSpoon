@@ -15,6 +15,17 @@
             android:layout_height="253dp"
             android:paddingBottom="30dp" />
 
+        <TextView
+            android:id="@+id/profil_restaurant_mail"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:text="@string/profil_restaurant_mail"
+            android:inputType="textEmailAddress" >
+        </TextView>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -57,13 +68,15 @@
                 android:hint="@string/profil_restaurant_web" />
 
             <EditText
-                android:id="@+id/profil_restaurant_mail"
+                android:id="@+id/profil_restaurant_mail_public"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="left"
                 android:inputType="textEmailAddress"
-                android:hint="@string/profil_restaurant_mail" />
+                android:hint="@string/profil_restaurant_mail_public" >
+            </EditText>
+
         </LinearLayout>
 
         <LinearLayout
@@ -72,14 +85,6 @@
             android:orientation="vertical"
             android:paddingBottom="20dp" >
 
-            <EditText
-                android:id="@+id/profil_restaurant_mail_perso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="@string/profil_restaurant_mail_perso" >
-            </EditText>
 
             <EditText
                 android:id="@+id/profil_restaurant_adress"

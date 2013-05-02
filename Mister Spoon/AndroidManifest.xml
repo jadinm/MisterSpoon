@@ -29,6 +29,12 @@
             android:label="@string/profil_client_title">
         </activity>
         
+        <!-- We declare the activity Profil_Client -->
+        <activity 
+            android:name="spoon.misterspoon.Restaurant"
+            android:label="@string/profil_restaurant_title">
+        </activity>
+        
         <!-- We declare the activity Booking CHANGING NAME IN EVERY VIEW !!!!-->
         <activity 
             android:name="spoon.misterspoon.Booking"
