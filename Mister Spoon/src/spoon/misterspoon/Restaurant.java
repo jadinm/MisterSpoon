@@ -60,7 +60,7 @@ public class Restaurant {
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
 		// "telephone", "gps", "capaTotale", "description", "position", "phone"
-		Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[6] + ", " + MySQLiteHelper.Restaurant_column[7] + ", " + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+		Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[6] + ", " + MySQLiteHelper.Restaurant_column[7] + ", " + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			
 			phone = cursor.getString(0);
@@ -72,7 +72,7 @@ public class Restaurant {
 		}
 		
 		//"email", "fax", "webSite"
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + phone, null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 		if (cursor.moveToFirst()) {
 
 			fax = cursor.getString(0);
@@ -81,7 +81,7 @@ public class Restaurant {
 		}
 		
 		//"numero", "rue", "ville"
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + position.toString(), null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 		if (cursor.moveToFirst()) {
 			
 			if (cursor.getString(0)!=null) {
@@ -92,7 +92,7 @@ public class Restaurant {
 		}
 		
 		//"horaire"
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurantName, null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {//If there is one element more to read
 				horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
@@ -100,7 +100,7 @@ public class Restaurant {
 		}
 		
 		//"typePaiements"
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + restaurantName, null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {//If there is one element more to read
 				typePaiements.add(cursor.getString(0));
@@ -108,7 +108,7 @@ public class Restaurant {
 		}
 		
 		//"avantages"
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + restaurantName, null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {//If there is one element more to read
 				avantages.add(cursor.getString(0));
@@ -116,7 +116,7 @@ public class Restaurant {
 		}
 		
 		//"cuisine"
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + restaurantName, null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {//If there is one element more to read
 				cuisine.add(cursor.getString(0));
@@ -203,7 +203,7 @@ public class Restaurant {
 		if(getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				nbrVotants = cursor.getInt(0);
@@ -223,7 +223,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[7] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[7] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				note = cursor.getInt(0);
@@ -243,7 +243,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[5] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[5] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				capacity = cursor.getInt(0);
@@ -263,7 +263,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[6] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[6] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				Description = cursor.getString(0);
@@ -284,7 +284,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				phone = cursor.getString(0);
@@ -305,7 +305,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[3] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + phone, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[3] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 			if (cursor.moveToFirst()) {
 
 				email = cursor.getString(0);
@@ -327,7 +327,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + phone, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 			if (cursor.moveToFirst()) {
 
 				fax = cursor.getString(0);
@@ -350,7 +350,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + phone, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 			if (cursor.moveToFirst()) {
 
 				webSite = cursor.getString(0);
@@ -372,7 +372,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[4] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[4] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				position = new GPS (cursor.getString(0));
@@ -394,7 +394,7 @@ public class Restaurant {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + position.toString(), null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				if (cursor.getString(0)!=null) {
@@ -418,7 +418,7 @@ public class Restaurant {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[3] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + position.toString(), null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[3] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				rue = cursor.getString(0);
@@ -440,7 +440,7 @@ public class Restaurant {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + position.toString(), null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 			if (cursor.moveToFirst()) {
 				
 				ville = cursor.getString(0);
@@ -462,7 +462,7 @@ public class Restaurant {
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				while (cursor.isAfterLast()) {//If there is one element more to read
 					horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
@@ -485,7 +485,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				while (cursor.isAfterLast()) {//If there is one element more to read
 					typePaiements.add(cursor.getString(0));
@@ -508,7 +508,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				while (cursor.isAfterLast()) {//If there is one element more to read
 					avantages.add(cursor.getString(0));
@@ -530,7 +530,7 @@ public class Restaurant {
 		if (getFromDatabase) {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + restaurantName, null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				while (cursor.isAfterLast()) {//If there is one element more to read
 					cuisine.add(cursor.getString(0));
