@@ -104,6 +104,7 @@
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
     <string name="profil_restaurant_carte">Afficher la carte   </string>
+    <string name="profil_restaurant_appliquer">Appliquer</string>
     
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
