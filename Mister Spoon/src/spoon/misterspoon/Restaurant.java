@@ -26,6 +26,7 @@ public class Restaurant {
 	String ville;
 	
 	ArrayList <OpenHour> horaire;
+	ArrayList <Date> closingDays;//dates of closing
 	
 	ArrayList <String> typePaiements;
 	
@@ -96,6 +97,14 @@ public class Restaurant {
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {//If there is one element more to read
 				horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
+			}
+		}
+		
+		//"jours de fermetures annuels"
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Closing_column[2] + " FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurantName+"'", null);
+		if (cursor.moveToFirst()) {
+			while (cursor.isAfterLast()) {//If there is one element more to read
+				closingDays.add(new Date (cursor.getString(0)));
 			}
 		}
 		
@@ -456,9 +465,11 @@ public class Restaurant {
 	 * @post : return the value of 'horaire'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <OpenHour> getRestaurantHoraire (boolean getFromDatabase) {
+	public ArrayList <OpenHour> getRestaurantHoraire (boolean getFromDatabase) {//TODO -> profil restaurant
 		
 		if (getFromDatabase) {
+			
+			horaire = new ArrayList <OpenHour> ();
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
@@ -477,12 +488,40 @@ public class Restaurant {
 	}
 	
 	/*
+	 * @post : return the value of 'closingDays'
+	 * If getFromDatabase is true, this value is get from the database
+	 */
+	public ArrayList <Date> getRestaurantClosingDays (boolean getFromDatabase) {//TODO
+		
+		if (getFromDatabase) {
+			
+			closingDays = new ArrayList <Date> ();
+			
+			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+			
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Closing_column[2] + " FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurantName+"'", null);
+			if (cursor.moveToFirst()) {
+				while (cursor.isAfterLast()) {//If there is one element more to read
+					closingDays.add(new Date (cursor.getString(0)));
+				}
+			}
+		}
+		
+		return closingDays;
+		
+		
+	}
+	
+	/*
 	 * @post : return the value of 'typePaiments'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {//TODO
 		
 		if (getFromDatabase) {
+			
+			typePaiements = new ArrayList <String> ();
+			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
@@ -503,9 +542,12 @@ public class Restaurant {
 	 * @post : return the value of 'avantages'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantAvantages (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantAvantages (boolean getFromDatabase) {//TODO
 		
 		if (getFromDatabase) {
+			
+			avantages = new ArrayList <String> ();
+			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
@@ -525,9 +567,12 @@ public class Restaurant {
 	 * @post : return the value of 'cuisine'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantCuisine (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantCuisine (boolean getFromDatabase) {//TODO
 		
 		if (getFromDatabase) {
+			
+			cuisine = new ArrayList <String> ();
+			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
@@ -549,6 +594,14 @@ public class Restaurant {
 	
 	public void removeRestaurantHoraire(int index){
 		this.horaire.remove(index);
+	}
+	
+	public void addRestaurantClosingDays(Date calendar){
+		this.closingDays.add(calendar);
+	}
+	
+	public void removeRestaurantClosingDays(int index){
+		this.closingDays.remove(index);
 	}
 	
 	public void addRestaurantTypePaiements(String type){
@@ -576,7 +629,7 @@ public class Restaurant {
 	}
 
 	
-	//TODO
+	
 	/* 
 	 * @post : return the value of 'carte'
 	 * If getFromDatabase is true, this value is get from the database
@@ -588,7 +641,7 @@ public class Restaurant {
 		return this.carte;
 	}
 	
-	//TODO
+	
 	public boolean setRestaurantCarte (Carte carte) {
 		if (carte==null) {
 			return false;

@@ -15,18 +15,62 @@ public class RestaurantOwner {
 	private ArrayList<PreBooking> preBooking;
 	private ArrayList<Booking> booking;
 
-	public RestaurantOwner(MySQLiteHelper sqliteHelper, String emailPerso) {//TODO -> Il manque le chargement des preBooking et Booking depuis la database
+	public RestaurantOwner(MySQLiteHelper sqliteHelper, String emailPerso) {
+		
 		this.preBooking = new ArrayList<PreBooking>();
 		this.booking = new ArrayList<Booking>();
+		
 		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		this.emailPerso = emailPerso;
+		
+		//restaurant
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[1] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'", null);
 		if (!cursor.moveToFirst()) Log.v("fuck",emailPerso);
 		cursor.moveToFirst();
 		String name = cursor.getString(0);
 		this.restaurant = new Restaurant(sqliteHelper,name);
 		
+		//preBooking
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + "'"+restaurant.getRestaurantName()+"'" + " GROUP BY " + MySQLiteHelper.Order_column[2], null);
+		if (cursor.moveToFirst()) {//If the information exists
+			ArrayList <Meal> commande;
+			while (!cursor.isAfterLast()) {//As long as there is one element to read
+				Client currentClient = new Client(cursor.getString(0));
+				commande = new ArrayList <Meal> ();
+				while(!cursor.isAfterLast() && currentClient.getEmail() == cursor.getString(0)) {
+					commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
+					cursor.moveToNext();
+				}
+				preBooking.add(new PreBooking(currentClient, commande));
+			}
+		}
+		
+		//booking
+		cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2], null);
+		if (cursor.moveToFirst()) {//If the information exists
+
+			ArrayList <Meal> Commande = new ArrayList<Meal>();
+			Client currentClient = new Client (cursor.getString(0));
+			int nbrReservation = cursor.getInt(1);
+			
+			
+			String temp [] = cursor.getString(2).split(" "); 
+			Date date = new Date (temp[0]);
+			String time = temp[1];
+			
+			Commande = new ArrayList <Meal> ();
+			while(!cursor.isAfterLast() && currentClient.getEmail() == cursor.getString(0)) {//We take a command if it exists
+				if(cursor.getString(3)!=null) {
+					Commande.add(new Meal (cursor.getString(3), cursor.getInt(4)));//We stock the quantity of the meal with the instance variable "stock"
+					cursor.moveToNext();
+				}
+			}
+
+			booking.add(new Booking(currentClient, nbrReservation, new Time(time), date, Commande));
+			
+			cursor.moveToNext();
+		}
 
 		//db.close();
 	}
@@ -84,7 +128,7 @@ public class RestaurantOwner {
 	/*
 	 * Create a new restaurant in the database with the informations given
 	 */
-	static public void createRestaurant (MySQLiteHelper sql, String emailPerso, String restNom, String gps, int numero, String rue, String ville, String phone, int capacite) {//TODO ->
+	static public void createRestaurant (MySQLiteHelper sql, String emailPerso, String restNom, String gps, int numero, String rue, String ville, String phone, int capacite) {
 		SQLiteDatabase db = sql.getWritableDatabase();
 
 		if (numero!=0) {
@@ -303,14 +347,8 @@ public class RestaurantOwner {
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+horaire.getOpenDay()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+horaire.getOpenDay()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[3] + " = " + "'"+horaire.getOpenTime()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[3] + " = " + "'"+horaire.getOpenTime()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[4] + " = " + "'"+horaire.getCloseTime()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " SET " + MySQLiteHelper.Schedule_column[4] + " = " + "'"+horaire.getCloseTime()+"'" + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " ( " + MySQLiteHelper.Schedule_column[1] + ", " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[3] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", '"+horaire.getOpenDay()+"'" + ", '"+horaire.getOpenTime()+"'" + ", '"+horaire.getCloseTime()+"' );");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " ( " + MySQLiteHelper.Schedule_column[1] + ", " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[3] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", '"+horaire.getOpenDay()+"'" + ", '"+horaire.getOpenTime()+"'" + ", '"+horaire.getCloseTime()+"' );");
 			db.close();
 			restaurant.addRestaurantHoraire(horaire);
 			return true;
@@ -323,24 +361,64 @@ public class RestaurantOwner {
 			boolean found = false;
 			int index = 0;
 			for(OpenHour currentHoraire : restaurant.getRestaurantHoraire(false)){
-				if(horaire.getOpenDay().equals(currentHoraire.getOpenDay()) && horaire.getCloseTime().equals(currentHoraire.getCloseTime()) && horaire.getOpenTime().equals(currentHoraire.getOpenTime())) return true;
 				index++;
+				if(horaire.getOpenDay().equals(currentHoraire.getOpenDay()) && horaire.getCloseTime().equals(currentHoraire.getCloseTime()) && horaire.getOpenTime().equals(currentHoraire.getOpenTime())) {
+					found=true;
+				}
 			}
 			if (!found) {
 				return false;
 			}
 			else{
 				SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+horaire.getOpenDay()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+horaire.getOpenDay()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[3] + " = " + "'"+horaire.getOpenTime()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[3] + " = " + "'"+horaire.getOpenTime()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[4] + " = " + "'"+horaire.getCloseTime()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
-				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[4] + " = " + "'"+horaire.getCloseTime()+"'" + " AND " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+horaire.getOpenDay()+"'" + " AND " + MySQLiteHelper.Schedule_column[3] + " = " + "'"+horaire.getOpenTime()+"'" + " AND " + MySQLiteHelper.Schedule_column[4] + " = " + "'"+horaire.getCloseTime()+"'" + ";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+horaire.getOpenDay()+"'" + " AND " + MySQLiteHelper.Schedule_column[3] + " = " + "'"+horaire.getOpenTime()+"'" + " AND " + MySQLiteHelper.Schedule_column[4] + " = " + "'"+horaire.getCloseTime()+"'" + ";");
 				db.close();
-				restaurant.removeRestaurantHoraire(index);
+				restaurant.removeRestaurantHoraire(index-1);
+				return true;
+			}
+		}
+		else
+			return false;
+	}
+	
+	public boolean addRestaurantClosingHour(Date calendar) {
+		if (calendar != null) {
+			if(restaurant.getRestaurantClosingDays(false).size() != 0){
+				for(Date currentDate : restaurant.getRestaurantClosingDays(false)){
+					if(calendar.equals(currentDate)) return true;
+				}
+			}
+			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Closing + " ( " + MySQLiteHelper.Closing_column[1] + ", " + MySQLiteHelper.Closing_column[2] + " )  VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", " + "'"+ calendar.toString() +"'" + " );");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Closing + " ( " + MySQLiteHelper.Closing_column[1] + ", " + MySQLiteHelper.Closing_column[2] + " )  VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", " + "'"+ calendar.toString() +"'" + " );");
+			db.close();
+			restaurant.addRestaurantClosingDays(calendar);
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean removeRestaurantClosingHour(Date date){
+		if (date != null || restaurant.getRestaurantClosingDays(false).size()!=0) {
+			boolean found = false;
+			int index = 0;
+			for(Date currentDate : restaurant.getRestaurantClosingDays(false)){
+				index++;
+				if(date.equals(currentDate)) {
+					found=true;
+				}
+			}
+			if (!found) {
+				return false;
+			}
+			else{
+				SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+date.toString()+"'" +";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+date.toString()+"'" +";");
+				db.close();
+				restaurant.removeRestaurantClosingDays(index-1);
 				return true;
 			}
 		}
@@ -371,8 +449,8 @@ public class RestaurantOwner {
 			boolean found = false;
 			int index = 0;
 			for(String currentType : restaurant.getRestaurantTypePaiements(false)){
-				if(typePaiement.equals(currentType)) found = true;
 				index++;
+				if(typePaiement.equals(currentType)) found = true;
 			}
 			if (!found) {
 				return false;
@@ -382,7 +460,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[2] + " = " + "'"+typePaiement+"'" + " AND " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[2] + " = " + "'"+typePaiement+"'" + " AND " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
 				db.close();
-				restaurant.removeRestaurantTypePaiements(index);
+				restaurant.removeRestaurantTypePaiements(index-1);
 			}
 			return true;
 		}
@@ -483,28 +561,29 @@ public class RestaurantOwner {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			booking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + "'"+restaurant.getRestaurantName()+"'" + " GROUP BY " + MySQLiteHelper.Booking_column[2], null);
+			Cursor cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2], null);
 			if (cursor.moveToFirst()) {//If the information exists
 
 				ArrayList <Meal> Commande = new ArrayList<Meal>();
 				Client currentClient = new Client (cursor.getString(0));
 				int nbrReservation = cursor.getInt(1);
-				Time time = new Time (cursor.getString(2));
-
-				Cursor cursor2 = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Order_column[2] + " = " + "'"+currentClient.getEmail()+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + time.toString() , null);
-				if (cursor2.moveToFirst()) {//If there is an order for this restaurant
-
-					while (!cursor2.isAfterLast()) {//As long as there is one element to read
-
-						while(!cursor2.isAfterLast()) {
-							Commande.add(new Meal (cursor2.getString(0), cursor2.getInt(1)));//We stock the quantity of the meal with the instance variable "stock"
-							cursor2.moveToNext();
-						}
+				
+				
+				String temp [] = cursor.getString(2).split(" "); 
+				Date date = new Date(temp[0]);
+				String stime = temp[1];
+				Time time = new Time (stime);
+				
+				Commande = new ArrayList <Meal> ();
+				while(!cursor.isAfterLast() && currentClient.getEmail() == cursor.getString(0)) {//We take a command if it exists
+					if(cursor.getString(3)!=null) {
+						Commande.add(new Meal (cursor.getString(3), cursor.getInt(4)));//We stock the quantity of the meal with the instance variable "stock"
+						cursor.moveToNext();
 					}
 				}
 
-				booking.add(new Booking(currentClient, nbrReservation, time, Commande));
-
+				booking.add(new Booking(currentClient, nbrReservation, time, date, Commande));
+				
 				cursor.moveToNext();
 			}
 
@@ -525,14 +604,16 @@ public class RestaurantOwner {
 		String ClientEmail = booking.getClient().getEmail();//Email of the client where we are reserving
 		int nbrPlace = booking.getNombrePlaces();//time when we are reserving
 		Time time = booking.getHeureReservation();//number of places we are reserving
+		Date calendar = booking.getDate();//the date of the reservation
 
 		for (int i=0; i<this.booking.size() && !found; i++) {//We test if the booking isn't already registered
 
 			String IemeClientEmail = this.booking.get(i).getClient().getEmail();//Email of the client where we have reserved
 			Time IemeTime = this.booking.get(i).getHeureReservation();//time when we have reserved
 			int IemeNbrPlace = this.booking.get(i).getNombrePlaces();//number of places we have reserved
+			Date Iemecalendar = booking.getDate();//the date of the reservation
 
-			if (IemeClientEmail.equals(ClientEmail) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace) {//We compare reservations
+			if (IemeClientEmail.equals(ClientEmail) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace && calendar.equals(Iemecalendar)) {//We compare reservations
 
 				int counter = 0;//Count the number of same meals in their ordered
 
@@ -576,13 +657,13 @@ public class RestaurantOwner {
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
 		String clientEmail = booking.getClient().getEmail();
+		
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Booking_column[4] + " = '" + booking.getDate().toString() + " " + booking.getHeureReservation().toString() + "' ;");
+		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Booking_column[4] + " = '" + booking.getDate().toString() + " " + booking.getHeureReservation().toString() + "' ;");
 
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Booking_column[4] + " = " + nbrPlace + ";");
-		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Booking_column[4] + " = " + nbrPlace + ";");
-
-		if(booking.getCommande()!=null) {//We had the order if it exists
-			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlace + ";");
-			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + nbrPlace + ";");
+		if(booking.getCommande()!=null) {
+			db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = '" + booking.getDate().toString() + " " + booking.getHeureReservation().toString() + "' ;");
+			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = '" + booking.getDate().toString() + " " + booking.getHeureReservation().toString() + "' ;");
 		}
 
 		db.close();
@@ -595,8 +676,8 @@ public class RestaurantOwner {
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Advantage + " SET " + MySQLiteHelper.Advantage_column[2] + " = " + "'"+avantage+"'" + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Advantage + " SET " + MySQLiteHelper.Advantage_column[2] + " = " + "'"+avantage+"'" + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Advantage + " ( " + MySQLiteHelper.Advantage_column[1] + ", " + MySQLiteHelper.Advantage_column[2] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", " + "'"+avantage+"'" + " ) ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Advantage + " ( " + MySQLiteHelper.Advantage_column[1] + ", " + MySQLiteHelper.Advantage_column[2] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", " + "'"+avantage+"'" + " ) ;");
 			db.close();
 		}
 		else {
@@ -637,8 +718,8 @@ public class RestaurantOwner {
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Cook + " SET " + MySQLiteHelper.Cook_column[2] + " = " + "'"+cuisine+"'" + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Cook + " SET " + MySQLiteHelper.Cook_column[2] + " = " + "'"+cuisine+"'" + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Cook + " ( " + MySQLiteHelper.Cook_column[1] + ", " + MySQLiteHelper.Cook_column[2] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"', " + "'"+cuisine+"'" + ") ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Cook + " ( " + MySQLiteHelper.Cook_column[1] + ", " + MySQLiteHelper.Cook_column[2] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"', " + "'"+cuisine+"'" + ") ;");
 			db.close();
 		}
 		else {

@@ -109,7 +109,7 @@ public class Profil_Restaurant extends Activity {
 		}
 
 
-		//Gallery
+		//Gallery TODO
 		Integer int_data[] = new Integer[]
 		{
 				Integer.valueOf(R.drawable.pti1),
