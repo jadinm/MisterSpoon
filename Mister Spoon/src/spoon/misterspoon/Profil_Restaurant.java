@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +30,8 @@ public class Profil_Restaurant extends Activity {
 	private EditText longitude;
 	private EditText latitude;
 	private EditText capa;
+	
+	private ListView listview;
 
 	private Button update;
 	private Button menu;
@@ -38,7 +39,7 @@ public class Profil_Restaurant extends Activity {
 	private Button prebook;
 	private Button book;
 
-	private ListView galerie;
+
 	//Useful for the alertBoxes
 	private Context context = this;
 
@@ -60,6 +61,8 @@ public class Profil_Restaurant extends Activity {
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
 
 		//We can now define all the widgets
+		listview = (ListView) findViewById(R.id.gallery);
+		
 		email_perso = (TextView) findViewById(R.id.profil_restaurant_mail);
 		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
 		gsm = (EditText) findViewById(R.id.profil_restaurant_tel);
@@ -78,8 +81,8 @@ public class Profil_Restaurant extends Activity {
 		prebook = (Button) findViewById(R.id.profil_restaurant_prebooking_button);		
 		book = (Button) findViewById(R.id.profil_restaurant_booking_button);
 		
-		galerie = (ListView) findViewById(R.id.gallery);
-
+		
+		
 		//We already fill the data of the Client if they exist
 		
 
@@ -104,6 +107,24 @@ public class Profil_Restaurant extends Activity {
 		if (r.getRestaurant().getRestaurantDescription(false)!=null) {
 			description.setText(r.getRestaurant().getRestaurantDescription(false));
 		}
+
+
+		//Gallery
+		Integer int_data[] = new Integer[]
+		{
+				Integer.valueOf(R.drawable.calendar),
+				Integer.valueOf(R.drawable.carte)
+		};
+
+		GalleryAdapter adapter = new GalleryAdapter(this,
+				R.layout.layout_list_image_restaurant, int_data);
+
+		View header = (View)getLayoutInflater().inflate(R.layout.layout_list_image_restaurant, null);
+		listview.addHeaderView(header);
+
+		listview.setAdapter(adapter);
+		
+		
 
 		//We define all the listeners
 		update.setOnClickListener(new View.OnClickListener() {//Update the informations
