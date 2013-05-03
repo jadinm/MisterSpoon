@@ -119,8 +119,8 @@ public class Profil_Restaurant extends Activity {
 		GalleryAdapter adapter = new GalleryAdapter(this,
 				R.layout.layout_list_image_restaurant, int_data);
 
-		View header = (View)getLayoutInflater().inflate(R.layout.layout_list_image_restaurant, null);
-		listview.addHeaderView(header);
+//		View header = (View)getLayoutInflater().inflate(R.layout.layout_list_image_restaurant, null);
+//		listview.addHeaderView(header);
 
 		listview.setAdapter(adapter);
 		
