@@ -112,7 +112,7 @@ public class Profil_Restaurant extends Activity {
 		//Gallery
 		Integer int_data[] = new Integer[]
 		{
-				Integer.valueOf(R.drawable.calendar),
+				Integer.valueOf(R.drawable.pti1),
 				Integer.valueOf(R.drawable.carte)
 		};
 
