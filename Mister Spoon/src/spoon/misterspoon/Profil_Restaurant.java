@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public class Profil_Restaurant extends Activity {
 	private Button prebook;
 	private Button book;
 
-	private Gallery galerie;
+	private ListView galerie;
 	//Useful for the alertBoxes
 	private Context context = this;
 
@@ -76,9 +77,11 @@ public class Profil_Restaurant extends Activity {
 		update = (Button) findViewById(R.id.profil_restaurant_appliquer);
 		prebook = (Button) findViewById(R.id.profil_restaurant_prebooking_button);		
 		book = (Button) findViewById(R.id.profil_restaurant_booking_button);
+		
+		galerie = (ListView) findViewById(R.id.gallery);
 
 		//We already fill the data of the Client if they exist
-		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
+		
 
 		email_perso.setText(email_perso.getText() + " " + r.getEmail()); 
 		email_public.setText(r.getRestaurant().getRestaurantEmail(false));
