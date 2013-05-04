@@ -105,15 +105,26 @@ public class Profil_Restaurant extends Activity {
 		
 		//We already fill the data of the Client if they exist
 		
+		Log.d("Au départ, on a cet email", r.getEmail());//Debug
+		Log.d("Au départ, on a ce nom", r.getRestaurant().getRestaurantName());
+		Log.d("Au départ, on a cette coordonnée gps", r.getRestaurant().getRestaurantPosition(false).toString());
+		Log.d("Au départ, on a cette adresse", r.getRestaurant().getRestaurantNumero(false) + ", " + r.getRestaurant().getRestaurantRue(false) + ", " + r.getRestaurant().getRestaurantVille(false));
+		Log.d("Au départ, on a ce numéro", r.getRestaurant().getRestaurantPhone(false));
+		Log.d("Au départ, on a cette capacité", r.getRestaurant().getRestaurantCapacity(false) + "");
+		
 
 		email_perso.setText(email_perso.getText() + " " + r.getEmail()); 
-		email_public.setText(r.getRestaurant().getRestaurantEmail(false));
+		
 		gsm.setText(r.getRestaurant().getRestaurantPhone(false));
 		rue.setText(r.getRestaurant().getRestaurantRue(false));
 		town.setText(r.getRestaurant().getRestaurantVille(false));
 		capa.setText(r.getRestaurant().getRestaurantCapacity(false)+ "");
 		longitude.setText(r.getRestaurant().getRestaurantPosition(false).getLongitude()+ "");
 		latitude.setText(r.getRestaurant().getRestaurantPosition(false).getLatitude() + "");
+		
+		if (r.getRestaurant().getRestaurantEmail(false)!=null) {
+			email_public.setText(r.getRestaurant().getRestaurantEmail(false));
+		}
 
 		if (r.getRestaurant().getRestaurantFax(false)!=null) {
 			fax.setText(r.getRestaurant().getRestaurantFax(false));
