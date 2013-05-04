@@ -102,11 +102,14 @@
     <string name="profil_restaurant_cooks_button">Vos types de cuisine</string>
     <string name="profil_restaurant_advantages_button">Vos avantages</string>
     <string name="profil_restaurant_payments_button">Vos possibilités de paiement</string>
-    <string name="profil_restaurant_closing_edit">Nouveau jour de fermeture annuel :</string>
+    <string name="profil_restaurant_closing_edit">ex: 05\-01 (1er mai)</string>
     <string name="profil_restaurant_closing_button">Vos jours de fermetures annuels</string>
     <string name="profil_restaurant_schedule_text">Ajouter une nouvelle tranche d\'ouverture :</string>
-    <string name="profil_restaurant_schedule_opentime">Heure d\'ouverture :</string>
-    <string name="profil_restaurant_schedule_closetime">Heure de fermeture :</string>
+    <string name="profil_restaurant_schedule_1">Le</string>
+    <string name="profil_restaurant_schedule_2">de</string>
+    <string name="profil_restaurant_schedule_opentime">ex: 18:00:00</string>
+    <string name="profil_restaurant_schedule_3">à</string>
+    <string name="profil_restaurant_schedule_closetime">ex: 22:00:00</string>
     <string name="profil_restaurant_schedule_button">Votre horaire</string>
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
