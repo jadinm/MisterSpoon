@@ -1,20 +1,26 @@
 package spoon.misterspoon;
 
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RestaurantForClient extends Activity {
+public class RestaurantForClient extends Activity implements LocationListener {
 
 	private Restaurant r;
 	private Client c;
@@ -32,7 +38,6 @@ public class RestaurantForClient extends Activity {
 	private TextView description;
 	private TextView longitude;
 	private TextView latitude;
-	private TextView title;
 
 	private ListView listview;
 
@@ -42,6 +47,9 @@ public class RestaurantForClient extends Activity {
 	private Button prebook;
 	private Button book;
 
+	private LocationManager lManager;
+	private Location location;
+	private String choix_source = "";
 
 	//Useful for the alertBoxes
 	private Context context = this;
@@ -50,16 +58,22 @@ public class RestaurantForClient extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Utils.onActivityCreateSetTheme(this);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
 		setContentView(R.layout.activity_restaurant);
+
+		lManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
 
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailPerso = i.getStringExtra(Login.email);
-		String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
+		//String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
+		String restoName = "Loungeatude";
 
 		//We create the object Restaurant associated with this email and all his informations
-		r = new Restaurant (sqliteHelper, "Loungeatude");
+		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
 
 		//We can now define all the widgets
@@ -76,7 +90,6 @@ public class RestaurantForClient extends Activity {
 		description = (TextView) findViewById(R.id.restaurant_description);
 		longitude = (TextView) findViewById(R.id.gps_longitude);
 		latitude = (TextView) findViewById(R.id.gps_latitude);
-		title = (TextView) findViewById(R.string.resto_client_title);
 
 		menu = (Button) findViewById(R.id.restaurant_carte);		
 		gpsButton = (Button) findViewById(R.id.profil_restaurant_gps);		
@@ -84,8 +97,8 @@ public class RestaurantForClient extends Activity {
 		prebook = (Button) findViewById(R.id.restaurant_prereservation);		
 		book = (Button) findViewById(R.id.restaurant_reservation);
 
-		//title.setText(r.getRestaurantName()); /////////////////////// A voir si ca marche ?? ///////////////////////////
-		
+		setTitle(String.format(restoName));
+
 		email_perso.setText(email_perso.getText() + " " + c.getEmail()); 
 		email_public.setText(email_public.getText() + " " + r.getRestaurantEmail(false));
 		gsm.setText(gsm.getText() + " " + r.getRestaurantPhone(false));
@@ -186,17 +199,30 @@ public class RestaurantForClient extends Activity {
 
 				//The other buttons
 				alertDialogBuilder.setPositiveButton(R.string.resto_gps_itineraire,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						String currentPosition = c.getPosition(true).getLongitude() + "," + c.getPosition(true).getLatitude();
-						if (c.getPosition(true).getLongitude()!=0 && c.getPosition(true).getLatitude()!=0 ) {
-							String restoPosition = r.getRestaurantPosition(false).getLongitude()+ "," + r.getRestaurantPosition(false).getLatitude();
-							Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+currentPosition+"&daddr="+restoPosition));
-							startActivity(intent);
-							dialog.cancel();
-
+					public void onClick(DialogInterface dialog,int id) {
+						choisirSource();
+						if (!choix_source.equals("gps")) {
+							Toast toasted = Toast.makeText(context, getString(R.string.resto_toast_client_position), Toast.LENGTH_SHORT);
+							toasted.show();
+							return;
 						}
-						Toast toasted = Toast.makeText(context, getString(R.string.resto_toast_client_position), Toast.LENGTH_SHORT);
-						toasted.show();
+						else {
+							obtenirPosition();
+							Location loc = lManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+							if (loc != null) {
+								location = loc;
+							}
+							String currentPosition = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
+							if (String.valueOf(location.getLatitude())!=null && String.valueOf(location.getLatitude())!=null ) {
+								setProgressBarIndeterminateVisibility(false);
+								String restoPosition = r.getRestaurantPosition(false).getLongitude()+ "," + r.getRestaurantPosition(false).getLatitude();
+								Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+currentPosition+"&daddr="+restoPosition));
+								startActivity(intent);
+								dialog.cancel();
+
+							}
+						}
+
 					}
 				});
 
@@ -210,16 +236,43 @@ public class RestaurantForClient extends Activity {
 					}
 				});
 
-				// create alert dialog
 				AlertDialog alertDialog = alertDialogBuilder.create();
-
-				// show it
 				alertDialog.show();
 			}
 		});
 
+	}
 
+	private void choisirSource() {
+		List <String> providers = lManager.getProviders(true);
+		final String[] sources = new String[providers.size()];
+		int i =0;
+		for(String provider : providers)
+			sources[i++] = provider;
+		choix_source = sources[1]; //On veut que ca soit le GPS
+	}
 
+	private void obtenirPosition() {
+		setProgressBarIndeterminateVisibility(true);
+		lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+	}
+
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this,String.format("La source \"%s\" a été désactivé", LocationManager.GPS_PROVIDER),Toast.LENGTH_SHORT).show();
+		lManager.removeUpdates(this);
+
+	}
+
+	public void onProviderEnabled(String provider) {
+		return;
+	}
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		return;
+	}
+
+	public void onLocationChanged(Location location) {
+		this.location = location;
+		lManager.removeUpdates(this);
 	}
 
 
