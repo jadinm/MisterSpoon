@@ -97,7 +97,7 @@
     <string name="profil_restaurant_mail">Connecté en tant que </string>
     <string name="profil_restaurant_adress">Adresse :</string>
     <string name="profil_restaurant_description">Description : </string>
-    <string name="profil_restaurant_gps">GPS</string>
+    <string name="profil_restaurant_gps">Options GPS</string>
     <string name="profil_restaurant_add">Ajouter le resto !</string>
     <string name="profil_restaurant_cooks_button">Vos types de cuisine</string>
     <string name="profil_restaurant_advantages_button">Vos avantages</string>
@@ -121,6 +121,12 @@
     <string name="profil_restaurant_toast_gps">Ces coordonnées existent déjà</string>
     <string name="profil_restaurant_toast_phone">Ce numéro existe déjà</string>
     <string name="profil_restaurant_toast_missing">Veuillez entrer tous le champs</string>
+    <string name="profil_restaurant_toast_resto">Restaurant ajouté avec succès !</string>
+    <string name="resto_client_title">Restaurant</string>
+    <string name="resto_gps_options">Que voulez-vous faire ?</string>
+    <string name="resto_gps_itineraire">Itinéraire</string>
+    <string name="resto_gps_show">Afficher sur la carte</string>
+    <string name="resto_toast_client_position">Nous ne trouvons pas ou vous êtes</string>
 
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
