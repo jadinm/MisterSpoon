@@ -35,6 +35,18 @@
             android:label="@string/profil_restaurant_title">
         </activity>
         
+        <!-- We declare the activity CityListActivity -->
+        <activity 
+            android:name="spoon.misterspoon.CityListActivity"
+            android:label="@string/list_city_title">
+        </activity>
+        
+        <!-- We declare the activity RestaurantListActivity -->
+        <activity 
+            android:name="spoon.misterspoon.RestaurantListActivity"
+            android:label="@string/list_restaurant_title">
+        </activity>
+        
         <!-- We declare the activity Booking CHANGING NAME IN EVERY VIEW !!!!-->
         <activity 
             android:name="spoon.misterspoon.Booking"

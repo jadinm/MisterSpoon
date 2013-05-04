@@ -1,13 +1,13 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import java.util.List;
 
 public class CityList {
 	
 	public MySQLiteHelper sqliteHelper;
+	
+	static final String orderTable[] = new String[]{"abc","proximite"};
 	
 	ArrayList<City> cityList;
 	String ordre;
@@ -19,8 +19,6 @@ public class CityList {
 		this.cityList = new ArrayList<City>();
 		this.getFromDatabase = getFromDatabase;
 		this.client = client;
-		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-		
 		
 	}
 	
@@ -55,8 +53,15 @@ public class CityList {
 		}
 	}
 	
+	public List<String> getNomCities(){
+		List<String> nomCities = new ArrayList<String>();
+		for(City city : getCityList()){
+			nomCities.add(city.getCityName());
+		}
+		return nomCities;
+	}
+	
 	public GPS getClientPosition() {
-		boolean updateData;
 		return client.getPosition(getFromDatabase);
 	}
 	

@@ -82,6 +82,10 @@
     <string name="list_restaurant_select">Sélectionner restaurant</string>
     <string name="list_restaurant_title">Liste restaurants</string>
     <string name="list_restaurant_toast">Veuillez sélectionner un restaurant</string>
+    
+    <!-- Values for activity_list_city.xml -->
+    <string name="list_city_title">Liste des villes</string>
+    <string name="list_city_toast">Veuillez sélectionner une ville</string>
 
     <!-- Values for activity_prereservation_restaurant.xml -->
     <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>

@@ -416,11 +416,10 @@ public class Profil_Client extends Activity {
 		next.setOnClickListener(new View.OnClickListener() {//launch an other activity with an intent with the object Client
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut passer � la suite", Toast.LENGTH_SHORT);
-				toast.show();
-				/*Intent i = new Intent(Profil_Client.this, City_List.class);//TODO
+				Intent i = new Intent(Profil_Client.this, CityListActivity.class);
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);*/
+				startActivity(i);
+				return;
 			}
 		});
 		
