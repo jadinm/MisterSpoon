@@ -56,7 +56,7 @@ public class RestaurantForClient extends Activity {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailPerso = i.getStringExtra(Login.email);
-		String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
+		String restoName = i.getStringExtra("loungeatude"); //TODO
 
 		//We create the object Restaurant associated with this email and all his informations
 		r = new Restaurant (sqliteHelper, restoName);
