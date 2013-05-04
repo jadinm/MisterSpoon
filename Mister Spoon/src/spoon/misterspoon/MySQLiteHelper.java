@@ -125,7 +125,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 	public void populateDatabase(SQLiteDatabase db) {//To correct (menuPrice) -> I don't find a good example
 		
-		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.668572,4.616146','1A','Place des Braban�ons','Louvain-la-Neuve');");
+		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.668572,4.616146','1A','Place des Brabancons','Louvain-la-Neuve');");
 		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.6609,4.617962',NULL,'Place Polyvalente','Louvain-la-Neuve');");
 		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.671578,4.61282','26','Rue du Labrador','Louvain-la-Neuve');");
 		

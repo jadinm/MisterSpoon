@@ -56,10 +56,10 @@ public class RestaurantForClient extends Activity {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailPerso = i.getStringExtra(Login.email);
-		String restoName = i.getStringExtra("loungeatude"); //TODO
+		String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
 
 		//We create the object Restaurant associated with this email and all his informations
-		r = new Restaurant (sqliteHelper, restoName);
+		r = new Restaurant (sqliteHelper, "loungeatude");
 		c = new Client(sqliteHelper, emailPerso);
 
 		//We can now define all the widgets
