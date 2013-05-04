@@ -7,7 +7,7 @@
     <string name="hello_world">Salut les amis !</string>
 
     <!-- Values for activity_login -->
-	<string name="fax">Fax :</string>
+    <string name="fax">Fax :</string>
     <string name="tel">Téléphone :</string>
     <string name="web">Site Web :</string>
     <string name="mail">E-mail :</string>
@@ -39,17 +39,21 @@
     <string name="activity_register_same_phone">Ce numéro existe déjà</string>
     <string name="activity_register_same_gps">Cette coordonnée existe déjà</string>
     <string name="activity_register_same_name">Ce nom existe déjà</string>
+    <string name="exit_title">Communication système</string>
+    <string name="exit">Voulez-vous vraiment quitter?</string>
+    <string name="exit_confirm">Oui</string>
+    <string name="exit_cancel">Non</string>
 
     <!-- Values for activity_profil_client.xml -->
     <string name="profil_client_title">Votre profil</string>
-    <string name="profil_client_email">Email *</string>
+    <string name="profil_client_email">Connecté en tant que </string>
     <string name="profil_client_name">Nom *</string>
     <string name="profil_client_gsm">GSM</string>
     <string name="profil_client_allergy_list">Liste d\'allergies</string>
-    <string name="profil_client_allergy_gluten">Gluten</string>
-    <string name="profil_client_allergy_noix">Noix</string>
-    <string name="profil_client_allergy_cacahuete">Cacahuète</string>
-    <string name="profil_client_allergy_banane">Banane</string>
+    <string name="profil_client_allergy_gluten">gluten</string>
+    <string name="profil_client_allergy_noix">noix</string>
+    <string name="profil_client_allergy_cacahuete">cacahuète</string>
+    <string name="profil_client_allergy_banane">banane</string>
     <string name="profil_client_new_specificity">Nouvelle spécificité</string>
     <string name="profil_client_specificity_list">Vos spécificités</string>
     <string name="profil_client_new_favourite_meal">Nouveau plat favori</string>
@@ -57,7 +61,7 @@
     <string name="profil_client_new_favourite_restaurant">Nouveau restaurant favori</string>
     <string name="profil_client_favourite_restaurant_list">Vos restaurants favoris</string>
     <string name="profil_client_booking">Réservations</string>
-    <string name="profil_client_preBooking">Pré-réservations</string>
+    <string name="profil_client_prebooking">Pré-réservations</string>
     <string name="profil_client_update">Mettre à jour votre profil</string>
     <string name="profil_client_next">Passer à table!</string>
     <string name="profil_client_mandatory">* champs obligatoires</string>
@@ -68,51 +72,81 @@
     <string name="profil_client_toast_mandatory">doit être rempli</string>
     <string name="profil_client_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
     <string name="profil_client_toast_uptodate">Informations mise à jour !</string>
-    
+
     <!-- Values for activity_list_restaurant.xml -->
     <string name="list_restaurant_filtre_note">Filtre note</string>
     <string name="list_restaurant_filtre_prix">Filtre prix</string>
     <string name="list_restaurant_filtre_favori">Filtre favori</string>
     <string name="list_restaurant_editText_note">Note</string>
     <string name="list_restaurant_editText_prix">Prix</string>
-    <string name="list_restaurant_select">Selectionner restaurant</string>
+    <string name="list_restaurant_select">Sélectionner restaurant</string>
     <string name="list_restaurant_title">Liste restaurants</string>
+    <string name="list_restaurant_toast">Veuillez sélectionner un restaurant</string>
     
+    <!-- Values for activity_list_city.xml -->
+    <string name="list_city_title">Liste des villes</string>
+    <string name="list_city_toast">Veuillez sélectionner une ville</string>
+
     <!-- Values for activity_prereservation_restaurant.xml -->
     <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>
     <string name="prereservation_restaurant_heure">Heure</string>
     <string name="prereservation_restaurant_nom">Nom</string>
     <string name="prereservation_restaurant_telephone">Téléphone</string>
     <string name="prereservation_restaurant_places">Places</string>
-    
+
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
     <string name="profil_restaurant_tel">Tél :</string>
     <string name="profil_restaurant_web">Site Web :</string>
-    <string name="profil_restaurant_mail">E-mail :</string>
+    <string name="profil_restaurant_mail">Connecté en tant que </string>
     <string name="profil_restaurant_adress">Adresse :</string>
-    <string name="profil_restaurant_mail_perso">E-mail personnel : </string>
     <string name="profil_restaurant_description">Description : </string>
-    <string name="profil_restaurant_gps">GPS</string>
+    <string name="profil_restaurant_gps">Options GPS</string>
     <string name="profil_restaurant_add">Ajouter le resto !</string>
+    <string name="profil_restaurant_cooks_button">Vos types de cuisine</string>
+    <string name="profil_restaurant_advantages_button">Vos avantages</string>
+    <string name="profil_restaurant_payments_button">Vos possibilités de paiement</string>
+    <string name="profil_restaurant_closing_edit">ex: 05\-01 (1er mai)</string>
+    <string name="profil_restaurant_closing_button">Vos jours de fermetures annuels</string>
+    <string name="profil_restaurant_schedule_text">Ajouter une nouvelle tranche d\'ouverture :</string>
+    <string name="profil_restaurant_schedule_1">Le</string>
+    <string name="profil_restaurant_schedule_2">de</string>
+    <string name="profil_restaurant_schedule_opentime">ex: 18:00:00</string>
+    <string name="profil_restaurant_schedule_3">à</string>
+    <string name="profil_restaurant_schedule_closetime">ex: 22:00:00</string>
+    <string name="profil_restaurant_schedule_button">Votre horaire</string>
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
     <string name="profil_restaurant_carte">Afficher la carte   </string>
-    
+    <string name="profil_restaurant_appliquer">Appliquer</string>
+    <string name="profil_restaurant_title">Restaurant</string>
+    <string name="profil_restaurant_mail_public">Email :</string>
+    <string name="profil_restaurant_capacite">Capacité :</string>
+    <string name="profil_restaurant_toast_gps">Ces coordonnées existent déjà</string>
+    <string name="profil_restaurant_toast_phone">Ce numéro existe déjà</string>
+    <string name="profil_restaurant_toast_missing">Veuillez entrer tous le champs</string>
+    <string name="profil_restaurant_toast_resto">Restaurant ajouté avec succès !</string>
+    <string name="resto_client_title">Restaurant</string>
+    <string name="resto_gps_options">Que voulez-vous faire ?</string>
+    <string name="resto_gps_itineraire">Itinéraire</string>
+    <string name="resto_gps_show">Afficher sur la carte</string>
+    <string name="resto_toast_client_position">Nous ne trouvons pas ou vous êtes</string>
+    <string name="resto_toast_client_gps">GPS désactivé</string>
+
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
     <string name="price">Prix :</string>
     <string name="stock">Stock :</string>
     <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir ici, enfin du moins je l\'espere</string>
     <string name="update">Ajouter aux favoris</string>
-    
+
     <!-- Values for activity_meal_builder -->
     <string name="meal_builder_meal_title">Modification de plats</string>
     <string name="meal_builder_price">Prix</string>
     <string name="meal_builder_stock">Stock</string>
     <string name="meal_builder_description">Description</string>
     <string name="meal_builder_update">Mettre à jour</string>
-    
+
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>
     <string name="prereservation_client_quantite">Quantité restante : </string>

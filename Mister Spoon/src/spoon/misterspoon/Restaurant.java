@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class Restaurant {
 	
@@ -26,6 +27,7 @@ public class Restaurant {
 	String ville;
 	
 	ArrayList <OpenHour> horaire;
+	ArrayList <Date> closingDays;//dates of closing
 	
 	ArrayList <String> typePaiements;
 	
@@ -56,6 +58,7 @@ public class Restaurant {
 		this.avantages = new ArrayList<String>();
 		this.cuisine = new ArrayList<String>();
 		this.typePaiements = new ArrayList<String>();
+		this.closingDays = new ArrayList <Date> ();
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
@@ -70,7 +73,7 @@ public class Restaurant {
 			note = cursor.getInt(4);
 			nbrVotants = cursor.getInt(5);
 		}
-		
+
 		//"email", "fax", "webSite"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 		if (cursor.moveToFirst()) {
@@ -79,47 +82,65 @@ public class Restaurant {
 			email = cursor.getString(1);
 			webSite = cursor.getString(2);
 		}
-		
+		//Log.v("phone", phone);
 		//"numero", "rue", "ville"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 		if (cursor.moveToFirst()) {
 			
 			if (cursor.getString(0)!=null) {
-				numero = cursor.getInt(0);
+				this.numero = cursor.getInt(0);
 			}
-			rue = cursor.getString(1);
-			ville = cursor.getString(2);
+			this.rue = cursor.getString(1);
+			this.ville = cursor.getString(2);
 		}
 		
 		//"horaire"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème1", "Boucle infinie");
 				horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
+				cursor.moveToNext();
+			}
+		}
+		
+		//"jours de fermetures annuels"
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Closing_column[2] + " FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurantName+"'", null);
+		if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème2", "Boucle infinie");
+				closingDays.add(new Date (cursor.getString(0)));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"typePaiements"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème3", "Boucle infinie");
 				typePaiements.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"avantages"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème4", "Boucle infinie");
 				avantages.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"cuisine"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème5", "Boucle infinie");
 				cuisine.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 		
@@ -127,7 +148,7 @@ public class Restaurant {
 		this.carte = new Carte (this.sqliteHelper, this.restaurantName);
 		
 		
-		db.close();
+		//db.close();
 	}
 	
 	public void setRestaurantName(String restaurantName) {
@@ -456,16 +477,19 @@ public class Restaurant {
 	 * @post : return the value of 'horaire'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <OpenHour> getRestaurantHoraire (boolean getFromDatabase) {
+	public ArrayList <OpenHour> getRestaurantHoraire (boolean getFromDatabase) {//TODO -> profil restaurant
 		
 		if (getFromDatabase) {
+			
+			horaire = new ArrayList <OpenHour> ();
 			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -477,18 +501,48 @@ public class Restaurant {
 	}
 	
 	/*
+	 * @post : return the value of 'closingDays'
+	 * If getFromDatabase is true, this value is get from the database
+	 */
+	public ArrayList <Date> getRestaurantClosingDays (boolean getFromDatabase) {//TODO
+		
+		if (getFromDatabase) {
+			
+			closingDays = new ArrayList <Date> ();
+			
+			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+			
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Closing_column[2] + " FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurantName+"'", null);
+			if (cursor.moveToFirst()) {
+				while (!cursor.isAfterLast()) {//If there is one element more to read
+					closingDays.add(new Date (cursor.getString(0)));
+					cursor.moveToNext();
+				}
+			}
+		}
+		
+		return closingDays;
+		
+		
+	}
+	
+	/*
 	 * @post : return the value of 'typePaiments'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {//TODO
 		
 		if (getFromDatabase) {
+			
+			typePaiements = new ArrayList <String> ();
+			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					typePaiements.add(cursor.getString(0));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -503,15 +557,19 @@ public class Restaurant {
 	 * @post : return the value of 'avantages'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantAvantages (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantAvantages (boolean getFromDatabase) {//TODO
 		
 		if (getFromDatabase) {
+			
+			avantages = new ArrayList <String> ();
+			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					avantages.add(cursor.getString(0));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -525,15 +583,19 @@ public class Restaurant {
 	 * @post : return the value of 'cuisine'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantCuisine (boolean getFromDatabase) {
+	public ArrayList <String> getRestaurantCuisine (boolean getFromDatabase) {//TODO
 		
 		if (getFromDatabase) {
+			
+			cuisine = new ArrayList <String> ();
+			
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					cuisine.add(cursor.getString(0));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -549,6 +611,14 @@ public class Restaurant {
 	
 	public void removeRestaurantHoraire(int index){
 		this.horaire.remove(index);
+	}
+	
+	public void addRestaurantClosingDays(Date calendar){
+		this.closingDays.add(calendar);
+	}
+	
+	public void removeRestaurantClosingDays(int index){
+		this.closingDays.remove(index);
 	}
 	
 	public void addRestaurantTypePaiements(String type){
@@ -576,7 +646,7 @@ public class Restaurant {
 	}
 
 	
-	//TODO
+	
 	/* 
 	 * @post : return the value of 'carte'
 	 * If getFromDatabase is true, this value is get from the database
@@ -588,7 +658,7 @@ public class Restaurant {
 		return this.carte;
 	}
 	
-	//TODO
+	
 	public boolean setRestaurantCarte (Carte carte) {
 		if (carte==null) {
 			return false;

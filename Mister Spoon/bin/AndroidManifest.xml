@@ -3,6 +3,13 @@
     package="spoon.misterspoon"
     android:versionCode="1"
     android:versionName="1.0" >
+    
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -27,6 +34,24 @@
         <activity 
             android:name="spoon.misterspoon.Profil_Client"
             android:label="@string/profil_client_title">
+        </activity>
+        
+        <!-- We declare the activity Profil_Restaurant -->
+        <activity 
+            android:name="spoon.misterspoon.Profil_Restaurant"
+            android:label="@string/profil_restaurant_title">
+        </activity>
+        
+        <!-- We declare the activity CityListActivity -->
+        <activity 
+            android:name="spoon.misterspoon.CityListActivity"
+            android:label="@string/list_city_title">
+        </activity>
+        
+        <!-- We declare the activity RestaurantListActivity -->
+        <activity 
+            android:name="spoon.misterspoon.RestaurantListActivity"
+            android:label="@string/list_restaurant_title">
         </activity>
         
         <!-- We declare the activity Booking CHANGING NAME IN EVERY VIEW !!!!-->

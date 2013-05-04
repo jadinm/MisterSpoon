@@ -42,7 +42,7 @@ public class Meal {
 			this.stock = cursor.getInt(0);
 		}
 		
-		db.close();
+		//db.close();
 		
 	}
 	

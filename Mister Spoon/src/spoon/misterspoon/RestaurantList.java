@@ -1,6 +1,7 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class RestaurantList {
 
 	public MySQLiteHelper sqliteHelper;
+	
+	static final String orderTable[] = new String[]{"abc","note","prix","proximite"};
 	
 	String ordre;
 	String town;
@@ -38,6 +41,14 @@ public class RestaurantList {
 		
 		db.close();
 		
+	}
+	
+	public List<String> getNomRestaurants(){
+		List<String> nomRestaurants = new ArrayList<String>();
+		for(Restaurant resto : getfilterListVisible()){
+			nomRestaurants.add(resto.getRestaurantName());
+		}
+		return nomRestaurants;
 	}
 	
 	public String getTown(boolean getFromDatabase) {

@@ -1,12 +1,17 @@
 package spoon.misterspoon;
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -14,18 +19,26 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class RestaurantListActivity extends Activity {
 	
+	public static final String RESTAURANT = "Selected Restaurant";
 	Context context = this;
 	MySQLiteHelper sql = new MySQLiteHelper(this);
 	
+	Client client;
+	
 	Restaurant currentRestaurant;
 	
-	ListView restaurantList;
-	String currentOrdre;
+	ListView restaurantListView;
+	RestaurantList restaurantList;
+	List<String> nomRestaurants;
+	ArrayAdapter<String> adapter;
 	
 	Spinner ordre;
+	List<String> orderList;
+	ArrayAdapter<String> adapterOrdre;
 	
 	CheckBox filtreNote;
 	EditText textNote;
@@ -39,10 +52,26 @@ public class RestaurantListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_restaurant);
 		
-		restaurantList = (ListView) findViewById(R.id.list_restaurant_restaurants);
-		//TODO Remplir la liste de restaurants
-				
+		Intent i = getIntent();
+		String sclient = i.getStringExtra(CityListActivity.CITY);
+		String city = i.getStringExtra(Login.email);
+		
+		client = new Client (sql, sclient);
+		
+		restaurantList = new RestaurantList (sql, city, client, true);
+		restaurantList.sort("abc");
+		nomRestaurants = restaurantList.getNomRestaurants();  //Renvoie une liste de string correspondant aux noms des restaurants    
+		
+		restaurantListView = (ListView) findViewById(R.id.list_restaurant_restaurants);
+		
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nomRestaurants);
+		restaurantListView.setAdapter(adapter);
+		
 		ordre = (Spinner) findViewById(R.id.list_restaurant_ordre);
+		orderList = Arrays.asList(RestaurantList.orderTable);
+		adapterOrdre = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,orderList);
+		adapterOrdre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ordre.setAdapter(adapterOrdre);
 		
 		filtreNote = (CheckBox) findViewById(R.id.list_restaurant_filtre_note);
 		textNote = (EditText) findViewById(R.id.list_restaurant_editText_note);
@@ -52,7 +81,7 @@ public class RestaurantListActivity extends Activity {
 		
 		selectRestaurant = (Button) findViewById(R.id.list_restaurant_selection);
 		
-		restaurantList.setOnItemClickListener(restaurantListListener);
+		restaurantListView.setOnItemClickListener(restaurantListListener);
 		
 		ordre.setOnItemClickListener(ordreListener);
 		
@@ -63,10 +92,11 @@ public class RestaurantListActivity extends Activity {
 		selectRestaurant.setOnClickListener(selectRestaurantListener);
 	}
 	
+	
 	private OnItemClickListener restaurantListListener = new OnItemClickListener(){
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			currentRestaurant = (Restaurant) restaurantList.getSelectedItem();
+			currentRestaurant = (Restaurant) restaurantListView.getSelectedItem();
 		}
 		
 	};
@@ -74,7 +104,10 @@ public class RestaurantListActivity extends Activity {
 	private OnItemClickListener ordreListener = new OnItemClickListener(){
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			currentOrdre = (String) ordre.getSelectedItem();
+			restaurantList.sort((String) ordre.getSelectedItem());
+			nomRestaurants = restaurantList.getNomRestaurants();
+			adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+			restaurantListView.setAdapter(adapter);
 		}
 		
 	};
@@ -82,11 +115,23 @@ public class RestaurantListActivity extends Activity {
 	private OnCheckedChangeListener filtreNoteListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			if (filtreNote.isChecked()) {
-				//TODO Appliquer le filtre
+			if (isChecked) {
+				restaurantList.listFilter("note", Integer.parseInt(textNote.getText().toString()));
+				nomRestaurants = restaurantList.getNomRestaurants();
+				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+				restaurantListView.setAdapter(adapter);
 			}
 			else {
-				//TODO Enlever le filtre
+				restaurantList.resetfilterList();
+				if(filtrePrix.isChecked()){
+					restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
+				}
+				if(filtreFavori.isChecked()){
+					restaurantList.listFilter("favori", 0);
+				}
+				nomRestaurants = restaurantList.getNomRestaurants();
+				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+				restaurantListView.setAdapter(adapter);
 			}
 		}
 	};
@@ -94,11 +139,23 @@ public class RestaurantListActivity extends Activity {
 	private OnCheckedChangeListener filtrePrixListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			if (filtrePrix.isChecked()) {
-				//TODO Appliquer le filtre
+			if (isChecked) {
+				restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
+				nomRestaurants = restaurantList.getNomRestaurants();
+				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+				restaurantListView.setAdapter(adapter);
 			}
 			else {
-				//TODO Enlever le filtre
+				restaurantList.resetfilterList();
+				if(filtreNote.isChecked()){
+					restaurantList.listFilter("note", Integer.parseInt(textNote.getText().toString()));
+				}
+				if(filtreFavori.isChecked()){
+					restaurantList.listFilter("favori", 0);
+				}
+				nomRestaurants = restaurantList.getNomRestaurants();
+				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+				restaurantListView.setAdapter(adapter);
 			}
 		}
 	};
@@ -107,21 +164,39 @@ public class RestaurantListActivity extends Activity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (filtreFavori.isChecked()) {
-				//TODO Appliquer le filtre
+				restaurantList.listFilter("favori", 0);
+				nomRestaurants = restaurantList.getNomRestaurants();
+				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+				restaurantListView.setAdapter(adapter);
 			}
 			else {
-				//TODO Enlever le filtre
+				restaurantList.resetfilterList();
+				if(filtreNote.isChecked()){
+					restaurantList.listFilter("note", Integer.parseInt(textNote.getText().toString()));
+				}
+				if(filtrePrix.isChecked()){
+					restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
+				}
+				nomRestaurants = restaurantList.getNomRestaurants();
+				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
+				restaurantListView.setAdapter(adapter);
 			}
 		}
 	};
 	
 	private OnClickListener selectRestaurantListener = new OnClickListener() {
 		public void onClick(View v) {
-			if (currentRestaurant.toString()==null) {
-				//TODO Message d'erreur
+			if (currentRestaurant==null) {
+				Toast toast = Toast.makeText(context, getString(R.string.list_restaurant_toast), Toast.LENGTH_SHORT);
+				toast.show();
 				return;
 			}
-			//TODO Si un resto est checké, aller à la page resto
+			Toast toast = Toast.makeText(context, "Ceci est un leurre ! Mouhahaha !", Toast.LENGTH_SHORT);
+			toast.show();
+			/*Intent intent = new Intent(RestaurantListActivity.this,RestaurantActivity.class);
+			intent.putExtra(RESTAURANT, currentRestaurant.getRestaurantName());
+			startActivity(intent);*/
+			return;
 		}
 	};
 }
