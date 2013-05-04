@@ -7,18 +7,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
-        <Gallery
-            android:id="@+id/restaurant_gallery"
-            android:layout_width="match_parent"
-            android:layout_height="253dp"
-            android:paddingBottom="20dp" />
-
-        <RatingBar
-            android:id="@+id/restaurant_ratingbar"
+        <ListView
+            android:id="@+id/gallery"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fadingEdge="horizontal"
+            android:scrollbars="horizontal" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/restaurant_mail"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:text="@string/profil_restaurant_mail"
+            android:textIsSelectable="true" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -34,7 +41,6 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:text="@string/profil_restaurant_tel"
-                android:lines="2"
                 android:textIsSelectable="true" />
 
             <TextView
@@ -44,7 +50,6 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="@string/profil_restaurant_fax"
-                android:lines="2"
                 android:textIsSelectable="true" />
         </LinearLayout>
 
@@ -63,70 +68,123 @@
                 android:gravity="left"
                 android:text="@string/profil_restaurant_web"
                 android:textIsSelectable="true" />
-
-            <TextView
-                android:id="@+id/restaurant_mail"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="@string/profil_restaurant_mail"
-                android:textIsSelectable="true" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/profil_restaurant_mail_public"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="@string/profil_restaurant_mail_public" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="20dp" >
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="2" >
 
             <TextView
-                android:id="@+id/restaurant_adress"
+                android:id="@+id/rue"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="@string/profil_restaurant_adress"
+                android:layout_weight="0.6"
+                android:text="@string/rue"
                 android:textIsSelectable="true" >
             </TextView>
 
             <TextView
-                android:id="@+id/restaurant_description"
+                android:id="@+id/numero"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/profil_restaurant_description"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.4"
+                android:text="@string/numero"
                 android:textIsSelectable="true" >
             </TextView>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/restaurant_carte"
+        <TextView
+            android:id="@+id/ville"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:drawablePadding="@dimen/SpaceBetweenTextAndPics"
-            android:drawableRight="@drawable/carte"
-            android:gravity="left"
             android:paddingBottom="20dp"
-            android:text="@string/profil_restaurant_carte" />
+            android:text="@string/ville" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="5" >
+
+            <TextView
+                android:id="@+id/gps"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="left"
+                android:text="@string/gps"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/gps_longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="@string/gps_longitude"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/gps2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/gps2" />
+
+            <TextView
+                android:id="@+id/gps_latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="@string/gps_latitude" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/restaurant_description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="@string/profil_restaurant_description"
+            android:textIsSelectable="true" >
+        </TextView>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
             android:paddingBottom="20dp"
+            android:paddingTop="20dp"
             android:weightSum="2" >
 
             <Button
-                android:id="@+id/restaurant_gps"
+                android:id="@+id/restaurant_carte"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/profil_restaurant_gps" />
+                android:layout_weight="0.95"
+                android:drawablePadding="@dimen/SpaceBetweenTextAndPics"
+                android:drawableRight="@drawable/carte"
+                android:gravity="left"
+                android:text="@string/profil_restaurant_carte" />
 
             <Button
                 android:id="@+id/restaurant_add"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.05"
+                android:gravity="right"
                 android:text="@string/profil_restaurant_add" />
         </LinearLayout>
 
@@ -151,6 +209,14 @@
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_prereservation" />
         </LinearLayout>
+        
+        <Button
+            android:id="@+id/profil_restaurant_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/profil_restaurant_gps" />
+
     </LinearLayout>
 
 </ScrollView>
