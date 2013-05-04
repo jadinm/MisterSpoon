@@ -131,6 +131,7 @@
     <string name="resto_gps_itineraire">Itinéraire</string>
     <string name="resto_gps_show">Afficher sur la carte</string>
     <string name="resto_toast_client_position">Nous ne trouvons pas ou vous êtes</string>
+    <string name="resto_toast_client_gps">GPS désactivé</string>
 
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>

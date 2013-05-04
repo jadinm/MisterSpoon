@@ -258,7 +258,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	}
 
 	public void onProviderDisabled(String provider) {
-		Toast.makeText(this,String.format("La source \"%s\" a été désactivé", LocationManager.GPS_PROVIDER),Toast.LENGTH_SHORT).show();
+		Toast.makeText(this,getString(R.string.resto_toast_client_gps),Toast.LENGTH_SHORT).show();
 		lManager.removeUpdates(this);
 
 	}
