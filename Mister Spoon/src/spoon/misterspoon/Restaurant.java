@@ -68,12 +68,16 @@ public class Restaurant {
 			
 			phone = cursor.getString(0);
 			position = new GPS (cursor.getString(1));
+			Log.v("nameIf",restaurantName);
 			capacity = cursor.getInt(2);
 			Description = cursor.getString(3);
 			note = cursor.getInt(4);
 			nbrVotants = cursor.getInt(5);
+			Log.v("in","if");
 		}
-		
+		Log.v("nameOut",restaurantName);
+		Log.v("fuck","you");
+
 		//"email", "fax", "webSite"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 		if (cursor.moveToFirst()) {
@@ -82,16 +86,16 @@ public class Restaurant {
 			email = cursor.getString(1);
 			webSite = cursor.getString(2);
 		}
-		
+		//Log.v("phone", phone);
 		//"numero", "rue", "ville"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 		if (cursor.moveToFirst()) {
 			
 			if (cursor.getString(0)!=null) {
-				numero = cursor.getInt(0);
+				this.numero = cursor.getInt(0);
 			}
-			rue = cursor.getString(1);
-			ville = cursor.getString(2);
+			this.rue = cursor.getString(1);
+			this.ville = cursor.getString(2);
 		}
 		
 		//"horaire"
