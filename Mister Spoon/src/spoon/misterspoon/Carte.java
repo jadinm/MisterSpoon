@@ -17,6 +17,10 @@ public class Carte {
 		this.menuList = menuList;
 	}
 	
+	public Carte(MySQLiteHelper sqliteHelper2, String restaurantName) {
+		// TODO needed !!!
+	}
+
 	public void sort(boolean sortPrixCroissant) {
 		//TODO
 	}

@@ -290,13 +290,14 @@ public class Profil_Client extends Activity {
 				alertDialogBuilder.setTitle(R.string.profil_client_allergy_list);
 				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
 				
-				//set the list of checkBoxes
+				//set the list of checkBoxes (items_test is useful when we change of language)
+				String [] items_test = new String[]{getString(R.string.profil_client_allergy_gluten_test), getString(R.string.profil_client_allergy_noix_test), getString(R.string.profil_client_allergy_cacahuete_test), getString(R.string.profil_client_allergy_banane_test)};
 				items = new String []{getString(R.string.profil_client_allergy_gluten), getString(R.string.profil_client_allergy_noix), getString(R.string.profil_client_allergy_cacahuete), getString(R.string.profil_client_allergy_banane)};
 				checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 				for(int i = 0; i<c.getAllergie(true).size(); i++) {
 					
 					for(int j=0; j<items.length; j++) {
-						if(c.getAllergie(true).get(i).equals(items[j])) {
+						if(c.getAllergie(false).get(i).equals(items_test[j])) {
 							checkedItems[j]=true;
 						}
 					}

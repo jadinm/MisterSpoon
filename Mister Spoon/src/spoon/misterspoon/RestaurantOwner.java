@@ -353,8 +353,8 @@ public class RestaurantOwner {
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " ( " + MySQLiteHelper.Schedule_column[1] + ", " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[3] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", '"+horaire.getOpenDay()+"'" + ", '"+horaire.getOpenTime()+"'" + ", '"+horaire.getCloseTime()+"' );");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " ( " + MySQLiteHelper.Schedule_column[1] + ", " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[3] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", '"+horaire.getOpenDay()+"'" + ", '"+horaire.getOpenTime()+"'" + ", '"+horaire.getCloseTime()+"' );");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " ( " + MySQLiteHelper.Schedule_column[1] + ", " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", '"+horaire.getOpenDay()+"'" + ", '"+horaire.getOpenTime()+"'" + ", '"+horaire.getCloseTime()+"' );");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Schedule + " ( " + MySQLiteHelper.Schedule_column[1] + ", " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", '"+horaire.getOpenDay()+"'" + ", '"+horaire.getOpenTime()+"'" + ", '"+horaire.getCloseTime()+"' );");
 			db.close();
 			restaurant.addRestaurantHoraire(horaire);
 			return true;
@@ -368,6 +368,7 @@ public class RestaurantOwner {
 			int index = 0;
 			for(OpenHour currentHoraire : restaurant.getRestaurantHoraire(false)){
 				index++;
+
 				if(horaire.getOpenDay().equals(currentHoraire.getOpenDay()) && horaire.getCloseTime().equals(currentHoraire.getCloseTime()) && horaire.getOpenTime().equals(currentHoraire.getOpenTime())) {
 					found=true;
 				}
@@ -388,7 +389,7 @@ public class RestaurantOwner {
 			return false;
 	}
 	
-	public boolean addRestaurantClosingHour(Date calendar) {
+	public boolean addRestaurantClosingDays(Date calendar) {
 		if (calendar != null) {
 			if(restaurant.getRestaurantClosingDays(false).size() != 0){
 				for(Date currentDate : restaurant.getRestaurantClosingDays(false)){
@@ -406,7 +407,7 @@ public class RestaurantOwner {
 		else return false;
 	}
 	
-	public boolean removeRestaurantClosingHour(Date date){
+	public boolean removeRestaurantClosingDays(Date date){
 		if (date != null || restaurant.getRestaurantClosingDays(false).size()!=0) {
 			boolean found = false;
 			int index = 0;
@@ -421,8 +422,8 @@ public class RestaurantOwner {
 			}
 			else{
 				SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+date.toString()+"'" +";");
-				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Schedule_column[2] + " = " + "'"+date.toString()+"'" +";");
+				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Closing_column[2] + " = " + "'"+date.toString()+"'" +";");
+				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Closing_column[2] + " = " + "'"+date.toString()+"'" +";");
 				db.close();
 				restaurant.removeRestaurantClosingDays(index-1);
 				return true;
@@ -439,8 +440,8 @@ public class RestaurantOwner {
 			}
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " SET " + MySQLiteHelper.Payment_column[2] + " = " + "'"+typePaiement+"'" + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " SET " + MySQLiteHelper.Payment_column[2] + " = " + "'"+typePaiement+"'" + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " ( " + MySQLiteHelper.Payment_column[1] + ", " + MySQLiteHelper.Payment_column[2] + ") VALUES ( " + "'"+restaurant.getRestaurantName()+"'" + ", '"+typePaiement+"'" + ") ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Payment + " ( " + MySQLiteHelper.Payment_column[1] + ", " + MySQLiteHelper.Payment_column[2] + ") VALUES ( " + "'"+restaurant.getRestaurantName()+"'" + ", '"+typePaiement+"'" + ") ;");
 			db.close();
 			restaurant.addRestaurantTypePaiements(typePaiement);
 		}

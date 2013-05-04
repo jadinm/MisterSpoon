@@ -35,6 +35,8 @@ public class Restaurant {
 	
 	ArrayList <String> cuisine;
 	
+	ArrayList <String> imageList;
+	
 	Carte carte;
 	
 	/*
@@ -59,6 +61,7 @@ public class Restaurant {
 		this.cuisine = new ArrayList<String>();
 		this.typePaiements = new ArrayList<String>();
 		this.closingDays = new ArrayList <Date> ();
+		this.imageList = new ArrayList <String> ();
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
@@ -140,6 +143,16 @@ public class Restaurant {
 			while (!cursor.isAfterLast()) {//If there is one element more to read
 				Log.d("Problème5", "Boucle infinie");
 				cuisine.add(cursor.getString(0));
+				cursor.moveToNext();
+			}
+		}
+		
+		//"imageList"
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Image_column[2] + " FROM " + MySQLiteHelper.TABLE_Image + " WHERE " + MySQLiteHelper.Image_column[1] + " = " + "'"+restaurantName+"'", null);
+		if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème6", "Boucle infinie");
+				imageList.add(cursor.getString(0));
 				cursor.moveToNext();
 			}
 		}
@@ -477,7 +490,7 @@ public class Restaurant {
 	 * @post : return the value of 'horaire'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <OpenHour> getRestaurantHoraire (boolean getFromDatabase) {//TODO -> profil restaurant
+	public ArrayList <OpenHour> getRestaurantHoraire (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			
@@ -488,7 +501,10 @@ public class Restaurant {
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				while (!cursor.isAfterLast()) {//If there is one element more to read
-					horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
+					
+					OpenHour openHour = new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2)));
+						Log.d("getRestaurantHoraire", openHour.toString());
+					horaire.add(openHour);
 					cursor.moveToNext();
 				}
 			}
@@ -504,7 +520,7 @@ public class Restaurant {
 	 * @post : return the value of 'closingDays'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <Date> getRestaurantClosingDays (boolean getFromDatabase) {//TODO
+	public ArrayList <Date> getRestaurantClosingDays (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			
@@ -530,7 +546,7 @@ public class Restaurant {
 	 * @post : return the value of 'typePaiments'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {//TODO
+	public ArrayList <String> getRestaurantTypePaiements (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			
@@ -557,7 +573,7 @@ public class Restaurant {
 	 * @post : return the value of 'avantages'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantAvantages (boolean getFromDatabase) {//TODO
+	public ArrayList <String> getRestaurantAvantages (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			
@@ -583,7 +599,7 @@ public class Restaurant {
 	 * @post : return the value of 'cuisine'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public ArrayList <String> getRestaurantCuisine (boolean getFromDatabase) {//TODO
+	public ArrayList <String> getRestaurantCuisine (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			
@@ -604,6 +620,34 @@ public class Restaurant {
 		
 		return cuisine;
 	}
+	
+	/*
+	 * @post : return the value of 'imageList'
+	 * If getFromDatabase is true, this value is get from the database
+	 */
+	public ArrayList <String> getRestaurantImageList (boolean getFromDatabase) {
+		
+		if (getFromDatabase) {
+			
+			imageList = new ArrayList <String> ();
+			
+			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+			
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Image_column[2] + " FROM " + MySQLiteHelper.TABLE_Image + " WHERE " + MySQLiteHelper.Image_column[1] + " = " + "'"+restaurantName+"'", null);
+			if (cursor.moveToFirst()) {
+				while (!cursor.isAfterLast()) {//If there is one element more to read
+					imageList.add(cursor.getString(0));
+					cursor.moveToNext();
+				}
+			}
+			
+			db.close();
+		}
+		
+		return imageList;
+	}
+
+	
 	
 	public void addRestaurantHoraire(OpenHour horaire){
 		this.horaire.add(horaire);

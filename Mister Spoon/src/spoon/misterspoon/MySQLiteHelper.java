@@ -38,6 +38,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String TABLE_Closing ="Fermeture";
 	public static final String[] Closing_column = new String[]{_ID, "restNom", "date"};
 	
+	public static final String TABLE_Image="Image";
+	public static final String[] Image_column = new String[]{_ID, "restNom", "imageName"};
+	
+	public static final String TABLE_ImageMeal="ImageMeal";
+	public static final String[] ImageMeal_column = new String[]{_ID, "platNom" , "restNom", "imageName"};
+	
 	public static final String TABLE_Menu= "Menu";
 	public static final String[] Menu_column = new String[]{_ID, "menuNom", "categorie", "restNom", "platNom"};
 	
@@ -110,6 +116,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE " + TABLE_Cook + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Cook_column[1] +" VARCHAR NOT NULL," + Cook_column[2] +" VARCHAR NOT NULL, FOREIGN KEY ("+Cook_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE);");
 		db.execSQL("CREATE TABLE " + TABLE_Schedule + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Schedule_column[1] +" VARCHAR NOT NULL, " + Schedule_column[2] + " VARCHAR NOT NULL, " + Schedule_column[3] +" VARCHAR NOT NULL, " + Schedule_column[4] +" VARCHAR NOT NULL, FOREIGN KEY (" + Schedule_column[1] +") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE );");
 		db.execSQL("CREATE TABLE " + TABLE_Closing + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Closing_column[1] +" VARCHAR NOT NULL, " + Closing_column[2] + " VARCHAR NOT NULL, " + "FOREIGN KEY ("+Closing_column[1]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE);");
+		db.execSQL("CREATE TABLE " + TABLE_Image + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Image_column[1] +" VARCHAR NOT NULL, " + Image_column[2] + " VARCHAR NOT NULL, " + "FOREIGN KEY ("+Image_column[1]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE);");
+		db.execSQL("CREATE TABLE " + TABLE_ImageMeal + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + ImageMeal_column[1] +" VARCHAR NOT NULL, " + ImageMeal_column[2] + " VARCHAR NOT NULL , " + ImageMeal_column[3] +" VARCHAR NOT NULL, " + "FOREIGN KEY ("+ImageMeal_column[2]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE);");
 		db.execSQL("CREATE TABLE " + TABLE_Menu + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Menu_column[1] + " VARCHAR NOT NULL, " + Menu_column[2] + " VARCHAR NOT NULL, " + Menu_column[3] + " VARCHAR NOT NULL, " + Menu_column[4] + " VARCHAR NOT NULL, FOREIGN KEY ("+Menu_column[3]+") REFERENCES "+TABLE_Restaurant+"("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE );");
 		db.execSQL("CREATE TABLE " + TABLE_MenuPrice + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + MenuPrice_column[1]  + " VARCHAR NOT NULL, " + MenuPrice_column[2] + " VARCHAR NOT NULL, " + MenuPrice_column[3] + " VARCHAR NOT NULL, " + MenuPrice_column[4] + "  DECIMAL(9,2) NOT NULL, UNIQUE ("+ MenuPrice_column[1]+", " + MenuPrice_column[2] +", " + MenuPrice_column[3] +") ON CONFLICT REPLACE, FOREIGN KEY ("+MenuPrice_column[1]+") REFERENCES "+ TABLE_Restaurant+" ("+Restaurant_column[1]+") ON UPDATE CASCADE ON DELETE CASCADE );");
 		db.execSQL("CREATE TABLE " + TABLE_Payment + "(" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Payment_column[1] + " VARCHAR NOT NULL, " + Payment_column[2] + " VARCHAR NOT NULL,  FOREIGN KEY ("+Payment_column[1]+") REFERENCES Restaurant ("+Payment_column[2]+") ON UPDATE CASCADE ON DELETE CASCADE );");
@@ -133,7 +141,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Contact + "(" + Contact_column[1] + ", " + Contact_column[2] + ", " + Contact_column[3] + ", " + Contact_column[4] +")  VALUES('010/45.64.62','010/81.23.62','info@loungeatude.be','www.loungeatude.be'); ");
 		db.execSQL("INSERT INTO " + TABLE_Contact + "(" + Contact_column[1] + ", " + Contact_column[2] + ", " + Contact_column[3] + ", " + Contact_column[4] +")  VALUES('010/48.84.26',NULL,'petitvingtieme@museeherge.com','http://www.lepetitvingtieme.be/'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +")  VALUES('Loungeatude', 'mathieu.jadin@student.uclouvain.be','010/45.64.62','50.6609,4.617962',55,'Un simple coup d''oeil suffit e se rendre compte que vous n''�tes ni dans un restaurant. Ni dans un bar. Encore moins dans une galerie deart. Et pourtant, vous prendrez l''aperitif au salon, vous dinerez dans la salle a manger et vous terminerez peut-etre votre pousse-cafe au bar devant une huile ou une aquarelle." +"\n" + " Vous etes au Loungeatude." +"\n" + " Vous etes chez vous.', 3, 2); ");
+		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +")  VALUES('Loungeatude', 'mathieu.jadin@student.uclouvain.be','010/45.64.62','50.6609,4.617962',55,'Un simple coup d''oeil suffit e se rendre compte que vous n''�tes ni dans un restaurant. Ni dans un bar. Encore moins dans une galerie deart. Et pourtant, vous prendrez l''aperitif au salon, vous dinerez dans la salle a manger et vous terminerez peut-etre votre pousse-cafe au bar devant une huile ou une aquarelle." +"\n" + " Vous etes au Loungeatude." +"\n" + " Vous etes chez vous.', 3, 2); ");
 		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +")   VALUES('Creperie Bretonne','ludovic.fastre@student.uclouvain.be','010/45.15.85','50.668572,4.616146',45,'Dans notre salle au decor rustique ou en terrasse aux beaux jours, degustez l''une de nos 350 crepes salees d''inspiration franeaise ou exotique, ou appreciez l''une de nos salades variees. Pour accompagner votre plat, nous avons e votre disposition une carte de plus de 200 bieres artisanales belges dont toutes les trapistes et 5 bieres au fet. Nous pouvons aussi vous servir un cidre bien frais ou vous laisser choisir un vin de pays." +"\n" + "En dessert, vous choisirez une crepe sucree ou flambee, une coupe de glace maison ou encore un milkshake que vous accompagnerez d''un cafe lointain, un the vert parfume ou une infusion. Nous vous accueillons et vous servons tout au long du jour de 9h du matin jusqu''e 1h de la nuit, la cuisine restant ouverte non-stop.', 3, 1); ");
 		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +")  VALUES('Le Petit Vingtieme','antoine.walsdorff@student.uclouvain.be','010/48.84.26','50.671578,4.61282',45,'Au sein du Musee Herge, le restaurant" +"\n" + "le Petit Vingtieme vous invite, dans un cadre raffine" +"\n" + "et moderne, pour un moment de plaisir et de detente." +"\n" + "Proposant une gastronomie fine variant au fil" +"\n" + "des saisons, vous pourrez y deguster au gre de" +"\n" + "vos envies des preparations melant fraecheur" +"\n" + "des produits et purete du goet.', 4, 1); ");
 		
@@ -191,6 +199,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Vendredi','19:00:00','22:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Samedi','18:00:00','22:00:00'); ");
 		
+		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Creperie Bretonne','05-01'); ");
+		
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +") VALUES('Le Petit Vingtième','pti1');");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti2'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti3'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti4'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti5'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti6'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_1'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_2'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_3'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_4'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_4'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_5'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_6'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_7'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_8'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_9'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret2'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret3'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret4'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret5'); ");
+		
+		db.execSQL("INSERT INTO " + TABLE_ImageMeal + "(" + ImageMeal_column[1] + ", " + ImageMeal_column[2] + ", " + ImageMeal_column[3] +") VALUES ('Crêpe La tartiflette','Crêperie Bretonne','bret1');");
 		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Creperie Bretonne','05-01'); ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Viandes','plat','Le Petit Vingtieme','Entrecote de Boeuf Belge Grillee +- 300gr'); ");
@@ -255,6 +287,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_Advantage);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_Cook);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_Schedule);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_Closing);
+		db.execSQL("DROP TABLE IT EXISTS " + TABLE_Image);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_ImageMeal);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_Menu);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_MenuPrice);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_Payment);
@@ -274,4 +309,3 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 }
-

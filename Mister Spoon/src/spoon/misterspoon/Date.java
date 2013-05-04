@@ -8,9 +8,16 @@ public class Date {
 
 	public Date(String date) {
 		String tmp [] = date.split("-");
-		day = tmp[2];
-		month = tmp[1];
-		year = tmp[0];
+		if (tmp.length==2) {
+			day = tmp[1];
+			month = tmp[0];
+			year = null;
+		}
+		else {
+			day = tmp[2];
+			month = tmp[1];
+			year = tmp[0];
+		}
 	}
 	
 	public Date(String year, String month, String day) {
@@ -30,12 +37,20 @@ public class Date {
 	}
 	
 	public String toString () {
+		
+		if (year==null) {
+			return month + "-" + day;
+		}
+		
 		return year + "-" + month + "-"  + day;
 	}
 	
 	public boolean equals (Date date) {
-		if (this.year.equals(date.year) && this.month.equals(date.month) && this.day.equals(date.day)) {
-			return true;
+		if (date.year == null && this.year == null) {
+			return this.month.equals(date.month) && this.day.equals(date.day);
+		}
+		else if (date.year != null && this.year != null) {
+			return this.year.equals(date.year) && this.month.equals(date.month) && this.day.equals(date.day);
 		}
 		return false;
 	}

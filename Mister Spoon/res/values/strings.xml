@@ -54,6 +54,12 @@
     <string name="profil_client_allergy_noix">noix</string>
     <string name="profil_client_allergy_cacahuete">cacahuète</string>
     <string name="profil_client_allergy_banane">banane</string>
+    <!-- Useful for the test when we change of language so DO NOT CHANGE THE LANGUAGE OF STRINGS BELOW -->
+    <string name="profil_client_allergy_gluten_test">gluten</string>
+    <string name="profil_client_allergy_noix_test">noix</string>
+    <string name="profil_client_allergy_cacahuete_test">cacahuète</string>
+    <string name="profil_client_allergy_banane_test">banane</string>
+    <!-- OK -->
     <string name="profil_client_new_specificity">Nouvelle spécificité</string>
     <string name="profil_client_specificity_list">Vos spécificités</string>
     <string name="profil_client_new_favourite_meal">Nouveau plat favori</string>
@@ -106,8 +112,8 @@
     <string name="profil_restaurant_cooks_button">Vos types de cuisine</string>
     <string name="profil_restaurant_advantages_button">Vos avantages</string>
     <string name="profil_restaurant_payments_button">Vos possibilités de paiement</string>
-    <string name="profil_restaurant_closing_edit">ex: 05\-01 (1er mai)</string>
-    <string name="profil_restaurant_closing_button">Vos jours de fermetures annuels</string>
+    <string name="profil_restaurant_closing_edit">ex: 05&#8211;01 (1er mai)</string> <!-- &#8211; == "-" -->
+    <string name="profil_restaurant_closing_button">Vos jours de fermeture annuelle</string>
     <string name="profil_restaurant_schedule_text">Ajouter une nouvelle tranche d\'ouverture :</string>
     <string name="profil_restaurant_schedule_1">Le</string>
     <string name="profil_restaurant_schedule_2">de</string>
@@ -132,7 +138,57 @@
     <string name="resto_gps_show">Afficher sur la carte</string>
     <string name="resto_toast_client_position">Nous ne trouvons pas ou vous êtes</string>
     <string name="resto_toast_client_gps">GPS désactivé</string>
-
+    <string name="profil_restaurant_cooks_alert_french">Française</string>
+    <string name="profil_restaurant_cooks_alert_italian">Italienne</string>
+    <string name="profil_restaurant_cooks_alert_chinese">Chinoise</string>
+    <string name="profil_restaurant_cooks_alert_japanese">Japonaise</string>
+    <string name="profil_restaurant_cooks_alert_greek">Grecque</string>
+    <string name="profil_restaurant_cooks_alert_pancakes">Crêpes</string>
+    <string name="profil_restaurant_cooks_alert_fusion">Fusion</string>
+    <string name="profil_restaurant_cooks_alert_mediterranean">Méditerranéenne</string>
+    <string name="profil_restaurant_advantages_alert_vegetarian">Végétarien</string>
+    <string name="profil_restaurant_advantages_alert_wifi">Wi-Fi</string>
+    <string name="profil_restaurant_advantages_alert_disable">Accès Handicapés</string>
+    <string name="profil_restaurant_advantages_alert_caterer">Service Traiteur</string>
+    <string name="profil_restaurant_advantages_alert_terrace">Terrasse</string>
+    <string name="profil_restaurant_advantages_alert_air_conditioning">Climatisation</string>
+    <string name="profil_restaurant_advantages_alert_children">Plats enfants</string>
+    <string name="profil_restaurant_payments_alert_cash">Cash</string>
+    <string name="profil_restaurant_payments_alert_bancontact">Bancontact</string>
+    <string name="profil_restaurant_payments_alert_visa">Visa</string>
+    <string name="profil_restaurant_payments_alert_ticket_restaurant">Ticket Restaurant</string>
+    <string name="profil_restaurant_payments_alert_proton">Proton</string>
+    <string name="profil_restaurant_payments_alert_mastercard">MasterCard</string>
+    <string name="profil_restaurant_payments_alert_check">Chèque</string>
+    <string name="profil_restaurant_payments_alert_transfer">Virement</string>
+    <!-- Useful for the test when we change of language so DO NOT CHANGE THE LANGUAGE OF STRINGS BELOW -->
+    <string name="profil_restaurant_cooks_alert_french_test">Française</string>
+    <string name="profil_restaurant_cooks_alert_italian_test">Italienne</string>
+    <string name="profil_restaurant_cooks_alert_chinese_test">Chinoise</string>
+    <string name="profil_restaurant_cooks_alert_japanese_test">Japonaise</string>
+    <string name="profil_restaurant_cooks_alert_greek_test">Grecque</string>
+    <string name="profil_restaurant_cooks_alert_pancakes_test">Crêpes</string>
+    <string name="profil_restaurant_cooks_alert_fusion_test">Fusion</string>
+    <string name="profil_restaurant_cooks_alert_mediterranean_test">Méditerranéenne</string>
+    <string name="profil_restaurant_advantages_alert_vegetarian_test">Végétarien</string>
+    <string name="profil_restaurant_advantages_alert_wifi_test">Wi-Fi</string>
+    <string name="profil_restaurant_advantages_alert_disable_test">Accès Handicapés</string>
+    <string name="profil_restaurant_advantages_alert_caterer_test">Service Traiteur</string>
+    <string name="profil_restaurant_advantages_alert_terrace_test">Terrasse</string>
+    <string name="profil_restaurant_advantages_alert_air_conditioning_test">Climatisation</string>
+    <string name="profil_restaurant_advantages_alert_children_test">Plats enfants</string>
+    <string name="profil_restaurant_payments_alert_cash_test">Cash</string>
+    <string name="profil_restaurant_payments_alert_bancontact_test">Bancontact</string>
+    <string name="profil_restaurant_payments_alert_visa_test">Visa</string>
+    <string name="profil_restaurant_payments_alert_ticket_restaurant_test">Ticket Restaurant</string>
+    <string name="profil_restaurant_payments_alert_proton_test">Proton</string>
+    <string name="profil_restaurant_payments_alert_mastercard_test">MasterCard</string>
+    <string name="profil_restaurant_payments_alert_check_test">Chèque</string>
+    <string name="profil_restaurant_payments_alert_transfer_test">Virement</string>
+	<!-- OK -->
+	
+	
+	
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
     <string name="price">Prix :</string>
