@@ -9,7 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,11 +34,12 @@ public class Profil_Restaurant extends Activity {
 	private EditText latitude;
 	private EditText capa;
 	
-	private ListView listview;
+	//private HorizontalScrollView listview;
+	private LinearLayout listview;
 	
-	private Button cooks;//Launch an alert box
-	private Button advantages;
-	private Button payments;
+	private Button cooks;//Launch an alert box TODO
+	private Button advantages;//Launch an alert box TODO
+	private Button payments;//Launch an alert box TODO
 	
 	private EditText closingEdit;
 	private Button closingButton;
@@ -55,6 +57,8 @@ public class Profil_Restaurant extends Activity {
 
 	//Useful for the alertBoxes
 	private Context context = this;
+	private String [] items;
+	private boolean [] checkedItem;
 
 
 	@Override
@@ -76,7 +80,8 @@ public class Profil_Restaurant extends Activity {
 		Log.d("help", "Nous avons construit l'objet RestaurantOwner");
 
 		//We can now define all the widgets
-		listview = (ListView) findViewById(R.id.gallery);
+		//listview = (HorizontalScrollView) findViewById(R.id.gallery);//TODO
+		listview = (LinearLayout) findViewById(R.id.gallery_layout);//TODO
 		
 		email_perso = (TextView) findViewById(R.id.profil_restaurant_mail);
 		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
@@ -124,8 +129,8 @@ public class Profil_Restaurant extends Activity {
 		}
 
 
-		//Gallery TODO
-		Integer int_data[] = new Integer[]
+		//Gallery
+		/*Integer int_data[] = new Integer[]
 		{
 				Integer.valueOf(R.drawable.pti1),
 				Integer.valueOf(R.drawable.carte)
@@ -133,11 +138,23 @@ public class Profil_Restaurant extends Activity {
 
 		GalleryAdapter adapter = new GalleryAdapter(this,
 				R.layout.layout_list_image_restaurant, int_data);
+		listview.setAdapter(adapter);*/
+		
+		ImageView image = new ImageView (this);//TODO
+		image.setImageDrawable( getResources().getDrawable(R.drawable.calendar));
+		image.setPadding (20, 0, 20, 0);
+		
+		ImageView image2 = new ImageView (this);//TODO
+		image2.setImageDrawable( getResources().getDrawable(R.drawable.carte));
+		image2.setPadding (20, 0, 20, 0);
+		
+		listview.addView(image);
+		listview.addView(image2);
 
 //		View header = (View)getLayoutInflater().inflate(R.layout.layout_list_image_restaurant, null);
 //		listview.addHeaderView(header);
 
-		listview.setAdapter(adapter);
+		
 		
 		
 
