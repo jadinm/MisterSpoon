@@ -59,7 +59,7 @@ public class RestaurantForClient extends Activity {
 		String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
 
 		//We create the object Restaurant associated with this email and all his informations
-		r = new Restaurant (sqliteHelper, "loungeatude");
+		r = new Restaurant (sqliteHelper, "Loungeatude");
 		c = new Client(sqliteHelper, emailPerso);
 
 		//We can now define all the widgets
@@ -84,7 +84,7 @@ public class RestaurantForClient extends Activity {
 		prebook = (Button) findViewById(R.id.restaurant_prereservation);		
 		book = (Button) findViewById(R.id.restaurant_reservation);
 
-		title.setText(r.getRestaurantName()); /////////////////////// A voir si ca marche ?? ///////////////////////////
+		//title.setText(r.getRestaurantName()); /////////////////////// A voir si ca marche ?? ///////////////////////////
 		
 		email_perso.setText(email_perso.getText() + " " + c.getEmail()); 
 		email_public.setText(email_public.getText() + " " + r.getRestaurantEmail(false));

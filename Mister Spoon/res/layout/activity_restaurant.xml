@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="20dp" >
 
         <ListView
             android:id="@+id/gallery"
@@ -209,14 +210,14 @@
                 android:layout_weight="1"
                 android:text="@string/profil_restaurant_prereservation" />
         </LinearLayout>
-        
+
         <Button
             android:id="@+id/profil_restaurant_gps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingBottom="20dp"
             android:text="@string/profil_restaurant_gps" />
-
     </LinearLayout>
 
 </ScrollView>

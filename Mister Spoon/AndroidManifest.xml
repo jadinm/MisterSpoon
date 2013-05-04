@@ -40,6 +40,12 @@
             android:name="spoon.misterspoon.Booking"
             android:label="@string/prereservation_client_title1"> 
         </activity>
+        
+        <!-- We declare the activity Profil_Restaurant -->
+        <activity 
+            android:name="spoon.misterspoon.RestaurantForClient"
+            android:label="@string/resto_client_title">
+        </activity>
     </application>
 
 </manifest>
