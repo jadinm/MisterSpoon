@@ -101,14 +101,14 @@ public class Meal_BuilderActivity extends Activity {
 				meal.setName(name.getText().toString());
 				
 				if (mealPrice.getText().toString().length()>0) {
-					meal.setPrice(mealPrice.getText().toString());//TODO
+					mealB.setMealPrice(Integer.parseInt(mealPrice.getText().toString()));//TODO
 				}
 				
 				if (mealDescription.getText().toString().length()>0) {
-					meal.setMealDescription(mealDescription.getText().toString());//TODO
+					mealB.setMealDescription(mealDescription.getText().toString());//TODO
 				}
 				if (mealStock.getText().toString().length()>0) {
-					meal.setMealStock(mealStock.getText().toString());//TODO
+					mealB.setMealStock(Integer.parseInt(mealStock.getText().toString()));//TODO
 				}
 				
 				Toast toasted = Toast.makeText(context, getString(R.string.meal_builder_toast_uptodate), Toast.LENGTH_SHORT);
