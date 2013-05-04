@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class Restaurant {
 	
@@ -57,6 +58,7 @@ public class Restaurant {
 		this.avantages = new ArrayList<String>();
 		this.cuisine = new ArrayList<String>();
 		this.typePaiements = new ArrayList<String>();
+		this.closingDays = new ArrayList <Date> ();
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
@@ -95,40 +97,50 @@ public class Restaurant {
 		//"horaire"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème1", "Boucle infinie");
 				horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"jours de fermetures annuels"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Closing_column[2] + " FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème2", "Boucle infinie");
 				closingDays.add(new Date (cursor.getString(0)));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"typePaiements"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème3", "Boucle infinie");
 				typePaiements.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"avantages"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème4", "Boucle infinie");
 				avantages.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 		
 		//"cuisine"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {//If there is one element more to read
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				Log.d("Problème5", "Boucle infinie");
 				cuisine.add(cursor.getString(0));
+				cursor.moveToNext();
 			}
 		}
 		
@@ -136,7 +148,7 @@ public class Restaurant {
 		this.carte = new Carte (this.sqliteHelper, this.restaurantName);
 		
 		
-		db.close();
+		//db.close();
 	}
 	
 	public void setRestaurantName(String restaurantName) {
@@ -475,8 +487,9 @@ public class Restaurant {
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Schedule_column[2] + ", " + MySQLiteHelper.Schedule_column[3] + ", " + MySQLiteHelper.Schedule_column[4] + " FROM " + MySQLiteHelper.TABLE_Schedule + " WHERE " + MySQLiteHelper.Schedule_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					horaire.add(new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2))));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -501,8 +514,9 @@ public class Restaurant {
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Closing_column[2] + " FROM " + MySQLiteHelper.TABLE_Closing + " WHERE " + MySQLiteHelper.Closing_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					closingDays.add(new Date (cursor.getString(0)));
+					cursor.moveToNext();
 				}
 			}
 		}
@@ -526,8 +540,9 @@ public class Restaurant {
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Payment_column[2] + " FROM " + MySQLiteHelper.TABLE_Payment + " WHERE " + MySQLiteHelper.Payment_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					typePaiements.add(cursor.getString(0));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -552,8 +567,9 @@ public class Restaurant {
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Advantage_column[2] + " FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					avantages.add(cursor.getString(0));
+					cursor.moveToNext();
 				}
 			}
 			
@@ -577,8 +593,9 @@ public class Restaurant {
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Cook_column[2] + " FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
-				while (cursor.isAfterLast()) {//If there is one element more to read
+				while (!cursor.isAfterLast()) {//If there is one element more to read
 					cuisine.add(cursor.getString(0));
+					cursor.moveToNext();
 				}
 			}
 			

@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:fadingEdge="horizontal"
             android:scrollbars="horizontal" >
-
         </ListView>
 
         <TextView
@@ -163,6 +162,100 @@
             android:inputType="textMultiLine" >
         </EditText>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:weightSum="3" >
+
+            <Button
+                android:id="@+id/profil_restaurant_cooks_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_cooks_button" />
+
+            <Button
+                android:id="@+id/profil_restaurant_advantages_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_advantages_button" />
+
+            <Button
+                android:id="@+id/profil_restaurant_payments_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_payments_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:weightSum="2" >
+
+            <EditText
+                android:id="@+id/profil_restaurant_closing_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:hint="@string/profil_restaurant_closing_edit"
+                android:inputType="date" />
+            
+            <Button
+                android:id="@+id/profil_restaurant_closing_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/profil_restaurant_closing_button"/>
+            
+        </LinearLayout>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profil_restaurant_schedule_text"
+            android:layout_gravity="center_horizontal"/>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:weightSum="3" >
+
+            <Spinner
+                android:id="@+id/profil_restaurant_schedule_openday"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"/>
+            
+            <EditText
+                android:id="@+id/profil_restaurant_schedule_opentime"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:inputType="time"
+                android:hint="@string/profil_restaurant_schedule_opentime"/>
+            
+            <EditText
+                android:id="@+id/profil_restaurant_schedule_closetime"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:inputType="time"
+                android:hint="@string/profil_restaurant_schedule_closetime"/>
+            
+        </LinearLayout>
+        
+        <Button 
+            android:id="@+id/profil_restaurant_schedule_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profil_restaurant_schedule_button"
+            android:layout_marginBottom="20dp"/>
+        
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

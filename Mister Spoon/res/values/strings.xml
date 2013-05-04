@@ -99,6 +99,15 @@
     <string name="profil_restaurant_description">Description : </string>
     <string name="profil_restaurant_gps">GPS</string>
     <string name="profil_restaurant_add">Ajouter le resto !</string>
+    <string name="profil_restaurant_cooks_button">Vos types de cuisine</string>
+    <string name="profil_restaurant_advantages_button">Vos avantages</string>
+    <string name="profil_restaurant_payments_button">Vos possibilités de paiement</string>
+    <string name="profil_restaurant_closing_edit">Nouveau jour de fermeture annuel :</string>
+    <string name="profil_restaurant_closing_button">Vos jours de fermetures annuels</string>
+    <string name="profil_restaurant_schedule_text">Ajouter une nouvelle tranche d\'ouverture :</string>
+    <string name="profil_restaurant_schedule_opentime">Heure d\'ouverture :</string>
+    <string name="profil_restaurant_schedule_closetime">Heure de fermeture :</string>
+    <string name="profil_restaurant_schedule_button">Votre horaire</string>
     <string name="profil_restaurant_reservation">Réserver</string>
     <string name="profil_restaurant_prereservation">Pré-réserver</string>
     <string name="profil_restaurant_carte">Afficher la carte   </string>

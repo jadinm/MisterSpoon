@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -138,6 +139,7 @@ public class Login extends Activity {
 
 				Intent i = new Intent(Login.this, Profil_Restaurant.class);
 				i.putExtra(email, email_login.getText().toString());
+				Log.d("Au départ, on a cet email", email_login.getText().toString());
 				startActivity(i);
 				return;
 			}

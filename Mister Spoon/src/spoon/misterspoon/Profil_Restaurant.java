@@ -5,17 +5,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Profil_Restaurant extends Activity {
 
 	private RestaurantOwner r;
-	private MySQLiteHelper sqliteHelper;
+	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 
 	//Elements of the view
 	private TextView email_perso;
@@ -32,6 +34,17 @@ public class Profil_Restaurant extends Activity {
 	private EditText capa;
 	
 	private ListView listview;
+	
+	private Button cooks;//Launch an alert box
+	private Button advantages;
+	private Button payments;
+	
+	private EditText closingEdit;
+	private Button closingButton;
+	
+	private Spinner openDay;
+	private EditText openTime;
+	private EditText closeTime;
 
 	private Button update;
 	private Button menu;
@@ -56,9 +69,11 @@ public class Profil_Restaurant extends Activity {
 		String emailPerso = i.getStringExtra(Login.email);
 
 
-		//We create the object Client associated with this email and all his informations
-		sqliteHelper = new MySQLiteHelper(this);
+		Log.d("Dans la classe profil restaurant, on a cet email", emailPerso);
+		//We create the object Restaurant associated with this email and all his informations
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
+		
+		Log.d("help", "Nous avons construit l'objet RestaurantOwner");
 
 		//We can now define all the widgets
 		listview = (ListView) findViewById(R.id.gallery);
