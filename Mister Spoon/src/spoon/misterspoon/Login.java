@@ -218,6 +218,14 @@ public class Login extends Activity {
 				int InDatabase = RestaurantOwner.isInDatabase(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), phone_register.getText().toString());
 
 				if (rad_resto.isChecked() && gps_longitude_register.getText().toString().length()!=0 && gps_latitude_register.getText().toString().length()!=0 && rue.getText().toString().length()!=0 && ville.getText().toString().length()!=0 && capacite_register.getText().toString().length()!=0  && InDatabase==0) {
+					
+					Log.d("Au départ, on a cet email", email_register.getText().toString());//Debug
+					Log.d("Au départ, on a ce nom", nom_register.getText().toString());
+					Log.d("Au départ, on a cette coordonnée gps", gps_longitude_register.getText().toString() +  ", " + gps_latitude_register.getText().toString());
+					Log.d("Au départ, on a cette adresse", numero.getText().toString() + ", " + rue.getText().toString() + ", " + ville.getText().toString());
+					Log.d("Au départ, on a ce numéro", phone_register.getText().toString());
+					Log.d("Au départ, on a cette capacité", capacite_register.getText().toString());
+					
 					if (numero.toString().length()!=0) {
 						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), Integer.parseInt(numero.getText().toString()), rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()));
 					}
