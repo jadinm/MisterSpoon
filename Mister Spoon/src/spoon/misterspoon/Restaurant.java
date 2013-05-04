@@ -68,15 +68,11 @@ public class Restaurant {
 			
 			phone = cursor.getString(0);
 			position = new GPS (cursor.getString(1));
-			Log.v("nameIf",restaurantName);
 			capacity = cursor.getInt(2);
 			Description = cursor.getString(3);
 			note = cursor.getInt(4);
 			nbrVotants = cursor.getInt(5);
-			Log.v("in","if");
 		}
-		Log.v("nameOut",restaurantName);
-		Log.v("fuck","you");
 
 		//"email", "fax", "webSite"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
