@@ -191,10 +191,11 @@
 	
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
-    <string name="price">Prix :</string>
-    <string name="stock">Stock :</string>
-    <string name="description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir ici, enfin du moins je l\'espere</string>
-    <string name="update">Ajouter aux favoris</string>
+    <string name="meal_price">Prix :</string>
+    <string name="meal_stock">Stock :</string>
+    <string name="meal_description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir ici, enfin du moins je l\'espere</string>
+    <string name="meal_update">Ajouter aux favoris</string>
+
 
     <!-- Values for activity_meal_builder -->
     <string name="meal_builder_meal_title">Modification de plats</string>
@@ -202,6 +203,8 @@
     <string name="meal_builder_stock">Stock</string>
     <string name="meal_builder_description">Description</string>
     <string name="meal_builder_update">Mettre à jour</string>
+    <string name="meal_builder_toast_uptodate">Informations mise à jour !</string>
+    <string name="meal_builder_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
 
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>

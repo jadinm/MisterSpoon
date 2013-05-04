@@ -30,17 +30,18 @@ public class MealActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_meal);
-	
+		
+		
+		
+		
+		
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailClient = i.getStringExtra(Login.email);
-		String restoName = i.getStringExtra(""); //////////////////////////// ICI il faut recuperer de l'autre vue
+		String restoName = i.getStringExtra(Profil_Restaurant.name);//Je le trouve o celui-ci ? Dans la vue prŽcŽdente
+		mealName = i.getStringExtra(Carte.meal);
 		
-		//We take the informations about the meal viewed
-		mealName = i.getStringExtra(Carte.meal);//Je sais pas trop quoi faire, je reviens dessus ! ==> C'est exactement ca bien vu, suffit de passer les argument de vue en vue et tu peux passer un string 
-		
-		//TODO le constructeur pour Meal
 		//We create the object Meal associated with this mealName and all his informations
 		sqliteHelper= new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);

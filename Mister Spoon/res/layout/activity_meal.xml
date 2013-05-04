@@ -14,13 +14,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <Gallery
-                android:id="@+id/gallery1"
+            <ImageView
+                android:id="@+id/meal_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="108dp" />
         </LinearLayout>
 
-<!--hello-->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -28,44 +27,44 @@
             android:weightSum="2" >
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/meal_price"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/price"
+                android:text="@string/meal_price"
                 android:lines="2"
                 android:textIsSelectable="true"
                 android:layout_marginBottom="20dp" />
 
             <TextView
-                android:id="@+id/stock"
+                android:id="@+id/meal_stock"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/stock"
+                android:text="@string/meal_stock"
                 android:lines="2"
                 android:textIsSelectable="true"
                 android:layout_marginBottom="20dp" />
         </LinearLayout>
         
         <TextView
-                android:id="@+id/description"
+                android:id="@+id/meal_description"
                 android:layout_width="fill_parent"
         		android:layout_height="0dip"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="@string/description"
+                android:text="@string/meal_description"
                 android:textIsSelectable="true"
                 android:layout_marginBottom="20dp" />
 
         <Button
-            android:id="@+id/update"
+            android:id="@+id/meal_update"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="@string/update" />
+            android:text="@string/meal_update" />
         
     </LinearLayout>
 
