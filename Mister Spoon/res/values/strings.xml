@@ -88,7 +88,7 @@
     <string name="list_restaurant_select">Sélectionner restaurant</string>
     <string name="list_restaurant_title">Liste restaurants</string>
     <string name="list_restaurant_toast">Veuillez sélectionner un restaurant</string>
-    
+
     <!-- Values for activity_list_city.xml -->
     <string name="list_city_title">Liste des villes</string>
     <string name="list_city_toast">Veuillez sélectionner une ville</string>
@@ -201,17 +201,15 @@
     <string name="profil_restaurant_payments_alert_mastercard_test">MasterCard</string>
     <string name="profil_restaurant_payments_alert_check_test">Cheque</string>
     <string name="profil_restaurant_payments_alert_transfer_test">Virement</string>
-	<!-- OK -->
-	
-	
-	
+    <!-- OK -->
+
+
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
     <string name="meal_price">Prix :</string>
     <string name="meal_stock">Stock :</string>
     <string name="meal_description">Description du plat qui peut éventuellement comporter plusieurs lignes de description, comme on peut le voir ici, enfin du moins je l\'espere</string>
     <string name="meal_update">Ajouter aux favoris</string>
-
 
     <!-- Values for activity_meal_builder -->
     <string name="meal_builder_meal_title">Modification de plats</string>
@@ -221,6 +219,7 @@
     <string name="meal_builder_update">Mettre à jour</string>
     <string name="meal_builder_toast_uptodate">Informations mise à jour !</string>
     <string name="meal_builder_toast_already_exist">existe déjà dans notre base de donnée. Veuillez en choisir un autre.</string>
+    <string name="meal_builder_name">Name :</string>
 
     <!-- Values for (pre)reservation_client -->
     <string name="prereservation_client_meal">Plat : </string>
