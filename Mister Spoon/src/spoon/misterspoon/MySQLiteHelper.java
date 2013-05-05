@@ -201,12 +201,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Creperie Bretonne','05-01'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +") VALUES('Le Petit Vingtième','pti1');");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti2'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti3'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti4'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti5'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtième','pti6'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +") VALUES('Le Petit Vingtieme','pti1');");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti2'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti3'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti4'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti5'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti6'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_1'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_2'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_3'); ");
@@ -217,13 +217,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_7'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_8'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Loungeatude','loungeatude_9'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret2'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret3'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret4'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Crêperie Bretonne','bret5'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret2'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret3'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret4'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret5'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_ImageMeal + "(" + ImageMeal_column[1] + ", " + ImageMeal_column[2] + ", " + ImageMeal_column[3] +") VALUES ('Crêpe La tartiflette','Crêperie Bretonne','bret1');");
-		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Creperie Bretonne','05-01'); ");
+		db.execSQL("INSERT INTO " + TABLE_ImageMeal + "(" + ImageMeal_column[1] + ", " + ImageMeal_column[2] + ", " + ImageMeal_column[3] +") VALUES ('Crepe La tartiflette','Creperie Bretonne','bret1');");
 		
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Viandes','plat','Le Petit Vingtieme','Entrecote de Boeuf Belge Grillee +- 300gr'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Entrees','entree','Le Petit Vingtieme','Carpaccio de Bresaola et Jambon de Parme'); ");

@@ -42,6 +42,7 @@ public class Profil_Client extends Activity {
 	private Context context = this;
 	private boolean [] checkedItems;
 	private String [] items;
+	String [] items_test;
 	
 	
 	
@@ -291,7 +292,7 @@ public class Profil_Client extends Activity {
 				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
 				
 				//set the list of checkBoxes (items_test is useful when we change of language)
-				String [] items_test = new String[]{getString(R.string.profil_client_allergy_gluten_test), getString(R.string.profil_client_allergy_noix_test), getString(R.string.profil_client_allergy_cacahuete_test), getString(R.string.profil_client_allergy_banane_test)};
+				items_test = new String[]{getString(R.string.profil_client_allergy_gluten_test), getString(R.string.profil_client_allergy_noix_test), getString(R.string.profil_client_allergy_cacahuete_test), getString(R.string.profil_client_allergy_banane_test)};
 				items = new String []{getString(R.string.profil_client_allergy_gluten), getString(R.string.profil_client_allergy_noix), getString(R.string.profil_client_allergy_cacahuete), getString(R.string.profil_client_allergy_banane)};
 				checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 				for(int i = 0; i<c.getAllergie(true).size(); i++) {
@@ -328,10 +329,10 @@ public class Profil_Client extends Activity {
 						
 						for(int i = 0; i<checkedItems.length; i++) {
 							if (checkedItems[i]) {//If one element has to be added
-								c.addAllergie(items[i]);
+								c.addAllergie(items_test[i]);
 							}
 							else {//or removed
-								c.removeAllergie(items[i]);
+								c.removeAllergie(items_test[i]);
 							}
 						}
 						

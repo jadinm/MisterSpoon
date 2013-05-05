@@ -66,6 +66,7 @@ public class Profil_Restaurant extends Activity {
 	private Context context = this;
 	private String [] items;
 	private boolean [] checkedItems;
+	private String [] items_test;
 
 
 	@Override
@@ -441,8 +442,8 @@ public class Profil_Restaurant extends Activity {
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_cooks_button);
 			
 			//set the list of checkBoxes (items_test is useful when we change of language)
-			String [] items_test = new String[]{getString(R.string.profil_restaurant_cooks_alert_french_test), getString(R.string.profil_restaurant_cooks_alert_italian_test), getString(R.string.profil_restaurant_cooks_alert_chinese_test), getString(R.string.profil_restaurant_cooks_alert_japanese_test), getString(R.string.profil_restaurant_cooks_alert_greek_test), getString(R.string.profil_restaurant_cooks_alert_pancakes_test), getString(R.string.profil_restaurant_cooks_alert_fusion_test), getString(R.string.profil_restaurant_cooks_alert_mediterranean_test)};
-			items = new String []{getString(R.string.profil_restaurant_cooks_alert_french), getString(R.string.profil_restaurant_cooks_alert_italian), getString(R.string.profil_restaurant_cooks_alert_chinese), getString(R.string.profil_restaurant_cooks_alert_japanese), getString(R.string.profil_restaurant_cooks_alert_greek), getString(R.string.profil_restaurant_cooks_alert_pancakes), getString(R.string.profil_restaurant_cooks_alert_fusion), getString(R.string.profil_restaurant_cooks_alert_mediterranean)};
+			items_test = new String[]{getString(R.string.profil_restaurant_cooks_alert_traditional_test), getString(R.string.profil_restaurant_cooks_alert_french_test), getString(R.string.profil_restaurant_cooks_alert_regional_test), getString(R.string.profil_restaurant_cooks_alert_fusion_test), getString(R.string.profil_restaurant_cooks_alert_molecular_test), getString(R.string.profil_restaurant_cooks_alert_seafood_test), getString(R.string.profil_restaurant_cooks_alert_brewery_test), getString(R.string.profil_restaurant_cooks_alert_pancakes_test), getString(R.string.profil_restaurant_cooks_alert_mediterranean_test), getString(R.string.profil_restaurant_cooks_alert_maghreb_test), getString(R.string.profil_restaurant_cooks_alert_oriental_test), getString(R.string.profil_restaurant_cooks_alert_asian_test), getString(R.string.profil_restaurant_cooks_alert_other_test)};
+			items = new String []{getString(R.string.profil_restaurant_cooks_alert_traditional), getString(R.string.profil_restaurant_cooks_alert_french), getString(R.string.profil_restaurant_cooks_alert_regional), getString(R.string.profil_restaurant_cooks_alert_fusion), getString(R.string.profil_restaurant_cooks_alert_molecular), getString(R.string.profil_restaurant_cooks_alert_seafood), getString(R.string.profil_restaurant_cooks_alert_brewery), getString(R.string.profil_restaurant_cooks_alert_pancakes), getString(R.string.profil_restaurant_cooks_alert_mediterranean), getString(R.string.profil_restaurant_cooks_alert_maghreb), getString(R.string.profil_restaurant_cooks_alert_oriental), getString(R.string.profil_restaurant_cooks_alert_asian), getString(R.string.profil_restaurant_cooks_alert_other)};
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantCuisine(true).size(); i++) {
 				
@@ -478,10 +479,10 @@ public class Profil_Restaurant extends Activity {
 					
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
-							r.addRestaurantCuisine(items[i]);
+							r.addRestaurantCuisine(items_test[i]);
 						}
 						else {//or removed
-							r.removeRestaurantCuisine(items[i]);
+							r.removeRestaurantCuisine(items_test[i]);
 						}
 					}
 					
@@ -507,8 +508,8 @@ public class Profil_Restaurant extends Activity {
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_advantages_button);
 			
 			//set the list of checkBoxes (items_test is useful when we change of language)
-			String [] items_test = new String[]{getString(R.string.profil_restaurant_advantages_alert_vegetarian_test), getString(R.string.profil_restaurant_advantages_alert_wifi_test), getString(R.string.profil_restaurant_advantages_alert_disable_test), getString(R.string.profil_restaurant_advantages_alert_caterer_test), getString(R.string.profil_restaurant_advantages_alert_terrace_test), getString(R.string.profil_restaurant_advantages_alert_air_conditioning_test), getString(R.string.profil_restaurant_advantages_alert_children_test)};
-			items = new String []{getString(R.string.profil_restaurant_advantages_alert_vegetarian), getString(R.string.profil_restaurant_advantages_alert_wifi), getString(R.string.profil_restaurant_advantages_alert_disable), getString(R.string.profil_restaurant_advantages_alert_caterer), getString(R.string.profil_restaurant_advantages_alert_terrace), getString(R.string.profil_restaurant_advantages_alert_air_conditioning), getString(R.string.profil_restaurant_advantages_alert_children)};
+			items_test = new String[]{getString(R.string.profil_restaurant_advantages_alert_parking_test), getString(R.string.profil_restaurant_advantages_alert_lounge_test), getString(R.string.profil_restaurant_advantages_alert_valet_test), getString(R.string.profil_restaurant_advantages_alert_vegetarian_test), getString(R.string.profil_restaurant_advantages_alert_wifi_test), getString(R.string.profil_restaurant_advantages_alert_disable_test), getString(R.string.profil_restaurant_advantages_alert_caterer_test), getString(R.string.profil_restaurant_advantages_alert_terrace_test), getString(R.string.profil_restaurant_advantages_alert_air_conditioning_test), getString(R.string.profil_restaurant_advantages_alert_children_test)};
+			items = new String []{getString(R.string.profil_restaurant_advantages_alert_parking), getString(R.string.profil_restaurant_advantages_alert_lounge), getString(R.string.profil_restaurant_advantages_alert_valet), getString(R.string.profil_restaurant_advantages_alert_vegetarian), getString(R.string.profil_restaurant_advantages_alert_wifi), getString(R.string.profil_restaurant_advantages_alert_disable), getString(R.string.profil_restaurant_advantages_alert_caterer), getString(R.string.profil_restaurant_advantages_alert_terrace), getString(R.string.profil_restaurant_advantages_alert_air_conditioning), getString(R.string.profil_restaurant_advantages_alert_children)};
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantAvantages(true).size(); i++) {
 				
@@ -544,10 +545,10 @@ public class Profil_Restaurant extends Activity {
 					
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
-							r.addRestaurantAvantage(items[i]);
+							r.addRestaurantAvantage(items_test[i]);
 						}
 						else {//or removed
-							r.removeRestaurantAvantage(items[i]);
+							r.removeRestaurantAvantage(items_test[i]);
 						}
 					}
 					
@@ -573,7 +574,7 @@ public class Profil_Restaurant extends Activity {
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_payments_button);
 			
 			//set the list of checkBoxes (items_test is useful when we change of language)
-			String [] items_test = new String[]{getString(R.string.profil_restaurant_payments_alert_cash_test), getString(R.string.profil_restaurant_payments_alert_bancontact_test), getString(R.string.profil_restaurant_payments_alert_visa_test), getString(R.string.profil_restaurant_payments_alert_ticket_restaurant_test), getString(R.string.profil_restaurant_payments_alert_proton_test), getString(R.string.profil_restaurant_payments_alert_mastercard_test), getString(R.string.profil_restaurant_payments_alert_check_test), getString(R.string.profil_restaurant_payments_alert_transfer_test)};
+			items_test = new String[]{getString(R.string.profil_restaurant_payments_alert_cash_test), getString(R.string.profil_restaurant_payments_alert_bancontact_test), getString(R.string.profil_restaurant_payments_alert_visa_test), getString(R.string.profil_restaurant_payments_alert_ticket_restaurant_test), getString(R.string.profil_restaurant_payments_alert_proton_test), getString(R.string.profil_restaurant_payments_alert_mastercard_test), getString(R.string.profil_restaurant_payments_alert_check_test), getString(R.string.profil_restaurant_payments_alert_transfer_test)};
 			items = new String []{getString(R.string.profil_restaurant_payments_alert_cash), getString(R.string.profil_restaurant_payments_alert_bancontact), getString(R.string.profil_restaurant_payments_alert_visa), getString(R.string.profil_restaurant_payments_alert_ticket_restaurant), getString(R.string.profil_restaurant_payments_alert_proton), getString(R.string.profil_restaurant_payments_alert_mastercard), getString(R.string.profil_restaurant_payments_alert_check), getString(R.string.profil_restaurant_payments_alert_transfer)};
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantTypePaiements(true).size(); i++) {
@@ -610,10 +611,10 @@ public class Profil_Restaurant extends Activity {
 					
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
-							r.addRestaurantTypePaiements(items[i]);
+							r.addRestaurantTypePaiements(items_test[i]);
 						}
 						else {//or removed
-							r.removeRestaurantTypePaiements(items[i]);
+							r.removeRestaurantTypePaiements(items_test[i]);
 						}
 					}
 					
