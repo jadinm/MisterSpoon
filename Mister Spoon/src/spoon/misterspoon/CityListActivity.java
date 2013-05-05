@@ -6,18 +6,18 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class CityListActivity extends Activity {
 
@@ -54,8 +54,7 @@ public class CityListActivity extends Activity {
 		client = new Client (sql, sclient);
 		
 		// ListView
-		cityList = new CityList(sql, client, true);
-		//cityList.sort("abc");
+		cityList = new CityList(sql, client, (LocationListener) this);
 		
 		nomCities = cityList.getNomCities();
 		cityListView = (ListView) findViewById(R.id.list_city);
@@ -92,7 +91,7 @@ public class CityListActivity extends Activity {
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 
-			//cityList.sort((String) ordre.getSelectedItem());
+			cityList.sort((String) ordre.getSelectedItem());
 			nomCities = cityList.getNomCities();
 			adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomCities);
 			cityListView.setAdapter(adapter);
@@ -100,9 +99,7 @@ public class CityListActivity extends Activity {
 		}
 
 		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-			Log.v("fuck", "you");
-
+			
 		}
 		
 	};
@@ -114,9 +111,12 @@ public class CityListActivity extends Activity {
 				toast.show();
 				return;
 			}
-			Intent intent = new Intent(CityListActivity.this,RestaurantListActivity.class);
+			
+			Toast toast = Toast.makeText(context, "Il veut accéder à l'activité suivante avec la ville " + currentCity, Toast.LENGTH_SHORT);
+			toast.show();
+			/*Intent intent = new Intent(CityListActivity.this,RestaurantListActivity.class);
 			intent.putExtra(CITY, currentCity.getCityName());
-			startActivity(intent);
+			startActivity(intent);*/
 			return;
 		}
 	};

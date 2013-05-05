@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.LocationListener;
 
 public class Client {
 
@@ -285,10 +286,10 @@ public class Client {
 	 * (and set the current value of 'position')
 	 * else, we will return the current value of 'position'
 	 */
-	public GPS getPosition (boolean updateData) {
+	public GPS getPosition (LocationListener location) {
 
-		if (updateData) {
-			position.updatePosition(this);
+		if (location != null) {
+			position = position.updatePosition(this, location);
 		}
 
 		return position;

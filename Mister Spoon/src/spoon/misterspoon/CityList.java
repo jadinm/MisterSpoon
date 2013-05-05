@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.LocationListener;
 
 public class CityList {
 
@@ -16,14 +17,14 @@ public class CityList {
 	String ordre;
 	Client client;
 
-	public CityList (MySQLiteHelper sqliteHelper, Client client) {
+	public CityList (MySQLiteHelper sqliteHelper, Client client, LocationListener location) {
 
 		this.cityList = new ArrayList<City>();
 		this.client = client;
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 
-		GPS gpsClient = getClientPosition();
+		GPS gpsClient = getClientPosition(location);
 
 		if (gpsClient==null) {
 
@@ -106,7 +107,7 @@ public class CityList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getPosition().compareTo(this.client.getPosition(false)) > array[j].getPosition().compareTo(this.client.getPosition(false)))// If the further is bigger than the second
+					if(array[i].getPosition().compareTo(this.client.getPosition(null)) > array[j].getPosition().compareTo(this.client.getPosition(null)))// If the further is bigger than the second
 					{
 						City temp = array[j];
 						array[j] = array[i];
@@ -130,8 +131,8 @@ public class CityList {
 		return nomCities;
 	}
 
-	public GPS getClientPosition() {
-		return client.getPosition(true);
+	public GPS getClientPosition(LocationListener location) {
+		return client.getPosition(location);
 	}
 
 	public ArrayList<City> getCityList() {
