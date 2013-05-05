@@ -58,10 +58,7 @@ public class Profil_Client extends Activity {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailClient = i.getStringExtra(Login.email);
-		
-		InputMethodManager imm = (InputMethodManager)getSystemService(
-		Context.INPUT_METHOD_SERVICE);
-		
+				
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);
@@ -75,7 +72,7 @@ public class Profil_Client extends Activity {
 		new_favourite_meal = (EditText) findViewById(R.id.profil_client_new_favourite_meal_edit_text);
 		new_favourite_restaurant = (EditText) findViewById(R.id.profil_client_new_favourite_restaurant_edit_text);
 		
-		imm.hideSoftInputFromWindow(name.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+		name.setInputType(0); // Hide the keyboard	
 		
 		specificity_list = (Button) findViewById(R.id.profil_client_specificity_list_button);
 		favourite_meal_list = (Button) findViewById(R.id.profil_client_favourite_meal_list_button);
