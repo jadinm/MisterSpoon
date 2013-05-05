@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class Profil_Client extends Activity {
 	private TextView email;
 	private EditText name;
 	private EditText gsm;
+	private EditText invisible;
 	
 	private EditText new_specificity;
 	private EditText new_favourite_meal;
@@ -61,6 +63,9 @@ public class Profil_Client extends Activity {
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);
 		//We can now define all the widgets
+		invisible = (EditText) findViewById(R.id.edit_invisible_focus_holder);
+		invisible.setInputType(InputType.TYPE_NULL);
+		invisible.requestFocus();
 		email = (TextView) findViewById(R.id.profil_client_email_text_view);
 		name = (EditText) findViewById(R.id.profil_client_name_edit_text);
 		gsm = (EditText) findViewById(R.id.profil_client_gsm_edit_text);

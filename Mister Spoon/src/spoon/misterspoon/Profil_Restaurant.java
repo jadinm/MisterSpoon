@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,7 @@ public class Profil_Restaurant extends Activity {
 	//Elements of the view
 	private TextView email_perso;
 	private TextView email_public;
+	private EditText invisible;
 	private EditText web;
 	private EditText gsm;
 	private EditText fax;
@@ -83,15 +85,15 @@ public class Profil_Restaurant extends Activity {
 		//We take the informations about the person who's logged (!!!! label)
 		String emailPerso = i.getStringExtra(Login.email);
 
-
-		Log.d("Dans la classe profil restaurant, on a cet email", emailPerso);
 		//We create the object Restaurant associated with this email and all his informations
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
 
-		Log.d("help", "Nous avons construit l'objet RestaurantOwner");
-
 		//We can now define all the widgets
 		listview = (LinearLayout) findViewById(R.id.gallery_layout);
+		
+		invisible = (EditText) findViewById(R.id.edit_invisible_focus_holder);
+		invisible.setInputType(InputType.TYPE_NULL);
+		invisible.requestFocus();
 
 		email_perso = (TextView) findViewById(R.id.profil_restaurant_mail);
 		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
