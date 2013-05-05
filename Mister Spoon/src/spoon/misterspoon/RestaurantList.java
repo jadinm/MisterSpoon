@@ -41,8 +41,8 @@ public class RestaurantList {
 		
 	}
 	
-	public List<String> getNomRestaurants(){
-		List<String> nomRestaurants = new ArrayList<String>();
+	public ArrayList <String> getNomRestaurants(){
+		ArrayList<String> nomRestaurants = new ArrayList<String>();
 		for(Restaurant resto : getfilterListVisible()){
 			nomRestaurants.add(resto.getRestaurantName());
 		}
