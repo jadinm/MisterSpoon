@@ -50,6 +50,17 @@ public class Restaurant {
 	}
 	
 	/*
+	 * Useful for a restaurantList
+	 */
+	public Restaurant (MySQLiteHelper sql, String restaurantName, GPS gps, int note, int nbrVotants) {
+		this.sqliteHelper = sql;
+		this.restaurantName = restaurantName;
+		this.position = gps;
+		this.note = note;
+		this.nbrVotants = nbrVotants;
+	}
+	
+	/*
 	 * @param: the parameters are not null
 	 * @post: create an object Restaurant and fill it with the information in the database
 	 */
@@ -741,16 +752,24 @@ public class Restaurant {
 	}
 	
 	
-	public double getRestaurantPrice(Boolean getFromDatabase) {
-		double result = 0;
-		ArrayList<Menu> menu = getRestaurantCarte(getFromDatabase).menuList;
-		int nMenu = 0;
+	public double getRestaurantAveragePrice() {
+
+		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+		int count = 0;
+		int result = 0;
 		
-		for(int i = 0; i < menu.size(); i++) {
-			result = result + menu.get(i).getMenuPrice(getFromDatabase);
-			nMenu++;
+		Cursor cursor = db.rawQuery("SELECT COUNT(" + MySQLiteHelper.Meal_column[1] + "), " + MySQLiteHelper.Meal_column[3] +  " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + this.getRestaurantName(), null);
+		if (cursor.moveToFirst()) {//The number of meals
+			count = cursor.getInt(0);
 		}
-		result = result/nMenu;
+		if (count == 0) {
+			return 0;
+		}
+		while (!cursor.isAfterLast()) {//The price
+			result = result + cursor.getInt(1);
+			cursor.moveToNext();
+		}
+		result = result/count;
 		return result;
 	}
 }
