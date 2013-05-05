@@ -161,7 +161,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		menu.setOnClickListener(new View.OnClickListener() {//launch an alert box
 			@Override
 			public void onClick(View v) {
-				Toast toasted = Toast.makeText(context, "Le client veut afficehr la carte mais ce n'est pas encore possible :p ", Toast.LENGTH_SHORT);
+				Toast toasted = Toast.makeText(context, "Le client veut afficher la carte mais ce n'est pas encore possible :p ", Toast.LENGTH_SHORT);
 				toasted.show();
 				//TODO
 			}
