@@ -31,11 +31,11 @@ public class RestaurantList {
 		GPS gpsClient = getClientPosition(location, active);
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery(" SELECT R." + MySQLiteHelper.Restaurant_column[1] + ", R." + MySQLiteHelper.Restaurant_column[4] + ", R." + MySQLiteHelper.Restaurant_column[7] + ", R." + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " R, " + MySQLiteHelper.TABLE_Address + " A WHERE R." + MySQLiteHelper.Restaurant_column[4] + " = A." + MySQLiteHelper.Address_column[1] + " AND A." + MySQLiteHelper.Address_column[4] + " = " + "'"+town+"'" , null);
+		Cursor cursor = db.rawQuery(" SELECT R." + MySQLiteHelper.Restaurant_column[1] + ", R." + MySQLiteHelper.Restaurant_column[4] + ", R." + MySQLiteHelper.Restaurant_column[7] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " R, " + MySQLiteHelper.TABLE_Address + " A WHERE R." + MySQLiteHelper.Restaurant_column[4] + " = A." + MySQLiteHelper.Address_column[1] + " AND A." + MySQLiteHelper.Address_column[4] + " = " + "'"+town+"'" , null);
 		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) {
 				Log.v("client", "FUCK");
-				filterList.add(new Restaurant(sqliteHelper, cursor.getString(0), new GPS (cursor.getString(1)), cursor.getInt(2), cursor.getInt(3)));
+				filterList.add(new Restaurant(sqliteHelper, cursor.getString(0), new GPS (cursor.getString(1)), cursor.getInt(2)));
 				cursor.moveToNext();
 			}
 		}
@@ -120,7 +120,7 @@ public class RestaurantList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(((double)array[i].getRestaurantNote(false)) /((double) array[i].getRestaurantNbrVotants(false))  > ((double)array[j].getRestaurantNote(false)) /((double) array[j].getRestaurantNbrVotants(false)))// If the first is better than the second
+					if((array[i].getRestaurantNote(false))  < ((double)array[j].getRestaurantNote(false)))// If the first is better than the second
 					{
 						Restaurant temp = array[j];
 						array[j] = array[i];

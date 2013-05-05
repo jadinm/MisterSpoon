@@ -52,12 +52,11 @@ public class Restaurant {
 	/*
 	 * Useful for a restaurantList
 	 */
-	public Restaurant (MySQLiteHelper sql, String restaurantName, GPS gps, int note, int nbrVotants) {
+	public Restaurant (MySQLiteHelper sql, String restaurantName, GPS gps, int note) {
 		this.sqliteHelper = sql;
 		this.restaurantName = restaurantName;
 		this.position = gps;
 		this.note = note;
-		this.nbrVotants = nbrVotants;
 	}
 	
 	/*
