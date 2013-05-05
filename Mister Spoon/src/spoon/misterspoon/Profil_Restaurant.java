@@ -158,6 +158,9 @@ public class Profil_Restaurant extends Activity {
 			description.setText(r.getRestaurant().getRestaurantDescription(false));
 		}
 		
+		
+		setTitle(String.format(r.getRestaurant().getRestaurantName()));
+		
 		//Spinner
 		
 		List <String> openDayList = Arrays.asList(OpenHour.openDayTable);

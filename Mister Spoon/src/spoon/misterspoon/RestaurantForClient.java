@@ -170,7 +170,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		prebook.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut lancer l'activitŽ preBooking", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(context, "Un client veut lancer l'activitï¿½ preBooking", Toast.LENGTH_SHORT);
 				toast.show();
 				//TODO
 			}
@@ -179,7 +179,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		book.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut lancer l'activitŽ Booking", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(context, "Un client veut lancer l'activitï¿½ Booking", Toast.LENGTH_SHORT);
 				toast.show();
 				//TODO
 			}
@@ -209,8 +209,12 @@ public class RestaurantForClient extends Activity implements LocationListener {
 						else {
 							obtenirPosition();
 							Location loc = lManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+							if (loc == null){
+							loc = lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+							if (loc == null) return;
+							}
 							if (loc != null) {
-								location = loc;
+							location = loc;
 							}
 							String currentPosition = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
 							if (String.valueOf(location.getLatitude())!=null && String.valueOf(location.getLatitude())!=null ) {

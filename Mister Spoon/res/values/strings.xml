@@ -136,7 +136,7 @@
     <string name="resto_gps_options">Que voulez-vous faire ?</string>
     <string name="resto_gps_itineraire">Itinéraire</string>
     <string name="resto_gps_show">Afficher sur la carte</string>
-    <string name="resto_toast_client_position">Nous ne trouvons pas ou vous êtes</string>
+    <string name="resto_toast_client_position">Veuillez activer votre gps</string>
     <string name="resto_toast_client_gps">GPS désactivé</string>
     <string name="profil_restaurant_cooks_alert_traditional">Traditionnelle</string>
     <string name="profil_restaurant_cooks_alert_french">Française</string>

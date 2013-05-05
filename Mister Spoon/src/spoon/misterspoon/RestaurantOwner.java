@@ -710,7 +710,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[2] + " = " + "'"+avantage+"'" + " AND " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Advantage + " WHERE " + MySQLiteHelper.Advantage_column[2] + " = " + "'"+avantage+"'" + " AND " + MySQLiteHelper.Advantage_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
 				db.close();
-				restaurant.removeRestaurantAvantages(index);
+				restaurant.removeRestaurantAvantages(index-1);
 			}
 			return true;
 		}
@@ -752,7 +752,7 @@ public class RestaurantOwner {
 				db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[2] + " = " + "'"+cuisine+"'" + " AND " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
 				MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Cook + " WHERE " + MySQLiteHelper.Cook_column[2] + " = " + "'"+cuisine+"'" + " AND " + MySQLiteHelper.Cook_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + ";");
 				db.close();
-				restaurant.removeRestaurantCuisine(index);
+				restaurant.removeRestaurantCuisine(index-1);
 			}
 			return true;
 		}
