@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -52,6 +51,8 @@ public class RestaurantListActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
+		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_list_restaurant);
 		
 		Intent i = getIntent();
@@ -203,4 +204,9 @@ public class RestaurantListActivity extends Activity {
 			return;
 		}
 	};
+	
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( 0 , R.anim.slide_out );
+	}
 }

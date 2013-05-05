@@ -19,12 +19,18 @@ public class PrereservationRestaurantActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
 		setContentView(R.layout.activity_list_restaurant);
 		
 		prereservationList = (ListView) findViewById(R.id.prereservation_restaurant_prereservationList);
 		//TODO Remplir la liste de restaurants
 		
 		prereservationList.setOnItemClickListener(prereservationListListener);
+	}
+	
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( 0 , R.anim.slide_out );
 	}
 	
 	private OnItemClickListener prereservationListListener = new OnItemClickListener(){

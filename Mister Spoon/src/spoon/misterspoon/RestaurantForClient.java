@@ -57,6 +57,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
@@ -279,6 +280,9 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		lManager.removeUpdates(this);
 	}
 
-
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( 0 , R.anim.slide_out );
+	}
 
 }

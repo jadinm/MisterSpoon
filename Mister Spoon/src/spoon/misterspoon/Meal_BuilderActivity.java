@@ -29,6 +29,7 @@ public class Meal_BuilderActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_meal);
 		
@@ -120,6 +121,11 @@ public class Meal_BuilderActivity extends Activity {
 			
 		});
 		
+	}
+	
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( 0 , R.anim.slide_out );
 	}
 	
 }

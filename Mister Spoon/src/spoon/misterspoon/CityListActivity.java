@@ -46,6 +46,7 @@ public class CityListActivity extends Activity implements LocationListener {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_list_city);
 		
@@ -157,5 +158,10 @@ public class CityListActivity extends Activity implements LocationListener {
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( 0 , R.anim.slide_out );
 	}
 }

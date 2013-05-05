@@ -56,6 +56,7 @@ public class Login extends Activity {
 		super.onCreate(savedInstanceState);
 		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_login);
+		setTitle(String.format("Login"));
 
 		themeD = (Button)findViewById(R.id.activity_login_dark);
 		themeL = (Button)findViewById(R.id.activity_login_light);

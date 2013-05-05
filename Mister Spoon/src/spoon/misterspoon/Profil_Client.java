@@ -49,6 +49,7 @@ public class Profil_Client extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_profil_client);
 		
@@ -426,6 +427,11 @@ public class Profil_Client extends Activity {
 			}
 		});
 		
+	}
+	
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( 0 , R.anim.slide_out );
 	}
 	
 	@Override
