@@ -66,6 +66,12 @@
             android:name="spoon.misterspoon.RestaurantForClient"
             android:label="@string/resto_client_title">
         </activity>
+        
+        <!-- We declare the activity MealActivity -->
+        <activity 
+            android:name="spoon.misterspoon.MealActivity"
+            android:label="@string/resto_client_title">
+        </activity>
     </application>
 
 </manifest>

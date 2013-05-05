@@ -127,7 +127,8 @@ public class Login extends Activity {
 			}
 
 			if (Client.isInDatabase(sql, email_login.getText().toString())) {
-				//Intent i = new Intent(Login.this, RestaurantForClient.class); // Pour lancer la nouvelle vue
+				//Intent i = new Intent(Login.this, RestaurantForClient.class); // Pour lancer la vue RestaurantForClient
+				//Intent i = new Intent(Login.this, MealActivity.class); // Pour lancer la vue MealActivity
 				Intent i = new Intent(Login.this, Profil_Client.class);
 				i.putExtra(email, email_login.getText().toString());
 				startActivity(i);
