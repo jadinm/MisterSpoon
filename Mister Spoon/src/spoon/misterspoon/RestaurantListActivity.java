@@ -60,7 +60,7 @@ public class RestaurantListActivity extends Activity {
 		String sclient = i.getStringExtra(CityListActivity.email);
 		
 		client = new Client (sql, sclient);
-		restaurantList = new RestaurantList (sql, city, client, true);
+		restaurantList = new RestaurantList (sql, city, client);
 		//restaurantList.sort("abc");
 		nomRestaurants = restaurantList.getNomRestaurants();  //Renvoie une liste de string correspondant aux noms des restaurants    
 		
