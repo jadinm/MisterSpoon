@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -22,7 +23,7 @@ public class CityListActivity extends Activity {
 	public static final String CITY = "Selected City";
 
 	Context context = this;
-	MySQLiteHelper sql = new MySQLiteHelper(this);
+	MySQLiteHelper sql; 
 	
 	Client client;
 
@@ -41,28 +42,39 @@ public class CityListActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_list_city);
 		
 		Intent i = getIntent();
 		String sclient = i.getStringExtra(Login.email);
 		
+		
+		sql = new MySQLiteHelper(this);
 		client = new Client (sql, sclient);
 		
 		// ListView
 		cityList = new CityList(sql, client, true);
-		cityList.sort("abc");
+		//cityList.sort("abc");
+		Log.v("Create", "1");
+
 		nomCities = cityList.getNomCities();
+		Log.v("Create", "2");
+
 		cityListView = (ListView) findViewById(R.id.list_city);
+		Log.v("Create", "3");
+
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nomCities);
+		Log.v("Create", "4");
+
 		cityListView.setAdapter(adapter);
-		
+		Log.v("Create", "ListView");
 		// Spinner
 		ordre = (Spinner) findViewById(R.id.list_city_ordre);
 		orderList = Arrays.asList(CityList.orderTable);
 		adapterOrdre = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,orderList);
 		adapterOrdre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		ordre.setAdapter(adapterOrdre);
-		
+		Log.v("Create", "Spinner");
 		// Button
 		selectRestaurant = (Button) findViewById(R.id.list_city_restaurant_selection);
 		
@@ -71,6 +83,7 @@ public class CityListActivity extends Activity {
 		ordre.setOnItemClickListener(ordreListener);
 		
 		selectRestaurant.setOnClickListener(selectRestaurantListener);
+		Log.v("Create", "Button");
 	}
 	
 	private OnItemClickListener cityListListener = new OnItemClickListener(){

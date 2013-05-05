@@ -62,7 +62,7 @@ public class Meal_BuilderActivity extends Activity {
 
 		//We can now define all the widgets
 		mealImage = (ImageView) findViewById(R.id.meal_imageview);
-        mealImage.setImageResource(R.drawable.imageduplat);
+        //mealImage.setImageResource(R.drawable.imageduplat);
 		//TODO mettre images
 		
         
@@ -88,7 +88,7 @@ public class Meal_BuilderActivity extends Activity {
 			public void onClick(View v) {
 				
 
-				int value = meal.isInDatabase(sqliteHelper, (String) meal.getMealName(), restName);
+				int value = 0;// meal.isInDatabase(sqliteHelper, (String) meal.getMealName(), restName);
 				if(value==2 && meal.getMealName().equals(mealName.getText().toString())) {//If it already exists
 					mealName.setText(meal.getMealName());
 					Toast toast = Toast.makeText(context, mealName.getText().toString() + getString(R.string.meal_builder_toast_already_exist), Toast.LENGTH_SHORT);
