@@ -11,6 +11,7 @@
     <string name="tel">Téléphone :</string>
     <string name="web">Site Web :</string>
     <string name="mail">E-mail :</string>
+    <string name="password">Password :</string>
     <string name="adress">Adresse :</string>
     <string name="mail_perso">E-mail personnel : </string>
     <string name="login">Login</string>

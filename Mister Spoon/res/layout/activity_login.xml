@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="30dp"
+            android:paddingBottom="10dp"
             android:weightSum="2" >
 
             <EditText
@@ -31,13 +31,21 @@
                 android:inputType="textEmailAddress" >
             </EditText>
 
-            <Button
-                android:id="@+id/butlogin"
+            <EditText
+                android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="@string/password"
                 android:layout_weight="1"
-                android:text="@string/log_in" />
+                android:inputType="textPassword" >
+            </EditText>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/butlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_in" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -78,6 +86,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/mail"
             android:inputType="textEmailAddress" />
+        
+        <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/password"
+                android:inputType="textPassword" >
+            </EditText>
 
         <!-- These editText are invisible because client is chekced -->
 
