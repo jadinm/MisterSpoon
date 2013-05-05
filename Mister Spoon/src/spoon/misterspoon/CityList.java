@@ -1,78 +1,141 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 public class CityList {
-	
+
 	public MySQLiteHelper sqliteHelper;
-	
+
 	static final String orderTable[] = new String[]{"abc","proximite"};
-	
+
 	ArrayList<City> cityList;
 	String ordre;
 	Client client;
-	Boolean getFromDatabase;
-	
-	public CityList (MySQLiteHelper sqliteHelper, Client client, Boolean getFromDatabase) {
-		
+
+	public CityList (MySQLiteHelper sqliteHelper, Client client) {
+
 		this.cityList = new ArrayList<City>();
-		this.getFromDatabase = getFromDatabase;
 		this.client = client;
-		
+
+		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+
+		GPS gpsClient = getClientPosition();
+
+		if (gpsClient==null) {
+
+			Cursor cursor = db.rawQuery("SELECT DISTINCT " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " GROUP BY " + MySQLiteHelper.Address_column[4], null);
+
+			if (cursor.moveToFirst()) {
+
+				while(!cursor.isAfterLast()) {
+					cityList.add(new City (cursor.getString(0), null));
+					cursor.moveToNext();
+				}
+			}
+
+			this.sort(orderTable[0]);
+		}
+		else {
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[1] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " GROUP BY " + MySQLiteHelper.Address_column[4], null);
+			if (cursor.moveToFirst()) {
+				String currentCity = cursor.getString(1);
+				GPS minDistance = new GPS (cursor.getString(0));
+				while(!cursor.isAfterLast()) {
+					String newCity = cursor.getString(1);
+					GPS newGps = new GPS (cursor.getString(0));
+
+					if (currentCity.equals(newCity)) {//We are on the same town
+
+						if (newGps.compareTo(gpsClient) < minDistance.compareTo(gpsClient)) {
+							minDistance = newGps;
+						}
+
+						cursor.moveToNext();
+					}
+					else {//We change of town
+						cityList.add(new City (currentCity, minDistance));//We stock the previous one
+
+						currentCity = newCity;
+						minDistance = newGps;
+
+						cursor.moveToNext();
+					}
+				}
+
+				cityList.add(new City (currentCity, minDistance));//We stock the last one
+			}
+			this.sort(orderTable[1]);
+		}
+
 	}
-	
+
+	/*
+	 * Sort the list by alphabetic order or by proximity
+	 */
 	public void sort(String Ordre) {
-		boolean state = false;
-		City currentCity;
-		
-		if (Ordre.equals("abc")) {
-			while (!state) {
-				for(int i = 0; i < this.cityList.size() - 1; i++) {
-					if (this.cityList.get(i).getCityName().compareTo(this.cityList.get(i + 1).getCityName()) > 0) {
-						currentCity = this.cityList.get(i);
-						this.cityList.set(i, this.cityList.get(i + 1));
-						this.cityList.set(i + 1, currentCity);
+
+		if (Ordre.equals(orderTable[0])) {//"abc"
+
+			City [] array = (City[]) cityList.toArray();
+
+			for(int i=0; i<array.length; i++)
+			{
+				for(int j=i+1; j<array.length; j++)
+				{
+					if(array[i].getCityName().compareTo(array[j].getCityName()) > 0)// If the first is bigger than the second
+					{
+						City temp = array[j];
+						array[j] = array[i];
+						array[i] = temp;
 					}
-					else state = true;
 				}
 			}
+
+			cityList = (ArrayList<City>) Arrays.asList(array);
 		}
-		
-		if (Ordre.equals("proximite")) {
-			while (!state) {
-				for(int i = 0; i < this.cityList.size() - 1; i++) {
-					if (distance(this.cityList.get(i).getPosition(), getClientPosition()) <  distance(this.cityList.get(i + 1).getPosition(), getClientPosition())) {
-						currentCity = this.cityList.get(i);
-						this.cityList.set(i, this.cityList.get(i + 1));
-						this.cityList.set(i + 1, currentCity);
+
+		if (Ordre.equals(orderTable[1])) {//"proximite"
+
+			City [] array = (City[]) cityList.toArray();
+
+			for(int i=0; i<array.length; i++)
+			{
+				for(int j=i+1; j<array.length; j++)
+				{
+					if(array[i].getPosition().compareTo(this.client.getPosition(false)) > array[j].getPosition().compareTo(this.client.getPosition(false)))// If the further is bigger than the second
+					{
+						City temp = array[j];
+						array[j] = array[i];
+						array[i] = temp;
 					}
-					else state = true;
 				}
 			}
+
+			cityList = (ArrayList<City>) Arrays.asList(array);
 		}
 	}
-	
-	public List<String> getNomCities(){
-		List<String> nomCities = new ArrayList<String>();
+
+	/*
+	 * Create a list of the name of the cities
+	 */
+	public ArrayList <String> getNomCities(){
+		ArrayList <String> nomCities = new ArrayList<String>();
 		for(City city : getCityList()){
 			nomCities.add(city.getCityName());
 		}
 		return nomCities;
 	}
-	
-	public GPS getClientPosition() {
-		return client.getPosition(getFromDatabase);
-	}
-	
 
-	public double distance(GPS a, GPS b) {
-		double result = Math.sqrt(Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2));
-		return result;
+	public GPS getClientPosition() {
+		return client.getPosition(true);
 	}
-	
+
 	public ArrayList<City> getCityList() {
 		return this.cityList;
 	}
-	
+
 }
