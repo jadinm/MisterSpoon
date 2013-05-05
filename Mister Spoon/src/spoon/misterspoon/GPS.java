@@ -12,7 +12,6 @@ public class GPS {
 	private double latitude;
 
 	private LocationManager lManager;
-	private Location location;
 
 	public GPS (String coordonnees) {// (example: 50.668572,4.616146)
 

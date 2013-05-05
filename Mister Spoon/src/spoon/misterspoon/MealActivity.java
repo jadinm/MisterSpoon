@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MealActivity extends Activity {
@@ -25,7 +22,6 @@ public class MealActivity extends Activity {
 	TextView mealStock = null;
 	TextView mealDescription = null;
 	Button update = null;
-	private LinearLayout listview;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

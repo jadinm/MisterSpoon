@@ -7,11 +7,6 @@ public class MealBuilder {
 	private MySQLiteHelper sqliteHelper;
 	private RestaurantOwner owner;
 
-	private String name;
-	private int stock;
-	private String description;
-	private double price;
-
 	public MealBuilder(MySQLiteHelper sqliteHelper, RestaurantOwner owner){
 		this.sqliteHelper = sqliteHelper;
 		this.owner = owner;

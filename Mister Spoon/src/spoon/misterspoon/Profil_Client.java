@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,7 +60,6 @@ public class Profil_Client extends Activity {
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);
-		Log.v("start",emailClient);
 		//We can now define all the widgets
 		email = (TextView) findViewById(R.id.profil_client_email_text_view);
 		name = (EditText) findViewById(R.id.profil_client_name_edit_text);
@@ -83,9 +80,6 @@ public class Profil_Client extends Activity {
 		
 		update = (Button) findViewById(R.id.profil_client_update_button);
 		next = (Button) findViewById(R.id.profil_client_next_button);
-		
-		//We already fill the data of the Client if they exist
-		//if (c.getName(nameInDB) == null) Log.v("fuck","null");
 		
 		email.setText(email.getText() + " " + c.getEmail()); 
 		name.setText(c.getName(true));
@@ -109,7 +103,6 @@ public class Profil_Client extends Activity {
 				//set title and message
 				alertDialogBuilder.setTitle(R.string.profil_client_specificity_list);
 				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				//if (items == null) Log.v("fuck","me");
 				//set the list of checkBoxes
 				items = new String [c.getSpecificite(false).size()];
 				(c.getSpecificite(false)).toArray(items);
@@ -422,8 +415,7 @@ public class Profil_Client extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Profil_Client.this, CityListActivity.class);
-				//Intent i = new Intent(Profil_Client.this, RestaurantListActivity.class);
-				i.putExtra(Login.email, c.getEmail());//TODO
+				i.putExtra(Login.email, c.getEmail());
 				startActivity(i);
 				return;
 			}
