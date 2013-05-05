@@ -6,10 +6,11 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -34,6 +36,8 @@ public class RestaurantListActivity extends Activity implements LocationListener
 	Client client;
 	
 	Restaurant currentRestaurant;
+	
+	private View pressedView;
 	
 	ListView restaurantListView;
 	RestaurantList restaurantList;
@@ -141,9 +145,14 @@ public class RestaurantListActivity extends Activity implements LocationListener
 	private OnItemClickListener restaurantListListener = new OnItemClickListener(){
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			currentRestaurant = (Restaurant) restaurantListView.getSelectedItem();
+			currentRestaurant = new Restaurant(((TextView)arg1).getText().toString());
+			Drawable originalBackground = arg1.getBackground();
+			if(pressedView!=null)
+				pressedView.setBackgroundDrawable(originalBackground);
+			pressedView = arg1; // Point pressedView to new item
+			pressedView.setBackgroundColor(Color.parseColor("#80B7DBE8")); // reset background of old item
 		}
-		
+
 	};
 	
 	private OnCheckedChangeListener filtreNoteListener = new OnCheckedChangeListener() {

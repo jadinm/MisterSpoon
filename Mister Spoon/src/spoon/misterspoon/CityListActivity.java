@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ public class CityListActivity extends Activity implements LocationListener {
 	Client client;
 
 	City currentCity;
+	
+	private View pressedView;
 
 	ListView cityListView;
 	CityList cityList;
@@ -96,6 +100,11 @@ public class CityListActivity extends Activity implements LocationListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			currentCity = new City(((TextView)arg1).getText().toString(),null);
+			Drawable originalBackground = arg1.getBackground();
+			if(pressedView!=null)
+				pressedView.setBackgroundDrawable(originalBackground);
+			pressedView = arg1; // Point pressedView to new item
+			pressedView.setBackgroundColor(Color.parseColor("#80B7DBE8")); // reset background of old item
 		}
 		
 	};
