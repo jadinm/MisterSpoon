@@ -6,19 +6,27 @@ public class MealBuilder {
 
 	private MySQLiteHelper sqliteHelper;
 	private RestaurantOwner owner;
+	private Meal meal;
 
-	public MealBuilder(MySQLiteHelper sqliteHelper, RestaurantOwner owner){
+	public MealBuilder(MySQLiteHelper sqliteHelper, Meal meal, RestaurantOwner owner){
 		this.sqliteHelper = sqliteHelper;
 		this.owner = owner;
+		this.meal = meal;
+	}
+	
+	public Meal getMeal () {
+		return meal;
 	}
 
 	public void setMealName(String name){
 		if (name == null) return;
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[1] + " = " + "'"+name+"'" + " WHERE " + MySQLiteHelper.Menu_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[1] + " = " + name + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[1] + " = " + "'"+name+"'" + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[1] + " = " + "'"+name+"'" + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
 		db.close();
+		
+		meal.setMealName(name);
 
 	}
 
@@ -26,25 +34,30 @@ public class MealBuilder {
 		if (stock <= 0) return;
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[4] + " = " + stock + " WHERE " + MySQLiteHelper.Menu_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[4] + " = " + stock + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[4] + " = " + stock + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[4] + " = " + stock + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
 		db.close();
+		
+		meal.setMealStock(stock);
 
 	}
 
 	public void setMealDescription(String description){
 		if (description == null) {
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = NULL WHERE " + MySQLiteHelper.Menu_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
-			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = NULL WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = NULL WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = NULL WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
 			db.close();
 		}
 
 		else {
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = " + description + " WHERE " + MySQLiteHelper.Menu_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
-			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = " + description + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
-			db.close();}
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = " + description + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = " + description + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+			db.close();
+		}
+		
+		meal.setMealDescription(description);
 
 	}
 
@@ -52,9 +65,11 @@ public class MealBuilder {
 		if (price <= 0) return;
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[3] + " = " + price + " WHERE " + MySQLiteHelper.Menu_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[3] + " = " + price + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " ;");
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[3] + " = " + price + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[3] + " = " + price + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
 		db.close();
+		
+		meal.setMealPrice(price);
 
 	}
 

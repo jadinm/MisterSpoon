@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,8 +17,9 @@ public class Meal_BuilderActivity extends Activity {
 	private String restName;
 	
 	Context context = this;
-	MealBuilder mealB; 
-	Meal meal;
+	
+	MealBuilder mealB;
+	
 	EditText mealPrice = null;
 	EditText mealStock = null;
 	EditText mealDescription = null;
@@ -39,16 +40,18 @@ public class Meal_BuilderActivity extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailResto = i.getStringExtra(Login.email);
+		String emailResto = i.getStringExtra(Login.email);//TODO
 		
 		
 		//We take the informations about the meal viewed
-		String emailPerso = i.getStringExtra(Login.email);
+		String emailPerso = i.getStringExtra(Login.email);//TODO
+		
+		String mealNom = i.getStringExtra(Login.email);//TODO
 		
 		//We create the object Meal associated with this mealName and all his informations
 		sqliteHelper= new MySQLiteHelper(this);
 		RestaurantOwner r = new RestaurantOwner(sqliteHelper , emailPerso);
-		mealB = new MealBuilder (sqliteHelper, r);
+		mealB = new MealBuilder (sqliteHelper, new Meal (r.getRestaurant().getRestaurantName(), mealNom, sqliteHelper), r);
 		Log.v("start",emailResto);
 		
 		
@@ -56,9 +59,7 @@ public class Meal_BuilderActivity extends Activity {
 		mealName = (EditText) findViewById(R.id.meal_builder_name);
 
 
-		if (""+meal.getMealName()!=null) {
-			mealName.setText(meal.getMealName());
-		}		
+		mealName.setText(mealB.getMeal().getMealName());		
 
 		//We can now define all the widgets
 		mealImage = (ImageView) findViewById(R.id.meal_imageview);
@@ -70,17 +71,17 @@ public class Meal_BuilderActivity extends Activity {
 		mealPrice = (EditText) findViewById(R.id.meal_builder_price);
 		mealStock = (EditText) findViewById(R.id.meal_builder_stock);
 		mealDescription = (EditText) findViewById(R.id.meal_builder_description);
-		if (""+meal.getMealPrice(true)!=null) {
-			mealPrice.setText(""+meal.getMealPrice(true));
-		}		
-		if (""+meal.getMealStock(true)!=null) {
-			mealStock.setText(""+meal.getMealStock(true));
+			
+		mealPrice.setText(""+mealB.getMeal().getMealPrice(true));
+		
+		if (""+mealB.getMeal().getMealStock(false)!=null) {
+			mealStock.setText(""+mealB.getMeal().getMealStock(false));
 		}
-		if (meal.getMealDescription(true)!=null) {
-			mealDescription.setText(meal.getMealDescription(true));
+		if (mealB.getMeal().getMealDescription(false)!=null) {
+			mealDescription.setText(mealB.getMeal().getMealDescription(false));
 		}
 
-		meal = new Meal(mealName.getText().toString(), restName, sqliteHelper);
+		//mealB.setMeal() = new Meal(mealName.getText().toString(), restName, sqliteHelper);
 		
 		update = (Button) findViewById(R.id.meal_update);
 		update.setOnClickListener(new View.OnClickListener() {//Update the informations
@@ -88,16 +89,15 @@ public class Meal_BuilderActivity extends Activity {
 			public void onClick(View v) {
 				
 
-				int value = 0;// meal.isInDatabase(sqliteHelper, (String) meal.getMealName(), restName);
-				if(value==2 && meal.getMealName().equals(mealName.getText().toString())) {//If it already exists
-					mealName.setText(meal.getMealName());
+				boolean value = Meal.isInDatabase(sqliteHelper, mealB.getMeal().getMealName(), restName);
+				if(value && !mealB.getMeal().getMealName().equals(mealName.getText().toString())) {//If it already exists
+					mealName.setText(mealB.getMeal().getMealName());
 					Toast toast = Toast.makeText(context, mealName.getText().toString() + getString(R.string.meal_builder_toast_already_exist), Toast.LENGTH_SHORT);
 					toast.show();
 					
 					return;
 				}
-				
-				if (mealName.getText().toString().length()>0) {
+				else {//We can change the mealName
 					mealB.setMealName(mealName.getText().toString());
 				}
 				

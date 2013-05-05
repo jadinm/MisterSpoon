@@ -46,6 +46,20 @@ public class Meal {
 		
 	}
 	
+	/*
+	 * Return true if it already exists in the database and false if it doesn't
+	 */
+	public static boolean isInDatabase (MySQLiteHelper sqliteHelper, String mealName, String restName) {
+		
+		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+		
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[1] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + "'"+mealName+"'" + " AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", null);
+		if (cursor.moveToFirst()) {//If the information exists
+			return true;
+		}
+		return false;
+	}
+	
 	public String getRestName() {
 		return restName;
 	}
@@ -53,6 +67,10 @@ public class Meal {
 	public String getMealName () {
 		
 		return this.mealname;
+	}
+	
+	public void setMealName (String mealname) {
+		this.mealname = mealname;
 	}
 	
 	public int getMealStock(boolean getFromDatabase) {
@@ -68,6 +86,10 @@ public class Meal {
 		return this.stock; 
 	}
 	
+	public void setMealStock (int mealStock) {
+		this.stock = mealStock;
+	}
+	
 	public String getMealDescription(boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
@@ -81,6 +103,10 @@ public class Meal {
 		return this.description; 
 	}
 	
+	public void setMealDescription (String mealDescription) {
+		this.description = mealDescription;
+	}
+	
 	public double getMealPrice(boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
@@ -92,6 +118,10 @@ public class Meal {
 		}
 		
 		return this.mealprice;
+	}
+	
+	public void setMealPrice (double mealPrice) {
+		this.mealprice = mealPrice;
 	}
 
 }
