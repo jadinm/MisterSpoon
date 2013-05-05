@@ -723,10 +723,11 @@ public class Restaurant {
 		return this.carte;
 	}
 	
-	public boolean isCorrectPassword(String email, String password){
-		if(email.equals(getRestaurantEmail(true)) && password.equals(this.getRestaurantPassword(true)))
-			return true;
-		else return false;
+	public static boolean isCorrectPassword(MySQLiteHelper sqliteHelper, String email, String password){
+		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'", null);
+		cursor.moveToFirst();
+		return password.equals(cursor.getString(0));
 	}
 	
 	public boolean setRestaurantCarte (Carte carte) {

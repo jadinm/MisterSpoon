@@ -102,7 +102,7 @@ public class RestaurantOwner {
 	 * If the password exists already, we return 5
 	 * If there no problem, we return 0 (and we can create a new restaurant)
 	 */
-	public static int isInDatabase(MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone, String password) {
+	public static int isInDatabase(MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone) {
 		SQLiteDatabase db = sql.getReadableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'", null);
@@ -126,12 +126,6 @@ public class RestaurantOwner {
 		if (cursor.moveToFirst()) {
 			//db.close();
 			return 4;
-		}
-		
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[9] + " = " + "'"+password+"'", null);
-		if (cursor.moveToFirst()) {
-			//db.close();
-			return 5;
 		}
 
 		//db.close();

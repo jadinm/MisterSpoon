@@ -40,6 +40,7 @@
     <string name="activity_register_same_phone">Ce numéro existe déjà</string>
     <string name="activity_register_same_gps">Cette coordonnée existe déjà</string>
     <string name="activity_register_same_name">Ce nom existe déjà</string>
+    <string name="wrong_mdp">Mauvais mot de passe</string>
     <string name="exit_title">Communication système</string>
     <string name="exit">Voulez-vous vraiment quitter?</string>
     <string name="exit_confirm">Oui</string>

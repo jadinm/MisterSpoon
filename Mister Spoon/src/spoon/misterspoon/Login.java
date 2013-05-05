@@ -132,7 +132,7 @@ public class Login extends Activity {
 
 			if (Client.isInDatabase(sql, email_login.getText().toString())) {
 				if (!Client.isCorrect(sql, email_login.getText().toString(), password_login.getText().toString())) {
-					Toast toast = Toast.makeText(context, "Mauvais mot de passe", Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(context, getString(R.string.wrong_mdp), Toast.LENGTH_SHORT);
 					toast.show();
 					return;
 				}
@@ -147,6 +147,11 @@ public class Login extends Activity {
 			else if (RestaurantOwner.isInDatabase(sql, email_login.getText().toString())) {
 				//Toast toast = Toast.makeText(context, "Un restaurant vient de se connecter correctement", Toast.LENGTH_SHORT);
 				//toast.show();
+				if (!Restaurant.isCorrectPassword(sql, email_login.getText().toString(), password_login.getText().toString())) {
+					Toast toast = Toast.makeText(context, getString(R.string.wrong_mdp), Toast.LENGTH_SHORT);
+					toast.show();
+					return;
+				}
 
 				Intent i = new Intent(Login.this, Profil_Restaurant.class);
 				i.putExtra(email, email_login.getText().toString());
@@ -237,10 +242,10 @@ public class Login extends Activity {
 					Log.d("Au départ, on a cette capacité", capacite_register.getText().toString());
 					
 					if (numero.toString().length()!=0) {
-						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), Integer.parseInt(numero.getText().toString()), rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()));
+						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), Integer.parseInt(numero.getText().toString()), rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()), password_register.getText().toString());
 					}
 					else {
-						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), 0, rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()));
+						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), 0, rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()), password_register.getText().toString());
 					}
 //					Toast toast = Toast.makeText(context, "Un restaurant vient de s'enregister correctement", Toast.LENGTH_SHORT);
 //					toast.show();
@@ -272,6 +277,7 @@ public class Login extends Activity {
 					toast = Toast.makeText(context, getString(R.string.activity_register_same_phone), Toast.LENGTH_SHORT);
 					toast.show();
 					break;
+					
 				default:
 					toast = Toast.makeText(context, getString(R.string.activity_register_toast_empty), Toast.LENGTH_SHORT);
 					toast.show();
@@ -288,6 +294,7 @@ public class Login extends Activity {
 		email_login.setText("");
 		password_login.setText("");
 		password_register.setText("");
+
 		nom_register.setText("");
 		email_register.setText("");
 		phone_register.setText("");
