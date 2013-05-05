@@ -61,7 +61,6 @@ public class RestaurantListActivity extends Activity {
 		
 		client = new Client (sql, sclient);
 		restaurantList = new RestaurantList (sql, city, client);
-		//restaurantList.sort("abc");
 		nomRestaurants = restaurantList.getNomRestaurants();  //Renvoie une liste de string correspondant aux noms des restaurants    
 		
 		restaurantListView = (ListView) findViewById(R.id.list_restaurant_restaurants);
@@ -78,6 +77,8 @@ public class RestaurantListActivity extends Activity {
 		filtrePrix = (CheckBox) findViewById(R.id.list_restaurant_filtre_prix);
 		textPrix = (EditText) findViewById(R.id.list_restaurant_editText_prix);
 		filtreFavori = (CheckBox) findViewById(R.id.list_restaurant_filtre_favori);
+		
+		textNote.setInputType(0); // Hide the keyboard	
 		
 		selectRestaurant = (Button) findViewById(R.id.list_restaurant_selection);
 		
@@ -207,6 +208,6 @@ public class RestaurantListActivity extends Activity {
 	
 	public void onPause(){
 		super.onPause();
-		overridePendingTransition ( 0 , R.anim.slide_out );
+		overridePendingTransition ( R.anim.slide_out , R.anim.slide_up );
 	}
 }
