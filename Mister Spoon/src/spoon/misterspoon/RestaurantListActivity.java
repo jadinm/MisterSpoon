@@ -30,11 +30,12 @@ import android.widget.Toast;
 public class RestaurantListActivity extends Activity implements LocationListener {
 	
 	public static final String RESTAURANT = "Selected Restaurant";
+	public static final String emailLogin = "";
 	Context context = this;
 	MySQLiteHelper sql = new MySQLiteHelper(this);
 	
 	Client client;
-	
+	String sclient;
 	Restaurant currentRestaurant;
 	
 	private View pressedView;
@@ -67,7 +68,7 @@ public class RestaurantListActivity extends Activity implements LocationListener
 		
 		Intent i = getIntent();
 		String city = i.getStringExtra(CityListActivity.CITY);
-		String sclient = i.getStringExtra(CityListActivity.email);
+		sclient = i.getStringExtra(CityListActivity.email);
 		
 		client = new Client (sql, sclient);
 		restaurantList = new RestaurantList (sql, city, client, this, this);
@@ -236,8 +237,9 @@ public class RestaurantListActivity extends Activity implements LocationListener
 			}
 			//Toast toast = Toast.makeText(context, "Ceci est un leurre ! Mouhahaha !", Toast.LENGTH_SHORT);
 			//toast.show();
-			Intent intent = new Intent(RestaurantListActivity.this,CarteActivity.class);
+			Intent intent = new Intent(RestaurantListActivity.this,RestaurantForClient.class);
 			intent.putExtra(RESTAURANT, currentRestaurant.getRestaurantName());
+			intent.putExtra(emailLogin, sclient);
 			startActivity(intent);
 			return;
 		}

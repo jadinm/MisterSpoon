@@ -84,7 +84,7 @@ public class Profil_Restaurant extends Activity {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		String emailPerso = i.getStringExtra(Login.email);
-
+		
 		//We create the object Restaurant associated with this email and all his informations
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
 

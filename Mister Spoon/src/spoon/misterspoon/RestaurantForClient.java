@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -69,10 +70,11 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailPerso = i.getStringExtra(Login.email);
+		String emailPerso = i.getStringExtra(RestaurantListActivity.emailLogin);
 		//String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
-		String restoName = "Loungeatude";
-
+		String restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);;
+		
+		
 		//We create the object Restaurant associated with this email and all his informations
 		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
