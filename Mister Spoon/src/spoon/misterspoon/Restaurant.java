@@ -67,7 +67,7 @@ public class Restaurant {
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
 		// "telephone", "gps", "capaTotale", "description", "position", "phone", "mdp"
-		Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[6] + ", " + MySQLiteHelper.Restaurant_column[7] + ", " + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
+		Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[6] + ", " + MySQLiteHelper.Restaurant_column[7] + ", " + MySQLiteHelper.Restaurant_column[8] + ", " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			
 			phone = cursor.getString(0);
@@ -725,7 +725,7 @@ public class Restaurant {
 	
 	public static boolean isCorrectPassword(MySQLiteHelper sqliteHelper, String email, String password){
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'", null);
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+email+"'", null);
 		cursor.moveToFirst();
 		return password.equals(cursor.getString(0));
 	}
