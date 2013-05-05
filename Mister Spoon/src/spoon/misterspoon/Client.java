@@ -149,6 +149,16 @@ public class Client {
 		//db.close();//We don't forget to close the database
 
 	}
+	
+	/*
+	 * return true if it's the good password
+	 */
+	public static boolean isCorrect(MySQLiteHelper sqliteHelper, String email, String pass) {
+		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[4] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'", null);
+		cursor.moveToFirst();
+		return pass.equals(cursor.getString(0));
+	}
 
 	/*
 	 * Check if the email is in the database and return true if it already exists
