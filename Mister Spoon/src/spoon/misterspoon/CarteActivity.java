@@ -40,6 +40,7 @@ public class CarteActivity extends Activity {
 		restName = i.getStringExtra(Profil_Restaurant.name);
 		carte = new Carte(sqliteHelper, restName);
 		
+		//menuName = carte.
 		
 		carteListView = (ListView) findViewById(R.id.carte_list);
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, menuName);

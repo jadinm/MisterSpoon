@@ -234,11 +234,11 @@ public class RestaurantListActivity extends Activity implements LocationListener
 				toast.show();
 				return;
 			}
-			Toast toast = Toast.makeText(context, "Ceci est un leurre ! Mouhahaha !", Toast.LENGTH_SHORT);
-			toast.show();
-			/*Intent intent = new Intent(RestaurantListActivity.this,RestaurantActivity.class);
+			//Toast toast = Toast.makeText(context, "Ceci est un leurre ! Mouhahaha !", Toast.LENGTH_SHORT);
+			//toast.show();
+			Intent intent = new Intent(RestaurantListActivity.this,CarteActivity.class);
 			intent.putExtra(RESTAURANT, currentRestaurant.getRestaurantName());
-			startActivity(intent);*/
+			startActivity(intent);
 			return;
 		}
 	};
