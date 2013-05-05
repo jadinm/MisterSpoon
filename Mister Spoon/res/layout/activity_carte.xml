@@ -2,83 +2,71 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="15dp"
     android:orientation="vertical" >
 
-    
     <LinearLayout
-    	android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:orientation="vertical" >
-            
-            
-			<LinearLayout
-          	   android:layout_width="fill_parent"
-         	   android:layout_height="fill_parent"
-          	   android:orientation="horizontal"
-       	  	   android:weightSum="3" 
-       	  	   android:paddingBottom="20dp">
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="3" >
 
-        	    <TextView
-            	    android:layout_width="fill_parent"
-            		android:layout_height="wrap_content"
-          			android:paddingBottom="20dp"
-            		android:paddingLeft="5dp"
-		            android:layout_weight="1"
-            		android:text="@string/carte_meal_name" />
-        	    
-         	    <TextView
-            	    android:layout_width="fill_parent"
-            		android:layout_height="wrap_content"
-          			android:paddingBottom="20dp"
-            		android:paddingLeft="5dp"
-		            android:layout_weight="1"
-            		android:text="@string/carte_meal_price" /> 	
-
-            	<Button
-		            android:id="@+id/carte_preorder"
-		            android:layout_width="fill_parent"
-		            android:layout_height="fill_parent"
-		            android:layout_weight="1"
-		            android:text="@string/carte_preorder" />
-            
-
-        	</LinearLayout>
-        
-            <ListView
-				android:id="@+id/carte_list"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:gravity="bottom"
-				android:choiceMode="singleChoice"
-				android:layout_weight="1" >
-        	</ListView>
-        	
-            <LinearLayout
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_weight="1"
             android:paddingBottom="20dp"
-            android:weightSum="2" >
+            android:paddingLeft="5dp"
+            android:text="@string/carte_meal_name" />
 
-           		 <Button
-                	android:id="@+id/carte_prebooking_button"
-                	android:layout_width="fill_parent"
-                	android:layout_height="fill_parent"
-                	android:layout_weight="1"
-                	android:text="@string/profil_client_prebooking" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/carte_meal_price" />
 
-            	<Button
-                	android:id="@+id/carte_booking_button"
-                	android:layout_width="fill_parent"
-                	android:layout_height="fill_parent"
-                	android:layout_weight="1"
-                	android:text="@string/profil_client_booking" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/carte_preorder"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/carte_preorder" />
     </LinearLayout>
+
     
-    
-          
-    
+    <ListView
+        android:id="@+id/carte_list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:choiceMode="singleChoice"
+        android:gravity="bottom"
+        android:paddingBottom="20dp" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/carte_prebooking_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/profil_client_prebooking" />
+
+        <Button
+            android:id="@+id/carte_booking_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/profil_client_booking" />
+    </LinearLayout>
 
 </LinearLayout>
