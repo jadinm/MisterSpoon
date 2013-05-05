@@ -419,6 +419,7 @@ public class Profil_Client extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Profil_Client.this, CityListActivity.class);
+				//Intent i = new Intent(Profil_Client.this, RestaurantListActivity.class);
 				i.putExtra(Login.email, c.getEmail());//TODO
 				startActivity(i);
 				return;

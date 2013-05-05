@@ -56,26 +56,19 @@ public class CityListActivity extends Activity {
 		// ListView
 		cityList = new CityList(sql, client, true);
 		//cityList.sort("abc");
-		Log.v("Create", "1");
-
+		
 		nomCities = cityList.getNomCities();
-		Log.v("Create", "2");
-
 		cityListView = (ListView) findViewById(R.id.list_city);
-		Log.v("Create", "3");
-
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nomCities);
-		Log.v("Create", "4");
-
 		cityListView.setAdapter(adapter);
-		Log.v("Create", "ListView");
+		
 		// Spinner
 		ordre = (Spinner) findViewById(R.id.list_city_ordre);
 		orderList = Arrays.asList(CityList.orderTable);
 		adapterOrdre = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,orderList);
 		adapterOrdre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		ordre.setAdapter(adapterOrdre);
-		Log.v("Create", "Spinner");
+		
 		// Button
 		selectRestaurant = (Button) findViewById(R.id.list_city_restaurant_selection);
 		
@@ -84,7 +77,6 @@ public class CityListActivity extends Activity {
 		ordre.setOnItemSelectedListener(ordreListener);
 		
 		selectRestaurant.setOnClickListener(selectRestaurantListener);
-		Log.v("Create", "Button");
 	}
 	
 	private OnItemClickListener cityListListener = new OnItemClickListener(){
@@ -99,7 +91,8 @@ public class CityListActivity extends Activity {
 
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			cityList.sort((String) ordre.getSelectedItem());
+
+			//cityList.sort((String) ordre.getSelectedItem());
 			nomCities = cityList.getNomCities();
 			adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomCities);
 			cityListView.setAdapter(adapter);
@@ -108,7 +101,8 @@ public class CityListActivity extends Activity {
 
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
-			
+			Log.v("fuck", "you");
+
 		}
 		
 	};

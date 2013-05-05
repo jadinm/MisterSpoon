@@ -57,6 +57,9 @@ public class RestaurantListActivity extends Activity {
 		String sclient = i.getStringExtra(CityListActivity.CITY);
 		String city = i.getStringExtra(Login.email);
 		
+		//String sclient = "toni@hotmail.com";
+		//String city = "Louvain-la-Neuve";
+		
 		client = new Client (sql, sclient);
 		
 		restaurantList = new RestaurantList (sql, city, client, true);
