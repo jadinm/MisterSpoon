@@ -286,7 +286,8 @@ public class Login extends Activity {
 	public void onStop() {
 
 		email_login.setText("");
-
+		password_login.setText("");
+		password_register.setText("");
 		nom_register.setText("");
 		email_register.setText("");
 		phone_register.setText("");
