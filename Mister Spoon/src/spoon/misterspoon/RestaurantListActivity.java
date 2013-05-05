@@ -55,8 +55,8 @@ public class RestaurantListActivity extends Activity {
 		setContentView(R.layout.activity_list_restaurant);
 		
 		Intent i = getIntent();
-		String sclient = i.getStringExtra(CityListActivity.CITY);
-		String city = i.getStringExtra(CityListActivity.email);
+		String city = i.getStringExtra(CityListActivity.CITY);
+		String sclient = i.getStringExtra(CityListActivity.email);
 		
 		client = new Client (sql, sclient);
 		
