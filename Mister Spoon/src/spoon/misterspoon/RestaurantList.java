@@ -37,6 +37,8 @@ public class RestaurantList {
 			}
 		}
 		
+		this.sort(orderTable[0]);
+		
 	}
 	
 	public List<String> getNomRestaurants(){
