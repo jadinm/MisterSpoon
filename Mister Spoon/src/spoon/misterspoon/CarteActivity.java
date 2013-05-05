@@ -55,6 +55,11 @@ public class CarteActivity extends Activity {
 		preOrder = (Button) findViewById(R.id.carte_preorder_button);
 		preBooking = (Button) findViewById(R.id.carte_prebooking_button);
 		booking = (Button) findViewById(R.id.carte_booking_button);
+		
+		selectMeal.setOnClickListener(selectMealListener);
+		preBooking.setOnClickListener(preBookingListener);
+		booking.setOnClickListener(bookingListener);
+		preOrder.setOnClickListener(preOrderListener);
 	}
 	
 	private OnClickListener selectMealListener = new OnClickListener() {
