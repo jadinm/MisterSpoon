@@ -97,6 +97,7 @@ public class CityListActivity extends Activity implements LocationListener {
 	}
 	
 	private OnItemClickListener cityListListener = new OnItemClickListener(){
+		@SuppressWarnings("deprecation")
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			currentCity = new City(((TextView)arg1).getText().toString(),null);

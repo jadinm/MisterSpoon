@@ -136,13 +136,13 @@ public class RestaurantListActivity extends Activity implements LocationListener
 		}
 
 		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-			
+			// Nothing
 		}
 		
 	};
 	
 	private OnItemClickListener restaurantListListener = new OnItemClickListener(){
+		@SuppressWarnings("deprecation")
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			currentRestaurant = new Restaurant(((TextView)arg1).getText().toString());
