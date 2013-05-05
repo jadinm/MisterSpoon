@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class Profil_Client extends Activity {
 		//We take the informations about the person who's logged (!!!! label)
 		String emailClient = i.getStringExtra(Login.email);
 		
+		InputMethodManager imm = (InputMethodManager)getSystemService(
+		Context.INPUT_METHOD_SERVICE);
 		
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
@@ -71,6 +74,8 @@ public class Profil_Client extends Activity {
 		new_specificity = (EditText) findViewById(R.id.profil_client_new_specificity_edit_text);
 		new_favourite_meal = (EditText) findViewById(R.id.profil_client_new_favourite_meal_edit_text);
 		new_favourite_restaurant = (EditText) findViewById(R.id.profil_client_new_favourite_restaurant_edit_text);
+		
+		imm.hideSoftInputFromWindow(name.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
 		
 		specificity_list = (Button) findViewById(R.id.profil_client_specificity_list_button);
 		favourite_meal_list = (Button) findViewById(R.id.profil_client_favourite_meal_list_button);
