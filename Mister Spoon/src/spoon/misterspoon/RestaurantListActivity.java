@@ -183,7 +183,7 @@ public class RestaurantListActivity extends Activity implements LocationListener
 	private OnCheckedChangeListener filtrePrixListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			if (isChecked) {
+			if (isChecked && textPrix.getText().toString().length() > 0) {
 				restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
