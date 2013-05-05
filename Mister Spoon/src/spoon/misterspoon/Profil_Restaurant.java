@@ -25,6 +25,8 @@ public class Profil_Restaurant extends Activity {
 
 	private RestaurantOwner r;
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
+	
+	static final String name = "Nom Restaurant";
 
 	//Elements of the view
 	private TextView email_perso;
@@ -402,9 +404,9 @@ public class Profil_Restaurant extends Activity {
 			public void onClick(View v) {
 				Toast toasted = Toast.makeText(context, "Le resto veut montrer sa carte mais ce n'est pas encore possibl :p ", Toast.LENGTH_SHORT);
 				toasted.show();
-				/*Intent i = new Intent(Profil_Client.this, PreBooking_Client.class);//TODO
-				i.putExtra(Login.email, r.getEmail());//TODO
-				startActivity(i);*/
+				Intent i = new Intent(Profil_Restaurant.this, CarteActivity.class);//TODO
+				i.putExtra(name, r.getRestaurant().getRestaurantName());//TODO
+				startActivity(i);
 			}
 		});
 

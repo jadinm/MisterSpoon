@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 public class CarteActivity extends Activity {
@@ -40,10 +37,7 @@ public class CarteActivity extends Activity {
 		Utils.onActivityCreateSetTheme(this);
 		
 		Intent i = getIntent();
-		String sclient = i.getStringExtra(Login.email);
-		
-		
-	//	restName = i.getStringExtra(RestaurantForClient.name); //TODO RestoName qu'on recoit depuis RestaurantForClient
+		restName = i.getStringExtra(Profil_Restaurant.name);
 		carte = new Carte(sqliteHelper, restName);
 		
 		
