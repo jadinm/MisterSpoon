@@ -46,10 +46,34 @@ public class Time implements Comparable<Time> {
 	}
 	
 	public String toString () {
-		return hour + ":" + minute + ":" + second;
+		String shour;
+		String sminute;
+		String ssecond;
+		
+		if (hour<10) {
+			shour = "0"+hour;
+		}
+		else {
+			shour = hour  + "";
+		}
+		if (minute<10) {
+			sminute = "0"+minute;
+		}
+		else {
+			sminute = minute  + "";
+		}
+		if (second<10) {
+			ssecond = "0"+second;
+		}
+		else {
+			ssecond = second  + "";
+		}
+		
+		return shour + ":" + sminute + ":" + ssecond;
 	}
 	
 	public boolean equals (Time time) {
+		
 		return (this.getHour()==time.getHour()) && (this.getMinute()==time.getMinute()) && (this.getSecond()==time.getSecond());
 	}
 	
