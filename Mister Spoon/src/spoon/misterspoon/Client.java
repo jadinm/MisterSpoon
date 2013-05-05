@@ -9,7 +9,7 @@ import android.location.LocationListener;
 
 public class Client {
 
-	public MySQLiteHelper sqliteHelper;
+	public static MySQLiteHelper sqliteHelper;
 	private String email;
 	private String pass;
 
@@ -199,11 +199,11 @@ public class Client {
 	/*
 	 * Create a new Client in the database with the informations given in parameter
 	 */
-	static public void createClient (MySQLiteHelper sql, String email, String nom) {
+	static public void createClient (MySQLiteHelper sql, String email, String nom, String pass) {
 		SQLiteDatabase db = sql.getWritableDatabase();
 
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ");");
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ", " + MySQLiteHelper.Client_column[4] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ", " + "'"+pass+"'" + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ", " + MySQLiteHelper.Client_column[4] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ", " + "'"+pass+"'" + ");");
 		//db.close();
 	}
 	
@@ -222,9 +222,8 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[4] + " = " + "'"+pass+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
 			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[4] + " = " + "'"+pass+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
-			this.pass = pass;
 			//db.close();
-			return;
+			this.pass = pass;
 		}
 
 	}

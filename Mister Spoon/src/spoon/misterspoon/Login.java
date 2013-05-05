@@ -206,7 +206,7 @@ public class Login extends Activity {
 			if (!rad_resto.isChecked()) {//if we have a Client
 				int InDatabase = Client.isInDatabase(sql, email_register.getText().toString(), nom_register.getText().toString());
 				if (InDatabase==0) {//If there is no problem
-					Client.createClient(sql, email_register.getText().toString(), nom_register.getText().toString());
+					Client.createClient(sql, email_register.getText().toString(), nom_register.getText().toString(), password_register.getText().toString());
 					Intent i = new Intent(Login.this, Profil_Client.class);
 					i.putExtra(email, email_register.getText().toString());
 					startActivity(i);
