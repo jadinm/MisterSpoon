@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class RestaurantList {
 
@@ -27,11 +28,10 @@ public class RestaurantList {
 		removedRestaurant = new ArrayList <Restaurant> ();
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-		
 		Cursor cursor = db.rawQuery(" SELECT R." + MySQLiteHelper.Restaurant_column[1] + ", R." + MySQLiteHelper.Restaurant_column[4] + ", R." + MySQLiteHelper.Restaurant_column[7] + ", R." + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " R, " + MySQLiteHelper.TABLE_Address + " A WHERE R." + MySQLiteHelper.Restaurant_column[4] + " = A." + MySQLiteHelper.Address_column[1] + " AND A." + MySQLiteHelper.Address_column[4] + " = " + "'"+town+"'" , null);
 		if (cursor.moveToFirst()) {
-			while (cursor.isAfterLast()) {
-				
+			while (!cursor.isAfterLast()) {
+				Log.v("client", "FUCK");
 				filterList.add(new Restaurant(sqliteHelper, cursor.getString(0), new GPS (cursor.getString(1)), cursor.getInt(2), cursor.getInt(3)));
 				cursor.moveToNext();
 			}
@@ -45,6 +45,7 @@ public class RestaurantList {
 		ArrayList<String> nomRestaurants = new ArrayList<String>();
 		for(Restaurant resto : getfilterListVisible()){
 			nomRestaurants.add(resto.getRestaurantName());
+			Log.v("Resto", resto.getRestaurantName());
 		}
 		return nomRestaurants;
 	}
