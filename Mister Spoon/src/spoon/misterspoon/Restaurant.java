@@ -740,4 +740,17 @@ public class Restaurant {
 		return true;
 	}
 	
+	
+	public double getRestaurantPrice(Boolean getFromDatabase) {
+		double result = 0;
+		ArrayList<Menu> menu = getRestaurantCarte(getFromDatabase).menuList;
+		int nMenu = 0;
+		
+		for(int i = 0; i < menu.size(); i++) {
+			result = result + menu.get(i).getMenuPrice(getFromDatabase);
+			nMenu++;
+		}
+		result = result/nMenu;
+		return result;
+	}
 }
