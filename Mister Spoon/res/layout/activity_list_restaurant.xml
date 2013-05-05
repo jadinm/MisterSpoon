@@ -3,16 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingBottom="70dp"
-        android:paddingTop="75dp"
-        android:text="@string/list_restaurant_title"
-        android:textSize="45sp"
-        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"

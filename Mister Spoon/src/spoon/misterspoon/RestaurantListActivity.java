@@ -59,13 +59,11 @@ public class RestaurantListActivity extends Activity {
 		String sclient = i.getStringExtra(CityListActivity.email);
 		
 		client = new Client (sql, sclient);
-		
 		restaurantList = new RestaurantList (sql, city, client, true);
-		restaurantList.sort("abc");
+		//restaurantList.sort("abc");
 		nomRestaurants = restaurantList.getNomRestaurants();  //Renvoie une liste de string correspondant aux noms des restaurants    
 		
 		restaurantListView = (ListView) findViewById(R.id.list_restaurant_restaurants);
-		
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nomRestaurants);
 		restaurantListView.setAdapter(adapter);
 		
@@ -74,7 +72,6 @@ public class RestaurantListActivity extends Activity {
 		adapterOrdre = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,orderList);
 		adapterOrdre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		ordre.setAdapter(adapterOrdre);
-		
 		filtreNote = (CheckBox) findViewById(R.id.list_restaurant_filtre_note);
 		textNote = (EditText) findViewById(R.id.list_restaurant_editText_note);
 		filtrePrix = (CheckBox) findViewById(R.id.list_restaurant_filtre_prix);
@@ -86,7 +83,6 @@ public class RestaurantListActivity extends Activity {
 		restaurantListView.setOnItemClickListener(restaurantListListener);
 		
 		ordre.setOnItemSelectedListener(ordreListener);
-		
 		filtreNote.setOnCheckedChangeListener(filtreNoteListener);
 		filtrePrix.setOnCheckedChangeListener(filtrePrixListener);
 		filtreFavori.setOnCheckedChangeListener(filtreFavoriListener);
