@@ -198,7 +198,7 @@ public class Login extends Activity {
 	private View.OnClickListener registerListener = new View.OnClickListener() { 
 		@Override
 		public void onClick(View v) {
-			if (email_register.getText().toString().length()==0 || nom_register.getText().toString().length()==0) {
+			if (email_register.getText().toString().length()==0 || nom_register.getText().toString().length()==0 || password_register.getText().toString().length()==0) {
 				Toast toast = Toast.makeText(context, getString(R.string.activity_register_toast_empty), Toast.LENGTH_SHORT);
 				toast.show();
 				return;
