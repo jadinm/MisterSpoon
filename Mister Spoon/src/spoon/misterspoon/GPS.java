@@ -1,5 +1,7 @@
 package spoon.misterspoon;
 
+import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -53,9 +55,9 @@ public class GPS {
 		return (int) Math.sqrt((this.longitude - gps.longitude)*(this.longitude - gps.longitude) + (this.latitude - gps.latitude)*(this.latitude - gps.latitude));
 	}
 
-	public GPS updatePosition(Client client, LocationListener context) {
+	public GPS updatePosition(Client client, LocationListener context, Activity active) {
 
-
+		lManager = (LocationManager)active.getSystemService(Context.LOCATION_SERVICE);
 		lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, context);
 		Location loc = lManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		if (loc == null){

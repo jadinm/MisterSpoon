@@ -2,6 +2,7 @@ package spoon.misterspoon;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
@@ -286,10 +287,10 @@ public class Client {
 	 * (and set the current value of 'position')
 	 * else, we will return the current value of 'position'
 	 */
-	public GPS getPosition (LocationListener location) {
-
-		if (location != null) {
-			position = position.updatePosition(this, location);
+	public GPS getPosition (LocationListener updateData, Activity active) {	
+		if (updateData != null) {
+			position = new GPS(0,0);
+			position = position.updatePosition(this, updateData, active);
 		}
 
 		return position;

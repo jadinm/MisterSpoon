@@ -6,8 +6,10 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -17,9 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class CityListActivity extends Activity {
+public class CityListActivity extends Activity implements LocationListener {
 
 	public static final String CITY = "Selected City";
 
@@ -54,7 +57,7 @@ public class CityListActivity extends Activity {
 		client = new Client (sql, sclient);
 		
 		// ListView
-		cityList = new CityList(sql, client, (LocationListener) this);
+		cityList = new CityList(sql, client, this, this);
 		
 		nomCities = cityList.getNomCities();
 		cityListView = (ListView) findViewById(R.id.list_city);
@@ -81,7 +84,7 @@ public class CityListActivity extends Activity {
 	private OnItemClickListener cityListListener = new OnItemClickListener(){
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			currentCity = (City) cityListView.getSelectedItem();
+			currentCity = new City(((TextView)arg1).getText().toString(),null);
 		}
 		
 	};
@@ -112,7 +115,7 @@ public class CityListActivity extends Activity {
 				return;
 			}
 			
-			Toast toast = Toast.makeText(context, "Il veut accéder à l'activité suivante avec la ville " + currentCity, Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(context, "Il veut acceder a l'activite suivante avec la ville " + currentCity.getCityName(), Toast.LENGTH_SHORT);
 			toast.show();
 			/*Intent intent = new Intent(CityListActivity.this,RestaurantListActivity.class);
 			intent.putExtra(CITY, currentCity.getCityName());
@@ -120,4 +123,28 @@ public class CityListActivity extends Activity {
 			return;
 		}
 	};
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
 }

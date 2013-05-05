@@ -3,6 +3,7 @@ package spoon.misterspoon;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
@@ -17,14 +18,14 @@ public class CityList {
 	String ordre;
 	Client client;
 
-	public CityList (MySQLiteHelper sqliteHelper, Client client, LocationListener location) {
+	public CityList (MySQLiteHelper sqliteHelper, Client client, LocationListener location, Activity active) {
 
 		this.cityList = new ArrayList<City>();
 		this.client = client;
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 
-		GPS gpsClient = getClientPosition(location);
+		GPS gpsClient = getClientPosition(location, active);
 
 		if (gpsClient==null) {
 
@@ -81,7 +82,10 @@ public class CityList {
 
 		if (Ordre.equals(orderTable[0])) {//"abc"
 
-			City [] array = (City[]) cityList.toArray();
+			City [] array = new City[cityList.size()];
+			for (int i =0; i<cityList.size(); i++) {
+					array[i] = cityList.get(i);
+			}
 
 			for(int i=0; i<array.length; i++)
 			{
@@ -96,18 +100,24 @@ public class CityList {
 				}
 			}
 
-			cityList = (ArrayList<City>) Arrays.asList(array);
+			cityList.clear();
+			for (int i =0; i<array.length; i++) {
+				cityList.add(array[i]);
+			}
 		}
 
 		if (Ordre.equals(orderTable[1])) {//"proximite"
 
-			City [] array = (City[]) cityList.toArray();
+			City [] array = new City[cityList.size()];
+			for (int i =0; i<cityList.size(); i++) {
+					array[i] = cityList.get(i);
+			}
 
 			for(int i=0; i<array.length; i++)
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getPosition().compareTo(this.client.getPosition(null)) > array[j].getPosition().compareTo(this.client.getPosition(null)))// If the further is bigger than the second
+					if(array[i].getPosition().compareTo(this.client.getPosition(null, null)) > array[j].getPosition().compareTo(this.client.getPosition(null, null)))// If the further is bigger than the second
 					{
 						City temp = array[j];
 						array[j] = array[i];
@@ -115,8 +125,11 @@ public class CityList {
 					}
 				}
 			}
-
-			cityList = (ArrayList<City>) Arrays.asList(array);
+			
+			cityList.clear();
+			for (int i =0; i<array.length; i++) {
+				cityList.add(array[i]);
+			}
 		}
 	}
 
@@ -131,8 +144,8 @@ public class CityList {
 		return nomCities;
 	}
 
-	public GPS getClientPosition(LocationListener location) {
-		return client.getPosition(location);
+	public GPS getClientPosition(LocationListener location, Activity active) {
+		return client.getPosition(location,active);
 	}
 
 	public ArrayList<City> getCityList() {

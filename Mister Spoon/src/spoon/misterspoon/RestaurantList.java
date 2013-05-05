@@ -102,7 +102,7 @@ public class RestaurantList {
 		if (Ordre.equals("proximite")) {
 			while (!state) {
 				for(int i = 0; i < this.filterList.size() - 1; i++) {
-					if (distance(this.filterList.get(i).getRestaurantPosition(getFromDatabase), this.client.getPosition(null)) <  distance(this.filterList.get(i + 1).getRestaurantPosition(getFromDatabase), this.client.getPosition(null))) {
+					if (distance(this.filterList.get(i).getRestaurantPosition(getFromDatabase), this.client.getPosition(null, null)) <  distance(this.filterList.get(i + 1).getRestaurantPosition(getFromDatabase), this.client.getPosition(null, null))) {
 						currentRestaurant = this.filterList.get(i);
 						this.filterList.set(i, this.filterList.get(i + 1));
 						this.filterList.set(i + 1, currentRestaurant);
