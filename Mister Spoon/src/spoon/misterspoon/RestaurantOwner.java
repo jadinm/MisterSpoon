@@ -99,9 +99,10 @@ public class RestaurantOwner {
 	 * If the restNom exists already, we return 2
 	 * If the gps exists already, we return 3
 	 * If the phone exists already, we return 4
+	 * If the password exists already, we return 5
 	 * If there no problem, we return 0 (and we can create a new restaurant)
 	 */
-	public static int isInDatabase(MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone) {
+	public static int isInDatabase(MySQLiteHelper sql, String emailPerso, String restNom, String gps, String phone, String password) {
 		SQLiteDatabase db = sql.getReadableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'", null);
@@ -126,6 +127,12 @@ public class RestaurantOwner {
 			//db.close();
 			return 4;
 		}
+		
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[9] + " = " + "'"+password+"'", null);
+		if (cursor.moveToFirst()) {
+			//db.close();
+			return 5;
+		}
 
 		//db.close();
 		return 0;
@@ -134,7 +141,7 @@ public class RestaurantOwner {
 	/*
 	 * Create a new restaurant in the database with the informations given
 	 */
-	static public void createRestaurant (MySQLiteHelper sql, String emailPerso, String restNom, String gps, int numero, String rue, String ville, String phone, int capacite) {
+	static public void createRestaurant (MySQLiteHelper sql, String emailPerso, String restNom, String gps, int numero, String rue, String ville, String phone, int capacite, String password) {
 		SQLiteDatabase db = sql.getWritableDatabase();
 
 		if (numero!=0) {
@@ -148,8 +155,8 @@ public class RestaurantOwner {
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Contact + " (" + MySQLiteHelper.Contact_column[1] + ") VALUES (" + phone + ");");
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Contact + " (" + MySQLiteHelper.Contact_column[1] + ") VALUES (" + phone + ");");
 		
-		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Restaurant + " (" + MySQLiteHelper.Restaurant_column[1] + ", " + MySQLiteHelper.Restaurant_column[2] + ", " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ") VALUES (" + "'"+restNom+"'"+ ","  + "'"+ emailPerso +"'"+ ","  + "'"+ phone +"'"+ ","  + "'"+ gps +"'"+ ","  + "'"+ capacite+"'" + ");");
-		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Restaurant + " (" + MySQLiteHelper.Restaurant_column[1] + ", " + MySQLiteHelper.Restaurant_column[2] + ", " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ") VALUES (" + "'"+restNom +"'"+ ","  + "'"+ emailPerso +"'"+ ","  + "'"+ phone +"'"+ ","  + "'"+ gps +"'"+ ","  + "'"+ capacite +"'" + ");");
+		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Restaurant + " (" + MySQLiteHelper.Restaurant_column[1] + ", " + MySQLiteHelper.Restaurant_column[2] + ", " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[9] + ") VALUES (" + "'"+restNom+"'"+ ","  + "'"+ emailPerso +"'"+ ","  + "'"+ phone +"'"+ ","  + "'"+ gps +"'"+ ","  + "'"+ capacite+"'" + "'"+ password +"'" + ");");
+		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Restaurant + " (" + MySQLiteHelper.Restaurant_column[1] + ", " + MySQLiteHelper.Restaurant_column[2] + ", " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[9] + ") VALUES (" + "'"+restNom +"'"+ ","  + "'"+ emailPerso +"'"+ ","  + "'"+ phone +"'"+ ","  + "'"+ gps +"'"+ ","  + "'"+ capacite +"'" + "'"+ password +"'" + ");");
 
 		//db.close();
 	}
@@ -241,6 +248,22 @@ public class RestaurantOwner {
 			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[3] + " = " + "'"+phone+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'" + " ;");
 			db.close();
 			restaurant.setRestaurantPhone(phone);
+			return true;
+		}
+		return true;
+	}
+	
+	public boolean setRestaurantPassword(String password) {
+		if (password == null) {
+			return false;
+		}
+		if(!password.equals(restaurant.getRestaurantPassword(false))){
+			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[9] + " = " + "'"+password+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'" + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[9] + " = " + "'"+password+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+emailPerso+"'" + " ;");
+			db.close();
+			restaurant.setRestaurantPassword(password);
 			return true;
 		}
 		return true;

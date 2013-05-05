@@ -18,6 +18,7 @@ public class Restaurant {
 	
 	String phone;
 	String email;
+	String password;
 	String fax;
 	String webSite;
 	
@@ -65,7 +66,7 @@ public class Restaurant {
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
-		// "telephone", "gps", "capaTotale", "description", "position", "phone"
+		// "telephone", "gps", "capaTotale", "description", "position", "phone", "mdp"
 		Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[3] + ", " + MySQLiteHelper.Restaurant_column[4] + ", " + MySQLiteHelper.Restaurant_column[5] + ", " + MySQLiteHelper.Restaurant_column[6] + ", " + MySQLiteHelper.Restaurant_column[7] + ", " + MySQLiteHelper.Restaurant_column[8] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 		if (cursor.moveToFirst()) {
 			
@@ -75,6 +76,7 @@ public class Restaurant {
 			Description = cursor.getString(3);
 			note = cursor.getInt(4);
 			nbrVotants = cursor.getInt(5);
+			password = cursor.getString(6);
 		}
 
 		//"email", "fax", "webSite"
@@ -180,6 +182,10 @@ public class Restaurant {
 
 	public void setRestaurantPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public void setRestaurantPassword(String password){
+		this.password = password;
 	}
 
 	public void setRestaurantEmail(String email) {
@@ -322,6 +328,27 @@ public class Restaurant {
 		}
 		
 		return phone;
+	}
+	
+	/*
+	 * @post : return the value of 'mdp'
+	 * If getFromDatabase is true, this value is get from the database
+	 */
+	public String getRestaurantPassword (boolean getFromDatabase){
+		
+		if (getFromDatabase) {
+
+			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
+			if (cursor.moveToFirst()) {
+
+				password = cursor.getString(0);
+			}
+
+			db.close();
+		}
+
+		return password;
 	}
 	
 	/*
@@ -696,6 +723,11 @@ public class Restaurant {
 		return this.carte;
 	}
 	
+	public boolean isCorrectPassword(String email, String password){
+		if(email.equals(getRestaurantEmail(true)) && password.equals(this.getRestaurantPassword(true)))
+			return true;
+		else return false;
+	}
 	
 	public boolean setRestaurantCarte (Carte carte) {
 		if (carte==null) {
