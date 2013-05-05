@@ -219,7 +219,7 @@ public class Profil_Restaurant extends Activity {
 
 		}
 		
-		else if (r.getEmail().equals("antoine.waldorff@student.uclouvain.be")) {
+		else if (r.getEmail().equals("antoine.walsdorff@student.uclouvain.be")) {
 			ImageView image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti1));
 			image.setPadding (20, 0, 20, 0);
