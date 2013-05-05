@@ -137,7 +137,7 @@ public class MealActivity extends Activity {
 	
 	public void onPause(){
 		super.onPause();
-		overridePendingTransition ( 0 , R.anim.slide_out );
+		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
 	}
 	
 }
