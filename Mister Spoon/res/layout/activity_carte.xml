@@ -51,18 +51,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="20dp" >
+        android:paddingBottom="20dp"
+        android:weightSum="2" >
 
         <Button
             android:id="@+id/carte_prebooking_button"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:text="@string/profil_client_prebooking" />
 
         <Button
             android:id="@+id/carte_booking_button"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:text="@string/profil_client_booking" />
     </LinearLayout>
 
