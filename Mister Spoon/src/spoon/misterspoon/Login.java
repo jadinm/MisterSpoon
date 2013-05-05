@@ -30,6 +30,7 @@ public class Login extends Activity {
 	private Button themeL = null;
 
 	private EditText email_login;
+	private EditText password_login;
 	private Button login;
 
 	private RadioGroup resto_client;
@@ -37,6 +38,7 @@ public class Login extends Activity {
 
 	private EditText nom_register;
 	private EditText email_register;
+	private EditText password_register;
 	private EditText phone_register;
 	private TextView gps;
 	private EditText gps_longitude_register;
@@ -59,6 +61,7 @@ public class Login extends Activity {
 		themeL = (Button)findViewById(R.id.activity_login_light);
 
 		email_login = (EditText) findViewById(R.id.email);
+		password_login = (EditText) findViewById(R.id.txtPassword);
 
 		login = (Button) findViewById(R.id.butlogin);
 
@@ -67,6 +70,7 @@ public class Login extends Activity {
 
 		nom_register = (EditText) findViewById(R.id.edit_name);
 		email_register = (EditText) findViewById(R.id.edit_mail);
+		password_register = (EditText) findViewById(R.id.edit_password);
 		phone_register = (EditText) findViewById(R.id.edit_phone);
 		gps = (TextView) findViewById(R.id.gps);
 		gps_longitude_register = (EditText) findViewById(R.id.edit_gps_longitude);
@@ -120,13 +124,18 @@ public class Login extends Activity {
 	private View.OnClickListener loginListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			if (email_login.getText().toString().length()==0) {
+			if (email_login.getText().toString().length()==0 || password_login.getText().toString().length()==0) {
 				Toast toast = Toast.makeText(context, getString(R.string.activity_login_toast), Toast.LENGTH_SHORT);
 				toast.show();
 				return;
 			}
 
 			if (Client.isInDatabase(sql, email_login.getText().toString())) {
+				if (!Client.isCorrect(sql, email_login.getText().toString(), password_login.getText().toString())) {
+					Toast toast = Toast.makeText(context, "Mauvais mot de passe", Toast.LENGTH_SHORT);
+					toast.show();
+					return;
+				}
 				//Intent i = new Intent(Login.this, RestaurantForClient.class); // Pour lancer la vue RestaurantForClient
 				//Intent i = new Intent(Login.this, MealActivity.class); // Pour lancer la vue MealActivity
 				Intent i = new Intent(Login.this, Profil_Client.class);
@@ -277,7 +286,8 @@ public class Login extends Activity {
 	public void onStop() {
 
 		email_login.setText("");
-
+		password_login.setText("");
+		password_register.setText("");
 		nom_register.setText("");
 		email_register.setText("");
 		phone_register.setText("");
