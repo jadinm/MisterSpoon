@@ -43,7 +43,7 @@ public class CarteActivity extends Activity {
 		String sclient = i.getStringExtra(Login.email);
 		
 		
-		restName = i.getStringExtra(Profil_Restaurant.name); //Je vois pas ou le trouver
+	//	restName = i.getStringExtra(RestaurantForClient.name); //TODO RestoName qu'on recoit depuis RestaurantForClient
 		carte = new Carte(sqliteHelper, restName);
 		
 		
