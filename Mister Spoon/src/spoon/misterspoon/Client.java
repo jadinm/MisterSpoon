@@ -9,6 +9,7 @@ public class Client {
 
 	public MySQLiteHelper sqliteHelper;
 	private String email;
+	private String pass;
 
 	private String gsm;//data available in the database
 	private String name;
@@ -45,8 +46,14 @@ public class Client {
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		this.email = email;
 		
+		//PASSWORD
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[4] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'", null);
+		if (cursor.moveToFirst()) {//If the information exists
+			this.pass = cursor.getString(0);
+		}
+		
 		//GSM
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[3] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'", null);
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Client_column[3] + " FROM " + MySQLiteHelper.TABLE_Client + " WHERE " + MySQLiteHelper.Client_column[1] + "=" + "'"+email+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists
 			this.gsm = cursor.getString(0);
 		}
@@ -186,6 +193,28 @@ public class Client {
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ");");
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Client + " (" + MySQLiteHelper.Client_column[1] + ", " + MySQLiteHelper.Client_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+nom+"'" + ");");
 		//db.close();
+	}
+	
+	/*
+	 * @post : return the password of the client
+	 */
+	public String getPassword(String email, MySQLiteHelper sql) {
+		return this.pass;
+	}
+	
+	/*
+	 * @post : return the password of the client
+	 */
+	public void setPassword(String email, MySQLiteHelper sql, String pass) {
+		if (pass != null) {
+			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[4] + " = " + "'"+pass+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Client + " SET " + MySQLiteHelper.Client_column[4] + " = " + "'"+pass+"'" + " WHERE " + MySQLiteHelper.Client_column[1] + " = " + "'"+email+"'" + " ;");
+			this.pass = pass;
+			//db.close();
+			return;
+		}
+
 	}
 
 	/*
