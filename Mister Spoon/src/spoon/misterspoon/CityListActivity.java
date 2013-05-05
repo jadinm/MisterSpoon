@@ -42,6 +42,9 @@ public class CityListActivity extends Activity implements LocationListener {
 	ArrayAdapter<String> adapterOrdre;
 
 	Button selectRestaurant;
+	
+	Activity activity = this;
+	LocationListener location = this;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,6 +104,21 @@ public class CityListActivity extends Activity implements LocationListener {
 
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
+			
+			if (((String) ordre.getSelectedItem()).equals(RestaurantList.orderTable[2])) {//If he try to organize that with the gps
+				if (client.getPosition(null, null)==null) {//If we didn't check yet
+					if (client.getPosition(location, activity)==null) {//GPS not activated
+						Toast toast = Toast.makeText(context, getString(R.string.list_restaurant_toast_gps), Toast.LENGTH_SHORT);
+						toast.show();
+						cityList.sort(RestaurantList.orderTable[0]);//"abc"
+						nomCities = cityList.getNomCities();
+						adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomCities);
+						cityListView.setAdapter(adapter);
+						ordre.setSelection(0);
+						return;
+					}
+				}
+			}
 
 			cityList.sort((String) ordre.getSelectedItem());
 			nomCities = cityList.getNomCities();

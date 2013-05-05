@@ -106,7 +106,7 @@ public class Profil_Restaurant extends Activity {
 		latitude = (EditText) findViewById(R.id.profil_restaurant_edit_gps_latitude);
 		capa = (EditText) findViewById(R.id.profil_restaurant_capacite);
 		
-		gsm.setInputType(0); // Hide the keyboard	
+		//gsm.setInputType(0); // Hide the keyboard	
 		
 		cooks = (Button) findViewById(R.id.profil_restaurant_cooks_button);
 		advantages = (Button) findViewById(R.id.profil_restaurant_advantages_button);
