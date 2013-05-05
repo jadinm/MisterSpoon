@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -62,6 +63,10 @@ public class RestaurantListActivity extends Activity {
 		client = new Client (sql, sclient);
 		restaurantList = new RestaurantList (sql, city, client);
 		nomRestaurants = restaurantList.getNomRestaurants();  //Renvoie une liste de string correspondant aux noms des restaurants    
+		
+		Log.v("city", city);
+		Log.v("client", sclient);
+		Log.v("taille",restaurantList.getfilterListVisible().size() + "");
 		
 		restaurantListView = (ListView) findViewById(R.id.list_restaurant_restaurants);
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nomRestaurants);

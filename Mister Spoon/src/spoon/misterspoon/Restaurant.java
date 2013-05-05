@@ -758,7 +758,7 @@ public class Restaurant {
 		int count = 0;
 		int result = 0;
 		
-		Cursor cursor = db.rawQuery("SELECT COUNT(" + MySQLiteHelper.Meal_column[1] + "), " + MySQLiteHelper.Meal_column[3] +  " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + this.getRestaurantName(), null);
+		Cursor cursor = db.rawQuery("SELECT COUNT(" + MySQLiteHelper.Meal_column[1] + "), " + MySQLiteHelper.Meal_column[3] +  " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+this.getRestaurantName()+"'", null);
 		if (cursor.moveToFirst()) {//The number of meals
 			count = cursor.getInt(0);
 		}
