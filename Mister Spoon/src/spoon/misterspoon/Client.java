@@ -9,7 +9,7 @@ import android.location.LocationListener;
 
 public class Client {
 
-	public static MySQLiteHelper sqliteHelper;
+	public MySQLiteHelper sqliteHelper;
 	private String email;
 	private String pass;
 

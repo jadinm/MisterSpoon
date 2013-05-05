@@ -1,7 +1,6 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -14,9 +13,11 @@ public class CityList {
 
 	static final String orderTable[] = new String[]{"abc","proximite"};
 
-	ArrayList<City> cityList;
-	String ordre;
-	Client client;
+	private ArrayList<City> cityList;
+	private String ordre;
+	private Client client;
+	
+	
 
 	public CityList (MySQLiteHelper sqliteHelper, Client client, LocationListener location, Activity active) {
 
@@ -40,6 +41,7 @@ public class CityList {
 			}
 
 			this.sort(orderTable[0]);
+			this.ordre = orderTable[0];
 		}
 		else {
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[1] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " GROUP BY " + MySQLiteHelper.Address_column[4], null);
@@ -71,8 +73,13 @@ public class CityList {
 				cityList.add(new City (currentCity, minDistance));//We stock the last one
 			}
 			this.sort(orderTable[1]);
+			this.ordre = orderTable[1];
 		}
 
+	}
+	
+	public String getOrdre () {
+		return ordre;
 	}
 
 	/*
@@ -91,7 +98,7 @@ public class CityList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getCityName().compareTo(array[j].getCityName()) > 0)// If the first is bigger than the second
+					if(array[i].getCityName().compareTo(array[j].getCityName()) < 0)// If the first is bigger than the second
 					{
 						City temp = array[j];
 						array[j] = array[i];
@@ -104,9 +111,10 @@ public class CityList {
 			for (int i =0; i<array.length; i++) {
 				cityList.add(array[i]);
 			}
+			this.ordre = orderTable[0];
 		}
 
-		if (Ordre.equals(orderTable[1])) {//"proximite"
+		else if (Ordre.equals(orderTable[1])) {//"proximite"
 
 			City [] array = new City[cityList.size()];
 			for (int i =0; i<cityList.size(); i++) {
@@ -117,7 +125,7 @@ public class CityList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getPosition().compareTo(this.client.getPosition(null, null)) > array[j].getPosition().compareTo(this.client.getPosition(null, null)))// If the further is bigger than the second
+					if(array[i].getPosition().compareTo(this.client.getPosition(null, null)) < array[j].getPosition().compareTo(this.client.getPosition(null, null)))// If the further is bigger than the second
 					{
 						City temp = array[j];
 						array[j] = array[i];
@@ -125,6 +133,7 @@ public class CityList {
 					}
 				}
 			}
+			this.ordre = orderTable[1];
 			
 			cityList.clear();
 			for (int i =0; i<array.length; i++) {

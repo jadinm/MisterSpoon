@@ -71,6 +71,14 @@ public class CityListActivity extends Activity implements LocationListener {
 		adapterOrdre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		ordre.setAdapter(adapterOrdre);
 		
+		if (cityList.getOrdre().equals(CityList.orderTable[0])) {//Show the good one
+			ordre.setSelection(0);
+		}
+		else {
+			ordre.setSelection(1);
+		}
+		
+		
 		// Button
 		selectRestaurant = (Button) findViewById(R.id.list_city_restaurant_selection);
 		
