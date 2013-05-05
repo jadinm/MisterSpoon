@@ -25,7 +25,7 @@ import android.widget.Toast;
 public class CityListActivity extends Activity implements LocationListener {
 
 	public static final String CITY = "Selected City";
-
+	public static final String email = null;
 	Context context = this;
 	MySQLiteHelper sql; 
 	
@@ -117,8 +117,11 @@ public class CityListActivity extends Activity implements LocationListener {
 			
 			//Toast toast = Toast.makeText(context, "Il veut acceder a l'activite suivante avec la ville " + currentCity.getCityName(), Toast.LENGTH_SHORT);
 			//toast.show();
+			Intent i = getIntent();
+			String sclient = i.getStringExtra(Login.email);
 			Intent intent = new Intent(CityListActivity.this,RestaurantListActivity.class);
 			intent.putExtra(CITY, currentCity.getCityName());
+			intent.putExtra(email, sclient);
 			startActivity(intent);
 			return;
 		}

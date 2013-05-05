@@ -56,11 +56,7 @@ public class RestaurantListActivity extends Activity {
 		
 		Intent i = getIntent();
 		String sclient = i.getStringExtra(CityListActivity.CITY);
-		String city = i.getStringExtra(Login.email);
-		if (sclient == null) Log.v("fuck" , "me");
-		if (city == null) Log.v("fuck" , "you");
-		//String sclient = "toni@hotmail.com";
-		//String city = "Louvain-la-Neuve";
+		String city = i.getStringExtra(CityListActivity.email);
 		
 		client = new Client (sql, sclient);
 		

@@ -30,7 +30,7 @@ public class RestaurantList {
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
-		Cursor cursor = db.rawQuery(" SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[5] + " = " + " SELECT " + MySQLiteHelper.Address_column[1] + " FROM " + MySQLiteHelper.Address_column + " WHERE " + MySQLiteHelper.Address_column[4] + " = " + "'"+town+"'" , null);
+		Cursor cursor = db.rawQuery(" SELECT " + MySQLiteHelper.Restaurant_column[2] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[5] + " = " + " SELECT " + MySQLiteHelper.Address_column[1] + " FROM " + MySQLiteHelper.Address_column[1] + " WHERE " + MySQLiteHelper.Address_column[4] + " = " + "'"+town+"'" , null);
 		if (cursor.moveToFirst()) {
 			while (cursor.isAfterLast()) {
 				
