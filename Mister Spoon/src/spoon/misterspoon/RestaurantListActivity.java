@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -56,7 +57,8 @@ public class RestaurantListActivity extends Activity {
 		Intent i = getIntent();
 		String sclient = i.getStringExtra(CityListActivity.CITY);
 		String city = i.getStringExtra(Login.email);
-		
+		if (sclient == null) Log.v("fuck" , "me");
+		if (city == null) Log.v("fuck" , "you");
 		//String sclient = "toni@hotmail.com";
 		//String city = "Louvain-la-Neuve";
 		

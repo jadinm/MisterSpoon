@@ -115,11 +115,11 @@ public class CityListActivity extends Activity implements LocationListener {
 				return;
 			}
 			
-			Toast toast = Toast.makeText(context, "Il veut acceder a l'activite suivante avec la ville " + currentCity.getCityName(), Toast.LENGTH_SHORT);
-			toast.show();
-			/*Intent intent = new Intent(CityListActivity.this,RestaurantListActivity.class);
+			//Toast toast = Toast.makeText(context, "Il veut acceder a l'activite suivante avec la ville " + currentCity.getCityName(), Toast.LENGTH_SHORT);
+			//toast.show();
+			Intent intent = new Intent(CityListActivity.this,RestaurantListActivity.class);
 			intent.putExtra(CITY, currentCity.getCityName());
-			startActivity(intent);*/
+			startActivity(intent);
 			return;
 		}
 	};
