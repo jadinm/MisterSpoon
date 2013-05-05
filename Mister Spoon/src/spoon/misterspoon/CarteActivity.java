@@ -52,7 +52,7 @@ public class CarteActivity extends Activity {
 		carteListView.setAdapter(adapter);
 		
 		
-		preOrder = (Button) findViewById(R.id.carte_preorder_button);
+		preOrder = (Button) findViewById(R.id.carte_preorder);
 		preBooking = (Button) findViewById(R.id.carte_prebooking_button);
 		booking = (Button) findViewById(R.id.carte_booking_button);
 		
