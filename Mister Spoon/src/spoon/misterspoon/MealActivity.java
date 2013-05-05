@@ -45,8 +45,10 @@ public class MealActivity extends Activity {
 		//We create the object Meal associated with this mealName and all his informations
 		sqliteHelper= new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);
-		meal = new Meal (mealName, restoName, sqliteHelper);//?
+		meal = new Meal (mealName, restoName, sqliteHelper);
 		Log.v("start",emailClient);
+		
+		setTitle(String.format(mealName));
 		
 
 		//We can now define all the widgets
