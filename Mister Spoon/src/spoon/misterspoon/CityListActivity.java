@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -80,7 +81,7 @@ public class CityListActivity extends Activity {
 		
 		cityListView.setOnItemClickListener(cityListListener);
 		
-		ordre.setOnItemClickListener(ordreListener);
+		ordre.setOnItemSelectedListener(ordreListener);
 		
 		selectRestaurant.setOnClickListener(selectRestaurantListener);
 		Log.v("Create", "Button");
@@ -94,13 +95,20 @@ public class CityListActivity extends Activity {
 		
 	};
 	
-	private OnItemClickListener ordreListener = new OnItemClickListener(){
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+	private OnItemSelectedListener ordreListener = new OnItemSelectedListener(){
+
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			cityList.sort((String) ordre.getSelectedItem());
 			nomCities = cityList.getNomCities();
 			adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomCities);
 			cityListView.setAdapter(adapter);
+			
+		}
+
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	};

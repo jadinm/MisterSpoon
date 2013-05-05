@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -83,7 +84,7 @@ public class RestaurantListActivity extends Activity {
 		
 		restaurantListView.setOnItemClickListener(restaurantListListener);
 		
-		ordre.setOnItemClickListener(ordreListener);
+		ordre.setOnItemSelectedListener(ordreListener);
 		
 		filtreNote.setOnCheckedChangeListener(filtreNoteListener);
 		filtrePrix.setOnCheckedChangeListener(filtrePrixListener);
@@ -92,22 +93,28 @@ public class RestaurantListActivity extends Activity {
 		selectRestaurant.setOnClickListener(selectRestaurantListener);
 	}
 	
-	
-	private OnItemClickListener restaurantListListener = new OnItemClickListener(){
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			currentRestaurant = (Restaurant) restaurantListView.getSelectedItem();
-		}
-		
-	};
-	
-	private OnItemClickListener ordreListener = new OnItemClickListener(){
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+	private OnItemSelectedListener ordreListener = new OnItemSelectedListener(){
+
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			restaurantList.sort((String) ordre.getSelectedItem());
 			nomRestaurants = restaurantList.getNomRestaurants();
 			adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 			restaurantListView.setAdapter(adapter);
+			
+		}
+
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	
+	private OnItemClickListener restaurantListListener = new OnItemClickListener(){
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			currentRestaurant = (Restaurant) restaurantListView.getSelectedItem();
 		}
 		
 	};
