@@ -3,29 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:weightSum="2" >
-
-    <ListView
-        android:id="@+id/list_city"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:choiceMode="singleChoice"
-        android:gravity="left" >
-    </ListView>
-
+    android:orientation="vertical"
+    android:weightSum="6" >
+    
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_weight="5"
+        android:weightSum="2"
+        android:orientation="horizontal" >
 
         <Spinner
             android:id="@+id/list_city_ordre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/list_city_restaurant_selection"
@@ -33,5 +24,15 @@
             android:layout_height="wrap_content"
             android:text="@string/list_restaurant_select" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_city"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:choiceMode="singleChoice"
+        android:gravity="center" >
+    </ListView>
+
 
 </LinearLayout>
