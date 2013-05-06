@@ -1,5 +1,6 @@
 package spoon.misterspoon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -25,40 +28,39 @@ public class CarteActivity extends Activity {
 	ListView carteListView;
 	Restaurant currentRestaurant;
 	Menu currentMenu;
-	Button preOrder;
 	Button preBooking;
 	Button booking;
-	Button selectMeal;
 	ArrayAdapter<String> adapter;
-	List<String> menuName;
+	Client client;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
-		
+		setContentView(R.layout.activity_carte);
+		sqliteHelper = new MySQLiteHelper(this);
 		Intent i = getIntent();
-		restName = i.getStringExtra(Profil_Restaurant.name);
-		carte = new Carte(sqliteHelper, restName);
-		
-		//menuName = carte.
-		
+		//restName = i.getStringExtra(Profil_Restaurant.name); //TODO
+		client = new Client(sqliteHelper, i.getStringExtra(Login.email));
+		carte = new Carte(sqliteHelper, "Loungeatude", client);
 		carteListView = (ListView) findViewById(R.id.carte_list);
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, menuName);
+		
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice, carte.getFilterList());
 		carteListView.setAdapter(adapter);
 		
 		
-		preOrder = (Button) findViewById(R.id.carte_preorder);
 		preBooking = (Button) findViewById(R.id.carte_prebooking_button);
 		booking = (Button) findViewById(R.id.carte_booking_button);
 		
-		selectMeal.setOnClickListener(selectMealListener);
+		carteListView.setOnItemSelectedListener(selectMealListener);
 		preBooking.setOnClickListener(preBookingListener);
 		booking.setOnClickListener(bookingListener);
-		preOrder.setOnClickListener(preOrderListener);
 	}
 	
-	private OnClickListener selectMealListener = new OnClickListener() {
-		public void onClick(View v) {
+	private AdapterView.OnItemSelectedListener selectMealListener = new AdapterView.OnItemSelectedListener() {
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			
 			if (currentMenu==null) {
 				Toast toast = Toast.makeText(context, getString(R.string.list_carte_toast), Toast.LENGTH_SHORT);
 				toast.show();
@@ -68,6 +70,10 @@ public class CarteActivity extends Activity {
 			intent.putExtra(RESTAURANT, currentRestaurant.getRestaurantName());
 			startActivity(intent);
 			return;
+		}
+		
+		public void onNothingSelected(AdapterView<?> arg0) {
+			
 		}
 	};
 	
@@ -79,13 +85,6 @@ public class CarteActivity extends Activity {
 		}
 	};
 	
-	private OnClickListener preOrderListener = new OnClickListener() {
-		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, getString(R.string.carte_preorder_toast), Toast.LENGTH_SHORT);
-			toast.show();
-			return;
-		}
-	};
 	
 	private OnClickListener bookingListener = new OnClickListener() {
 		public void onClick(View v) {
@@ -94,6 +93,12 @@ public class CarteActivity extends Activity {
 			return;
 		}
 	};
+	
+	
+	public void onPause(){
+		super.onPause();
+		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
+	}
 	
 	
 }

@@ -4,42 +4,42 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class Carte {
-	
+	//TODO Ultime todo mettre ingredient
+	//TODO filtre plat favori
 	static final String orderMeal[] = new String[]{"abc","prix"};
 	static final String categorie[] = new String[]{"entree","plat","dessert","boisson"};
 	MySQLiteHelper sqliteHelper;
 	ArrayList <Meal> platsFav;
 	ArrayList <String> filterList;
 	ArrayList <Menu> menuList;
+	ArrayList <Boolean> isMenuList;
+	ArrayList <Meal> removedPlat;
 	String mealOrder;
 	
-	public Carte(MySQLiteHelper sqliteHelper, ArrayList<Menu> menuList, String mealOrder, ArrayList <Meal> platsFav,	ArrayList <String> filterList) {
-		this.sqliteHelper = sqliteHelper;
-		this.mealOrder = mealOrder;
-		this.platsFav = platsFav;
-		this.filterList = filterList;
-		this.menuList = menuList;
-	}
 	
-	public Carte(MySQLiteHelper sqliteHelper2, String restaurantName) {
+	public Carte(MySQLiteHelper sqliteHelper, String restaurantName, Client client) {
 		this.platsFav = new ArrayList <Meal>();
 		this.filterList = new ArrayList <String>();
 		this.menuList = new ArrayList <Menu>();
 		this.mealOrder = new String();
+		this.isMenuList = new ArrayList<Boolean>();
 		
-		this.sqliteHelper = sqliteHelper2;
+		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
-		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] + ", " + MySQLiteHelper.Menu_column[3] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[3] + "=" + "'"+restaurantName+"'", null);
+		Cursor cursor = db.rawQuery("SELECT DISTINCT " + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] + ", " + MySQLiteHelper.Menu_column[3] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[3] + "=" + "'"+restaurantName+"'" + " GROUP BY " + MySQLiteHelper.Menu_column[1], null);
 		if (cursor.moveToFirst()) {//If the information exists
 			while (!cursor.isAfterLast()) {//As long as there is one element to read
-				menuList.add(new Menu (sqliteHelper2, cursor.getString(0), cursor.getString(2), cursor.getString(1)));
+				menuList.add(new Menu (sqliteHelper, cursor.getString(0), cursor.getString(2), cursor.getString(1)));
 				cursor.moveToNext();
 			}
 		}
-		db.close();
+		platsFav = client.getPlatFav(true);
+		mealOrder = Carte.orderMeal[1];
+		this.sort();
 	}
 	
 	public String getMealOrder() {
@@ -74,15 +74,15 @@ public class Carte {
 		this.platsFav = platsFav;
 	}
 	
-	public void sort(boolean sortPrixCroissant) {
+	public void sort() {
 		ArrayList<Menu> entree = new ArrayList<Menu>();
 		ArrayList<Menu> plat = new ArrayList<Menu>();
 		ArrayList<Menu> dessert = new ArrayList<Menu>();
 		ArrayList<Menu> boisson = new ArrayList<Menu>();
 		ArrayList<Menu> menu = new ArrayList<Menu>();
 		ArrayList<String> result = new ArrayList<String>();
+
 		
-		String string = "Menu ";
 		for (int i = 0; i < menuList.size(); i++) {
 			if(menuList.get(i).getCategorie(false).equals(categorie[0]))
 							entree.add(menuList.get(i));
@@ -147,8 +147,10 @@ public class Carte {
 		}
 		
 		for (int i = 0; i < menu.size(); i++) {
-			result.add(string + menu.get(i).getMenuName());
+			result.add(menu.get(i).getMenuName());
+			isMenuList.add(true);
 			ArrayList<Meal> meal = menu.get(i).getMealList(false);
+			Log.v("method sort", meal.size()+"");
 			if (this.mealOrder.equals(orderMeal[0])) {
 				for (int j = 0; j < meal.size(); j++) {
 					for (int k = j + 1; k < meal.size(); k++) {
@@ -173,6 +175,7 @@ public class Carte {
 			}
 			for (int j = 0; j < meal.size(); j++) {
 				result.add(meal.get(j).getMealName());
+				isMenuList.add(false);
 			}
 		}
 		this.filterList = result;
