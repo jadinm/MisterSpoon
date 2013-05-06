@@ -73,6 +73,12 @@
             android:label="@string/resto_client_title">
         </activity>
         
+        <!-- We declare the activity Meal_BuilderActivity -->
+        <activity 
+            android:name="spoon.misterspoon.Meal_BuilderActivity"
+            android:label="@string/carte_title">
+        </activity>
+        
         <!-- We declare the activity CarteActivity -->
         <activity 
             android:name="spoon.misterspoon.CarteActivity"

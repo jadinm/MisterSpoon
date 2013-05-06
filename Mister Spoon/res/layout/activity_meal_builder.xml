@@ -44,6 +44,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:inputType="numberDecimal"
                 android:hint="@string/meal_builder_price" />
 
             <EditText
@@ -52,6 +53,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
+                android:inputType="number"
                 android:gravity="center"
                 android:hint="@string/meal_builder_stock" />
         </LinearLayout>
@@ -70,7 +72,8 @@
             android:id="@+id/meal_builder_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:text="@string/meal_builder_update" />
     </LinearLayout>
 

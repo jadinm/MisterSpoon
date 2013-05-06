@@ -31,7 +31,7 @@ public class Meal_BuilderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
-		setContentView(R.layout.activity_meal);
+		setContentView(R.layout.activity_meal_builder);
 		
 		
 		
@@ -39,27 +39,31 @@ public class Meal_BuilderActivity extends Activity {
 		
 		//We get the intent sent by Login
 		Intent i = getIntent();
-		//We take the informations about the person who's logged (!!!! label)
-		String emailResto = i.getStringExtra(Login.email);//TODO
-		
-		
 		//We take the informations about the meal viewed
 		String emailPerso = i.getStringExtra(Login.email);//TODO
-		
-		String mealNom = i.getStringExtra(Login.email);//TODO
+
+		//String mealNom = i.getStringExtra(CarteActivity.email);//TODO
+		String mealNom = "Jambonnette de volaille aux scampis";
 		
 		//We create the object Meal associated with this mealName and all his informations
 		sqliteHelper= new MySQLiteHelper(this);
 		RestaurantOwner r = new RestaurantOwner(sqliteHelper , emailPerso);
-		mealB = new MealBuilder (sqliteHelper, new Meal (r.getRestaurant().getRestaurantName(), mealNom, sqliteHelper), r);
-		Log.v("start",emailResto);
+		mealB = new MealBuilder (sqliteHelper, new Meal (mealNom, r.getRestaurant().getRestaurantName(), sqliteHelper), r);
 		
+		Log.v("start",emailPerso);
+		Log.v("start",mealNom);
 		
+		setTitle(String.format(mealNom));
 
-		mealName = (EditText) findViewById(R.id.meal_builder_name);
-
-
-		mealName.setText(mealB.getMeal().getMealName());		
+		if (mealB == null) {
+			Log.d("mealB Is null","here");
+		}
+		if (mealB.getMeal() == null) {
+			Log.d("mealB.getMeal() Is null","here");
+		}
+		if (mealB.getMeal().getMealName() == null) {
+			Log.d("mealB.getMeal().getMealName() Is null","here");
+		}
 
 		//We can now define all the widgets
 		mealImage = (ImageView) findViewById(R.id.meal_imageview);
@@ -67,12 +71,17 @@ public class Meal_BuilderActivity extends Activity {
 		//TODO mettre images
 		
         
-
+		mealName = (EditText) findViewById(R.id.meal_builder_name);
+		if (mealName == null) {
+			Log.d("mealB.mealName Is null","here");
+		}
 		mealPrice = (EditText) findViewById(R.id.meal_builder_price);
 		mealStock = (EditText) findViewById(R.id.meal_builder_stock);
 		mealDescription = (EditText) findViewById(R.id.meal_builder_description);
 			
 		mealPrice.setText(""+mealB.getMeal().getMealPrice(true));
+		
+		mealName.setText(mealB.getMeal().getMealName());
 		
 		if (""+mealB.getMeal().getMealStock(false)!=null) {
 			mealStock.setText(""+mealB.getMeal().getMealStock(false));
@@ -83,7 +92,7 @@ public class Meal_BuilderActivity extends Activity {
 
 		//mealB.setMeal() = new Meal(mealName.getText().toString(), restName, sqliteHelper);
 		
-		update = (Button) findViewById(R.id.meal_update);
+		update = (Button) findViewById(R.id.meal_builder_update);
 		update.setOnClickListener(new View.OnClickListener() {//Update the informations
 			@Override
 			public void onClick(View v) {
@@ -97,19 +106,30 @@ public class Meal_BuilderActivity extends Activity {
 					
 					return;
 				}
-				else {//We can change the mealName
+				else if (!mealB.getMeal().getMealName().equals(mealName.getText().toString())) {
 					mealB.setMealName(mealName.getText().toString());
+					setTitle(String.format(mealName.getText().toString()));
 				}
 				
 				if (mealPrice.getText().toString().length()>0) {
-					mealB.setMealPrice(Integer.parseInt(mealPrice.getText().toString()));
+					mealB.setMealPrice(Double.parseDouble(mealPrice.getText().toString()));
+				}
+				else {
+					mealPrice.setText(mealB.getMeal().getMealPrice(true) + "");
 				}
 				
 				if (mealDescription.getText().toString().length()>0) {
 					mealB.setMealDescription(mealDescription.getText().toString());
 				}
+				else {
+					mealDescription.setText(mealB.getMeal().getMealDescription(true));
+				}
+				
 				if (mealStock.getText().toString().length()>0) {
 					mealB.setMealStock(Integer.parseInt(mealStock.getText().toString()));
+				}
+				else {
+					mealStock.setText(mealB.getMeal().getMealStock(true) + "");
 				}
 				
 				Toast toasted = Toast.makeText(context, getString(R.string.meal_builder_toast_uptodate), Toast.LENGTH_SHORT);

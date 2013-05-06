@@ -1,6 +1,7 @@
 package spoon.misterspoon;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class MealBuilder {
 
@@ -12,9 +13,15 @@ public class MealBuilder {
 		this.sqliteHelper = sqliteHelper;
 		this.owner = owner;
 		this.meal = meal;
+		if (meal == null) {
+			Log.d("Fuck", "Chieur");
+		}
 	}
 	
 	public Meal getMeal () {
+		if (meal == null) {
+			Log.d("Fuck", "Chieur");
+		}
 		return meal;
 	}
 
@@ -52,8 +59,8 @@ public class MealBuilder {
 
 		else {
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = " + description + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
-			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = " + description + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+			MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = '" + description + "' WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
+			db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Meal + " SET " + MySQLiteHelper.Meal_column[5] + " = '" + description + "' WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+owner.getRestaurant().getRestaurantName()+"'" + " AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+meal.getMealName()+"'" + ";");
 			db.close();
 		}
 		
