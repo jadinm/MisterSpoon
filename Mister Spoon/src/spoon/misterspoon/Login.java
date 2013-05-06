@@ -242,7 +242,7 @@ public class Login extends Activity {
 					Log.d("Au départ, on a ce numéro", phone_register.getText().toString());
 					Log.d("Au départ, on a cette capacité", capacite_register.getText().toString());
 					
-					if (numero.toString().length()!=0) {
+					if (numero.getText().toString().length()>0) {
 						RestaurantOwner.createRestaurant(sql, email_register.getText().toString(), nom_register.getText().toString(), gps_longitude_register.getText().toString() + "," + gps_latitude_register.getText().toString(), Integer.parseInt(numero.getText().toString()), rue.getText().toString(), ville.getText().toString(), phone_register.getText().toString(), Integer.parseInt(capacite_register.getText().toString()), password_register.getText().toString());
 					}
 					else {

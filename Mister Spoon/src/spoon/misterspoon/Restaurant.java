@@ -88,20 +88,22 @@ public class Restaurant {
 			nbrVotants = cursor.getInt(5);
 			password = cursor.getString(6);
 		}
-
+		Log.v("Im", "OUT");
+		Log.v("SQL", "SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'");
 		//"email", "fax", "webSite"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 		if (cursor.moveToFirst()) {
-
+			Log.v("Commande OK", "Im in");
 			fax = cursor.getString(0);
 			email = cursor.getString(1);
 			webSite = cursor.getString(2);
 		}
 		//Log.v("phone", phone);
 		//"numero", "rue", "ville"
+		Log.v("test_adresse", "SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'");
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 		if (cursor.moveToFirst()) {
-			
+			Log.v("test_adresse_2", "ok");
 			if (cursor.getString(0)!=null) {
 				this.numero = cursor.getInt(0);
 			}
@@ -207,6 +209,7 @@ public class Restaurant {
 	}
 
 	public void setRestaurantWebSite(String webSite) {
+		
 		this.webSite = webSite;
 	}
 
@@ -417,12 +420,11 @@ public class Restaurant {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 			if (cursor.moveToFirst()) {
-
 				webSite = cursor.getString(0);
 			}
 			
 			
-			db.close();
+			//db.close();
 		}
 		
 		return webSite;

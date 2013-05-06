@@ -83,7 +83,7 @@ public class Profil_Restaurant extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailPerso = i.getStringExtra(Login.email);
+		final String emailPerso = i.getStringExtra(Login.email);
 		
 		//We create the object Restaurant associated with this email and all his informations
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
@@ -157,7 +157,14 @@ public class Profil_Restaurant extends Activity {
 		}
 		if (r.getRestaurant().getRestaurantWebSite(false)!=null) {
 			web.setText(r.getRestaurant().getRestaurantWebSite(false));
+			Log.v("FALSE", "FALSE");
 		}
+		else if (r.getRestaurant().getRestaurantWebSite(true)!=null) {
+			web.setText(r.getRestaurant().getRestaurantWebSite(true));
+			Log.v("TRUE", "TRUE");
+		}
+		else Log.v("website", "NOT IN DB");
+		
 		if (r.getRestaurant().getRestaurantNumero(false)!=0) {
 			num.setText(r.getRestaurant().getRestaurantNumero(false)+ "");
 		}
@@ -331,7 +338,6 @@ public class Profil_Restaurant extends Activity {
 					return;
 				}
 
-
 				if (gsm.getText().toString().length()>0) {
 					r.setRestaurantPhone(gsm.getText().toString());
 				}
@@ -342,9 +348,12 @@ public class Profil_Restaurant extends Activity {
 				if (fax.getText().toString().length()>0) {
 					r.setRestaurantFax(fax.getText().toString());
 				}
-
+				
+				Log.v("web in Profile", web.getText().toString());
 				if (web.getText().toString().length()>0) {
 					r.setRestaurantWebSite(web.getText().toString());
+					r.getRestaurant().setRestaurantWebSite(web.getText().toString());
+					//r = new RestaurantOwner(sqliteHelper, r.getEmail());
 				}
 
 				if (email_public.getText().toString().length()>0) {
