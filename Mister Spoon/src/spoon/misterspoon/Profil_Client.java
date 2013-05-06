@@ -18,6 +18,7 @@ public class Profil_Client extends Activity {
 
 	private Client c;
 	private MySQLiteHelper sqliteHelper;
+	String emailClient;
 	
 	//Elements of the view
 	private TextView email;
@@ -57,7 +58,7 @@ public class Profil_Client extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailClient = i.getStringExtra(Login.email);
+		emailClient = i.getStringExtra(Login.email);
 				
 		//We create the object Client associated with this email and all his informations
 		sqliteHelper = new MySQLiteHelper(this);
@@ -439,8 +440,13 @@ public class Profil_Client extends Activity {
 		new_specificity.setText("");
 		new_favourite_meal.setText("");
 		new_favourite_restaurant.setText("");
-		
 		super.onStop();
+	}
+	
+	@Override
+	public void onStart() {
+		c = new Client (sqliteHelper, emailClient);
+		super.onStart();
 	}
 	
 }

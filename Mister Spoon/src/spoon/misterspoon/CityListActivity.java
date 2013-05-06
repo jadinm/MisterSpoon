@@ -189,6 +189,8 @@ public class CityListActivity extends Activity implements LocationListener {
 	
 	public void onPause(){
 		super.onPause();
+		
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
 	}
+	
 }

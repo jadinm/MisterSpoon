@@ -169,7 +169,7 @@ public class Restaurant {
 		this.carte = new Carte (this.sqliteHelper, this.restaurantName);
 		
 		
-		//db.close();
+		////db.close();
 	}
 	
 	public void setRestaurantName(String restaurantName) {
@@ -255,7 +255,7 @@ public class Restaurant {
 				
 				nbrVotants = cursor.getInt(0);
 			}
-			db.close();
+			////db.close();
 		}
 		
 		return nbrVotants;
@@ -275,7 +275,7 @@ public class Restaurant {
 				
 				note = cursor.getInt(0);
 			}
-			db.close();
+			////db.close();
 		}
 		
 		return note;
@@ -295,7 +295,7 @@ public class Restaurant {
 				
 				capacity = cursor.getInt(0);
 			}
-			db.close();
+			//db.close();
 		}
 		
 		return capacity;
@@ -315,7 +315,7 @@ public class Restaurant {
 				
 				Description = cursor.getString(0);
 			}
-			db.close();
+			//db.close();
 		}
 		
 		return Description;
@@ -337,7 +337,7 @@ public class Restaurant {
 				phone = cursor.getString(0);
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return phone;
@@ -358,7 +358,7 @@ public class Restaurant {
 				password = cursor.getString(0);
 			}
 
-			db.close();
+			//db.close();
 		}
 
 		return password;
@@ -380,7 +380,7 @@ public class Restaurant {
 			}
 			
 			
-			db.close();
+			//db.close();
 		}
 		
 		return email;
@@ -397,12 +397,11 @@ public class Restaurant {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 			if (cursor.moveToFirst()) {
-
 				fax = cursor.getString(0);
 			}
 			
 			
-			db.close();
+			//db.close();
 		}
 		
 		return fax;
@@ -424,7 +423,7 @@ public class Restaurant {
 			}
 			
 			
-			//db.close();
+			////db.close();
 		}
 		
 		return webSite;
@@ -445,7 +444,7 @@ public class Restaurant {
 				position = new GPS (cursor.getString(0));
 			}			
 			
-			db.close();
+			//db.close();
 		}
 		
 		return position;
@@ -469,7 +468,7 @@ public class Restaurant {
 				}
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return numero;
@@ -491,7 +490,7 @@ public class Restaurant {
 				rue = cursor.getString(0);
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return rue;
@@ -513,7 +512,7 @@ public class Restaurant {
 				ville = cursor.getString(0);
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return ville;
@@ -542,7 +541,7 @@ public class Restaurant {
 				}
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return horaire;
@@ -595,7 +594,7 @@ public class Restaurant {
 				}
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return typePaiements;
@@ -622,7 +621,7 @@ public class Restaurant {
 				}
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return avantages;
@@ -648,7 +647,7 @@ public class Restaurant {
 				}
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return cuisine;
@@ -674,7 +673,7 @@ public class Restaurant {
 				}
 			}
 			
-			db.close();
+			//db.close();
 		}
 		
 		return imageList;

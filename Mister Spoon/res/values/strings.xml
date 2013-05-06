@@ -87,7 +87,7 @@
     <string name="list_restaurant_filtre_favori">Filtre favori</string>
     <string name="list_restaurant_editText_note">Note</string>
     <string name="list_restaurant_editText_prix">Prix</string>
-    <string name="list_restaurant_select">Sélectionner restaurant</string>
+    <string name="list_restaurant_select">Suivant</string>
     <string name="list_restaurant_title">Liste restaurants</string>
     <string name="list_restaurant_toast">Veuillez sélectionner un restaurant</string>
     <string name="list_restaurant_toast_gps">Veuillez activer votre gps</string>

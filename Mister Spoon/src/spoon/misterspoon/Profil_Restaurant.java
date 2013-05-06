@@ -28,6 +28,7 @@ public class Profil_Restaurant extends Activity {
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 	
 	static final String name = "Nom Restaurant";
+	String emailPerso;
 
 	//Elements of the view
 	private TextView email_perso;
@@ -83,7 +84,7 @@ public class Profil_Restaurant extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		final String emailPerso = i.getStringExtra(Login.email);
+		emailPerso = i.getStringExtra(Login.email);
 		
 		//We create the object Restaurant associated with this email and all his informations
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
@@ -157,13 +158,7 @@ public class Profil_Restaurant extends Activity {
 		}
 		if (r.getRestaurant().getRestaurantWebSite(false)!=null) {
 			web.setText(r.getRestaurant().getRestaurantWebSite(false));
-			Log.v("FALSE", "FALSE");
 		}
-		else if (r.getRestaurant().getRestaurantWebSite(true)!=null) {
-			web.setText(r.getRestaurant().getRestaurantWebSite(true));
-			Log.v("TRUE", "TRUE");
-		}
-		else Log.v("website", "NOT IN DB");
 		
 		if (r.getRestaurant().getRestaurantNumero(false)!=0) {
 			num.setText(r.getRestaurant().getRestaurantNumero(false)+ "");
@@ -349,11 +344,8 @@ public class Profil_Restaurant extends Activity {
 					r.setRestaurantFax(fax.getText().toString());
 				}
 				
-				Log.v("web in Profile", web.getText().toString());
 				if (web.getText().toString().length()>0) {
 					r.setRestaurantWebSite(web.getText().toString());
-					r.getRestaurant().setRestaurantWebSite(web.getText().toString());
-					//r = new RestaurantOwner(sqliteHelper, r.getEmail());
 				}
 
 				if (email_public.getText().toString().length()>0) {
@@ -779,6 +771,12 @@ public class Profil_Restaurant extends Activity {
 	public void onPause(){
 		super.onPause();
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
+	}
+	
+	@Override
+	public void onStart() {
+		r = new RestaurantOwner(sqliteHelper, emailPerso);
+		super.onStart();
 	}
 
 }
