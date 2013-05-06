@@ -38,8 +38,6 @@ public class Restaurant {
 	
 	ArrayList <String> imageList;
 	
-	Carte carte;
-	
 	/*
 	 * @param: the parameter is not null
 	 * @post : create an object Restaurant with only its 'restaurantName' filled
@@ -164,9 +162,6 @@ public class Restaurant {
 				cursor.moveToNext();
 			}
 		}
-		
-		//Cartes
-		this.carte = new Carte (this.sqliteHelper, this.restaurantName);
 		
 		
 		////db.close();
@@ -723,18 +718,6 @@ public class Restaurant {
 	}
 
 	
-	
-	/* 
-	 * @post : return the value of 'carte'
-	 * If getFromDatabase is true, this value is get from the database
-	 */
-	public Carte getRestaurantCarte (boolean getFromDatabase) {
-		if (getFromDatabase) {
-			this.carte = new Carte (this.sqliteHelper, this.restaurantName);
-		}
-		return this.carte;
-	}
-	
 	public static boolean isCorrectPassword(MySQLiteHelper sqliteHelper, String email, String password){
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Restaurant_column[9] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[2] + " = " + "'"+email+"'", null);
@@ -742,35 +725,27 @@ public class Restaurant {
 		return password.equals(cursor.getString(0));
 	}
 	
-	public boolean setRestaurantCarte (Carte carte) {
-		if (carte==null) {
-			return false;
-		}
-		else {
-			this.carte = carte;
-		}
-		return true;
-	}
-	
 	
 	public double getRestaurantAveragePrice() {
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-		int count = 0;
-		int result = 0;
+		float count = 0;
+		float result = 0;
 		
-		Cursor cursor = db.rawQuery("SELECT COUNT(" + MySQLiteHelper.Meal_column[1] + "), " + MySQLiteHelper.Meal_column[3] +  " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+this.getRestaurantName()+"'", null);
+		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] +  " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[2] + " = " + "'"+this.getRestaurantName()+"'", null);
 		if (cursor.moveToFirst()) {//The number of meals
-			count = cursor.getInt(0);
+			while (!cursor.isAfterLast()) {//The price
+				result = result + cursor.getFloat(0);
+				count++;
+				cursor.moveToNext();
+			}
 		}
 		if (count == 0) {
 			return 0;
 		}
-		while (!cursor.isAfterLast()) {//The price
-			result = result + cursor.getInt(1);
-			cursor.moveToNext();
-		}
+		
 		result = result/count;
+		Log.v("getRestaurantAveragePrice()", result + "");
 		return result;
 	}
 }

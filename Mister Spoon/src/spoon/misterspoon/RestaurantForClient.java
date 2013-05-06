@@ -176,9 +176,10 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		menu.setOnClickListener(new View.OnClickListener() {//launch an alert box
 			@Override
 			public void onClick(View v) {
-				Toast toasted = Toast.makeText(context, "Le client veut afficher la carte mais ce n'est pas encore possible :p ", Toast.LENGTH_SHORT);
-				toasted.show();
-				//TODO
+				Intent intent = new Intent(RestaurantForClient.this, CarteActivity.class);
+				intent.putExtra(Login.email, c.getEmail());
+				intent.putExtra(RestaurantListActivity.RESTAURANT, r.getRestaurantName());
+				startActivity(intent);
 			}
 		});
 

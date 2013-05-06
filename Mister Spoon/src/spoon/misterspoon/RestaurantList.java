@@ -92,7 +92,7 @@ public class RestaurantList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getRestaurantName().compareTo(array[j].getRestaurantName()) > 0)// If the first is bigger than the second
+					if(array[i].getRestaurantName().toLowerCase().compareTo(array[j].getRestaurantName().toLowerCase()) > 0)// If the first is bigger than the second
 					{
 						Restaurant temp = array[j];
 						array[j] = array[i];
@@ -163,7 +163,7 @@ public class RestaurantList {
 			this.ordre = orderTable[2];
 		}
 
-		if (Ordre.equals(orderTable[3])) {//prix
+		else if (Ordre.equals(orderTable[3])) {//prix
 
 			Restaurant [] array = new Restaurant[filterList.size()];
 			for (int i =0; i<filterList.size(); i++) {
@@ -174,7 +174,7 @@ public class RestaurantList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getRestaurantAveragePrice() > array[j].getRestaurantAveragePrice())// If the first is cheaper than the second
+					if(array[i].getRestaurantAveragePrice() > array[j].getRestaurantAveragePrice())
 					{
 						Restaurant temp = array[j];
 						array[j] = array[i];
@@ -217,7 +217,7 @@ public class RestaurantList {
 
 		else if (Filter.equals(filterTable[2])) {
 			for(int i = 0; i < this.filterList.size(); i++) {
-				if (this.filterList.get(i).getRestaurantAveragePrice() < value) {
+				if (this.filterList.get(i).getRestaurantAveragePrice() > value) {
 					this.removedRestaurant.add(this.filterList.get(i));
 					this.filterList.remove(i);
 				}

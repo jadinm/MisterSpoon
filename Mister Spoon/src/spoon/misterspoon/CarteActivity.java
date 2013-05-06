@@ -40,9 +40,9 @@ public class CarteActivity extends Activity {
 		setContentView(R.layout.activity_carte);
 		sqliteHelper = new MySQLiteHelper(this);
 		Intent i = getIntent();
-		//restName = i.getStringExtra(Profil_Restaurant.name); //TODO
+		restName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
 		client = new Client(sqliteHelper, i.getStringExtra(Login.email));
-		carte = new Carte(sqliteHelper, "Loungeatude", client);
+		carte = new Carte(sqliteHelper, restName, client);
 		carteListView = (ListView) findViewById(R.id.carte_list);
 		
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice, carte.getFilterList());

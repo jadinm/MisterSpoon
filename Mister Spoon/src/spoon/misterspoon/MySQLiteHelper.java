@@ -233,7 +233,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Salades','entree','Creperie Bretonne','Salade au roquefort'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Salades','entree','Creperie Bretonne','Salade Tomates Mozzarella'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crepe des Gourmets','plat','Creperie Bretonne','Crepe La tartiflette'); ");
-		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crepe des Gourmets','plat','Creperie Bretonne','Crepe au saumon fume, sauce creme et citron e l''aneth'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crepe des Gourmets','plat','Creperie Bretonne','Crepe au saumon fume, sauce creme et citron e l" + "'" + "'aneth'); ");
 		//To correct -> find menu with price but with some meals recorded
 		db.execSQL("INSERT INTO " + TABLE_MenuPrice + "(" + MenuPrice_column[1] + ", " + MenuPrice_column[2] + ", " + MenuPrice_column[3] +  ", " + MenuPrice_column[4] +") VALUES('Creperie Bretonne','Dejeuner','plat',7);  ");
 		
@@ -242,14 +242,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Le Petit Vingtieme','Cash'); ");
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Loungeatude','Cash'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade au roquefort','Creperie Bretonne',13.95,3, NULL); ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade au roquefort','Creperie Bretonne',13.95,3, NULL); ");//12.8125
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade Tomates Mozzarella','Creperie Bretonne',11.2,20, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Crepe La tartiflette','Creperie Bretonne',12.15,16, NULL); ");
-		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Crepe au saumon fume, sauce creme et citron e l''aneth','Creperie Bretonne',13.95,15, NULL); ");
-		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Potage de scampis et canard laque e la thaee','Loungeatude',17.95,10, NULL);  ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Crepe au saumon fume, sauce creme et citron e l" + "'" + "'aneth','Creperie Bretonne',13.95,15, NULL); ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Potage de scampis et canard laque e la thaee','Loungeatude',17.95,10, NULL);  ");//21.28
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Jambonnette de volaille aux scampis','Loungeatude',19.95,5, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Filet pur de boeuf irlandais en Tagliata','Loungeatude',25.95,10, NULL);  ");
-		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Carpaccio de Bresaola et Jambon de Parme','Le Petit Vingtieme',12,10, NULL); ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Carpaccio de Bresaola et Jambon de Parme','Le Petit Vingtieme',12,10, NULL); ");//16
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Entrecete de Boeuf Belge Grillee +- 300gr','Le Petit Vingtieme',19,5, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Gambas reties au four','Le Petit Vingtieme',17,20, NULL); ");
 		

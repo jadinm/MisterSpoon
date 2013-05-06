@@ -98,7 +98,7 @@ public class CityList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getCityName().compareTo(array[j].getCityName()) < 0)// If the first is bigger than the second
+					if(array[i].getCityName().toLowerCase().compareTo(array[j].getCityName().toLowerCase()) > 0)// If the first is bigger than the second
 					{
 						City temp = array[j];
 						array[j] = array[i];
@@ -125,7 +125,7 @@ public class CityList {
 			{
 				for(int j=i+1; j<array.length; j++)
 				{
-					if(array[i].getPosition().compareTo(this.client.getPosition(null, null)) < array[j].getPosition().compareTo(this.client.getPosition(null, null)))// If the further is bigger than the second
+					if(array[i].getPosition().compareTo(this.client.getPosition(null, null)) > array[j].getPosition().compareTo(this.client.getPosition(null, null)))// If the further is bigger than the second
 					{
 						City temp = array[j];
 						array[j] = array[i];

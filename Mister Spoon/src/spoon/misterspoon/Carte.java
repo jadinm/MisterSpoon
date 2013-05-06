@@ -38,7 +38,7 @@ public class Carte {
 			}
 		}
 		platsFav = client.getPlatFav(true);
-		mealOrder = Carte.orderMeal[1];
+		mealOrder = Carte.orderMeal[0];
 		this.sort();
 	}
 	
@@ -97,7 +97,7 @@ public class Carte {
 		
 		for (int i = 0; i < entree.size(); i++) {
 			for (int j = i + 1; j < entree.size(); j++) {
-				if (entree.get(i).getMenuName().compareTo(entree.get(j).getMenuName()) > 0){
+				if (entree.get(i).getMenuName().toLowerCase().compareTo(entree.get(j).getMenuName().toLowerCase()) > 0){
 					Menu temp = entree.get(j);
 					entree.set(j, entree.get(i));
 					entree.set(i, temp);
@@ -107,7 +107,7 @@ public class Carte {
 		
 		for (int i = 0; i < plat.size(); i++) {
 			for (int j = i + 1; j < plat.size(); j++) {
-				if (plat.get(i).getMenuName().compareTo(plat.get(j).getMenuName()) > 0){
+				if (plat.get(i).getMenuName().toLowerCase().compareTo(plat.get(j).getMenuName().toLowerCase()) > 0){
 					Menu temp = plat.get(j);
 					plat.set(j, plat.get(i));
 					plat.set(i, temp);
@@ -116,7 +116,7 @@ public class Carte {
 		}
 		for (int i = 0; i < dessert.size(); i++) {
 			for (int j = i + 1; j < dessert.size(); j++) {
-				if (dessert.get(i).getMenuName().compareTo(dessert.get(j).getMenuName()) > 0){
+				if (dessert.get(i).getMenuName().toLowerCase().compareTo(dessert.get(j).getMenuName().toLowerCase()) > 0){
 					Menu temp = dessert.get(j);
 					dessert.set(j, dessert.get(i));
 					dessert.set(i, temp);
@@ -125,7 +125,7 @@ public class Carte {
 		}
 		for (int i = 0; i < boisson.size(); i++) {
 			for (int j = i + 1; j < boisson.size(); j++) {
-				if (boisson.get(i).getMenuName().compareTo(boisson.get(j).getMenuName()) > 0){
+				if (boisson.get(i).getMenuName().toLowerCase().compareTo(boisson.get(j).getMenuName().toLowerCase()) > 0){
 					Menu temp = boisson.get(j);
 					boisson.set(j, boisson.get(i));
 					boisson.set(i, temp);
@@ -152,9 +152,13 @@ public class Carte {
 			ArrayList<Meal> meal = menu.get(i).getMealList(false);
 			Log.v("method sort", meal.size()+"");
 			if (this.mealOrder.equals(orderMeal[0])) {
+				Log.v("sort","here");
 				for (int j = 0; j < meal.size(); j++) {
 					for (int k = j + 1; k < meal.size(); k++) {
-						if (meal.get(j).getMealName().compareTo(meal.get(k).getMealName()) > 0) {
+						Log.v("sort", meal.get(j).getMealName());
+						Log.v("sort",meal.get(k).getMealName());
+						Log.v("sort",(meal.get(j).getMealName().toLowerCase()).compareTo(meal.get(k).getMealName().toLowerCase()) + "");
+						if (meal.get(j).getMealName().toLowerCase().compareTo(meal.get(k).getMealName().toLowerCase()) > 0) {
 							Meal temp = meal.get(k);
 							meal.set(k, meal.get(j));
 							meal.set(j, temp);
@@ -163,6 +167,7 @@ public class Carte {
 				}
 			}
 			else if (this.mealOrder.equals(orderMeal[1])) {
+				Log.v("sort","No, there");
 				for (int j = 0; j < meal.size(); j++) {
 					for (int k = j + 1; k < meal.size(); k++) {
 						if (meal.get(j).getMealPrice(false) > meal.get(k).getMealPrice(false)) {
