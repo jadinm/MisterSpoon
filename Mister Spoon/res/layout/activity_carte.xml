@@ -28,7 +28,7 @@
             android:paddingLeft="5dp"
             android:text="@string/carte_meal_price" />
 
-        <Button
+        <CheckBox
             android:id="@+id/carte_preorder"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
