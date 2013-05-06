@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
+import android.util.Log;
 
 public class Client {
 
@@ -454,13 +455,13 @@ public class Client {
 		}
 
 		restFav.add(restaurant);
-
+		Log.v("rest0", "INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+restaurant.getRestaurantName()+"'" + ");");
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+restaurant.getRestaurantName()+"'" + ");");
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_FavouriteRestaurant + "(" + MySQLiteHelper.FavouriteRestaurant_column[1] + ", "  + MySQLiteHelper.FavouriteRestaurant_column[2] + ") VALUES (" + "'"+email+"'" + ", " + "'"+restaurant.getRestaurantName()+"'" + ");");
 
-		db.close();
+		//db.close();
 	}
 
 	/*

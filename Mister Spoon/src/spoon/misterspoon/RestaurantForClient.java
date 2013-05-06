@@ -103,7 +103,6 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		setTitle(String.format(restoName));
 
 		email_perso.setText(email_perso.getText() + " " + c.getEmail()); 
-		email_public.setText(email_public.getText() + " " + r.getRestaurantEmail(false));
 		gsm.setText(gsm.getText() + " " + r.getRestaurantPhone(false));
 		rue.setText(rue.getText() + " " + r.getRestaurantRue(false));
 		town.setText(town.getText() + " " + r.getRestaurantVille(false));
@@ -111,10 +110,17 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		latitude.setText(r.getRestaurantPosition(false).getLatitude() + "");
 
 		if (r.getRestaurantFax(false)!=null) {
-			fax.setText(r.getRestaurantFax(false));
+			fax.setText(fax.getText() + " " + r.getRestaurantFax(false));
 		}
 		else {
 			fax.setVisibility(0);
+		}
+		
+		if (r.getRestaurantEmail(false)!=null){
+			email_public.setText(email_public.getText() + " " + r.getRestaurantEmail(false));
+		}
+		else {
+			email_public.setVisibility(0);
 		}
 		if (r.getRestaurantWebSite(false)!=null) {
 			web.setText(r.getRestaurantWebSite(false));
@@ -123,7 +129,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 			web.setVisibility(0);
 		}
 		if (r.getRestaurantNumero(false)!=0) {
-			num.setText(r.getRestaurantNumero(false)+ "");
+			num.setText(num.getText() + " " +r.getRestaurantNumero(false)+ "");
 		}
 		else{
 			num.setVisibility(0);

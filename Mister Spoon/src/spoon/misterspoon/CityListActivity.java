@@ -31,7 +31,7 @@ public class CityListActivity extends Activity implements LocationListener {
 	MySQLiteHelper sql; 
 	
 	Client client;
-
+	String sclient;
 	City currentCity;
 	
 	private View pressedView;
@@ -57,7 +57,7 @@ public class CityListActivity extends Activity implements LocationListener {
 		setContentView(R.layout.activity_list_city);
 		
 		Intent i = getIntent();
-		String sclient = i.getStringExtra(Login.email);
+		 sclient = i.getStringExtra(Login.email);
 		
 		
 		sql = new MySQLiteHelper(this);
