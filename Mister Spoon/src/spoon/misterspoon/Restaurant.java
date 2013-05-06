@@ -11,7 +11,7 @@ public class Restaurant {
 	public MySQLiteHelper sqliteHelper;
 	
 	String restaurantName;
-	int nbrVotants;
+	float nbrVotants;
 	float note;
 	int capacity;
 	String Description;
@@ -176,7 +176,7 @@ public class Restaurant {
 		this.restaurantName = restaurantName;
 	}
 
-	public void setRestaurantNbrVotants(int nbrVotants) {
+	public void setRestaurantNbrVotants(float nbrVotants) {
 		this.nbrVotants = nbrVotants;
 	}
 
@@ -245,7 +245,7 @@ public class Restaurant {
 	 * @post : return the value of 'nbrVotants'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public int getRestaurantNbrVotants (boolean getFromDatabase) {
+	public float getRestaurantNbrVotants (boolean getFromDatabase) {
 		
 		if(getFromDatabase) {
 			

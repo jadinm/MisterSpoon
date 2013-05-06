@@ -1233,9 +1233,10 @@ public class Client {
 	
 	private void setNombreVotantsRestaurant(){
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
-		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[8] + " = " + restaurantEnCours.getRestaurantNbrVotants(false)+1 + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
-		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[8] + " = " + restaurantEnCours.getRestaurantNbrVotants(false)+1 + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
-		restaurantEnCours.setRestaurantNbrVotants(restaurantEnCours.getRestaurantNbrVotants(false)+1);
+		float number = restaurantEnCours.getRestaurantNbrVotants(false)+1;
+		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[8] + " = " + "'"+number+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
+		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[8] + " = " + "'"+number+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
+		restaurantEnCours.setRestaurantNbrVotants(number);
 	}
 	
 	public void setNoteRestaurant(float note){
@@ -1245,9 +1246,12 @@ public class Client {
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[7] + " = " + ((restaurantEnCours.getRestaurantNote(false)*(restaurantEnCours.getRestaurantNbrVotants(false)-1)) + note)/restaurantEnCours.getRestaurantNbrVotants(false) + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
 		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[7] + " = " + ((restaurantEnCours.getRestaurantNote(false)*(restaurantEnCours.getRestaurantNbrVotants(false)-1)) + note)/restaurantEnCours.getRestaurantNbrVotants(false) + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
-		restaurantEnCours.setRestaurantNote(((restaurantEnCours.getRestaurantNote(false)*(restaurantEnCours.getRestaurantNbrVotants(false)-1)) + note)/restaurantEnCours.getRestaurantNbrVotants(false));
-		Log.v("note ajoutée :", ""+note);
-		Log.v("note moyenn :", ""+((restaurantEnCours.getRestaurantNote(false)*(restaurantEnCours.getRestaurantNbrVotants(false)-1)) + note)/restaurantEnCours.getRestaurantNbrVotants(false));
+		float num1 = (float)restaurantEnCours.getRestaurantNbrVotants(false)-1;
+		float num2 = (float)restaurantEnCours.getRestaurantNote(true);
+		float denom = (float)restaurantEnCours.getRestaurantNbrVotants(false);
+		restaurantEnCours.setRestaurantNote(((num2*num1) + note)/denom);
+		Log.v("note ajoutee :", ""+note);
+		Log.v("note moyenne :", ""+((num2*num1) + note)/denom);
 		Log.v("note :", ""+restaurantEnCours.getRestaurantNote(false));
 	}
 
