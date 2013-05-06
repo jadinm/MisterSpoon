@@ -10,14 +10,6 @@
         android:orientation="vertical"
         android:paddingBottom="20dp" >
 
-        <ListView
-            android:id="@+id/gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fadingEdge="horizontal"
-            android:scrollbars="horizontal" >
-        </ListView>
-
         <TextView
             android:id="@+id/restaurant_mail"
             android:layout_width="fill_parent"
@@ -27,6 +19,21 @@
             android:paddingBottom="20dp"
             android:text="@string/profil_restaurant_mail"
             android:textIsSelectable="true" />
+        
+        <ListView
+            android:id="@+id/gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadingEdge="horizontal"
+            android:scrollbars="horizontal" >
+        </ListView>
+        
+        <RatingBar
+            android:id="@+id/restaurant_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -69,6 +76,7 @@
                 android:gravity="left"
                 android:text="@string/profil_restaurant_web"
                 android:textIsSelectable="true" />
+
         </LinearLayout>
 
         <TextView

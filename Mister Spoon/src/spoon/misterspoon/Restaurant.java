@@ -12,7 +12,7 @@ public class Restaurant {
 	
 	String restaurantName;
 	int nbrVotants;
-	int note;
+	float note;
 	int capacity;
 	String Description;
 	
@@ -180,7 +180,7 @@ public class Restaurant {
 		this.nbrVotants = nbrVotants;
 	}
 
-	public void setRestaurantNote(int note) {
+	public void setRestaurantNote(float note) {
 		this.note = note;
 	}
 
@@ -255,7 +255,7 @@ public class Restaurant {
 				
 				nbrVotants = cursor.getInt(0);
 			}
-			////db.close();
+			//db.close();
 		}
 		
 		return nbrVotants;
@@ -265,7 +265,7 @@ public class Restaurant {
 	 * @post : return the value of 'note'
 	 * If getFromDatabase is true, this value is get from the database
 	 */
-	public int getRestaurantNote (boolean getFromDatabase) {
+	public float getRestaurantNote (boolean getFromDatabase) {
 		
 		if (getFromDatabase) {
 			
@@ -273,9 +273,9 @@ public class Restaurant {
 			Cursor cursor = db.rawQuery ("SELECT " + MySQLiteHelper.Restaurant_column[7] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantName+"'", null);
 			if (cursor.moveToFirst()) {
 				
-				note = cursor.getInt(0);
+				note = cursor.getFloat(0);
 			}
-			////db.close();
+			//db.close();
 		}
 		
 		return note;
@@ -397,6 +397,7 @@ public class Restaurant {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 			if (cursor.moveToFirst()) {
+
 				fax = cursor.getString(0);
 			}
 			

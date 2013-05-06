@@ -13,11 +13,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private TextView latitude;
 
 	private ListView listview;
+	
+	private RatingBar ratingBar;
 
 	private Button addResto;
 	private Button menu;
@@ -78,6 +81,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		//We create the object Restaurant associated with this email and all his informations
 		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
+		c.setRestaurantEnCours(r);
 
 		//We can now define all the widgets
 		listview = (ListView) findViewById(R.id.gallery);
@@ -86,6 +90,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
 		gsm = (TextView) findViewById(R.id.restaurant_tel);
 		web = (TextView) findViewById(R.id.restaurant_web);
+		ratingBar = (RatingBar) findViewById(R.id.restaurant_rating);
 		fax = (TextView) findViewById(R.id.restaurant_fax);
 		rue = (TextView) findViewById(R.id.rue); 
 		num = (TextView) findViewById(R.id.numero);
@@ -102,6 +107,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 
 		setTitle(String.format(restoName));
 
+		ratingBar.setRating(r.getRestaurantNote(false));
 		email_perso.setText(email_perso.getText() + " " + c.getEmail()); 
 		gsm.setText(gsm.getText() + " " + r.getRestaurantPhone(false));
 		rue.setText(rue.getText() + " " + r.getRestaurantRue(false));
@@ -154,7 +160,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 
 		listview.setAdapter(adapter);
 
-
+		ratingBar.setOnRatingBarChangeListener(ratingListener);
 
 		//We define all the listeners
 		addResto.setOnClickListener(new View.OnClickListener() {//Update the informations
@@ -255,6 +261,15 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		});
 
 	}
+	
+	private OnRatingBarChangeListener ratingListener = new OnRatingBarChangeListener() {
+
+		public void onRatingChanged(RatingBar ratingBar, float rating,
+				boolean fromUser) {
+			c.setNoteRestaurant(rating);
+			ratingBar.setEnabled(false);
+		}
+	};
 
 	private void choisirSource() {
 		List <String> providers = lManager.getProviders(true);
@@ -292,5 +307,10 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		super.onPause();
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
 		}
+	
+	public void onStart(){
+		ratingBar.setRating(r.getRestaurantNote(false));
+		super.onStart();
+	}
 
 }
