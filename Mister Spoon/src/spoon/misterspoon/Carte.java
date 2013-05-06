@@ -29,7 +29,7 @@ public class Carte {
 		this.menuList = new ArrayList <Menu>();
 		this.mealOrder = new String();
 		
-		this.sqliteHelper = sqliteHelper;
+		this.sqliteHelper = sqliteHelper2;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] + ", " + MySQLiteHelper.Menu_column[3] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[3] + "=" + "'"+restaurantName+"'", null);
