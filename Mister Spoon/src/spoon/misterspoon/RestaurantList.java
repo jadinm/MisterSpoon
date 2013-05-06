@@ -60,7 +60,7 @@ public class RestaurantList {
 
 	public ArrayList <String> getNomRestaurants(){
 		ArrayList<String> nomRestaurants = new ArrayList<String>();
-		for(Restaurant resto : getfilterListVisible()){
+		for(Restaurant resto : this.filterList){
 			nomRestaurants.add(resto.getRestaurantName());
 			Log.v("Resto", resto.getRestaurantName());
 		}
@@ -193,7 +193,7 @@ public class RestaurantList {
 
 
 
-	public void listFilter(String Filter, int value) {
+	public void listFilter(String Filter, double value) {
 
 		if (Filter.equals(filterTable[0])) {
 			for(int i = 0; i < this.filterList.size(); i++) {
@@ -201,6 +201,7 @@ public class RestaurantList {
 					if (!this.filterList.get(i).getRestaurantName().equals(this.client.getRestFav(false).get(j).getRestaurantName())) {
 						this.removedRestaurant.add(this.filterList.get(i));
 						this.filterList.remove(i);
+						i--;//Because size decreases
 					}
 				}
 			}
@@ -208,18 +209,25 @@ public class RestaurantList {
 
 		else if (Filter.equals(filterTable[1])) {
 			for(int i = 0; i < this.filterList.size(); i++) {
+				
 				if (this.filterList.get(i).getRestaurantNote(false) < value) {
 					this.removedRestaurant.add(this.filterList.get(i));
 					this.filterList.remove(i);
+					i--;//Because size decreases
 				}
 			}
 		}
 
 		else if (Filter.equals(filterTable[2])) {
+			Log.v("prixFilter", this.filterList.size() + "");
 			for(int i = 0; i < this.filterList.size(); i++) {
-				if (this.filterList.get(i).getRestaurantAveragePrice() > value) {
+				Log.v("prixFilter", this.filterList.get(i).getRestaurantName());
+				Log.v("prixFilter", this.filterList.get(i).getRestaurantAveragePrice() + "");
+				if (this.filterList.get(i).getRestaurantAveragePrice() > (float) value) {
+					Log.v("prixFilter", "Je suis retiré");
 					this.removedRestaurant.add(this.filterList.get(i));
 					this.filterList.remove(i);
+					i--;//Because size decreases
 				}
 			}
 		}
@@ -230,8 +238,9 @@ public class RestaurantList {
 	}
 
 	public void resetfilterList() {
-		for (int i = 0; i < this.removedRestaurant.size() - 1; i++) {
+		for (int i = 0; i < this.removedRestaurant.size(); i++) {
 			this.filterList.add(this.removedRestaurant.get(i));
 		}
+		removedRestaurant.clear();
 	}
 }

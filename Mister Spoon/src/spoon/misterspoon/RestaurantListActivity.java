@@ -157,10 +157,9 @@ public class RestaurantListActivity extends Activity implements LocationListener
 	};
 	
 	private OnCheckedChangeListener filtreNoteListener = new OnCheckedChangeListener() {
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			if (isChecked && textNote.getText().toString().length() > 0) {
-				restaurantList.listFilter("note", Integer.parseInt(textNote.getText().toString()));
+				restaurantList.listFilter(RestaurantList.filterTable[1], Integer.parseInt(textNote.getText().toString()));
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 				restaurantListView.setAdapter(adapter);
@@ -168,11 +167,12 @@ public class RestaurantListActivity extends Activity implements LocationListener
 			else {
 				restaurantList.resetfilterList();
 				if(filtrePrix.isChecked() && textPrix.getText().toString().length() > 0){
-					restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
+					restaurantList.listFilter(RestaurantList.filterTable[2], Double.parseDouble(textPrix.getText().toString()));
 				}
 				if(filtreFavori.isChecked()){
-					restaurantList.listFilter("favori", 0);
+					restaurantList.listFilter(RestaurantList.filterTable[0], 0);
 				}
+				restaurantList.sort(((String) ordre.getSelectedItem()));
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 				restaurantListView.setAdapter(adapter);
@@ -181,10 +181,9 @@ public class RestaurantListActivity extends Activity implements LocationListener
 	};
 	
 	private OnCheckedChangeListener filtrePrixListener = new OnCheckedChangeListener() {
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			if (isChecked && textPrix.getText().toString().length() > 0) {
-				restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
+				restaurantList.listFilter(RestaurantList.filterTable[2], Double.parseDouble(textPrix.getText().toString()));
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 				restaurantListView.setAdapter(adapter);
@@ -192,11 +191,12 @@ public class RestaurantListActivity extends Activity implements LocationListener
 			else {
 				restaurantList.resetfilterList();
 				if(filtreNote.isChecked() && textNote.getText().toString().length() > 0){
-					restaurantList.listFilter("note", Integer.parseInt(textNote.getText().toString()));
+					restaurantList.listFilter(RestaurantList.filterTable[1], Integer.parseInt(textNote.getText().toString()));
 				}
 				if(filtreFavori.isChecked()){
-					restaurantList.listFilter("favori", 0);
+					restaurantList.listFilter(RestaurantList.filterTable[0], 0);
 				}
+				restaurantList.sort(((String) ordre.getSelectedItem()));
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 				restaurantListView.setAdapter(adapter);
@@ -205,10 +205,9 @@ public class RestaurantListActivity extends Activity implements LocationListener
 	};
 	
 	private OnCheckedChangeListener filtreFavoriListener = new OnCheckedChangeListener() {
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			if (filtreFavori.isChecked()) {
-				restaurantList.listFilter("favori", 0);
+				restaurantList.listFilter(RestaurantList.filterTable[0], 0);
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 				restaurantListView.setAdapter(adapter);
@@ -216,11 +215,12 @@ public class RestaurantListActivity extends Activity implements LocationListener
 			else {
 				restaurantList.resetfilterList();
 				if(filtreNote.isChecked() && textNote.getText().toString().length() > 0){
-					restaurantList.listFilter("note", Integer.parseInt(textNote.getText().toString()));
+					restaurantList.listFilter(RestaurantList.filterTable[1], Integer.parseInt(textNote.getText().toString()));
 				}
 				if(filtrePrix.isChecked() && textPrix.getText().toString().length() > 0){
-					restaurantList.listFilter("prix", Integer.parseInt(textPrix.getText().toString()));
+					restaurantList.listFilter(RestaurantList.filterTable[2], Double.parseDouble(textPrix.getText().toString()));
 				}
+				restaurantList.sort(((String) ordre.getSelectedItem()));
 				nomRestaurants = restaurantList.getNomRestaurants();
 				adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, nomRestaurants);
 				restaurantListView.setAdapter(adapter);
