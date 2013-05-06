@@ -10,10 +10,12 @@ public class CarteBuilder {
 	
 	MySQLiteHelper sqliteHelper;
 	RestaurantOwner restaurantOwner;
-	Carte Carte;
+	Carte carte;
 	
-	public CarteBuilder(MySQLiteHelper sqliteHelper) {
+	public CarteBuilder(MySQLiteHelper sqliteHelper, RestaurantOwner r) {
 		this.sqliteHelper = sqliteHelper;//blablabla !
+		this.restaurantOwner = r;
+		carte = new Carte (sqliteHelper, r.getRestaurant().getRestaurantName(), null);
 		
 	}
 	
@@ -47,7 +49,7 @@ public class CarteBuilder {
 		db.close();
 
 		Menu menu = new Menu(sqliteHelper, menuName, restName, categorie);
-		Carte.addMenu(menu);
+		carte.addMenu(menu);
 	}
 	
 	public void setMenuName(Menu menuToChange, String name) {

@@ -37,7 +37,9 @@ public class Carte {
 				cursor.moveToNext();
 			}
 		}
-		platsFav = client.getPlatFav(true);
+		if (client != null) {
+			platsFav = client.getPlatFav(true);
+		}
 		mealOrder = Carte.orderMeal[0];
 		this.sort();
 	}
