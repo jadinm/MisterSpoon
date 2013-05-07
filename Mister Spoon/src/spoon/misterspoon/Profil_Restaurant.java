@@ -430,11 +430,8 @@ public class Profil_Restaurant extends Activity {
 		book.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut voir ses r�servations", Toast.LENGTH_SHORT);
-				toast.show();
-				/*Intent i = new Intent(Profil_Client.this, Booking_Client.class);//TODO
-				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);*/
+				Intent i = new Intent(Profil_Restaurant.this, ReservationRestaurantActivity.class);
+				startActivity(i);
 			}
 		});
 

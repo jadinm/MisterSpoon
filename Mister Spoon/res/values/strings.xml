@@ -96,13 +96,13 @@
     <string name="list_city_title">Liste des villes</string>
     <string name="list_city_toast">Veuillez sélectionner une ville</string>
 
-    <!-- Values for activity_prereservation_restaurant.xml -->
-    <string name="prereservation_restaurant_title">Pré-réservation restaurant</string>
-    <string name="prereservation_restaurant_heure">Heure</string>
-    <string name="prereservation_restaurant_nom">Nom</string>
-    <string name="prereservation_restaurant_telephone">Téléphone</string>
-    <string name="prereservation_restaurant_places">Places</string>
-    <string name="prereservation_restaurant_quantite">Quantités</string>
+    <!-- Values for activity_reservation_restaurant.xml -->
+    <string name="reservation_restaurant_title">Réservations</string>
+    <string name="reservation_restaurant_heure">Heure</string>
+    <string name="reservation_restaurant_nom">Nom</string>
+    <string name="reservation_restaurant_telephone">Téléphone</string>
+    <string name="reservation_restaurant_places">Places</string>
+    <string name="reservation_restaurant_quantite">Quantités</string>
 
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
