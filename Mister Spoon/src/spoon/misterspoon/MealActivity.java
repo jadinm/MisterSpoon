@@ -35,13 +35,13 @@ public class MealActivity extends Activity {
 		
 		//We get the intent sent by Login
 		Intent i = getIntent();
-		//We take the informations about the person who's logged (!!!! label)
-		String emailClient = i.getStringExtra(Login.email);
-		//String restoName = i.getStringExtra(Profil_Restaurant.name);//TODO
-		//mealName = i.getStringExtra(Carte.meal);//TODO
-		String restoName = "Loungeatude";
-		mealName = "Jambonnette de volaille aux scampis";
+
+		String emailClient = i.getStringExtra(CarteActivity.CLIENT);
+		String restoName = i.getStringExtra(CarteActivity.RESTAURANT);
+		mealName = i.getStringExtra(CarteActivity.MEAL);
+		
 		setTitle(String.format(mealName));
+		
 		//We create the object Meal associated with this mealName and all his informations
 		sqliteHelper= new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);
@@ -52,7 +52,6 @@ public class MealActivity extends Activity {
 		
 
 		//We can now define all the widgets
-		//listview = (LinearLayout) findViewById(R.id.meal_gallery_layout);
 		
 		mealPrice = (TextView) findViewById(R.id.meal_price);
 		mealPrice.setText("Prix : "+meal.getMealPrice(false));
@@ -114,7 +113,7 @@ public class MealActivity extends Activity {
 //		}
 //		
 		update = (Button) findViewById(R.id.meal_update);
-		update.setOnClickListener(new View.OnClickListener() {//Update the informations
+		update.setOnClickListener(new View.OnClickListener() {//Add to favorite
 			@Override
 			public void onClick(View v) {
 				

@@ -83,9 +83,10 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/carte_list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+    <ExpandableListView 
+        android:id="@+id/carte_expandableList"
+  		android:layout_width="match_parent" 
+  		android:layout_height="fill_parent"
+  		android:divider="@drawable/separator"/>
 
 </LinearLayout>

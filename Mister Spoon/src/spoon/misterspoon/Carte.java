@@ -8,15 +8,12 @@ import android.util.Log;
 
 public class Carte {
 	//TODO Ultime todo mettre ingredient
-	//TODO filtre plat favori
 	static final String orderMeal[] = new String[]{"abc","prix"};
 	static final String categorie[] = new String[]{"entree","plat","dessert","boisson", "tout"};
 	static final String filterMeal[] = new String[]{"prix", "favori"};
 	MySQLiteHelper sqliteHelper;
 	ArrayList <Meal> platsFav;
-	ArrayList <String> filterList;
 	ArrayList <Menu> menuList;
-	ArrayList <Boolean> isMenuList;
 	ArrayList<Menu> entree;
 	ArrayList<Menu> plat;
 	ArrayList<Menu> dessert;
@@ -26,10 +23,8 @@ public class Carte {
 
 	public Carte(MySQLiteHelper sqliteHelper, String restaurantName, Client client) {
 		this.platsFav = new ArrayList <Meal>();
-		this.filterList = new ArrayList <String>();
 		this.menuList = new ArrayList <Menu>();
 		this.mealOrder = new String();
-		this.isMenuList = new ArrayList<Boolean>();
 
 		entree = new ArrayList<Menu>();
 		plat = new ArrayList<Menu>();
@@ -74,8 +69,22 @@ public class Carte {
 		return this.menuList;
 	}
 
-	public ArrayList<String> getFilterList() {
-		return this.filterList;
+	/*
+	 * Return the conversion of the list of menu into the list of CarteActivityHeader
+	 */
+	public ArrayList<CarteActivityHeader> getFilterList() {
+		
+		ArrayList <CarteActivityHeader> menuList = new ArrayList <CarteActivityHeader> ();
+		
+		for (int i = 0; i<this.menuList.size(); i++) {
+			ArrayList <CarteActivityChild> mealList = new ArrayList <CarteActivityChild> ();
+			for (int j = 0; j<this.menuList.get(i).getMealList(false).size(); j++) {
+				mealList.add(new CarteActivityChild(this.menuList.get(i).getMealList(false).get(j).getMealName()));
+			}
+			menuList.add(new CarteActivityHeader (menuList.get(i).getMenuName(), mealList));
+		}
+		
+		return menuList;
 	}
 
 	public ArrayList<Meal> getPlatsFav() {
@@ -90,17 +99,11 @@ public class Carte {
 		this.menuList = menuList;
 	}
 
-	public void setFilterList(ArrayList<String> filterList) {
-		this.filterList = filterList;
-	}
-
 	public void setPlatsFav(ArrayList<Meal> platsFav) {
 		this.platsFav = platsFav;
 	}
 
 	public void sort() {
-		ArrayList<Menu> menu = new ArrayList<Menu>();
-		ArrayList<String> result = new ArrayList<String>();
 		
 		ArrayList<Menu> entree = new ArrayList<Menu>();
 		ArrayList<Menu> plat = new ArrayList<Menu>();
@@ -160,24 +163,22 @@ public class Carte {
 			}
 		}
 
-		menu = new ArrayList <Menu> ();
+		menuList = new ArrayList <Menu> ();
 		for (int i = 0; i < entree.size(); i++) {
-			menu.add(entree.get(i));
+			menuList.add(entree.get(i));
 		}		
 		for (int i = 0; i < plat.size(); i++) {
-			menu.add(plat.get(i));
+			menuList.add(plat.get(i));
 		}
 		for (int i = 0; i < dessert.size(); i++) {
-			menu.add(dessert.get(i));
+			menuList.add(dessert.get(i));
 		}
 		for (int i = 0; i < boisson.size(); i++) {
-			menu.add(boisson.get(i));
+			menuList.add(boisson.get(i));
 		}
 
-		for (int i = 0; i < menu.size(); i++) {
-			result.add(menu.get(i).getMenuName());
-			isMenuList.add(true);
-			ArrayList<Meal> meal = menu.get(i).getMealList(false);
+		for (int i = 0; i < menuList.size(); i++) {
+			ArrayList<Meal> meal = menuList.get(i).getMealList(false);
 			Log.v("method sort", meal.size()+"");
 			if (this.mealOrder.equals(orderMeal[0])) {
 				Log.v("sort","here");
@@ -203,16 +204,7 @@ public class Carte {
 					}
 				}
 			}
-			for (int j = 0; j < meal.size(); j++) {
-				result.add(meal.get(j).getMealName());
-				isMenuList.add(false);
-			}
 		}
-		
-		this.filterList = result;
-		Log.v("sort_begin", filterList.size() + "");
-		
-		Log.v("sort_begin", menuList.size() + "");
 	}
 
 	public void filter (String filter, float value) {
@@ -274,17 +266,6 @@ public class Carte {
 			}
 			for (int i = 0; i < boisson.size(); i++) {
 				menuList.add(boisson.get(i));
-			}
-		}
-
-		filterList = new ArrayList <String> ();
-		isMenuList = new ArrayList <Boolean> ();
-		for (int i = 0; i < this.menuList.size(); i++) {//We change the list of string
-			this.filterList.add(this.menuList.get(i).getMenuName());
-			isMenuList.add(true);
-			for (int j = 0; j < this.menuList.get(i).getMealList(false).size(); j++) {
-				this.filterList.add(this.menuList.get(i).getMealList(false).get(j).getMealName());
-				isMenuList.add(false);
 			}
 		}
 	}
