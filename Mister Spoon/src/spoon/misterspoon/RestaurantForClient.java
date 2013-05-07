@@ -19,7 +19,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
@@ -94,7 +93,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
 		gsm = (TextView) findViewById(R.id.restaurant_tel);
 		web = (TextView) findViewById(R.id.restaurant_web);
-		
+
 		fax = (TextView) findViewById(R.id.restaurant_fax);
 		rue = (TextView) findViewById(R.id.rue); 
 		num = (TextView) findViewById(R.id.numero);
@@ -154,127 +153,150 @@ public class RestaurantForClient extends Activity implements LocationListener {
 
 		//Gallery
 
-				if (r.getRestaurantName().equals("Loungeatude")) {
-					ImageView image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_1));
-					image.setPadding (20, 0, 20, 0);
-					image.setMaxHeight(100);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_2));
-					image.setPadding (20, 0, 20, 0);
-					image.setMaxHeight(100);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_3));
-					image.setPadding (20, 0, 20, 0);
-					image.setMaxHeight(100);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_4));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_5));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_6));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_7));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_8));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_9));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
+		if (r.getRestaurantName().equals("Loungeatude")) {
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_1));
+			image.setPadding (20, 0, 20, 0);
+			image.setMaxHeight(100);
+			listview.addView(image);
 
-				}
-				
-				else if (r.getRestaurantName().equals("Le Petit Vingtieme")) {
-					ImageView image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.pti1));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.pti2));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.pti3));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.pti4));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.pti5));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.pti6));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-				}
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_2));
+			image.setPadding (20, 0, 20, 0);
+			image.setMaxHeight(100);
+			listview.addView(image);
 
-				else if (r.getRestaurantName().equals("Creperie Bretonne")) {
-					
-					ImageView image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.bret1));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.bret2));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.bret3));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.bret4));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.bret5));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-				}
-				
-					else if (r.getRestaurantName().equals("Comme chez soi")) {
-					
-					ImageView image = new ImageView (this);
-					image.setImageDrawable(getResources().getDrawable(R.drawable.chezsoi));
-					image.setPadding (20, 0, 20, 0);
-					listview.addView(image);
-					
-					
-				}
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_3));
+			image.setPadding (20, 0, 20, 0);
+			image.setMaxHeight(100);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_4));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_5));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_6));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_7));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_8));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_9));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+		}
+
+		else if (r.getRestaurantName().equals("Le Petit Vingtieme")) {
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.pti1));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.pti2));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.pti3));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.pti4));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.pti5));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.pti6));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+		}
+
+		else if (r.getRestaurantName().equals("Creperie Bretonne")) {
+
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.bret1));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.bret2));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.bret3));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.bret4));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.bret5));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+		}
+
+		else if (r.getRestaurantName().equals("Comme chez soi")) {
+
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chezsoi));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chez1));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chez2));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chez3));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+
+		}
+		
+		else
+		{
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.restaurants));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+		}
 
 		ratingBar.setOnRatingBarChangeListener(ratingListener);
 

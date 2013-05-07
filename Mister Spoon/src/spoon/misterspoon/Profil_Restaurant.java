@@ -26,7 +26,7 @@ public class Profil_Restaurant extends Activity {
 
 	private RestaurantOwner r;
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
-	
+
 	static final String name = "Nom Restaurant";
 	protected static final String MAIL = "Email Owner";
 	String emailPerso;
@@ -86,13 +86,13 @@ public class Profil_Restaurant extends Activity {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		emailPerso = i.getStringExtra(Login.email);
-		
+
 		//We create the object Restaurant associated with this email and all his informations
 		r = new RestaurantOwner (sqliteHelper, emailPerso);
 
 		//We can now define all the widgets
 		listview = (LinearLayout) findViewById(R.id.gallery_layout);
-		
+
 		invisible = (EditText) findViewById(R.id.edit_invisible_focus_holder);
 		invisible.setInputType(InputType.TYPE_NULL);
 		invisible.requestFocus();
@@ -109,9 +109,9 @@ public class Profil_Restaurant extends Activity {
 		longitude = (EditText) findViewById(R.id.profil_restaurant_edit_gps_longitude);
 		latitude = (EditText) findViewById(R.id.profil_restaurant_edit_gps_latitude);
 		capa = (EditText) findViewById(R.id.profil_restaurant_capacite);
-		
+
 		//gsm.setInputType(0); // Hide the keyboard	
-		
+
 		cooks = (Button) findViewById(R.id.profil_restaurant_cooks_button);
 		advantages = (Button) findViewById(R.id.profil_restaurant_advantages_button);
 		payments = (Button) findViewById(R.id.profil_restaurant_payments_button);
@@ -160,19 +160,19 @@ public class Profil_Restaurant extends Activity {
 		if (r.getRestaurant().getRestaurantWebSite(false)!=null) {
 			web.setText(r.getRestaurant().getRestaurantWebSite(false));
 		}
-		
+
 		if (r.getRestaurant().getRestaurantNumero(false)!=0) {
 			num.setText(r.getRestaurant().getRestaurantNumero(false)+ "");
 		}
 		if (r.getRestaurant().getRestaurantDescription(false)!=null) {
 			description.setText(r.getRestaurant().getRestaurantDescription(false));
 		}
-		
-		
+
+
 		setTitle(String.format(r.getRestaurant().getRestaurantName()));
-		
+
 		//Spinner
-		
+
 		List <String> openDayList = Arrays.asList(OpenHour.openDayTable);
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, openDayList);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -186,120 +186,145 @@ public class Profil_Restaurant extends Activity {
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_1));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_2));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_3));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_4));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_5));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_6));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_7));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_8));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.loungeatude_9));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
 
 		}
-		
+
 		else if (r.getEmail().equals("antoine.walsdorff@student.uclouvain.be")) {
 			ImageView image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti1));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti2));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti3));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti4));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti5));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.pti6));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 		}
 
 		else if (r.getEmail().equals("ludovic.fastre@student.uclouvain.be")) {
-			
+
 			ImageView image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.bret1));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.bret2));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.bret3));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.bret4));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
+
 			image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.bret5));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
 		}
-		
-			else if (r.getEmail().equals("comme@chez.soi")) {
-			
+
+		else if (r.getEmail().equals("comme@chez.soi")) {
+
 			ImageView image = new ImageView (this);
 			image.setImageDrawable(getResources().getDrawable(R.drawable.chezsoi));
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
-			
-			
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chez1));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chez2));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+			image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chez3));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+
 		}
-		
+
+		else
+		{
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.restaurants));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+
+
+		}
+
 		/*for(String imageName : r.getRestaurant().getRestaurantImageList(false)) { TODO -> I don't know how to do this
 			ImageView image = new ImageView (this);
 			if (imageName.equals("bret1")) {
@@ -316,14 +341,14 @@ public class Profil_Restaurant extends Activity {
 
 
 		//We define all the listeners
-		
+
 		cooks.setOnClickListener(cooksListener);//TODO
 		advantages.setOnClickListener(advantagesListener);
 		payments.setOnClickListener(paymentsListener);
 		closingButton.setOnClickListener(closingListener);
 		horaire.setOnClickListener(scheduleListener);
-		
-		
+
+
 		update.setOnClickListener(new View.OnClickListener() {//Update the informations
 			@Override
 			public void onClick(View v) {
@@ -354,7 +379,7 @@ public class Profil_Restaurant extends Activity {
 				if (fax.getText().toString().length()>0) {
 					r.setRestaurantFax(fax.getText().toString());
 				}
-				
+
 				if (web.getText().toString().length()>0) {
 					r.setRestaurantWebSite(web.getText().toString());
 				}
@@ -455,48 +480,48 @@ public class Profil_Restaurant extends Activity {
 	private View.OnClickListener cooksListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-			 
+
 			//set title and message
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_cooks_button);
-			
+
 			//set the list of checkBoxes (items_test is useful when we change of language)
 			items_test = new String[]{getString(R.string.profil_restaurant_cooks_alert_traditional_test), getString(R.string.profil_restaurant_cooks_alert_french_test), getString(R.string.profil_restaurant_cooks_alert_regional_test), getString(R.string.profil_restaurant_cooks_alert_fusion_test), getString(R.string.profil_restaurant_cooks_alert_molecular_test), getString(R.string.profil_restaurant_cooks_alert_seafood_test), getString(R.string.profil_restaurant_cooks_alert_brewery_test), getString(R.string.profil_restaurant_cooks_alert_pancakes_test), getString(R.string.profil_restaurant_cooks_alert_mediterranean_test), getString(R.string.profil_restaurant_cooks_alert_maghreb_test), getString(R.string.profil_restaurant_cooks_alert_oriental_test), getString(R.string.profil_restaurant_cooks_alert_asian_test), getString(R.string.profil_restaurant_cooks_alert_other_test)};
 			items = new String []{getString(R.string.profil_restaurant_cooks_alert_traditional), getString(R.string.profil_restaurant_cooks_alert_french), getString(R.string.profil_restaurant_cooks_alert_regional), getString(R.string.profil_restaurant_cooks_alert_fusion), getString(R.string.profil_restaurant_cooks_alert_molecular), getString(R.string.profil_restaurant_cooks_alert_seafood), getString(R.string.profil_restaurant_cooks_alert_brewery), getString(R.string.profil_restaurant_cooks_alert_pancakes), getString(R.string.profil_restaurant_cooks_alert_mediterranean), getString(R.string.profil_restaurant_cooks_alert_maghreb), getString(R.string.profil_restaurant_cooks_alert_oriental), getString(R.string.profil_restaurant_cooks_alert_asian), getString(R.string.profil_restaurant_cooks_alert_other)};
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantCuisine(true).size(); i++) {
-				
+
 				for(int j=0; j<items.length; j++) {
 					if(r.getRestaurant().getRestaurantCuisine(false).get(i).equals(items_test[j])) {
 						checkedItems[j]=true;
 					}
 				}
-				
-				
+
+
 			}
 
 			alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-				
+
 				@Override
 				public void onClick (DialogInterface dialog, int which, boolean isChecked) {
 					checkedItems[which]=isChecked;
 				}
 			});
-			
-			
+
+
 			alertDialogBuilder.setCancelable(true);//We can go back with the return button
-			
+
 			//The other buttons
 			alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
 					dialog.cancel();
 				}
 			});
-			
+
 			alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-					
+
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
 							r.addRestaurantCuisine(items_test[i]);
@@ -505,64 +530,64 @@ public class Profil_Restaurant extends Activity {
 							r.removeRestaurantCuisine(items_test[i]);
 						}
 					}
-					
+
 					dialog.cancel();
 				}
 			});
 			// create alert dialog
 			AlertDialog alertDialog = alertDialogBuilder.create();
-	 
+
 			// show it
 			alertDialog.show();
 		}
-		
+
 	};
-	
+
 	private View.OnClickListener advantagesListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-			 
+
 			//set title and message
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_advantages_button);
-			
+
 			//set the list of checkBoxes (items_test is useful when we change of language)
 			items_test = new String[]{getString(R.string.profil_restaurant_advantages_alert_parking_test), getString(R.string.profil_restaurant_advantages_alert_lounge_test), getString(R.string.profil_restaurant_advantages_alert_valet_test), getString(R.string.profil_restaurant_advantages_alert_vegetarian_test), getString(R.string.profil_restaurant_advantages_alert_wifi_test), getString(R.string.profil_restaurant_advantages_alert_disable_test), getString(R.string.profil_restaurant_advantages_alert_caterer_test), getString(R.string.profil_restaurant_advantages_alert_terrace_test), getString(R.string.profil_restaurant_advantages_alert_air_conditioning_test), getString(R.string.profil_restaurant_advantages_alert_children_test)};
 			items = new String []{getString(R.string.profil_restaurant_advantages_alert_parking), getString(R.string.profil_restaurant_advantages_alert_lounge), getString(R.string.profil_restaurant_advantages_alert_valet), getString(R.string.profil_restaurant_advantages_alert_vegetarian), getString(R.string.profil_restaurant_advantages_alert_wifi), getString(R.string.profil_restaurant_advantages_alert_disable), getString(R.string.profil_restaurant_advantages_alert_caterer), getString(R.string.profil_restaurant_advantages_alert_terrace), getString(R.string.profil_restaurant_advantages_alert_air_conditioning), getString(R.string.profil_restaurant_advantages_alert_children)};
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantAvantages(true).size(); i++) {
-				
+
 				for(int j=0; j<items.length; j++) {
 					if(r.getRestaurant().getRestaurantAvantages(false).get(i).equals(items_test[j])) {
 						checkedItems[j]=true;
 					}
 				}
-				
-				
+
+
 			}
 
 			alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-				
+
 				@Override
 				public void onClick (DialogInterface dialog, int which, boolean isChecked) {
 					checkedItems[which]=isChecked;
 				}
 			});
-			
-			
+
+
 			alertDialogBuilder.setCancelable(true);//We can go back with the return button
-			
+
 			//The other buttons
 			alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
 					dialog.cancel();
 				}
 			});
-			
+
 			alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-					
+
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
 							r.addRestaurantAvantage(items_test[i]);
@@ -571,64 +596,64 @@ public class Profil_Restaurant extends Activity {
 							r.removeRestaurantAvantage(items_test[i]);
 						}
 					}
-					
+
 					dialog.cancel();
 				}
 			});
 			// create alert dialog
 			AlertDialog alertDialog = alertDialogBuilder.create();
-	 
+
 			// show it
 			alertDialog.show();
 		}
-		
+
 	};
-	
+
 	private View.OnClickListener paymentsListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-			 
+
 			//set title and message
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_payments_button);
-			
+
 			//set the list of checkBoxes (items_test is useful when we change of language)
 			items_test = new String[]{getString(R.string.profil_restaurant_payments_alert_cash_test), getString(R.string.profil_restaurant_payments_alert_bancontact_test), getString(R.string.profil_restaurant_payments_alert_visa_test), getString(R.string.profil_restaurant_payments_alert_ticket_restaurant_test), getString(R.string.profil_restaurant_payments_alert_proton_test), getString(R.string.profil_restaurant_payments_alert_mastercard_test), getString(R.string.profil_restaurant_payments_alert_check_test), getString(R.string.profil_restaurant_payments_alert_transfer_test)};
 			items = new String []{getString(R.string.profil_restaurant_payments_alert_cash), getString(R.string.profil_restaurant_payments_alert_bancontact), getString(R.string.profil_restaurant_payments_alert_visa), getString(R.string.profil_restaurant_payments_alert_ticket_restaurant), getString(R.string.profil_restaurant_payments_alert_proton), getString(R.string.profil_restaurant_payments_alert_mastercard), getString(R.string.profil_restaurant_payments_alert_check), getString(R.string.profil_restaurant_payments_alert_transfer)};
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantTypePaiements(true).size(); i++) {
-				
+
 				for(int j=0; j<items.length; j++) {
 					if(r.getRestaurant().getRestaurantTypePaiements(false).get(i).equals(items_test[j])) {
 						checkedItems[j]=true;
 					}
 				}
-				
-				
+
+
 			}
 
 			alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-				
+
 				@Override
 				public void onClick (DialogInterface dialog, int which, boolean isChecked) {
 					checkedItems[which]=isChecked;
 				}
 			});
-			
-			
+
+
 			alertDialogBuilder.setCancelable(true);//We can go back with the return button
-			
+
 			//The other buttons
 			alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
 					dialog.cancel();
 				}
 			});
-			
+
 			alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-					
+
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
 							r.addRestaurantTypePaiements(items_test[i]);
@@ -637,60 +662,60 @@ public class Profil_Restaurant extends Activity {
 							r.removeRestaurantTypePaiements(items_test[i]);
 						}
 					}
-					
+
 					dialog.cancel();
 				}
 			});
 			// create alert dialog
 			AlertDialog alertDialog = alertDialogBuilder.create();
-	 
+
 			// show it
 			alertDialog.show();
-			
+
 		}
-		
+
 	};
 
 	private View.OnClickListener closingListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-			 
+
 			//set title and message
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_closing_button);
-			
+
 			//set the list of checkBoxes
 			items = new String [r.getRestaurant().getRestaurantClosingDays(true).size()];
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantClosingDays(false).size(); i++) {
-				
+
 				items[i] = (r.getRestaurant().getRestaurantClosingDays(false).get(i)).toString();
 				checkedItems[i] = true;
-				
+
 			}
 
 			alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-				
+
 				@Override
 				public void onClick (DialogInterface dialog, int which, boolean isChecked) {
 					checkedItems[which]=isChecked;
 				}
 			});
-			
-			
+
+
 			alertDialogBuilder.setCancelable(true);//We can go back with the return button
-			
+
 			//The other buttons
 			alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
 					dialog.cancel();
 				}
 			});
-			
+
 			alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-					
+
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
 							String []tmp = items[i].split("-");
@@ -701,87 +726,87 @@ public class Profil_Restaurant extends Activity {
 							r.removeRestaurantClosingDays(new Date (null, tmp[0], tmp[1]));
 						}
 					}
-					
+
 					dialog.cancel();
 				}
 			});
 			// create alert dialog
 			AlertDialog alertDialog = alertDialogBuilder.create();
-	 
+
 			// show it
 			alertDialog.show();
 		}
-		
+
 	};
-	
+
 	private View.OnClickListener scheduleListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-			 
+
 			//set title and message
 			alertDialogBuilder.setTitle(R.string.profil_restaurant_schedule_button);
-			
+
 			//set the list of checkBoxes
 			items = new String [r.getRestaurant().getRestaurantHoraire(true).size()];
 			checkedItems = new boolean [items.length];//Indicates whether or not the checkBox is checked
 			for(int i = 0; i<r.getRestaurant().getRestaurantHoraire(false).size(); i++) {
-				
+
 				items[i] = (r.getRestaurant().getRestaurantHoraire(false).get(i)).toString();
 				checkedItems[i] = true;
-				
+
 			}
 
 			alertDialogBuilder.setMultiChoiceItems (items, checkedItems, new DialogInterface.OnMultiChoiceClickListener () {
-				
+
 				@Override
 				public void onClick (DialogInterface dialog, int which, boolean isChecked) {
 					checkedItems[which]=isChecked;
 				}
 			});
-			
-			
+
+
 			alertDialogBuilder.setCancelable(true);//We can go back with the return button
-			
+
 			//The other buttons
 			alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
 					dialog.cancel();
 				}
 			});
-			
+
 			alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {//Apply modifications and cancel the alert box
-					
+
 					for(int i = 0; i<checkedItems.length; i++) {
 						if (checkedItems[i]) {//If one element has to be added
 							r.addRestaurantHoraire(new OpenHour (items[i]));
 						}
 						else {//or removed
-							
+
 							OpenHour horaire = new OpenHour (items[i]);
 							r.removeRestaurantHoraire(horaire);
 						}
 					}
-					
+
 					dialog.cancel();
 				}
 			});
 			// create alert dialog
 			AlertDialog alertDialog = alertDialogBuilder.create();
-	 
+
 			// show it
 			alertDialog.show();
 		}
-		
+
 	};
-	
+
 	public void onPause(){
 		super.onPause();
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
 	}
-	
+
 	@Override
 	public void onStart() {
 		r = new RestaurantOwner(sqliteHelper, emailPerso);
