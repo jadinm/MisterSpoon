@@ -247,6 +247,7 @@
     <string name="list_carte_toast">Sélectionner un plat</string>
     <string name="carte_price_check">Filtrer par prix</string>
     <string name="carte_price_edit">Prix :</string>
+    <string name="carte_favori">Plats favoris</string>
     
     
     
