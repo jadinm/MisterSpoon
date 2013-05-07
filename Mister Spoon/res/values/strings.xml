@@ -249,6 +249,7 @@
     <string name="carte_price_check">Filtrer par prix</string>
     <string name="carte_price_edit">Prix :</string>
     <string name="carte_favori">Plats favoris</string>
+    <string name="carte_toast_no_price">Veuillez mettre un prix pour filtrer les plats</string>
     
     
     
