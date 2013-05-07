@@ -61,23 +61,13 @@
                 android:textIsSelectable="true" />
         </LinearLayout>
 
-        <LinearLayout
+        
+        <TextView
+            android:id="@+id/restaurant_web"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:paddingBottom="20dp"
-            android:weightSum="2" >
-
-            <TextView
-                android:id="@+id/restaurant_web"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="@string/profil_restaurant_web"
-                android:textIsSelectable="true" />
-
-        </LinearLayout>
+            android:text="@string/profil_restaurant_web" />
 
         <TextView
             android:id="@+id/profil_restaurant_mail_public"
