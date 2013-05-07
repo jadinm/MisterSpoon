@@ -136,14 +136,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.668572,4.616146','1A','Place des Brabancons','Louvain-la-Neuve');");
 		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.6609,4.617962',NULL,'Place Polyvalente','Louvain-la-Neuve');");
 		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.671578,4.61282','26','Rue du Labrador','Louvain-la-Neuve');");
+		db.execSQL("INSERT INTO " + TABLE_Address + "(" + Address_column[1] + ", " + Address_column[2] + ", " + Address_column[3] + ", " + Address_column[4] +") VALUES('50.842736,4.345844','23','Place Rouppe','Bruxelles');");
 		
 		db.execSQL("INSERT INTO " + TABLE_Contact + "(" + Contact_column[1] + ", " + Contact_column[2] + ", " + Contact_column[3] + ", " + Contact_column[4] +")  VALUES('010/45.15.85','010/45.25.46',NULL,'http://www.lacreperiebretonne.be/'); ");
 		db.execSQL("INSERT INTO " + TABLE_Contact + "(" + Contact_column[1] + ", " + Contact_column[2] + ", " + Contact_column[3] + ", " + Contact_column[4] +")  VALUES('010/45.64.62','010/81.23.62','info@loungeatude.be','www.loungeatude.be'); ");
 		db.execSQL("INSERT INTO " + TABLE_Contact + "(" + Contact_column[1] + ", " + Contact_column[2] + ", " + Contact_column[3] + ", " + Contact_column[4] +")  VALUES('010/48.84.26',NULL,'petitvingtieme@museeherge.com','http://www.lepetitvingtieme.be/'); ");
+		db.execSQL("INSERT INTO " + TABLE_Contact + "(" + Contact_column[1] + ", " + Contact_column[2] + ", " + Contact_column[3] + ", " + Contact_column[4] +")  VALUES('02/512.29.21',NULL,NULL,'http://www.commechezsoi.be'); ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +", " + Restaurant_column[9] +")  VALUES('Loungeatude', 'mathieu.jadin@student.uclouvain.be','010/45.64.62','50.6609,4.617962',55,'Un simple coup d''oeil suffit e se rendre compte que vous n''ÔøΩtes ni dans un restaurant. Ni dans un bar. Encore moins dans une galerie deart. Et pourtant, vous prendrez l''aperitif au salon, vous dinerez dans la salle a manger et vous terminerez peut-etre votre pousse-cafe au bar devant une huile ou une aquarelle." +"\n" + " Vous etes au Loungeatude." +"\n" + " Vous etes chez vous.', 3, 2, 'lounge'); ");
 		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +", " + Restaurant_column[9] +")   VALUES('Creperie Bretonne','ludovic.fastre@student.uclouvain.be','010/45.15.85','50.668572,4.616146',45,'Dans notre salle au decor rustique ou en terrasse aux beaux jours, degustez l''une de nos 350 crepes salees d''inspiration franeaise ou exotique, ou appreciez l''une de nos salades variees. Pour accompagner votre plat, nous avons e votre disposition une carte de plus de 200 bieres artisanales belges dont toutes les trapistes et 5 bieres au fet. Nous pouvons aussi vous servir un cidre bien frais ou vous laisser choisir un vin de pays." +"\n" + "En dessert, vous choisirez une crepe sucree ou flambee, une coupe de glace maison ou encore un milkshake que vous accompagnerez d''un cafe lointain, un the vert parfume ou une infusion. Nous vous accueillons et vous servons tout au long du jour de 9h du matin jusqu''e 1h de la nuit, la cuisine restant ouverte non-stop.', 3, 1, 'breton'); ");
 		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +", " + Restaurant_column[9] +")  VALUES('Le Petit Vingtieme','antoine.walsdorff@student.uclouvain.be','010/48.84.26','50.671578,4.61282',45,'Au sein du Musee Herge, le restaurant" +"\n" + "le Petit Vingtieme vous invite, dans un cadre raffine" +"\n" + "et moderne, pour un moment de plaisir et de detente." +"\n" + "Proposant une gastronomie fine variant au fil" +"\n" + "des saisons, vous pourrez y deguster au gre de" +"\n" + "vos envies des preparations melant fraecheur" +"\n" + "des produits et purete du goet.', 4, 1, 'petit'); ");
+		db.execSQL("INSERT INTO " + TABLE_Restaurant + "(" + Restaurant_column[1] + ", " + Restaurant_column[2] + ", " + Restaurant_column[3] + ", " + Restaurant_column[4] + ", " + Restaurant_column[5]+ ", " + Restaurant_column[6] + ", " + Restaurant_column[7] + ", " + Restaurant_column[8] +", " + Restaurant_column[9] +")  VALUES('Comme chez soi','comme@chez.soi','02/512.29.21','50.842736,4.345844',123,'Venez chez nous c''est trop bon', 4, 3, 'soi'); ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Client + "(" + Client_column[1] + ", " + Client_column[2] + ", " + Client_column[3] +", " + Client_column[4] +") VALUES('toni@hotmail.com','Durant','0472/56.97.48', 'dudu');  ");
 		db.execSQL("INSERT INTO " + TABLE_Client + "(" + Client_column[1] + ", " + Client_column[2] + ", " + Client_column[3] +", " + Client_column[4] +") VALUES('j.p@yahoo.fr','Dupont','0473/56.34.76', 'yahoo');  ");
@@ -160,12 +163,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Advantage + "(" + Advantage_column[1] + ", " + Advantage_column[2] +")  VALUES('Le Petit Vingtieme','Acces handicapes'); ");
 		db.execSQL("INSERT INTO " + TABLE_Advantage + "(" + Advantage_column[1] + ", " + Advantage_column[2] +")  VALUES('Le Petit Vingtieme','Climatisation'); ");
 		db.execSQL("INSERT INTO " + TABLE_Advantage + "(" + Advantage_column[1] + ", " + Advantage_column[2] +")  VALUES('Le Petit Vingtieme','Plats enfants'); ");
+		db.execSQL("INSERT INTO " + TABLE_Advantage + "(" + Advantage_column[1] + ", " + Advantage_column[2] +")  VALUES('Comme chez soi','Wi-Fi'); ");
+		db.execSQL("INSERT INTO " + TABLE_Advantage + "(" + Advantage_column[1] + ", " + Advantage_column[2] +")  VALUES('Comme chez soi','Terrasse'); ");
+
 		
 		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Le Petit Vingtieme','Francaise'); ");
 		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Loungeatude','Francaise'); ");
 		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Creperie Bretonne','Crepes'); ");
 		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Loungeatude','Fusion'); ");
 		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Loungeatude','Mediterraneenne'); ");
+		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Comme chez soi','Mediterraneenne'); ");
+		db.execSQL("INSERT INTO " + TABLE_Cook + "(" + Cook_column[1] + ", " + Cook_column[2] +")  VALUES('Comme chez soi','Francaise'); ");
+
 		
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Le Petit Vingtieme','Mardi','10:30:00','17:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Le Petit Vingtieme','Mercredi','10:30:00','17:00:00'); ");
@@ -198,6 +207,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Vendredi','11:00:00','14:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Vendredi','19:00:00','22:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Loungeatude','Samedi','18:00:00','22:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Lundi','11:00:00','14:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Lundi','19:00:00','22:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Mardi','11:00:00','14:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Mardi','19:00:00','22:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Mercredi','11:00:00','14:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Mercredi','19:00:00','22:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Jeudi','11:00:00','14:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Jeudi','19:00:00','22:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Vendredi','11:00:00','14:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Vendredi','19:00:00','22:00:00'); ");
+		db.execSQL("INSERT INTO " + TABLE_Schedule + "(" + Schedule_column[1] + ", " + Schedule_column[2] +", " + Schedule_column[3] + ", " + Schedule_column[4] +")  VALUES('Comme chez soi','Samedi','18:00:00','22:00:00'); ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Creperie Bretonne','05-01'); ");
 		
@@ -234,6 +254,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Salades','entree','Creperie Bretonne','Salade Tomates Mozzarella'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crepe des Gourmets','plat','Creperie Bretonne','Crepe La tartiflette'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crepe des Gourmets','plat','Creperie Bretonne','Crepe au saumon fume, sauce creme et citron e l" + "'" + "'aneth'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Lunch','plat','Comme chez soi','Cari de loup de mer aux champignons, artichaut et ciboulette'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Lunch','plat','Comme chez soi','Coquelet croustillant à l'instar de Visé, garniture exotique à la verveine-citron'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Plats','plat','Comme chez soi','Contrefilet de Rubia Gallega à la Leffe brune, gelée de moelle, gâteau de patates douces au romarin'); ");
+
+		
 		//To correct -> find menu with price but with some meals recorded
 		db.execSQL("INSERT INTO " + TABLE_MenuPrice + "(" + MenuPrice_column[1] + ", " + MenuPrice_column[2] + ", " + MenuPrice_column[3] +  ", " + MenuPrice_column[4] +") VALUES('Creperie Bretonne','Dejeuner','plat',7);  ");
 		
@@ -241,6 +266,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Le Petit Vingtieme','MasterCard'); ");
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Le Petit Vingtieme','Cash'); ");
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Loungeatude','Cash'); ");
+		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Comme chez soi','Cash'); ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade au roquefort','Creperie Bretonne',13.95,3, NULL); ");//12.8125
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade Tomates Mozzarella','Creperie Bretonne',11.2,20, NULL); ");
@@ -252,7 +278,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Carpaccio de Bresaola et Jambon de Parme','Le Petit Vingtieme',12,10, NULL); ");//16
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Entrecete de Boeuf Belge Grillee +- 300gr','Le Petit Vingtieme',19,5, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Gambas reties au four','Le Petit Vingtieme',17,20, NULL); ");
-		
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Cari de loup de mer aux champignons, artichaut et ciboulette','Comme chez soi',15.5,5, NULL); ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Coquelet croustillant à l'instar de Visé, garniture exotique à la verveine-citron','Comme chez soi',25.5,5, NULL); ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Contrefilet de Rubia Gallega à la Leffe brune, gelée de moelle, gâteau de patates douces au romarin','Comme chez soi',69,5, NULL); ");
+
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ")  VALUES('toni@hotmail.com','Brochette de poulet'); ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ") VALUES('toni@hotmail.com','Steak frites');  ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ")  VALUES('j.p@yahoo.fr','Steak fites'); ");

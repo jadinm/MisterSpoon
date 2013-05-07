@@ -56,13 +56,16 @@
             android:id="@+id/list_restaurant_filtre_favori"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
             android:text="@string/list_restaurant_filtre_favori" />
 
         <Button
             android:id="@+id/list_restaurant_selection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:text="@string/list_restaurant_select" />
+
     </LinearLayout>
 
 </LinearLayout>
