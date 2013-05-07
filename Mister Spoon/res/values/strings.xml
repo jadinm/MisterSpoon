@@ -238,7 +238,7 @@
     <string name="prereservation_client_title1">Réservation</string>
     
     <!-- Values for activity_carte -->
-    <string name="carte_title">: Carte</string>
+    <string name="carte_title">Carte</string>
     <string name="carte_meal_price">Prix :</string>
     <string name="carte_meal_name">Plat :</string>
     <string name="carte_prebooking_toast">Pré-réservation</string>

@@ -91,7 +91,7 @@
         <activity 
             android:name="spoon.misterspoon.CarteActivity"
             android:label="@string/carte_title"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         
         <!-- We declare the activity ReservationRestaurantActivity -->
