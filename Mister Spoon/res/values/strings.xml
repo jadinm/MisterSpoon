@@ -245,5 +245,19 @@
     <string name="carte_preorder_toast">Pré-commande</string>
     <string name="carte_booking_toast">Réservation</string>
     <string name="list_carte_toast">Sélectionner un plat</string>
+    <string name="carte_price_check">Filtrer par prix</string>
+    <string name="carte_price_edit">Prix :</string>
+    
+    
+    
+    <!-- Values for activity_carte_builder -->
+    <string name="carte_builder_create_menu">Créer le menu :</string>
+    <string name="carte_builder_menu_name">Nom du menu :</string>
+    <string name="carte_builder_price">Prix du menu :</string>
+    <string name="carte_builder_add_meal_1">Ajouter le plat :</string>
+    <string name="carte_builder_meal_name">Nom du plat :</string>
+    <string name="carte_builder_meal_price">Prix du plat :</string>
+    <string name="carte_builder_add_meal_2">au menu :</string>
+    <string name="carte_builder_update">Mettre à jour la carte</string>
 
 </resources>
