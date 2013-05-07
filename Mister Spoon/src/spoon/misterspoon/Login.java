@@ -133,6 +133,7 @@ public class Login extends Activity {
 
 			if (Client.isInDatabase(sql, email_login.getText().toString())) {
 				if (!Client.isCorrect(sql, email_login.getText().toString(), password_login.getText().toString())) {
+					password_login.setText("");
 					Toast toast = Toast.makeText(context, getString(R.string.wrong_mdp), Toast.LENGTH_SHORT);
 					toast.show();
 					return;

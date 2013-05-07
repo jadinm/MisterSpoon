@@ -20,13 +20,20 @@
             android:text="@string/profil_restaurant_mail"
             android:textIsSelectable="true" />
         
-        <ListView
+        <!-- It will contains the images -->
+        <HorizontalScrollView
             android:id="@+id/gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fadingEdge="horizontal"
-            android:scrollbars="horizontal" >
-        </ListView>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:id="@+id/gallery_layout"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:orientation="horizontal">
+                
+            </LinearLayout>
+            
+        </HorizontalScrollView>
         
         <RatingBar
             android:id="@+id/restaurant_rating"

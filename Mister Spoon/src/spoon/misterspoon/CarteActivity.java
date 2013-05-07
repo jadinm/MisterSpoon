@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -37,6 +38,8 @@ public class CarteActivity extends Activity {
 	CheckBox favori;
 	CheckBox prix;
 	EditText prix_edit;
+	
+	EditText invisible;
 	
 	Spinner categorie;
 	List<String> categorieList;
@@ -77,7 +80,9 @@ public class CarteActivity extends Activity {
 		preBooking = (Button) findViewById(R.id.carte_prebooking_button);
 		booking = (Button) findViewById(R.id.carte_booking_button);
 		
-		
+		invisible = (EditText) findViewById(R.id.edit_invisible_focus_holder);
+		invisible.setInputType(InputType.TYPE_NULL);
+		invisible.requestFocus();
 		
 		//ListView
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice, carte.getFilterList());

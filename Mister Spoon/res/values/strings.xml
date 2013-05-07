@@ -82,9 +82,9 @@
     <string name="profil_client_toast_uptodate">Informations mise à jour !</string>
 
     <!-- Values for activity_list_restaurant.xml -->
-    <string name="list_restaurant_filtre_note">Filtre note</string>
-    <string name="list_restaurant_filtre_prix">Filtre prix</string>
-    <string name="list_restaurant_filtre_favori">Filtre favori</string>
+    <string name="list_restaurant_filtre_note">Filtrer par note</string>
+    <string name="list_restaurant_filtre_prix">Filtrer par prix</string>
+    <string name="list_restaurant_filtre_favori">Filtrer par favori</string>
     <string name="list_restaurant_editText_note">Note</string>
     <string name="list_restaurant_editText_prix">Prix</string>
     <string name="list_restaurant_select">Suivant</string>

@@ -290,6 +290,16 @@ public class Profil_Restaurant extends Activity {
 			listview.addView(image);
 		}
 		
+			else if (r.getEmail().equals("comme@chez.soi")) {
+			
+			ImageView image = new ImageView (this);
+			image.setImageDrawable(getResources().getDrawable(R.drawable.chezsoi));
+			image.setPadding (20, 0, 20, 0);
+			listview.addView(image);
+			
+			
+		}
+		
 		/*for(String imageName : r.getRestaurant().getRestaurantImageList(false)) { TODO -> I don't know how to do this
 			ImageView image = new ImageView (this);
 			if (imageName.equals("bret1")) {
