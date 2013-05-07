@@ -333,7 +333,8 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		book.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut lancer l'activit� Booking", Toast.LENGTH_SHORT);
+				
+				Toast toast = Toast.makeText(context, "Un client veut lancer l'activite Booking", Toast.LENGTH_SHORT);
 				toast.show();
 				//TODO
 			}

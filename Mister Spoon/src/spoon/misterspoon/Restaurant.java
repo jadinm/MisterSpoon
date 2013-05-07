@@ -86,8 +86,7 @@ public class Restaurant {
 			nbrVotants = cursor.getInt(5);
 			password = cursor.getString(6);
 		}
-		Log.v("Im", "OUT");
-		Log.v("SQL", "SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'");
+		
 		//"email", "fax", "webSite"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 		if (cursor.moveToFirst()) {
