@@ -251,6 +251,10 @@
     <string name="carte_toast_no_price">Veuillez mettre un prix pour filtrer les plats</string>
     <string name="carte_booking">Réserver</string>
     <string name="carte_prebooking">Pré-réserver</string>
+    <string name="carte_alert_message">Voulez-vous continuer vers les infos précises du plat? \n Ou préfèrez-vous cocher le plat pour le commander?</string>
+    <string name="carte_alert_negative">Annuler</string>
+    <string name="carte_alert_neutre">Cocher</string>
+    <string name="carte_alert_positive">Infos</string>
     
     
     
