@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -27,6 +28,8 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private Restaurant r;
 	private Client c;
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
+	String restoName;
+	String emailPerso;
 
 	//Elements of the view
 	private TextView email_perso;
@@ -42,7 +45,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private TextView latitude;
 
 	private ListView listview;
-	
+
 	private RatingBar ratingBar;
 
 	private Button addResto;
@@ -73,11 +76,10 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
-		String emailPerso = i.getStringExtra(RestaurantListActivity.emailLogin);
-		//String restoName = i.getStringExtra("restoName qu on envoie quand on clique sur le resto"); //TODO
-		String restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);;
-		
-		
+		emailPerso = i.getStringExtra(RestaurantListActivity.emailLogin);
+		restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);;
+
+
 		//We create the object Restaurant associated with this email and all his informations
 		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
@@ -90,7 +92,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		email_public = (TextView) findViewById(R.id.profil_restaurant_mail_public);
 		gsm = (TextView) findViewById(R.id.restaurant_tel);
 		web = (TextView) findViewById(R.id.restaurant_web);
-		ratingBar = (RatingBar) findViewById(R.id.restaurant_rating);
+		
 		fax = (TextView) findViewById(R.id.restaurant_fax);
 		rue = (TextView) findViewById(R.id.rue); 
 		num = (TextView) findViewById(R.id.numero);
@@ -98,7 +100,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		description = (TextView) findViewById(R.id.restaurant_description);
 		longitude = (TextView) findViewById(R.id.gps_longitude);
 		latitude = (TextView) findViewById(R.id.gps_latitude);
-
+		ratingBar = (RatingBar) findViewById(R.id.restaurant_rating);
 		menu = (Button) findViewById(R.id.restaurant_carte);		
 		gpsButton = (Button) findViewById(R.id.profil_restaurant_gps);		
 		addResto = (Button) findViewById(R.id.restaurant_add);
@@ -121,7 +123,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		else {
 			fax.setVisibility(0);
 		}
-		
+
 		if (r.getRestaurantEmail(false)!=null){
 			email_public.setText(email_public.getText() + " " + r.getRestaurantEmail(false));
 		}
@@ -226,11 +228,11 @@ public class RestaurantForClient extends Activity implements LocationListener {
 							obtenirPosition();
 							Location loc = lManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 							if (loc == null){
-							loc = lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-							if (loc == null) return;
+								loc = lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+								if (loc == null) return;
 							}
 							if (loc != null) {
-							location = loc;
+								location = loc;
 							}
 							String currentPosition = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
 							if (String.valueOf(location.getLatitude())!=null && String.valueOf(location.getLatitude())!=null ) {
@@ -262,13 +264,14 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		});
 
 	}
-	
+
 	private OnRatingBarChangeListener ratingListener = new OnRatingBarChangeListener() {
 
-		public void onRatingChanged(RatingBar ratingBar, float rating,
-				boolean fromUser) {
+		public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+			Log.v("Rating in RestoForClient", rating +"");
 			c.setNoteRestaurant(rating);
 			ratingBar.setEnabled(false);
+
 		}
 	};
 
@@ -307,10 +310,12 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	public void onPause(){
 		super.onPause();
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
-		}
-	
+	}
+
 	public void onStart(){
-		ratingBar.setRating(r.getRestaurantNote(false));
+		r = new Restaurant (sqliteHelper, restoName);
+		c = new Client(sqliteHelper, emailPerso);
+		c.setRestaurantEnCours(r);
 		super.onStart();
 	}
 

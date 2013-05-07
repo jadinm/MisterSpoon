@@ -1233,26 +1233,31 @@ public class Client {
 	
 	private void setNombreVotantsRestaurant(){
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+		Log.v("Nombre de votant avant ", ""+restaurantEnCours.getRestaurantNbrVotants(false));
 		float number = restaurantEnCours.getRestaurantNbrVotants(false)+1;
 		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[8] + " = " + "'"+number+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
 		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[8] + " = " + "'"+number+"'" + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
 		restaurantEnCours.setRestaurantNbrVotants(number);
+		Log.v("Nombre de votant apres ", ""+restaurantEnCours.getRestaurantNbrVotants(false));
 	}
 	
 	public void setNoteRestaurant(float note){
 		
 		setNombreVotantsRestaurant();
-		Log.v("votants :", ""+restaurantEnCours.getRestaurantNbrVotants(false));
+		Log.v("Note recue dans CLient :", ""+note);
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[7] + " = " + ((restaurantEnCours.getRestaurantNote(false)*(restaurantEnCours.getRestaurantNbrVotants(false)-1)) + note)/restaurantEnCours.getRestaurantNbrVotants(false) + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
 		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Restaurant + " SET " + MySQLiteHelper.Restaurant_column[7] + " = " + ((restaurantEnCours.getRestaurantNote(false)*(restaurantEnCours.getRestaurantNbrVotants(false)-1)) + note)/restaurantEnCours.getRestaurantNbrVotants(false) + " WHERE " + MySQLiteHelper.Restaurant_column[1] + " = " + "'"+restaurantEnCours.getRestaurantName()+"'" + " ;");
 		float num1 = (float)restaurantEnCours.getRestaurantNbrVotants(false)-1;
-		float num2 = (float)restaurantEnCours.getRestaurantNote(true);
+		Log.v("Doit etre = au nombre de votant AVANT ", ""+num1);
+		float num2 = (float)restaurantEnCours.getRestaurantNote(false);
+		Log.v("Doit etre = a la note de base ", ""+num2);
 		float denom = (float)restaurantEnCours.getRestaurantNbrVotants(false);
+		Log.v("Doit etre = au nombre de votant APRES ", ""+denom);
 		restaurantEnCours.setRestaurantNote(((num2*num1) + note)/denom);
-		Log.v("note ajoutee :", ""+note);
-		Log.v("note moyenne :", ""+((num2*num1) + note)/denom);
-		Log.v("note :", ""+restaurantEnCours.getRestaurantNote(false));
+		Log.v("Nouvelle note du resto :", ""+restaurantEnCours.getRestaurantNote(false));
 	}
+	
+	
 
 }
