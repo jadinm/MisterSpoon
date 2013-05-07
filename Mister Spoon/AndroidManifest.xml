@@ -34,61 +34,71 @@
         <!-- We declare the activity Profil_Client -->
         <activity 
             android:name="spoon.misterspoon.Profil_Client"
-            android:label="@string/profil_client_title">
+            android:label="@string/profil_client_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity Profil_Restaurant -->
         <activity 
             android:name="spoon.misterspoon.Profil_Restaurant"
-            android:label="@string/profil_restaurant_title">
+            android:label="@string/profil_restaurant_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity CityListActivity -->
         <activity 
             android:name="spoon.misterspoon.CityListActivity"
-            android:label="@string/list_city_title">
+            android:label="@string/list_city_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity RestaurantListActivity -->
         <activity 
             android:name="spoon.misterspoon.RestaurantListActivity"
-            android:label="@string/list_restaurant_title">
+            android:label="@string/list_restaurant_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity Booking CHANGING NAME IN EVERY VIEW !!!!-->
         <activity 
             android:name="spoon.misterspoon.Booking"
-            android:label="@string/prereservation_client_title1"> 
+            android:label="@string/prereservation_client_title1"
+            android:configChanges="orientation|screenSize"> 
         </activity>
         
         <!-- We declare the activity Profil_Restaurant -->
         <activity 
             android:name="spoon.misterspoon.RestaurantForClient"
-            android:label="@string/resto_client_title">
+            android:label="@string/resto_client_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity MealActivity -->
         <activity 
             android:name="spoon.misterspoon.MealActivity"
-            android:label="@string/resto_client_title">
+            android:label="@string/resto_client_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity Meal_BuilderActivity -->
         <activity 
             android:name="spoon.misterspoon.Meal_BuilderActivity"
-            android:label="@string/carte_title">
+            android:label="@string/carte_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity CarteActivity -->
         <activity 
             android:name="spoon.misterspoon.CarteActivity"
-            android:label="@string/carte_title">
+            android:label="@string/carte_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity ReservationRestaurantActivity -->
         <activity 
             android:name="spoon.misterspoon.ReservationRestaurantActivity"
-            android:label="@string/reservation_restaurant_title">
+            android:label="@string/reservation_restaurant_title"
+            android:configChanges="orientation|screenSize">
         </activity>
     </application>
 
