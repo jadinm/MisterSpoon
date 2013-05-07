@@ -40,6 +40,7 @@ public class ReservationRestaurantActivity extends Activity {
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
 			Log.v("Taille liste commandes : ",bookingList.get(j).getCommande().size()+"");
+			commandList.add("");
 			for(Meal meal : bookingList.get(j).getCommande()){
 				commandList.add(meal.getMealName());
 			}
