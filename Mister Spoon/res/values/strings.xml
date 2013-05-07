@@ -102,6 +102,7 @@
     <string name="prereservation_restaurant_nom">Nom</string>
     <string name="prereservation_restaurant_telephone">Téléphone</string>
     <string name="prereservation_restaurant_places">Places</string>
+    <string name="prereservation_restaurant_quantite">Quantités</string>
 
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
