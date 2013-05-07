@@ -28,6 +28,7 @@ public class Profil_Restaurant extends Activity {
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 	
 	static final String name = "Nom Restaurant";
+	protected static final String MAIL = "Email Owner";
 	String emailPerso;
 
 	//Elements of the view
@@ -431,6 +432,7 @@ public class Profil_Restaurant extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Profil_Restaurant.this, ReservationRestaurantActivity.class);
+				i.putExtra(MAIL, emailPerso);
 				startActivity(i);
 			}
 		});

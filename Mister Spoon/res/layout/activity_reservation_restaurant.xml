@@ -59,7 +59,9 @@
     <ListView
         android:id="@+id/reservation_restaurant_reservationList"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:choiceMode="singleChoice"
+        android:gravity="center" >
     </ListView>
 
 </LinearLayout>

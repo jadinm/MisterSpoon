@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class RestaurantOwner {
 
@@ -581,7 +582,7 @@ public class RestaurantOwner {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			booking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2], null);
+			Cursor cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2], null);
 			if (cursor.moveToFirst()) {//If the information exists
 
 				ArrayList <Meal> Commande = new ArrayList<Meal>();
@@ -602,6 +603,7 @@ public class RestaurantOwner {
 					}
 				}
 
+				
 				booking.add(new Booking(currentClient, nbrReservation, time, date, Commande));
 				
 				cursor.moveToNext();

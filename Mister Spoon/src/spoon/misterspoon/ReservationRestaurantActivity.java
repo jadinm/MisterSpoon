@@ -7,10 +7,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class ReservationRestaurantActivity extends Activity {
 
@@ -27,10 +28,10 @@ public class ReservationRestaurantActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition ( 0 , R.anim.slide_up );
-		setContentView(R.layout.activity_list_restaurant);
+		setContentView(R.layout.activity_reservation_restaurant);
 		
 		Intent i = getIntent();
-		String sEmail = i.getStringExtra(Login.email);
+		String sEmail = i.getStringExtra(Profil_Restaurant.MAIL);
 		restaurantOwner = new RestaurantOwner(sql, sEmail);
 		bookingList = restaurantOwner.getRestaurantReservation(true);
 		
