@@ -10,26 +10,35 @@ public class Carte {
 	//TODO Ultime todo mettre ingredient
 	//TODO filtre plat favori
 	static final String orderMeal[] = new String[]{"abc","prix"};
-	static final String categorie[] = new String[]{"entree","plat","dessert","boisson"};
+	static final String categorie[] = new String[]{"entree","plat","dessert","boisson", "tout"};
+	static final String filterMeal[] = new String[]{"prix", "favori"};
 	MySQLiteHelper sqliteHelper;
 	ArrayList <Meal> platsFav;
 	ArrayList <String> filterList;
 	ArrayList <Menu> menuList;
 	ArrayList <Boolean> isMenuList;
-	ArrayList <Meal> removedPlat;
+	ArrayList<Menu> entree;
+	ArrayList<Menu> plat;
+	ArrayList<Menu> dessert;
+	ArrayList<Menu> boisson;
 	String mealOrder;
-	
-	
+
+
 	public Carte(MySQLiteHelper sqliteHelper, String restaurantName, Client client) {
 		this.platsFav = new ArrayList <Meal>();
 		this.filterList = new ArrayList <String>();
 		this.menuList = new ArrayList <Menu>();
 		this.mealOrder = new String();
 		this.isMenuList = new ArrayList<Boolean>();
-		
+
+		entree = new ArrayList<Menu>();
+		plat = new ArrayList<Menu>();
+		dessert = new ArrayList<Menu>();
+		boisson = new ArrayList<Menu>();
+
 		this.sqliteHelper = sqliteHelper;
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
-		
+
 		Cursor cursor = db.rawQuery("SELECT DISTINCT " + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] + ", " + MySQLiteHelper.Menu_column[3] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[3] + "=" + "'"+restaurantName+"'" + " GROUP BY " + MySQLiteHelper.Menu_column[1], null);
 		if (cursor.moveToFirst()) {//If the information exists
 			while (!cursor.isAfterLast()) {//As long as there is one element to read
@@ -40,63 +49,79 @@ public class Carte {
 		if (client != null) {
 			platsFav = client.getPlatFav(true);
 		}
+
+		for (int i = 0; i < menuList.size(); i++) {
+			if(menuList.get(i).getCategorie(false).equals(categorie[0]))
+				entree.add(menuList.get(i));
+			else if(menuList.get(i).getCategorie(false).equals(categorie[1]))
+				plat.add(menuList.get(i));
+			else if(menuList.get(i).getCategorie(false).equals(categorie[2]))
+				dessert.add(menuList.get(i));
+			else if(menuList.get(i).getCategorie(false).equals(categorie[3]))
+				boisson.add(menuList.get(i));
+
+		}
+
 		mealOrder = Carte.orderMeal[0];
 		this.sort();
 	}
-	
+
 	public String getMealOrder() {
 		return this.mealOrder;
 	}
-	
+
 	public ArrayList<Menu> getMenuList() {
 		return this.menuList;
 	}
-	
+
 	public ArrayList<String> getFilterList() {
 		return this.filterList;
 	}
-	
+
 	public ArrayList<Meal> getPlatsFav() {
 		return this.platsFav;
 	}
-	
+
 	public void setMealOrder(String order) {
 		this.mealOrder = order;
 	}
-	
+
 	public void setMenuList(ArrayList<Menu> menuList) {
 		this.menuList = menuList;
 	}
-	
+
 	public void setFilterList(ArrayList<String> filterList) {
 		this.filterList = filterList;
 	}
-	
+
 	public void setPlatsFav(ArrayList<Meal> platsFav) {
 		this.platsFav = platsFav;
 	}
-	
+
 	public void sort() {
+		ArrayList<Menu> menu = new ArrayList<Menu>();
+		ArrayList<String> result = new ArrayList<String>();
+		
 		ArrayList<Menu> entree = new ArrayList<Menu>();
 		ArrayList<Menu> plat = new ArrayList<Menu>();
 		ArrayList<Menu> dessert = new ArrayList<Menu>();
 		ArrayList<Menu> boisson = new ArrayList<Menu>();
-		ArrayList<Menu> menu = new ArrayList<Menu>();
-		ArrayList<String> result = new ArrayList<String>();
-
+		
+		Log.v("sort_begin", menuList.size() + "");
 		
 		for (int i = 0; i < menuList.size(); i++) {
 			if(menuList.get(i).getCategorie(false).equals(categorie[0]))
-							entree.add(menuList.get(i));
+				entree.add(menuList.get(i));
 			else if(menuList.get(i).getCategorie(false).equals(categorie[1]))
-							plat.add(menuList.get(i));
+				plat.add(menuList.get(i));
 			else if(menuList.get(i).getCategorie(false).equals(categorie[2]))
-							dessert.add(menuList.get(i));
+				dessert.add(menuList.get(i));
 			else if(menuList.get(i).getCategorie(false).equals(categorie[3]))
-							boisson.add(menuList.get(i));
-			
+				boisson.add(menuList.get(i));
+
 		}
-		
+
+
 		for (int i = 0; i < entree.size(); i++) {
 			for (int j = i + 1; j < entree.size(); j++) {
 				if (entree.get(i).getMenuName().toLowerCase().compareTo(entree.get(j).getMenuName().toLowerCase()) > 0){
@@ -106,7 +131,7 @@ public class Carte {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < plat.size(); i++) {
 			for (int j = i + 1; j < plat.size(); j++) {
 				if (plat.get(i).getMenuName().toLowerCase().compareTo(plat.get(j).getMenuName().toLowerCase()) > 0){
@@ -134,7 +159,8 @@ public class Carte {
 				}
 			}
 		}
-		
+
+		menu = new ArrayList <Menu> ();
 		for (int i = 0; i < entree.size(); i++) {
 			menu.add(entree.get(i));
 		}		
@@ -147,7 +173,7 @@ public class Carte {
 		for (int i = 0; i < boisson.size(); i++) {
 			menu.add(boisson.get(i));
 		}
-		
+
 		for (int i = 0; i < menu.size(); i++) {
 			result.add(menu.get(i).getMenuName());
 			isMenuList.add(true);
@@ -157,9 +183,6 @@ public class Carte {
 				Log.v("sort","here");
 				for (int j = 0; j < meal.size(); j++) {
 					for (int k = j + 1; k < meal.size(); k++) {
-						Log.v("sort", meal.get(j).getMealName());
-						Log.v("sort",meal.get(k).getMealName());
-						Log.v("sort",(meal.get(j).getMealName().toLowerCase()).compareTo(meal.get(k).getMealName().toLowerCase()) + "");
 						if (meal.get(j).getMealName().toLowerCase().compareTo(meal.get(k).getMealName().toLowerCase()) > 0) {
 							Meal temp = meal.get(k);
 							meal.set(k, meal.get(j));
@@ -185,13 +208,113 @@ public class Carte {
 				isMenuList.add(false);
 			}
 		}
+		
 		this.filterList = result;
+		Log.v("sort_begin", filterList.size() + "");
+		
+		Log.v("sort_begin", menuList.size() + "");
 	}
-	
+
+	public void filter (String filter, float value) {
+
+		if (filter.equals(filterMeal[0])) {//price
+			for(int i = 0; i < this.menuList.size(); i++) {
+				for (int j = 0; j<this.menuList.get(i).getMealList(false).size(); j++) {
+
+					if (this.menuList.get(i).getMealList(false).get(j).getMealPrice(false) > value) {
+
+						this.menuList.get(i).getMealList(false).remove(j);
+						j--;//Because size decreases
+					}
+				}
+			}
+		}
+
+		else if (filter.equals(filterMeal[1])) {//favourite
+			for(int i = 0; i < this.menuList.size(); i++) {
+				for (int j = 0; j<this.menuList.get(i).getMealList(false).size(); j++) {
+					boolean found = false;
+					for(int k = 0; k < this.platsFav.size() && !found; k++) {
+						if (this.menuList.get(i).getMealList(false).get(j).getMealName().equals(this.platsFav.get(k).getMealName())) {
+							found = true;
+						}
+					}
+					if (!found) {
+						this.menuList.get(i).getMealList(false).remove(j);
+						j--;//Because size decreases
+					}
+				}
+			}
+		}
+
+		else if  (filter.equals(categorie[0])) {//appetizer
+			this.menuList = entree;
+		}
+
+		else if  (filter.equals(categorie[1])) {//dishes
+			this.menuList = plat;
+		}
+
+		else if  (filter.equals(categorie[2])) {//dessert
+			this.menuList = dessert;
+		}
+		else if  (filter.equals(categorie[3])) {//drink
+			this.menuList = boisson;
+		}
+		else if (filter.equals(categorie[4])) {//all
+			menuList = new ArrayList <Menu> ();
+			for (int i = 0; i < entree.size(); i++) {
+				menuList.add(entree.get(i));
+			}		
+			for (int i = 0; i < plat.size(); i++) {
+				menuList.add(plat.get(i));
+			}
+			for (int i = 0; i < dessert.size(); i++) {
+				menuList.add(dessert.get(i));
+			}
+			for (int i = 0; i < boisson.size(); i++) {
+				menuList.add(boisson.get(i));
+			}
+		}
+
+		filterList = new ArrayList <String> ();
+		isMenuList = new ArrayList <Boolean> ();
+		for (int i = 0; i < this.menuList.size(); i++) {//We change the list of string
+			this.filterList.add(this.menuList.get(i).getMenuName());
+			isMenuList.add(true);
+			for (int j = 0; j < this.menuList.get(i).getMealList(false).size(); j++) {
+				this.filterList.add(this.menuList.get(i).getMealList(false).get(j).getMealName());
+				isMenuList.add(false);
+			}
+		}
+	}
+
+	public void resetfilterList() {
+
+		menuList = new ArrayList <Menu> ();
+
+		for (int i = 0; i < entree.size(); i++) {
+			menuList.add(entree.get(i));
+		}		
+		for (int i = 0; i < plat.size(); i++) {
+			menuList.add(plat.get(i));
+		}
+		for (int i = 0; i < dessert.size(); i++) {
+			menuList.add(dessert.get(i));
+		}
+		for (int i = 0; i < boisson.size(); i++) {
+			menuList.add(boisson.get(i));
+		}
+
+		for(int i = 0; i < this.menuList.size(); i++) {
+			this.menuList.get(i).getMealList(true);//He takes all the meal from the database
+		}
+	}
+
 	public void addMenu(Menu menu) {
 		menuList.add(menu);
 	}
-	
+
 	public void removeMeal(Menu menu) {
 		menuList.remove(menu);
 	}	

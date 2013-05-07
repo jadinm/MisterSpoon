@@ -103,7 +103,7 @@ public class Menu {
 			
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.Menu_column[2] + " = " + "'"+Categorie+"'" + " AND " + MySQLiteHelper.Menu_column[3] + " = " + "'"+restName+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
-				while (cursor.isAfterLast()) {
+				while (!cursor.isAfterLast()) {
 					
 					MealList.add(new Meal(cursor.getString(0), restName, sqliteHelper));
 					cursor.moveToNext();

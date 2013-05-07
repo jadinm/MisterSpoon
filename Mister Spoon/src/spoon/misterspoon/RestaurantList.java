@@ -197,12 +197,16 @@ public class RestaurantList {
 
 		if (Filter.equals(filterTable[0])) {
 			for(int i = 0; i < this.filterList.size(); i++) {
+				boolean found = false;
 				for(int j = 0; j < this.client.getRestFav(false).size(); j++) {
 					if (!this.filterList.get(i).getRestaurantName().equals(this.client.getRestFav(false).get(j).getRestaurantName())) {
-						this.removedRestaurant.add(this.filterList.get(i));
-						this.filterList.remove(i);
-						i--;//Because size decreases
+						found = true;
 					}
+				}
+				if (!found) {
+					this.removedRestaurant.add(this.filterList.get(i));
+					this.filterList.remove(i);
+					i--;//Because size decreases
 				}
 			}
 		}
