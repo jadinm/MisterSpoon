@@ -286,16 +286,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ") VALUES('toni@hotmail.com','Steak frites');  ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ")  VALUES('j.p@yahoo.fr','Steak fites'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +") VALUES('Le Petit Vingtieme','toni@hotmail.com',3,'2013-04-30 19:00:00');  ");
+		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Le Petit Vingtieme','toni@hotmail.com',3,'2013-04-30 19:00:00');  ");
 		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr',45,'2013-05-02 20:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Creperie Bretonne','toni@hotmail.com',6,'2013-04-30 22:00:00'); ");
 		db.execSQL("INSERT INTO " + TABLE_Booking + "(" + Booking_column[1] + ", " + Booking_column[2] + ", " + Booking_column[3] + ", " + Booking_column[4] +")  VALUES('Loungeatude','j.p@yahoo.fr',10,'2013-04-30 20:00:00'); ");
 		
 		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Le Petit Vingtieme','toni@hotmail.com','2013-04-30 19:00:00','Carpaccio de Bresaola et Jambon de Parme',3); ");
 		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr','2013-05-02 20:00:00','Crepe La tartiflette',40); ");
-		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr','2013-04-30 20:00:00','Crepe au saumon fume, sauce creme et citron et aneth',5); ");
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr','2013-05-02 20:00:00','Crepe au saumon fume, sauce creme et citron et aneth',5); ");
 		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Loungeatude','j.p@yahoo.fr',NULL,'Jambonnette de volaille aux scampis',10); ");
-				
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','toni@hotmail.com','2013-04-30 22:00:00','Crepe au filet de biche ˆ l orange et au gingembre',6); ");
+		
 		db.execSQL("INSERT INTO " + TABLE_FavouriteRestaurant + "(" + FavouriteRestaurant_column[1] + ", " + FavouriteRestaurant_column[2] + ")  VALUES('toni@hotmail.com','Creperie Bretonne'); ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteRestaurant + "(" + FavouriteRestaurant_column[1] + ", " + FavouriteRestaurant_column[2] + ")  VALUES('j.p@yahoo.fr','Creperie Bretonne'); ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteRestaurant + "(" + FavouriteRestaurant_column[1] + ", " + FavouriteRestaurant_column[2] + ")   VALUES('j.p@yahoo.fr','Loungeatude'); ");
