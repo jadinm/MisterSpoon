@@ -52,7 +52,7 @@
         android:layout_marginBottom="5dp" />
      
      <Spinner android:id="@+id/reservation_restaurant_item_quantite"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:layout_marginTop="5dp"
