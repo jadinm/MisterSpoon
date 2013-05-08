@@ -1,17 +1,22 @@
 package spoon.misterspoon;
 
+import java.util.Calendar;
+
 import android.app.Activity;
-import android.content.Context;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 
 public class ReservationClientActivity extends Activity {
 	
+	private static final int DATE_DIALOG_ID = 3;
 	private Restaurant r;
 	private Client c;
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
@@ -19,8 +24,12 @@ public class ReservationClientActivity extends Activity {
 	String emailPerso;
 	
 	private Button book;
-	//Useful for the alertBoxes
-	private Context context = this;
+	private TextView date;
+	
+    private Calendar cal;
+    int mYear;
+    int mMonth;
+    int mDay;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +53,52 @@ public class ReservationClientActivity extends Activity {
 
 		book = (Button) findViewById(R.id.prereservation_client_reserve);
 
-		book.setOnClickListener(new View.OnClickListener() {//launch another view
-			@Override
-			public void onClick(View v) {
-				
-				Intent intent = new Intent(ReservationClientActivity.this, CarteActivity.class);
-				intent.putExtra(Login.email, c.getEmail());
-				intent.putExtra(RestaurantListActivity.RESTAURANT, r.getRestaurantName());
-				startActivity(intent);
-				
-				Toast toast = Toast.makeText(context, "Un client veut choisir l heure et la date de reservation", Toast.LENGTH_SHORT);
-				toast.show();
-				//TODO
-			}
-		});
+		book.setOnClickListener(new View.OnClickListener() {//launch the dialog
+			
+			public void onClick(View v) 
+            {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+		
+        cal = Calendar.getInstance();
+        mYear = cal.get(Calendar.YEAR);
+        mMonth = cal.get(Calendar.MONTH);
+        mDay = cal.get(Calendar.DAY_OF_MONTH);
+        updateDisplay();
 	}
 	
+	protected Dialog onCreateDialog(int id) 
+	{
+	        switch (id) 
+	        {
+	                case DATE_DIALOG_ID:
+	                return new DatePickerDialog(this,
+	                            mDateSetListener,
+	                            mYear, mMonth, mDay);
+	        }
+	        return null;
+	}
+	private void updateDisplay() {
+		date.setText(
+            new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(mMonth + 1).append("-")
+                    .append(mDay).append("-")
+                    .append(mYear).append(" ")
+                    );
+    }
+	
+	private DatePickerDialog.OnDateSetListener mDateSetListener =
+			new DatePickerDialog.OnDateSetListener() {
+
+		         public void onDateSet(DatePicker view, int year, int monthOfYear,
+		                 int dayOfMonth) {
+		             mYear = year;
+		             mMonth = monthOfYear;
+		             mDay = dayOfMonth;
+		             updateDisplay();
+		         }
+	};
 }
+
