@@ -51,7 +51,8 @@ public class RestaurantOwner {
 		}
 		 */
 		//booking
-		cursor = db2.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2], null);
+		/*Log.v("YATA", "SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2]);
+		cursor = db2.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[2], null);
 		if (cursor.moveToFirst()) {//If the information exists
 
 			ArrayList <Meal> Commande = new ArrayList<Meal>();
@@ -74,7 +75,7 @@ public class RestaurantOwner {
 			booking.add(new Booking(currentClient, nbrReservation, new Time(time), date, Commande));
 
 			cursor.moveToNext();
-		}
+		}*/
 
 		//db2.close();
 	}
@@ -583,7 +584,7 @@ public class RestaurantOwner {
 			booking.clear();//We remove all the elements
 
 			Log.v("SQL", "SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3]);
-			Cursor cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3], null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while(!cursor.isAfterLast()){
 					ArrayList <Meal> Commande = new ArrayList<Meal>();
@@ -598,10 +599,13 @@ public class RestaurantOwner {
 					Time time = new Time (stime);
 
 					Commande = new ArrayList <Meal> ();
-					while(currentClient.getEmail().equals(cursor.getString(0))) {//We take a command if it exists
-						if(cursor.getString(3)!=null) {
-							Commande.add(new Meal (cursor.getString(3), cursor.getInt(4)));//We stock the quantity of the meal with the instance variable "stock"
-							cursor.moveToNext();
+					Cursor tempCursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'", null);
+					if(tempCursor.moveToFirst()){
+						while(currentClient.getEmail().equals(tempCursor.getString(0))) {//We take a command if it exists
+							if(tempCursor.getString(1)!=null) {
+								Commande.add(new Meal (tempCursor.getString(1), tempCursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
+								tempCursor.moveToNext();
+							}
 						}
 					}
 

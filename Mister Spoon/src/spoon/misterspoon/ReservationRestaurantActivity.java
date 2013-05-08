@@ -37,6 +37,7 @@ public class ReservationRestaurantActivity extends Activity {
 		
 		ReservationRestaurantItem reservationRestaurantItem_data[] = new ReservationRestaurantItem[bookingList.size()];
 		
+		Log.v("Taille liste book : ",bookingList.size()+"");
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
 			Log.v("Taille liste commandes : ",bookingList.get(j).getCommande().size()+"");
