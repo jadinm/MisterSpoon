@@ -293,7 +293,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Le Petit Vingtieme','toni@hotmail.com','2013-04-30 19:00:00','Carpaccio de Bresaola et Jambon de Parme',3); ");
 		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr','2013-05-02 20:00:00','Crepe La tartiflette',40); ");
-		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr','2013-04-30 20:00:00','Crepe au saumon fume, sauce creme et citron e l''aneth',5); ");
+		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Creperie Bretonne','j.p@yahoo.fr','2013-04-30 20:00:00','Crepe au saumon fume, sauce creme et citron et aneth',5); ");
 		db.execSQL("INSERT INTO " + TABLE_Order + "(" + Order_column[1] + ", " + Order_column[2] + ", " + Order_column[3] + ", " + Order_column[4] + ", " + Order_column[5] +")  VALUES('Loungeatude','j.p@yahoo.fr',NULL,'Jambonnette de volaille aux scampis',10); ");
 				
 		db.execSQL("INSERT INTO " + TABLE_FavouriteRestaurant + "(" + FavouriteRestaurant_column[1] + ", " + FavouriteRestaurant_column[2] + ")  VALUES('toni@hotmail.com','Creperie Bretonne'); ");

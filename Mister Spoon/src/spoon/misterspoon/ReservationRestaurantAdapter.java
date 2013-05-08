@@ -37,7 +37,8 @@ public class ReservationRestaurantAdapter extends ArrayAdapter<ReservationRestau
             holder.txtNom = (TextView)row.findViewById(R.id.reservation_restaurant_item_nom);
             holder.txtTelephone = (TextView)row.findViewById(R.id.reservation_restaurant_item_telephone);
             holder.txtPlaces = (TextView)row.findViewById(R.id.reservation_restaurant_item_places);
-            holder.spinnerQuantites = (Spinner)row.findViewById(R.id.reservation_restaurant_item_quantite);
+            holder.spinnerPlat = (Spinner)row.findViewById(R.id.reservation_restaurant_item_quantite);
+            
             
             row.setTag(holder);
         }
@@ -51,9 +52,9 @@ public class ReservationRestaurantAdapter extends ArrayAdapter<ReservationRestau
         holder.txtNom.setText(reservationRestaurantItem.nom);
         holder.txtTelephone.setText(reservationRestaurantItem.telephone);
         holder.txtPlaces.setText(reservationRestaurantItem.places);
-        ArrayAdapter<String> arrayAdapterQuantites = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,reservationRestaurantItem.quantites);
+        ArrayAdapter<String> arrayAdapterQuantites = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,reservationRestaurantItem.plat);
         arrayAdapterQuantites.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.spinnerQuantites.setAdapter(arrayAdapterQuantites);
+        holder.spinnerPlat.setAdapter(arrayAdapterQuantites);
         
         return row;
     }
@@ -64,6 +65,6 @@ public class ReservationRestaurantAdapter extends ArrayAdapter<ReservationRestau
         TextView txtNom;
         TextView txtTelephone;
         TextView txtPlaces;
-        Spinner spinnerQuantites;
+        Spinner spinnerPlat;
     }
 }

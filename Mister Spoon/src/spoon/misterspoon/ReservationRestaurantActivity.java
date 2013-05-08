@@ -40,9 +40,8 @@ public class ReservationRestaurantActivity extends Activity {
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
 			Log.v("Taille liste commandes : ",bookingList.get(j).getCommande().size()+"");
-			commandList.add("");
 			for(Meal meal : bookingList.get(j).getCommande()){
-				commandList.add(meal.getMealName());
+				commandList.add(Booking.nombrePlat(sql, meal.getMealName(), bookingList.get(j).getClient().getEmail()) + " x " + meal.getMealName());
 			}
 			Client superClient = new Client(sql,bookingList.get(j).getClient().getEmail());
 			reservationRestaurantItem_data[j] = new ReservationRestaurantItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superClient.getName(true),superClient.getGsm(true),bookingList.get(j).getNombrePlaces()+"", commandList);
