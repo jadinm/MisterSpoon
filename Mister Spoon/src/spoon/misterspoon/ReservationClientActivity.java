@@ -13,8 +13,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -46,6 +48,8 @@ public class ReservationClientActivity extends Activity {
 	private ArrayList<String> myCommandString;
 	private MySQLiteHelper sqliteHelper1;
 	private int nbrPlaces;
+	private ListView commandListView;
+	private ArrayAdapter<String> adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,9 @@ public class ReservationClientActivity extends Activity {
 			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
 		}
 		
-		
+		commandListView = (ListView) findViewById(R.id.lvListe);
+		adapter = new ArrayAdapter<String>(this, R.id.lvListe, myCommandString);//pas sur ici...
+		commandListView.setAdapter(adapter);
 		//TODO gerer les plats coches
 
 		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);

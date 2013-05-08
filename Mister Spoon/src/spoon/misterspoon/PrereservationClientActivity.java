@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class PrereservationClientActivity extends Activity {
@@ -27,6 +29,8 @@ public class PrereservationClientActivity extends Activity {
     
     private Button preBook;
 	protected Context context;
+	private ListView commandListView;
+	private ArrayAdapter<String> adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +61,10 @@ public class PrereservationClientActivity extends Activity {
 			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
 		}
 		
-		//TODO gerer les plats coches.
-		
+		//TODO vérifier ceci :.
+		commandListView = (ListView) findViewById(R.id.lvListe);
+		adapter = new ArrayAdapter<String>(this, R.id.lvListe, myCommandString);//pas sur ici...
+		commandListView.setAdapter(adapter);
         
         preBook = (Button)findViewById(R.id.prereservation_client_prereserve);
 
