@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -85,9 +86,10 @@ public class ReservationClientActivity extends Activity {
 			String mealName = (String) it.next();
 			Meal meal = new Meal(mealName, restoName, sqliteHelper);
 			prixTotal = prixTotal + meal.getMealPrice(false);
+			Log.v("Prix " , prixTotal +"");
 		}
 		
-		Log.v("Prix " , prixTotal +"");
+		
 		
 		
 
@@ -144,37 +146,35 @@ public class ReservationClientActivity extends Activity {
 		
 		Log.v("nbrPlace" , nbrPlaces +"");
 		
-		placesDispo.setText(placesDispo.getText() +" "+ nbrPlaces);
+		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);
 
 		book = (Button)findViewById(R.id.prereservation_client_reserve);
+		
+		book.setOnClickListener(bookListener);
 
-		book.setOnClickListener( new View.OnClickListener () {
-			@Override
-			public void onClick(View v) {
-
-				if (! c.book(myCommand, nbrPlaces, resTime, resDate)){
-					Toast toast = Toast.makeText(context, "ERROR : Réservation non effectuee !", Toast.LENGTH_SHORT);
-					toast.show(); //TODO Gérer l'erreur
-					return;
-				}
-				Toast toast = Toast.makeText(context, "Reservation effectuee !", Toast.LENGTH_SHORT);
-				toast.show();
-				/*Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
-				i.putExtra(Login.email, c.getEmail());
-				startActivity(i);
-				 */
-			}
-		});
+		
 
 	}
+	
+	private OnClickListener bookListener = new OnClickListener() {
+		public void onClick(View v) {
+			
+			Toast toast = Toast.makeText(context, "NEXT ! ", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	};
 
 	private void updateTime() {
 		timeDisplay.setText(resTime.toString());
+		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
+		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);
 
 	}
 
 	private void updateDate() {
-		dateDisplay.setText(dateDisplay.getText() + " " +resDate.toString());
+		dateDisplay.setText(getString(R.string.reservation_client_date_text) + " " +resDate.toString());
+		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
+		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);
 
 	}
 
