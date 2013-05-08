@@ -142,7 +142,9 @@ public class ReservationClientActivity extends Activity {
 		
 		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
 		
-		placesDispo.setText(R.id.prereservation_client_places +" "+ nbrPlaces);
+		Log.v("nbrPlace" , nbrPlaces +"");
+		
+		placesDispo.setText(placesDispo.getText() +" "+ nbrPlaces);
 
 		book = (Button)findViewById(R.id.prereservation_client_reserve);
 
@@ -172,7 +174,7 @@ public class ReservationClientActivity extends Activity {
 	}
 
 	private void updateDate() {
-		dateDisplay.setText(resDate.toString());
+		dateDisplay.setText(dateDisplay.getText() + " " +resDate.toString());
 
 	}
 
