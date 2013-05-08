@@ -42,8 +42,9 @@ public class CarteActivityListAdapter extends BaseExpandableListAdapter {
 			view = infalInflater.inflate(R.layout.activity_carte_child_row, null);
 		}
 
-		CheckBox chekbox = (CheckBox) view.findViewById(R.id.carte_child);
-		chekbox.setText(meal.getMealName());
+		//CheckBox chekbox = (CheckBox) view.findViewById(R.id.carte_child_check);
+		TextView textView = (TextView) view.findViewById(R.id.carte_child_text);
+		textView.setText(meal.getMealName());
 
 		return view;
 	}

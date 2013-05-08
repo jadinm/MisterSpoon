@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -63,7 +64,7 @@ public class CarteActivity extends Activity {
 	private Button booking;
 	
 	//useful for the alertBox
-	private View childView;
+	private CheckBox childView;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +84,7 @@ public class CarteActivity extends Activity {
 		categorie = (Spinner) findViewById(R.id.carte_categorie);
 		ordre = (Spinner) findViewById(R.id.carte_ordre);
 
-		carteListView = (ExpandableListView) findViewById(R.id.carte_list);
+		carteListView = (ExpandableListView) findViewById(R.id.carte_expandableList);
 
 		preBooking = (Button) findViewById(R.id.carte_prebooking_button);
 		booking = (Button) findViewById(R.id.carte_booking_button);
@@ -108,6 +109,7 @@ public class CarteActivity extends Activity {
 
 		//ListView
 		adapter = new CarteActivityListAdapter(this, carte.getFilterList());
+		
 		carteListView.setAdapter(adapter);
 
 		//Listeners
@@ -128,9 +130,11 @@ public class CarteActivity extends Activity {
 
 		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {//TODO launch an alert box
 			
+			Log.v("listener", "we are here");
+			
 			CarteActivityChild child = carte.getFilterList().get(groupPosition).getMealList().get(childPosition);
 			Meal meal = carte.getMenuList().get(groupPosition).getMealList(false).get(childPosition);
-			childView = v;
+			childView = (CheckBox) v.findViewById(R.id.carte_child_check);
 			
 			currentMeal = meal;
 			
@@ -153,13 +157,12 @@ public class CarteActivity extends Activity {
 				@Override
 				public void onClick (DialogInterface dialog, int id) {//Check the ckeckbox
 					
-					CheckBox check = (CheckBox) childView;
-					if (check.isChecked()) {
-						check.setSelected(false);
+					if (childView.isChecked()) {
+						childView.setSelected(false);
 						dialog.cancel();
 						return;
 					}
-					check.setSelected(true);
+					childView.setSelected(true);
 					dialog.cancel();
 				}
 			});
@@ -176,10 +179,11 @@ public class CarteActivity extends Activity {
 				}
 			});
 			
+			AlertDialog alertDialog = builder.create();
 			
-			builder.create().show();
+			alertDialog.show();
 
-			return false;
+			return true;
 		}
 
 	};
