@@ -37,10 +37,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingBottom="20dp"
         android:weightSum="2" >
+	    
+	
+	        <TextView
+            	android:id="@+id/reservation_client_text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reservation_client_date_text"
+            android:typeface="sans" >
+        </TextView>
 
+        <Button
+            android:id="@+id/reservation_client_butt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reservation_client_date_button" >
+        </Button>
+
+        <TextView
+            android:id="@+id/reservation_client_text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reservation_client_time_text"
+            android:typeface="sans" >
+        </TextView>
+
+        <Button
+            android:id="@+id/reservation_client_butt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reservation_client_time_button" >
+        </Button>
         <Button
             android:id="@+id/prereservation_client_reserve"
             android:layout_width="wrap_content"

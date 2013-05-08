@@ -99,10 +99,10 @@
     <!-- Values for activity_reservation_restaurant.xml -->
     <string name="reservation_restaurant_title">Réservations</string>
     <string name="reservation_restaurant_heure">Heure</string>
-    <string name="reservation_restaurant_nom">Nom client</string>
+    <string name="reservation_restaurant_nom">Nom Client</string>
     <string name="reservation_restaurant_telephone">Téléphone/GSM</string>
     <string name="reservation_restaurant_places">Places</string>
-    <string name="reservation_restaurant_quantite">Quantités</string>
+    <string name="reservation_restaurant_quantite">Plats</string>
 
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
@@ -236,6 +236,10 @@
     <string name="prereservation_client_prereserve">Pré-réserver !</string>
     <string name="prereservation_client_reserve">Réserver !</string>
     <string name="prereservation_client_title1">Réservation</string>
+    <string name="reservation_client_time_button">Sélectionner une heure</string>
+    <string name="reservation_client_date_button">Sélectionner un jour</string>
+    <string name="reservation_client_time_text">Heure : </string>
+    <string name="reservation_client_date_text">Date : </string>
     
     <!-- Values for activity_carte -->
     <string name="carte_title">Carte</string>

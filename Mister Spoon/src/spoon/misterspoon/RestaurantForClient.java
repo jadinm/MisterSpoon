@@ -78,7 +78,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		Intent i = getIntent();
 		//We take the informations about the person who's logged (!!!! label)
 		emailPerso = i.getStringExtra(RestaurantListActivity.emailLogin);
-		restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);;
+		restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
 
 
 		//We create the object Restaurant associated with this email and all his informations
@@ -333,6 +333,11 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		book.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
+				
+				Intent intent = new Intent(RestaurantForClient.this, CarteActivity.class);
+				intent.putExtra(Login.email, c.getEmail());
+				intent.putExtra(RestaurantListActivity.RESTAURANT, r.getRestaurantName());
+				startActivity(intent);
 				
 				Toast toast = Toast.makeText(context, "Un client veut lancer l'activite Booking", Toast.LENGTH_SHORT);
 				toast.show();
