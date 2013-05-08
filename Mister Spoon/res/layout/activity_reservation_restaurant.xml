@@ -55,7 +55,7 @@
             android:layout_weight="1" />
 
     </LinearLayout>
--->
+
     <ListView
         android:id="@+id/reservation_restaurant_reservationList"
         android:layout_width="fill_parent"
@@ -63,5 +63,12 @@
         android:choiceMode="singleChoice"
         android:gravity="center" >
     </ListView>
+    
+-->
+    
+    <ExpandableListView 
+        android:id="@+id/reservation_restaurant_reservationList"
+  		android:layout_width="match_parent" 
+  		android:layout_height="fill_parent"/>
 
 </LinearLayout>

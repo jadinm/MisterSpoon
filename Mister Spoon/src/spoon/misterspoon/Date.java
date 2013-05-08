@@ -55,4 +55,17 @@ public class Date {
 		return false;
 	}
 
+	public int compareTo(Date date) {
+		if(Integer.parseInt(year) != Integer.parseInt(date.getYear())){
+			return Integer.parseInt(year) - Integer.parseInt(date.getYear());
+		}
+		else if(Integer.parseInt(month) != Integer.parseInt(date.getMonth())){
+			return Integer.parseInt(month) - Integer.parseInt(date.getMonth());
+		}
+		else if(Integer.parseInt(day) != Integer.parseInt(date.getDay())){
+			return Integer.parseInt(day) - Integer.parseInt(date.getDay());
+		}
+		else return 0;
+	}
+
 }

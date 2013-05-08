@@ -583,7 +583,6 @@ public class RestaurantOwner {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			booking.clear();//We remove all the elements
 
-			Log.v("SQL", "SELECT B." + MySQLiteHelper.Booking_column[2] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = O." + MySQLiteHelper.Order_column[2] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3]);
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				while(!cursor.isAfterLast()){
@@ -618,8 +617,19 @@ public class RestaurantOwner {
 
 			//db.close();
 		}
+		
+		ArrayList<Booking> tempBooking = booking;
+		for (int i = 0; i < tempBooking.size(); i++) {
+			for (int j = i + 1; j < tempBooking.size(); j++) {
+				if (tempBooking.get(i).getDate().compareTo(tempBooking.get(j).getDate()) > 0){
+					Booking temp = tempBooking.get(j);
+					tempBooking.set(j, tempBooking.get(i));
+					tempBooking.set(i, temp);
+				}
+			}
+		}
 
-		return booking;
+		return tempBooking;
 	}
 
 	public void removeRestaurantReservation(Booking booking){
