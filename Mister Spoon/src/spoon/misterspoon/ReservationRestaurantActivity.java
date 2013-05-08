@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 
@@ -35,10 +34,8 @@ public class ReservationRestaurantActivity extends Activity {
 		
 		ReservationRestaurantItem reservationRestaurantItem_data[] = new ReservationRestaurantItem[bookingList.size()];
 		
-		Log.v("Taille liste book : ",bookingList.size()+"");
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
-			Log.v("Taille liste commandes : ",bookingList.get(j).getCommande().size()+"");
 			for(Meal meal : bookingList.get(j).getCommande()){
 				commandList.add(Booking.nombrePlat(sql, meal.getMealName(), bookingList.get(j).getClient().getEmail()) + " x " + meal.getMealName());
 			}
@@ -78,7 +75,7 @@ public class ReservationRestaurantActivity extends Activity {
 					reservationRestaurantItem.add(new ReservationRestaurantItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superClient.getName(false), superClient.getGsm(false), bookingList.get(j).getNombrePlaces()+"", commandList));
 				}
 				else{
-					opReservationList.add(new ReservationRestaurantActivityHeader(bookingList.get(j).getDate().toString(), reservationRestaurantItem));
+					opReservationList.add(new ReservationRestaurantActivityHeader(bookingList.get(j-1).getDate().toString(), reservationRestaurantItem));
 					reservationRestaurantItem = new ArrayList <ReservationRestaurantItem>();
 					reservationRestaurantItem.add(new ReservationRestaurantItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superClient.getName(false), superClient.getGsm(false), bookingList.get(j).getNombrePlaces()+"", commandList));
 				}
@@ -90,66 +87,6 @@ public class ReservationRestaurantActivity extends Activity {
 		
 		return opReservationList;
 	}
-	
-	/*private OnChildClickListener reservationListViewChild =  new OnChildClickListener() {
-
-		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {//TODO launch an alert box
-			
-			ReservationRestaurantItem child = getOPReservationList().get(groupPosition).getReservationList().get(childPosition);
-			Meal meal = carte.getMenuList().get(groupPosition).getMealList(false).get(childPosition);
-			childView = (CheckBox) v.findViewById(R.id.carte_child_check);
-			
-			currentMeal = meal;
-			
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			
-			builder.setTitle(meal.getMealName() + " == " + child.getMealName() + "?");
-			builder.setMessage(getString(R.string.carte_alert_message));
-			
-			builder.setCancelable(true);//We can go back with the return button
-			
-			builder.setNegativeButton(getString(R.string.carte_alert_negative), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {
-					dialog.cancel();
-				}
-			});
-			builder.setNeutralButton(getString(R.string.carte_alert_neutre), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {//Check the ckeckbox
-					
-					if (childView.isChecked()) {
-						childView.setSelected(false);
-						dialog.cancel();
-						return;
-					}
-					childView.setSelected(true);
-					dialog.cancel();
-				}
-			});
-			builder.setPositiveButton(getString(R.string.carte_alert_positive), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {//launch the last activity
-					Intent i = new Intent(CarteActivity.this, MealActivity.class);
-					i.putExtra(RESTAURANT, restName);
-					i.putExtra(MEAL, currentMeal.getMealName());
-					i.putExtra(CLIENT, client.getEmail());
-					startActivity(i);
-					return;
-				}
-			});
-			
-			AlertDialog alertDialog = builder.create();
-			
-			alertDialog.show();
-
-			return true;
-		}
-
-	};*/
 	
 	public void onPause(){
 		super.onPause();

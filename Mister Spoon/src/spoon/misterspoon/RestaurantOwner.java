@@ -598,9 +598,10 @@ public class RestaurantOwner {
 					Time time = new Time (stime);
 
 					Commande = new ArrayList <Meal> ();
-					Cursor tempCursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'", null);
+					Log.v("YOUHOU",	"SELECT " + MySQLiteHelper.Order_column[2] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'"+ " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursor.getString(2)+"'");
+					Cursor tempCursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'"+ " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursor.getString(2)+"'", null);
 					if(tempCursor.moveToFirst()){
-						while(currentClient.getEmail().equals(tempCursor.getString(0))) {//We take a command if it exists
+						while(!tempCursor.isAfterLast() && currentClient.getEmail().equals(tempCursor.getString(0))) {//We take a command if it exists
 							if(tempCursor.getString(1)!=null) {
 								Commande.add(new Meal (tempCursor.getString(1), tempCursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 								tempCursor.moveToNext();
