@@ -108,6 +108,7 @@ public class CarteBuilderActivity extends Activity {
 		public void onClick(View v) {
 	
 		}
+	};
 	public void onPause(){
 		super.onPause();
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
