@@ -363,11 +363,11 @@ public class Profil_Client extends Activity {
 		booking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut voir ses rï¿½servations", Toast.LENGTH_SHORT);
-				toast.show();
-				/*Intent i = new Intent(Profil_Client.this, Booking_Client.class);//TODO
+				//Toast toast = Toast.makeText(context, "Un client veut voir ses rï¿½servations", Toast.LENGTH_SHORT);
+				//toast.show();
+				Intent i = new Intent(Profil_Client.this, ClientReservationActivity.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);*/
+				startActivity(i);
 			}
 		});
 		
@@ -421,7 +421,7 @@ public class Profil_Client extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				/////////// Si le client ne clique pas sur mise a jour mais sur suivant ces infos sont quand meme sauvŽes !/////////
+				/////////// Si le client ne clique pas sur mise a jour mais sur suivant ces infos sont quand meme sauvï¿½es !/////////
 				
 				if(name.getText().toString()==null) {//If important information is not filled
 					name.setText(c.getName(false));

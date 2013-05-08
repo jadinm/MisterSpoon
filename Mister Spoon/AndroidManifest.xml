@@ -109,6 +109,13 @@
             android:configChanges="orientation|screenSize">
         </activity>
         
+        <!-- We declare the activity ClientReservationActivity -->
+        <activity 
+            android:name="spoon.misterspoon.ClientReservationActivity"
+            android:label="@string/reservation_restaurant_title"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        
     </application>
 
 </manifest>

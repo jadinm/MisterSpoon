@@ -104,6 +104,14 @@
     <string name="reservation_restaurant_places">Places</string>
     <string name="reservation_restaurant_quantite">Plats</string>
 
+    <!-- Values for activity_reservation_client.xml -->
+    <string name="reservation_client_title">Réservations</string>
+    <string name="reservation_client_heure">Heure</string>
+    <string name="reservation_client_nom">Nom Restaurant</string>
+    <string name="reservation_client_telephone">Téléphone</string>
+    <string name="reservation_client_places">Places</string>
+    <string name="reservation_client_quantite">Plats</string>
+    
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
     <string name="profil_restaurant_tel">Tél :</string>
