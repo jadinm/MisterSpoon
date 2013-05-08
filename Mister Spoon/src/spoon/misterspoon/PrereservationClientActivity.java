@@ -12,8 +12,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
-import android.database.sqlite.SQLiteDatabase;
-
 public class PrereservationClientActivity extends Activity {
 	
 	private Restaurant r;
@@ -58,6 +56,7 @@ public class PrereservationClientActivity extends Activity {
 			String meal = (String) it.next();
 			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
 		}
+		
 		//TODO gerer les plats coches.
 		
         
@@ -69,7 +68,7 @@ public class PrereservationClientActivity extends Activity {
 				
 				if (! c.preBook(myCommand)){
 					Toast toast = Toast.makeText(context, "ERROR : Préréservation non effectuée !", Toast.LENGTH_SHORT);
-					toast.show(); //TODO Gérer l'erreur
+					toast.show(); //TODO Gerer l'erreur ?
 					return;
 				}
 				Toast toast = Toast.makeText(context, "Préréservation effectuée !", Toast.LENGTH_SHORT);
@@ -79,7 +78,6 @@ public class PrereservationClientActivity extends Activity {
 				startActivity(i);
 				*/
 			}
-        	//TODO
         });
 
     }

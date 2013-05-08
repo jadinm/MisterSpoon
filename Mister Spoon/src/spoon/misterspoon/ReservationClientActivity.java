@@ -2,6 +2,7 @@ package spoon.misterspoon;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ListIterator;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -42,6 +43,9 @@ public class ReservationClientActivity extends Activity {
     
     private Button book;
 	protected Context context;
+	private ArrayList<String> myCommandString;
+	private MySQLiteHelper sqliteHelper1;
+	private int nbrPlaces;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,18 @@ public class ReservationClientActivity extends Activity {
 		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
 		c.setRestaurantEnCours(r);
+		
+		myCommandString = (ArrayList<String>) i.getStringArrayListExtra("La ou je vais recuperer ma commande");//TODO
+		nbrPlaces = Integer.parseInt(i.getStringExtra("recup' le nombre de places"));
+		
+		ListIterator<String> it = myCommandString.listIterator();
+		while (it.hasNext()) {
+			String meal = (String) it.next();
+			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
+		}
+		
+		
+		//TODO gerer les plats coches
 
 		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);
         pickDate = (Button) findViewById(R.id.reservation_client_butt_date);
@@ -109,8 +125,6 @@ public class ReservationClientActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				myCommand = ;//TODO récupérer la commande et le nombre de place
-				
 				if (! c.book(myCommand, nbrPlaces, resTime, resDate)){
 					Toast toast = Toast.makeText(context, "ERROR : Réservation non effectuée !", Toast.LENGTH_SHORT);
 					toast.show(); //TODO Gérer l'erreur
@@ -123,7 +137,6 @@ public class ReservationClientActivity extends Activity {
 				startActivity(i);
 				*/
 			}
-        	//TODO
         });
 
     }
