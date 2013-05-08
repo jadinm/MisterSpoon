@@ -5,7 +5,7 @@
     android:layout_margin="15dp"
     android:orientation="vertical" >
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/carte_builder_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
