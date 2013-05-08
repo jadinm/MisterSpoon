@@ -326,6 +326,10 @@ public class CarteActivity extends Activity {
 		public void onClick(View v) {
 			Toast toast = Toast.makeText(context, getString(R.string.carte_booking_toast), Toast.LENGTH_SHORT);
 			toast.show();
+			/*Intent i = new Intent(CarteActivity.this, ReservationClientActivity.class);
+			i.putExtra(Login.email, c.getEmail());//TODO
+			startActivity(i);
+			*/
 			return;
 		}
 	};

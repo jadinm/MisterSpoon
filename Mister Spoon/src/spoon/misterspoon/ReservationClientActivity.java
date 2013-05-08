@@ -91,7 +91,7 @@ public class ReservationClientActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                showDialog(TIME_DIALOG_ID);
+                showDialog(TIME_DIALOG_ID);//pourquoi il le barre ?
 
             }
 
