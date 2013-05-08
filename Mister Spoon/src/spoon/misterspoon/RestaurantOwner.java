@@ -1,6 +1,9 @@
 package spoon.misterspoon;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,6 +37,28 @@ public class RestaurantOwner {
 
 		this.restaurant = new Restaurant(sqliteHelper,name);
 
+		SQLiteDatabase dbw = sqliteHelper.getWritableDatabase();
+		
+		// SUPRESSION DES DATES OBSOLETES
+		Calendar cal = Calendar.getInstance();
+		Date currentDate = new Date(""+cal.get(Calendar.YEAR),""+(cal.get(Calendar.MONTH)+1),""+cal.get(Calendar.DAY_OF_MONTH));
+		
+		Cursor cursorDate = dbw.rawQuery("SELECT " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'", null);
+		if(cursorDate.moveToFirst()){
+			while (!cursorDate.isAfterLast()){
+				Log.v("YABOU ! ", cursorDate.getString(0));
+				String tempDate [] = cursorDate.getString(0).split(" "); 
+				Date dateBooking = new Date(tempDate[0]);
+				if(dateBooking.compareTo(currentDate) < 0){
+					db2.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[4] + " = " + "'"+cursorDate.getString(0)+"'" + ";");
+					MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[4] + " = " + "'"+cursorDate.getString(0)+"'" + ";");
+					db2.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursorDate.getString(0)+"'" + ";");
+					MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursorDate.getString(0)+"'" + ";");
+				}
+				
+				cursorDate.moveToNext();
+			}
+		}
 
 		//preBooking
 		/*Cursor cursor2 = db2.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " GROUP BY " + MySQLiteHelper.Order_column[2], null);

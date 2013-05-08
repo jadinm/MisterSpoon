@@ -444,8 +444,6 @@ public class Profil_Restaurant extends Activity {
 		menu.setOnClickListener(new View.OnClickListener() {//launch an alert box
 			@Override
 			public void onClick(View v) {
-				Toast toasted = Toast.makeText(context, "Le resto veut montrer sa carte mais ce n'est pas encore possibl :p ", Toast.LENGTH_SHORT);
-				toasted.show();
 				Intent i = new Intent(Profil_Restaurant.this, CarteActivity.class);//TODO
 				i.putExtra(name, r.getRestaurant().getRestaurantName());//TODO
 				startActivity(i);
