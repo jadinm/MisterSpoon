@@ -40,13 +40,7 @@
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:weightSum="2" >
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center"
-	        android:orientation="vertical"
-	        android:paddingBottom="20dp"
-	        android:weightSum="2" >
+	    
 	
 	        <TextView
             	android:id="@+id/reservation_client_text_date"
@@ -81,7 +75,6 @@
             android:layout_weight="1"
             android:text="@string/reservation_client_time_button" >
         </Button>
-        </LinearLayout>
         <Button
             android:id="@+id/prereservation_client_reserve"
             android:layout_width="wrap_content"
