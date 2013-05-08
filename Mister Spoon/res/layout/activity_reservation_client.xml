@@ -8,8 +8,7 @@
         android:id="@+id/lvListe"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.90" >
-
+        android:layout_weight="0.40" >
     </ListView>
 
     <LinearLayout
@@ -23,7 +22,6 @@
             android:id="@+id/prereservation_client_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:text="@string/prereservation_client_total" />
 
@@ -31,77 +29,58 @@
             android:id="@+id/prereservation_client_places"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:text="@string/prereservation_client_places1" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:paddingBottom="20dp" >
-
-        <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:weightSum="2" >
+	    
+	
+	    <TextView
+            android:id="@+id/reservation_client_text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:weightSum="2" >
+            android:layout_weight="1"
+            android:text="@string/reservation_client_date_text"
+            android:typeface="sans" >
+        </TextView>
 
-            <TextView
-                android:id="@+id/reservation_client_text_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reservation_client_date_text"
-                android:typeface="sans" >
-            </TextView>
-
-            <Button
-                android:id="@+id/reservation_client_butt_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reservation_client_date_button" >
-            </Button>
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/reservation_client_butt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_weight="2"
-            android:gravity="right"
-            android:orientation="vertical"
-            android:weightSum="2" >
+            android:layout_weight="1"
+            android:text="@string/reservation_client_date_button" >
+        </Button>
 
-            <TextView
-                android:id="@+id/reservation_client_text_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reservation_client_time_text"
-                android:typeface="sans" >
-            </TextView>
+        <TextView
+            android:id="@+id/reservation_client_text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reservation_client_time_text"
+            android:typeface="sans" >
+        </TextView>
 
-            <Button
-                android:id="@+id/reservation_client_butt_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reservation_client_time_button" >
-            </Button>
-        </LinearLayout>
+        <Button
+            android:id="@+id/reservation_client_butt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reservation_client_time_button" >
+        </Button>
+        <Button
+            android:id="@+id/prereservation_client_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/prereservation_client_reserve" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/prereservation_client_reserve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/prereservation_client_reserve" />
 
 </LinearLayout>

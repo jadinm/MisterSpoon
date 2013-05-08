@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PrereservationClientActivity extends Activity {
@@ -31,6 +32,8 @@ public class PrereservationClientActivity extends Activity {
 	protected Context context;
 	private ListView commandListView;
 	private ArrayAdapter<String> adapter;
+	private double prixTotal;
+	private TextView total;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +58,23 @@ public class PrereservationClientActivity extends Activity {
 		
 		myCommandString = (ArrayList<String>) i.getStringArrayListExtra("La ou je vais recuperer ma commande");//TODO
 		
+		prixTotal = 0;
+		
 		ListIterator<String> it = myCommandString.listIterator();
 		while (it.hasNext()) {
-			String meal = (String) it.next();
-			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
+			String mealName = (String) it.next();
+			Meal meal = new Meal(mealName, restoName, sqliteHelper1);
+			myCommand.add(meal);
+			prixTotal = prixTotal + meal.getMealPrice(false);
 		}
 		
 		//TODO vérifier ceci :.
 		commandListView = (ListView) findViewById(R.id.lvListe);
 		adapter = new ArrayAdapter<String>(this, R.id.lvListe, myCommandString);//pas sur ici...
 		commandListView.setAdapter(adapter);
+		
+		total = (TextView) findViewById(R.id.prereservation_client_total);
+		total.setText(prixTotal + " euro");
         
         preBook = (Button)findViewById(R.id.prereservation_client_prereserve);
 

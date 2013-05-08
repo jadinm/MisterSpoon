@@ -50,6 +50,9 @@ public class ReservationClientActivity extends Activity {
 	private int nbrPlaces;
 	private ListView commandListView;
 	private ArrayAdapter<String> adapter;
+	private TextView total;
+	private TextView placesDispo;
+	private double prixTotal;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +78,25 @@ public class ReservationClientActivity extends Activity {
 		myCommandString = (ArrayList<String>) i.getStringArrayListExtra("La ou je vais recuperer ma commande");//TODO
 		nbrPlaces = Integer.parseInt(i.getStringExtra("recup' le nombre de places"));
 		
+		prixTotal = 0;
 		ListIterator<String> it = myCommandString.listIterator();
 		while (it.hasNext()) {
-			String meal = (String) it.next();
-			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
+			String mealName = (String) it.next();
+			Meal meal = new Meal(mealName, restoName, sqliteHelper1);
+			myCommand.add(meal);
+			prixTotal = prixTotal + meal.getMealPrice(false);
 		}
 		
 		commandListView = (ListView) findViewById(R.id.lvListe);
 		adapter = new ArrayAdapter<String>(this, R.id.lvListe, myCommandString);//pas sur ici...
 		commandListView.setAdapter(adapter);
-		//TODO gerer les plats coches
-
+		
+		total = (TextView) findViewById(R.id.prereservation_client_total);
+		total.setText(prixTotal + " euro");
+		
+		placesDispo = (TextView) findViewById(R.id.prereservation_client_places);
+		placesDispo.setText(r.getRestaurantCapacity(false));
+		
 		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);
         pickDate = (Button) findViewById(R.id.reservation_client_butt_date);
 
