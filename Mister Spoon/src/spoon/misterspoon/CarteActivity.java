@@ -1,5 +1,6 @@
 package spoon.misterspoon;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +24,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,7 +31,8 @@ import android.widget.Toast;
 public class CarteActivity extends Activity {
 
 	public static final String RESTAURANT = "Selected Restaurant";
-	public static final String MEAL = "Selected Meal";
+	public static final String MEALLIST = "List Meal";
+	public static final String MEAL = "selected meal";
 	public static final String CLIENT = "User";
 
 	private MySQLiteHelper sqliteHelper;
@@ -299,13 +300,19 @@ public class CarteActivity extends Activity {
 
 	private OnClickListener bookingListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, getString(R.string.carte_booking_toast), Toast.LENGTH_SHORT);
-			toast.show();
-			/*Intent i = new Intent(CarteActivity.this, ReservationClientActivity.class);
-			i.putExtra(Login.email, c.getEmail());//TODO
+			Intent i = new Intent(CarteActivity.this, ReservationClientActivity.class);
+			i.putExtra(CLIENT, client.getEmail());
+			i.putExtra(RESTAURANT, restName);
+			
+			ArrayList <String> mealList = new ArrayList <String> ();
+			for (int j=0; j<adapter.getGroupCount(); j++) {
+				for(int k=0; k<adapter.getChildrenCount(j); k++) {
+					mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
+				}
+			}
+			
+			i.putExtra(MEALLIST, mealList);
 			startActivity(i);
-			*/
-			return;
 		}
 	};
 
