@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,10 +19,16 @@ public class CarteActivityListAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
 	private ArrayList<CarteActivityHeader> carte;
+	private ArrayList<Boolean> isCheckedList;
 
 	public CarteActivityListAdapter(Context context, ArrayList<CarteActivityHeader> carte) {
 		this.context = context;
 		this.carte = carte;
+		this.isCheckedList = new ArrayList <Boolean> ();
+	}
+	
+	public ArrayList <Boolean> getIsCheckedList () {
+		return isCheckedList;
 	}
 
 	@Override
@@ -41,10 +50,35 @@ public class CarteActivityListAdapter extends BaseExpandableListAdapter {
 			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.activity_carte_child_row, null);
 		}
+		
+		isCheckedList.add(false);
 
-		//CheckBox chekbox = (CheckBox) view.findViewById(R.id.carte_child_check);
+		int count = 0;
+		for (int i=0; i<groupPosition-1; i++) {
+			count = count + getChildrenCount(i);
+		}
+		count = count + childPosition;
+		
+		CheckBox checkbox = (CheckBox) view.findViewById(R.id.carte_child_check);
+		checkbox.setTag(Integer.valueOf(count));
+		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener () {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+				
+				final Integer position = (Integer) buttonView.getTag();
+				
+	            isCheckedList.set(position, isChecked);
+				
+			}
+			
+		});
+		
 		TextView textView = (TextView) view.findViewById(R.id.carte_child_text);
 		textView.setText(meal.getMealName());
+		
+		TextView price = (TextView) view.findViewById(R.id.carte_child_price);
+		price.setText(meal.getMealPrice() + " €");
 
 		return view;
 	}

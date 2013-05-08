@@ -52,6 +52,10 @@ public class CarteBuilder {
 		carte.addMenu(menu);
 	}
 	
+	public Carte getCarte () {
+		return carte;
+	}
+	
 	public void setMenuName(Menu menuToChange, String name) {
 		
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();

@@ -63,9 +63,6 @@ public class CarteActivity extends Activity {
 
 	private Button preBooking;
 	private Button booking;
-	
-	//useful for the alertBox
-	private CheckBox childView;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -305,9 +302,13 @@ public class CarteActivity extends Activity {
 			i.putExtra(RESTAURANT, restName);
 			
 			ArrayList <String> mealList = new ArrayList <String> ();
+			int count = 0;
 			for (int j=0; j<adapter.getGroupCount(); j++) {
 				for(int k=0; k<adapter.getChildrenCount(j); k++) {
-					mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
+					if (adapter.getIsCheckedList().get(count)) {//If it's checked
+						mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
+					}
+					count++;
 				}
 			}
 			

@@ -80,7 +80,7 @@ public class Carte {
 		for (int i = 0; i<this.menuList.size(); i++) {
 			ArrayList <CarteActivityChild> mealList = new ArrayList <CarteActivityChild> ();
 			for (int j = 0; j<this.menuList.get(i).getMealList(false).size(); j++) {
-				mealList.add(new CarteActivityChild(this.menuList.get(i).getMealList(false).get(j).getMealName()));
+				mealList.add(new CarteActivityChild(this.menuList.get(i).getMealList(false).get(j).getMealName(), this.menuList.get(i).getMealList(false).get(j).getMealPrice(false)));
 			}
 			menuList.add(new CarteActivityHeader (this.menuList.get(i).getMenuName(), mealList));
 		}
