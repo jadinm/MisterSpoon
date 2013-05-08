@@ -40,10 +40,9 @@ public class Meal_BuilderActivity extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		//We take the informations about the meal viewed
-		String emailPerso = i.getStringExtra(Login.email);//TODO
+		String emailPerso = i.getStringExtra(CarteBuilderActivity.EMAIL);
 
-		//String mealNom = i.getStringExtra(CarteActivity.email);//TODO
-		String mealNom = "Jambonnette de volaille aux scampis";
+		String mealNom = i.getStringExtra(CarteBuilderActivity.MEAL);
 		
 		//We create the object Meal associated with this mealName and all his informations
 		sqliteHelper= new MySQLiteHelper(this);

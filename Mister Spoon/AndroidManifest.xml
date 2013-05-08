@@ -102,6 +102,13 @@
             android:configChanges="screenSize">
         </activity>
         
+        <!-- We declare the activity CarteBuilderActivity -->
+        <activity 
+            android:name="spoon.misterspoon.CarteBuilderActivity"
+            android:label="@string/carte_builder_title"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        
         <!-- We declare the activity Meal_BuilderActivity -->
         <activity 
             android:name="spoon.misterspoon.ReservationClientActivity"

@@ -263,7 +263,7 @@
     <string name="carte_toast_no_price">Veuillez mettre un prix pour filtrer les plats</string>
     <string name="carte_booking">Réserver</string>
     <string name="carte_prebooking">Pré-réserver</string>
-    <string name="carte_alert_message">Voulez-vous continuer vers les infos précises du plat? \n Ou préfèrez-vous cocher le plat pour le commander?</string>
+    <string name="carte_alert_message">Voulez-vous continuer vers les informations précises du plat?</string>
     <string name="carte_alert_negative">Annuler</string>
     <string name="carte_alert_neutre">Cocher</string>
     <string name="carte_alert_positive">Infos</string>
@@ -271,6 +271,7 @@
     
     
     <!-- Values for activity_carte_builder -->
+    <string name="carte_builder_title">Votre Carte</string>
     <string name="carte_builder_create_menu">Créer le menu :</string>
     <string name="carte_builder_menu_name">Nom du menu :</string>
     <string name="carte_builder_price">Prix du menu :</string>
@@ -279,5 +280,6 @@
     <string name="carte_builder_meal_price">Prix du plat :</string>
     <string name="carte_builder_add_meal_2">au menu :</string>
     <string name="carte_builder_update">Mettre à jour la carte</string>
+    <string name="carte_builder_alert_message">Voulez-vous continuer pour modifier les informations précises du plat?</string>
 
 </resources>
