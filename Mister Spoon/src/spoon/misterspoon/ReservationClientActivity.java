@@ -105,7 +105,7 @@ public class ReservationClientActivity extends Activity {
 				/*Intent i = new Intent(ReservationClientActivity.this, Booking_Client.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
 				startActivity(i);
-				//ajofruter la reservation dans la base de donnee
+				//ajouter la reservation dans la base de donnee
 				*/
 			}
         	//TODO
