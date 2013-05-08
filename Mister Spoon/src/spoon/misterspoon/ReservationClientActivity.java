@@ -99,6 +99,6 @@ public class ReservationClientActivity extends Activity {
 		             mDay = dayOfMonth;
 		             updateDisplay();
 		         }
-	};
+	};//test
 }
 
