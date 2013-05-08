@@ -1,6 +1,8 @@
 package spoon.misterspoon;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ListIterator;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -34,9 +36,16 @@ public class ReservationClientActivity extends Activity {
     private TextView timeDisplay;
     private Button pickTime;
     private int hours, min;
+    private Time resTime;
+    private Date resDate;
+    
+    private ArrayList<Meal> myCommand;
     
     private Button book;
 	protected Context context;
+	private ArrayList<String> myCommandString;
+	private MySQLiteHelper sqliteHelper1;
+	private int nbrPlaces;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +60,25 @@ public class ReservationClientActivity extends Activity {
 		Intent i = getIntent();
 		
 		//We take the informations about the person who's logged (!!!! label)
-		emailPerso = i.getStringExtra(RestaurantListActivity.emailLogin);
-		restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
+		emailPerso = i.getStringExtra(Login.email);
+		//restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
+		restoName = "Loungeatude";
 		//We create the object Restaurant associated with this email and all his informations
 		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
 		c.setRestaurantEnCours(r);
+		
+		myCommandString = (ArrayList<String>) i.getStringArrayListExtra("La ou je vais recuperer ma commande");//TODO
+		nbrPlaces = Integer.parseInt(i.getStringExtra("recup' le nombre de places"));
+		
+		ListIterator<String> it = myCommandString.listIterator();
+		while (it.hasNext()) {
+			String meal = (String) it.next();
+			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
+		}
+		
+		
+		//TODO gerer les plats coches
 
 		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);
         pickDate = (Button) findViewById(R.id.reservation_client_butt_date);
@@ -74,6 +96,7 @@ public class ReservationClientActivity extends Activity {
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
+        resDate = new Date(""+year, ""+(month+1), ""+day);
 
         updateDate();
 
@@ -84,7 +107,7 @@ public class ReservationClientActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                showDialog(TIME_DIALOG_ID);
+                showDialog(TIME_DIALOG_ID);//pourquoi il le barre ?
 
             }
 
@@ -92,7 +115,8 @@ public class ReservationClientActivity extends Activity {
 
         hours = cal.get(Calendar.HOUR);
         min = cal.get(Calendar.MINUTE);
-
+        resTime = new Time(hours, min, 0);
+        
         updateTime();
         
         book = (Button)findViewById(R.id.prereservation_client_reserve);
@@ -100,28 +124,30 @@ public class ReservationClientActivity extends Activity {
         book.setOnClickListener( new View.OnClickListener () {
 			@Override
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut effectuer uen reservation", Toast.LENGTH_SHORT);
+				
+				if (! c.book(myCommand, nbrPlaces, resTime, resDate)){
+					Toast toast = Toast.makeText(context, "ERROR : Réservation non effectuée !", Toast.LENGTH_SHORT);
+					toast.show(); //TODO Gérer l'erreur
+					return;
+				}
+				Toast toast = Toast.makeText(context, "Réservation effectuée !", Toast.LENGTH_SHORT);
 				toast.show();
-				/*Intent i = new Intent(ReservationClientActivity.this, Booking_Client.class);//TODO
-				i.putExtra(Login.email, c.getEmail());//TODO
+				/*Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
+				i.putExtra(Login.email, c.getEmail());
 				startActivity(i);
-				//ajouter la reservation dans la base de donnee
 				*/
 			}
-        	//TODO
         });
 
     }
 
     private void updateTime() {
-        timeDisplay.setText(new StringBuilder().append(hours).append(':')
-                .append(min));
+        timeDisplay.setText(resTime.toString());
 
     }
 
     private void updateDate() {
-        dateDisplay.setText(new StringBuilder().append(day).append('-')
-                .append(month + 1).append('-').append(year));
+        dateDisplay.setText(resDate.toString());
 
     }
 
@@ -131,9 +157,7 @@ public class ReservationClientActivity extends Activity {
             @Override
             public void onDateSet(DatePicker view, int yr, int monthOfYear,
                     int dayOfMonth) {
-                year = yr;
-                month = monthOfYear;
-                day = dayOfMonth;
+                resDate = new Date(""+yr, ""+monthOfYear, ""+dayOfMonth);
                 updateDate();
             }
     };
@@ -143,8 +167,7 @@ public class ReservationClientActivity extends Activity {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hours = hourOfDay;
-                min = minute;
+                resTime = new Time(hourOfDay, minute, 0);
                 updateTime();
             }
 

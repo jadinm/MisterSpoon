@@ -420,6 +420,44 @@ public class Profil_Client extends Activity {
 		next.setOnClickListener(new View.OnClickListener() {//launch an other activity with an intent with the object Client
 			@Override
 			public void onClick(View v) {
+				
+				/////////// Si le client ne clique pas sur mise a jour mais sur suivant ces infos sont quand meme sauvŽes !/////////
+				
+				if(name.getText().toString()==null) {//If important information is not filled
+					name.setText(c.getName(false));
+					Toast toast = Toast.makeText(context, getString(R.string.profil_client_name) + getString(R.string.profil_client_toast_mandatory), Toast.LENGTH_SHORT);
+					toast.show();
+					
+					return;
+				}
+				int value = Client.isInDatabase(sqliteHelper, (String) c.getEmail(), name.getText().toString());
+				if(value==2 && c.getName(false).equals(name.getText().toString())) {//If it already exists
+					name.setText(c.getName(false));
+					Toast toast = Toast.makeText(context, name.getText().toString() + getString(R.string.profil_client_toast_already_exist), Toast.LENGTH_SHORT);
+					toast.show();
+					
+					return;
+				}
+				c.setName(name.getText().toString());
+				
+				if (gsm.getText().toString().length()>0) {
+					c.setGsm(gsm.getText().toString());
+				}
+				
+				if (new_specificity.getText().toString().length()>0) {
+					c.addSpecificite(new_specificity.getText().toString());
+					new_specificity.setText("");
+				}
+				if (new_favourite_meal.getText().toString().length()>0) {
+					c.addPlatFav(new Meal (new_favourite_meal.getText().toString()));
+					new_favourite_meal.setText("");
+				}
+				if (new_favourite_restaurant.getText().toString().length()>0) {
+					c.addRestFav(new Restaurant (new_favourite_restaurant.getText().toString()));
+					new_favourite_restaurant.setText("");
+				}
+				
+				//////////////////////////////////////////////////////
 				Intent i = new Intent(Profil_Client.this, CityListActivity.class);
 				i.putExtra(Login.email, c.getEmail());
 				startActivity(i);
