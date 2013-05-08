@@ -3,29 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:weightSum="2" >
-
-        <Button
-            android:id="@+id/carte_prebooking_button"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/carte_prebooking" />
-
-        <Button
-            android:id="@+id/carte_booking_button"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/carte_booking" />
-    </LinearLayout>
+    android:orientation="vertical"
+    android:weightSum="15" >
 
      <EditText android:id="@+id/edit_invisible_focus_holder"
           android:layout_width="0dp"
@@ -38,14 +17,15 @@
         android:id="@+id/carte_favori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/carte_favori" />
+        android:text="@string/carte_favori"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:weightSum="2" >
+        android:weightSum="2"
+        android:layout_weight="0.1" >
 
         <CheckBox
             android:id="@+id/carte_price_check"
@@ -68,7 +48,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="20dp"
-        android:weightSum="2" >
+        android:weightSum="2"
+        android:layout_weight="1" >
 
         <Spinner
             android:id="@+id/carte_ordre"
@@ -86,7 +67,31 @@
     <ExpandableListView 
         android:id="@+id/carte_expandableList"
   		android:layout_width="match_parent" 
-  		android:layout_height="fill_parent"
-  		android:divider="@drawable/separator"/>
+  		android:layout_height="wrap_content"
+  		android:divider="#00000000"
+  		android:childDivider="#00000000"
+  		android:layout_weight="11.8"/>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0.1"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/carte_prebooking_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/carte_prebooking" />
+
+        <Button
+            android:id="@+id/carte_booking_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/carte_booking" />
+    </LinearLayout>
 
 </LinearLayout>

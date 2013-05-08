@@ -3,13 +3,21 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
- 
+
     <!-- Layout to show the menu title -->
+    
+    <ImageView
+        android:id="@+id/carte_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/separator"
+        android:layout_gravity="center" />
+
     <TextView
         android:id="@+id/carte_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:textStyle="bold" />
- 
+
 </LinearLayout>

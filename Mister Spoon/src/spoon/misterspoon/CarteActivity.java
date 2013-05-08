@@ -119,7 +119,6 @@ public class CarteActivity extends Activity {
 		ordre.setOnItemSelectedListener(ordreListener);
 
 		carteListView.setOnChildClickListener(carteListViewChild);
-		carteListView.setOnGroupClickListener(carteListViewGroup);
 
 		preBooking.setOnClickListener(preBookingListener);
 		booking.setOnClickListener(bookingListener);
@@ -128,19 +127,17 @@ public class CarteActivity extends Activity {
 
 	private OnChildClickListener carteListViewChild =  new OnChildClickListener() {
 
-		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {//TODO launch an alert box
+		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 			
 			Log.v("listener", "we are here");
 			
-			CarteActivityChild child = carte.getFilterList().get(groupPosition).getMealList().get(childPosition);
 			Meal meal = carte.getMenuList().get(groupPosition).getMealList(false).get(childPosition);
-			childView = (CheckBox) v.findViewById(R.id.carte_child_check);
 			
 			currentMeal = meal;
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			
-			builder.setTitle(meal.getMealName() + " == " + child.getMealName() + "?");
+			builder.setTitle(meal.getMealName());
 			builder.setMessage(getString(R.string.carte_alert_message));
 			
 			builder.setCancelable(true);//We can go back with the return button
@@ -149,20 +146,6 @@ public class CarteActivity extends Activity {
 
 				@Override
 				public void onClick (DialogInterface dialog, int id) {
-					dialog.cancel();
-				}
-			});
-			builder.setNeutralButton(getString(R.string.carte_alert_neutre), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {//Check the ckeckbox
-					
-					if (childView.isChecked()) {
-						childView.setSelected(false);
-						dialog.cancel();
-						return;
-					}
-					childView.setSelected(true);
 					dialog.cancel();
 				}
 			});
@@ -186,14 +169,6 @@ public class CarteActivity extends Activity {
 			return true;
 		}
 
-	};
-
-	private OnGroupClickListener carteListViewGroup =  new OnGroupClickListener() {
-
-		public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {//TODO Est-ce nécessaire?
-			
-			return false;
-		}
 	};
 
 	private OnItemSelectedListener categorieListener = new OnItemSelectedListener(){

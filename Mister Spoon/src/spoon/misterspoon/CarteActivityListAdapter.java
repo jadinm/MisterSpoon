@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -85,6 +85,11 @@ public class CarteActivityListAdapter extends BaseExpandableListAdapter {
 		menuName.setText(menu.getMenuName());
 		menuName.setGravity(Gravity.CENTER);
 		menuName.setTypeface(null, Typeface.BOLD);
+		
+		if (groupPosition==0) {//We don't show the first divider
+			ImageView image = (ImageView) view.findViewById(R.id.carte_divider);
+			image.setVisibility(View.GONE);
+		}
 
 		return view;
 	}
