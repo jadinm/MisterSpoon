@@ -257,6 +257,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Lunch','entree','Comme chez soi','Cari de loup de mer aux champignons, artichaut et ciboulette'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Lunch','plat','Comme chez soi','Coquelet croustillant a l''instar de Vise, garniture exotique a la verveine-citron'); ");
 		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Nos Plats','plat','Comme chez soi','Contrefilet de Rubia Gallega a la Leffe brune, gelee de moelle, gateau de patates douces au romarin'); ");
+		db.execSQL("INSERT INTO " + TABLE_Menu + "(" + Menu_column[1] + ", " + Menu_column[2] +", " + Menu_column[3] +", " + Menu_column[4] +")  VALUES('Crepe des Gourmets','plat','Creperie Bretonne','Crepe au filet de biche a l orange et au gingembre'); ");
 
 		
 		//To correct -> find menu with price but with some meals recorded
@@ -280,7 +281,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Gambas reties au four','Le Petit Vingtieme',17,20, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Cari de loup de mer aux champignons, artichaut et ciboulette','Comme chez soi',15.5,5, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Coquelet croustillant a l''instar de Vise, garniture exotique a la verveine-citron','Comme chez soi',25.5,5, NULL); ");
-		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Contrefilet de Rubia Gallega a la Leffe brune, gelee de moelle, gateau de patates douces au romarin','Comme chez soi',69,5, NULL); ");
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Contrefilet de Rubia Gallega a la Leffe brune, gelee de moelle, gateau de patates douces au romarin','Comme chez soi',69,5, NULL); "); 
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Crepe au filet de biche a l orange et au gingembre','Creperie Bretonne',12.5,5, NULL); ");
 
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ")  VALUES('toni@hotmail.com','Brochette de poulet'); ");
 		db.execSQL("INSERT INTO " + TABLE_FavouriteMeal + "(" + FavouriteMeal_column[1] + ", " + FavouriteMeal_column[2] + ") VALUES('toni@hotmail.com','Steak frites');  ");
