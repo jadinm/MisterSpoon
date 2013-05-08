@@ -1,6 +1,8 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,16 +12,20 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import android.database.sqlite.SQLiteDatabase;
 
 public class PrereservationClientActivity extends Activity {
 	
 	private Restaurant r;
 	private Client c;
-	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
+	private MySQLiteHelper sqliteHelper1 = new MySQLiteHelper(this);
 	String restoName;
 	String emailPerso;
-    
+
+	public MySQLiteHelper sqliteHelper;
+	
     private ArrayList<Meal> myCommand;
+    private ArrayList<String> myCommandString;
     
     private Button preBook;
 	protected Context context;
@@ -41,10 +47,18 @@ public class PrereservationClientActivity extends Activity {
 		//restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
 		restoName = "Loungeatude";
 		//We create the object Restaurant associated with this email and all his informations
-		r = new Restaurant (sqliteHelper, restoName);
-		c = new Client(sqliteHelper, emailPerso);
+		r = new Restaurant (sqliteHelper1, restoName);
+		c = new Client(sqliteHelper1, emailPerso);
 		c.setRestaurantEnCours(r);
-
+		
+		myCommandString = (ArrayList<String>) i.getStringArrayListExtra("La ou je vais recuperer ma commande");//TODO
+		
+		ListIterator<String> it = myCommandString.listIterator();
+		while (it.hasNext()) {
+			String meal = (String) it.next();
+			myCommand.add(new Meal(meal, restoName, sqliteHelper1));
+		}
+		//TODO gerer les plats coches.
 		
         
         preBook = (Button)findViewById(R.id.prereservation_client_prereserve);
@@ -52,8 +66,6 @@ public class PrereservationClientActivity extends Activity {
         preBook.setOnClickListener( new View.OnClickListener () {
 			@Override
 			public void onClick(View v) {
-				
-				myCommand = ;//TODO récupérer la commande et le nombre de place
 				
 				if (! c.preBook(myCommand)){
 					Toast toast = Toast.makeText(context, "ERROR : Préréservation non effectuée !", Toast.LENGTH_SHORT);
