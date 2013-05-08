@@ -9,6 +9,7 @@ import android.util.Log;
 public class Menu {
 	
 	MySQLiteHelper sqliteHelper;
+	static final String categorie[] = new String[]{"entree","plat","dessert","boisson"};
 	String MenuName;
 	String restName;
 	String Categorie;
