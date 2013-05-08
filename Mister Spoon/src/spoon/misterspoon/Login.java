@@ -141,6 +141,7 @@ public class Login extends Activity {
 				//Intent i = new Intent(Login.this, RestaurantForClient.class); // Pour lancer la vue RestaurantForClient
 				//Intent i = new Intent(Login.this, MealActivity.class); // Pour lancer la vue MealActivity
 				Intent i = new Intent(Login.this, Profil_Client.class);
+				//Intent i = new Intent(Login.this, ReservationClientActivity.class);
 				i.putExtra(email, email_login.getText().toString());
 				startActivity(i);
 
@@ -157,7 +158,6 @@ public class Login extends Activity {
 
 				Intent i = new Intent(Login.this, Profil_Restaurant.class);
 				i.putExtra(email, email_login.getText().toString());
-				Log.d("Au départ, on a cet email", email_login.getText().toString());
 				startActivity(i);
 				return;
 			}

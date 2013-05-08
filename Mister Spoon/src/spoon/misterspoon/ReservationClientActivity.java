@@ -51,8 +51,9 @@ public class ReservationClientActivity extends Activity {
 		Intent i = getIntent();
 		
 		//We take the informations about the person who's logged (!!!! label)
-		emailPerso = i.getStringExtra(RestaurantListActivity.emailLogin);
-		restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
+		emailPerso = i.getStringExtra(Login.email);
+		//restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
+		restoName = "Loungeatude";
 		//We create the object Restaurant associated with this email and all his informations
 		r = new Restaurant (sqliteHelper, restoName);
 		c = new Client(sqliteHelper, emailPerso);
@@ -150,11 +151,15 @@ public class ReservationClientActivity extends Activity {
 
     };
     protected Dialog onCreateDialog(int id){
-        switch(id) {
+        
+		switch(id) {
         case DATE_DIALOG_ID:
-            return new DatePickerDialog(this, dateListener, year, month, day);
+        	DatePickerDialog dialog = new DatePickerDialog(this, dateListener, year, month, day);
+            return dialog;
         case TIME_DIALOG_ID:
-            return new TimePickerDialog(this, timeListener, hours, min, false);
+        	TimePickerDialog dialogTime = new TimePickerDialog(this, timeListener, hours, min, false);
+        	
+            return dialogTime;
         }
         return null;
 
