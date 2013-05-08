@@ -46,7 +46,7 @@ public class ReservationClientActivity extends Activity {
 	private ArrayList<Meal> myCommand;
 
 	private Button book;
-	protected Context context;
+	protected Context context = this;
 	private ArrayList<String> myCommandString;
 	private int nbrPlaces;
 	private ListView commandListView;
@@ -56,6 +56,8 @@ public class ReservationClientActivity extends Activity {
 	private double prixTotal;
 	private Date date;
 
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -158,7 +160,6 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			
 			Toast toast = Toast.makeText(context, "NEXT ! ", Toast.LENGTH_SHORT);
 			toast.show();
 		}
@@ -209,5 +210,12 @@ public class ReservationClientActivity extends Activity {
 		return null;
 
 	}
+	
+	public void onPause(){
+		super.onPause();
+		
+		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
+	}
+	
 }
 
