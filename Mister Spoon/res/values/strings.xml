@@ -236,6 +236,10 @@
     <string name="prereservation_client_prereserve">Pré-réserver !</string>
     <string name="prereservation_client_reserve">Réserver !</string>
     <string name="prereservation_client_title1">Réservation</string>
+    <string name="reservation_client_time_button">Sélectionner une heure</string>
+    <string name="reservation_client_date_button">Sélectionner un jour</string>
+    <string name="reservation_client_time_text">Heure : </string>
+    <string name="reservation_client_date_text">Date : </string>
     
     <!-- Values for activity_carte -->
     <string name="carte_title">Carte</string>

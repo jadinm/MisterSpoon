@@ -5,6 +5,8 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,24 +14,29 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 public class ReservationClientActivity extends Activity {
 	
-	private static final int DATE_DIALOG_ID = 3;
 	private Restaurant r;
 	private Client c;
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 	String restoName;
 	String emailPerso;
 	
-	private Button book;
-	private TextView date;
-	
-    private Calendar cal;
-    int mYear;
-    int mMonth;
-    int mDay;
+    static final int DATE_DIALOG_ID = 1;
+    static final int TIME_DIALOG_ID = 2;
+    private TextView dateDisplay;
+    private Button pickDate;
+    private int year, month, day;
+    private TextView timeDisplay;
+    private Button pickTime;
+    private int hours, min;
+    
+    private Button book;
+	protected Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,54 +58,106 @@ public class ReservationClientActivity extends Activity {
 		c = new Client(sqliteHelper, emailPerso);
 		c.setRestaurantEnCours(r);
 
-		book = (Button) findViewById(R.id.prereservation_client_reserve);
+		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);
+        pickDate = (Button) findViewById(R.id.reservation_client_butt_date);
 
-		book.setOnClickListener(new View.OnClickListener() {//launch the dialog
-			
-			public void onClick(View v) 
-            {
+        pickDate.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
                 showDialog(DATE_DIALOG_ID);
             }
-        });
-		
-        cal = Calendar.getInstance();
-        mYear = cal.get(Calendar.YEAR);
-        mMonth = cal.get(Calendar.MONTH);
-        mDay = cal.get(Calendar.DAY_OF_MONTH);
-        updateDisplay();
-	}
-	
-	protected Dialog onCreateDialog(int id) 
-	{
-	        switch (id) 
-	        {
-	                case DATE_DIALOG_ID:
-	                return new DatePickerDialog(this,
-	                            mDateSetListener,
-	                            mYear, mMonth, mDay);
-	        }
-	        return null;
-	}
-	private void updateDisplay() {
-		date.setText(
-            new StringBuilder()
-                    // Month is 0 based so add 1
-                    .append(mMonth + 1).append("-")
-                    .append(mDay).append("-")
-                    .append(mYear).append(" ")
-                    );
-    }
-	
-	private DatePickerDialog.OnDateSetListener mDateSetListener =
-			new DatePickerDialog.OnDateSetListener() {
 
-		         public void onDateSet(DatePicker view, int year, int monthOfYear,
-		                 int dayOfMonth) {
-		             mYear = year;
-		             mMonth = monthOfYear;
-		             mDay = dayOfMonth;
-		             updateDisplay();
-		         }
-	};//test
+        });
+
+        final Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+
+        updateDate();
+
+        timeDisplay = (TextView)findViewById(R.id.reservation_client_text_time);
+        pickTime = (Button)findViewById(R.id.reservation_client_butt_time);
+
+        pickTime.setOnClickListener( new View.OnClickListener () {
+
+            @Override
+            public void onClick(View v) {
+                showDialog(TIME_DIALOG_ID);
+
+            }
+
+        });
+
+        hours = cal.get(Calendar.HOUR);
+        min = cal.get(Calendar.MINUTE);
+
+        updateTime();
+        
+        book = (Button)findViewById(R.id.prereservation_client_reserve);
+
+        book.setOnClickListener( new View.OnClickListener () {
+			@Override
+			public void onClick(View v) {
+				Toast toast = Toast.makeText(context, "Un client veut effectuer uen reservation", Toast.LENGTH_SHORT);
+				toast.show();
+				/*Intent i = new Intent(ReservationClientActivity.this, Booking_Client.class);//TODO
+				i.putExtra(Login.email, c.getEmail());//TODO
+				startActivity(i);
+				//ajouter la reservation dans la base de donnee
+				*/
+			}
+        	//TODO
+        });
+
+    }
+
+    private void updateTime() {
+        timeDisplay.setText(new StringBuilder().append(hours).append(':')
+                .append(min));
+
+    }
+
+    private void updateDate() {
+        dateDisplay.setText(new StringBuilder().append(day).append('-')
+                .append(month + 1).append('-').append(year));
+
+    }
+
+    private DatePickerDialog.OnDateSetListener dateListener = 
+        new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int yr, int monthOfYear,
+                    int dayOfMonth) {
+                year = yr;
+                month = monthOfYear;
+                day = dayOfMonth;
+                updateDate();
+            }
+    };
+
+    private TimePickerDialog.OnTimeSetListener timeListener = 
+        new TimePickerDialog.OnTimeSetListener() {
+
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                hours = hourOfDay;
+                min = minute;
+                updateTime();
+            }
+
+    };
+    protected Dialog onCreateDialog(int id){
+        switch(id) {
+        case DATE_DIALOG_ID:
+            return new DatePickerDialog(this, dateListener, year, month, day);
+        case TIME_DIALOG_ID:
+            return new TimePickerDialog(this, timeListener, hours, min, false);
+        }
+        return null;
+
+    }
 }
 
