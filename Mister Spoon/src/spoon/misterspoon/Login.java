@@ -151,6 +151,7 @@ public class Login extends Activity {
 				//Toast toast = Toast.makeText(context, "Un restaurant vient de se connecter correctement", Toast.LENGTH_SHORT);
 				//toast.show();
 				if (!Restaurant.isCorrectPassword(sql, email_login.getText().toString(), password_login.getText().toString())) {
+					password_login.setText("");
 					Toast toast = Toast.makeText(context, getString(R.string.wrong_mdp), Toast.LENGTH_SHORT);
 					toast.show();
 					return;
