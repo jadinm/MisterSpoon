@@ -102,6 +102,14 @@
             android:configChanges="screenSize">
         </activity>
         
+        <!-- We declare the activity PreReservationRestaurantActivity -->
+        <activity 
+            android:name="spoon.misterspoon.PreReservationRestaurantActivity"
+            android:label="@string/prereservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
         <!-- We declare the activity CarteBuilderActivity -->
         <activity 
             android:name="spoon.misterspoon.CarteBuilderActivity"
