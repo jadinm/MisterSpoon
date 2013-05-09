@@ -269,7 +269,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Loungeatude','Cash'); ");
 		db.execSQL("INSERT INTO " + TABLE_Payment + "(" + Payment_column[1] + ", " + Payment_column[2] +")  VALUES('Comme chez soi','Cash'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade au roquefort','Creperie Bretonne',13.95,3, NULL); ");//12.8125
+		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade au roquefort','Creperie Bretonne',13.95,3, 'Ze salade au roquefort pour les vrais bonhommes'); ");//12.8125
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Salade Tomates Mozzarella','Creperie Bretonne',11.2,20, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Crepe La tartiflette','Creperie Bretonne',12.15,16, NULL); ");
 		db.execSQL("INSERT INTO " + TABLE_Meal + "(" + Meal_column[1] + ", " + Meal_column[2] + ", " + Meal_column[3] + ", " + Meal_column[4] + ", " + Meal_column[5] +")  VALUES('Crepe au saumon fume, sauce creme et citron e l" + "'" + "'aneth','Creperie Bretonne',13.95,15, NULL); ");

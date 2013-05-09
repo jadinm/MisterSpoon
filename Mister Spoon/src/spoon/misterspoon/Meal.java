@@ -50,9 +50,9 @@ public class Meal {
 		}
 
 		// select description
-		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+restName+"'", new String []{mealname});
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst()) {//If the information exists
-			Log.d("description", cursor.getString(0));
+			//Log.d("description", cursor.getString(0));
 			this.description = cursor.getString(0);
 		}
 		
