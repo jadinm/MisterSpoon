@@ -218,6 +218,9 @@
     <string name="profil_restaurant_payments_alert_transfer_test">Virement</string>
     <!-- OK -->
 
+	<!-- Used for alertbox in PreReservationRestaurantActivity -->
+	<string name="prereservation_alert_title">Attention !</string>
+	<string name="prereservation_alert_message">Voulez-vous supprimer cette pré-réservation ?</string>
 
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
