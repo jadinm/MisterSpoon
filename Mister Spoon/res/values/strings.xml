@@ -275,6 +275,9 @@
     <string name="carte_builder_create_menu">Créer le menu :</string>
     <string name="carte_builder_menu_name">Nom du menu :</string>
     <string name="carte_builder_price">Prix du menu :</string>
+    <string name="carte_builder_add_meal_to_menu">avec comme premier plat :</string>
+    <string name="carte_builder_add_menu_meal_name">Nom du plat :</string>
+    <string name="carte_builder_add_menu_meal_price">Prix du plat :</string>
     <string name="carte_builder_add_meal_1">Ajouter le plat :</string>
     <string name="carte_builder_meal_name">Nom du plat :</string>
     <string name="carte_builder_meal_price">Prix du plat :</string>
