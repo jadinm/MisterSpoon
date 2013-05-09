@@ -288,8 +288,23 @@ public class CarteActivity extends Activity {
 
 	private OnClickListener preBookingListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, getString(R.string.carte_prebooking_toast), Toast.LENGTH_SHORT);
-			toast.show();
+			Intent i = new Intent(CarteActivity.this, PrereservationClientActivity.class);
+			i.putExtra(CLIENT, client.getEmail());
+			i.putExtra(RESTAURANT, restName);
+			
+			ArrayList <String> mealList = new ArrayList <String> ();
+			int count = 0;
+			for (int j=0; j<adapter.getGroupCount(); j++) {
+				for(int k=0; k<adapter.getChildrenCount(j); k++) {
+					if (adapter.getIsCheckedList().get(count)) {//If it's checked
+						mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
+					}
+					count++;
+				}
+			}
+			
+			i.putExtra(MEALLIST, mealList);
+			startActivity(i);
 			return;
 		}
 	};
