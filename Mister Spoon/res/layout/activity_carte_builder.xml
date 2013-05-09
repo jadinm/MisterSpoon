@@ -4,112 +4,61 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:orientation="vertical"
-    android:weightSum="22.2" >
+    android:weightSum="20" >
 
     <ExpandableListView
         android:id="@+id/carte_builder_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="20" />
+        android:layout_marginBottom="20dp"
+        android:layout_weight="18" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:layout_weight="0.1"
-        android:weightSum="7" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.1"
-            android:text="@string/carte_builder_create_menu" />
-
-        <EditText
-            android:id="@+id/carte_builder_menu_name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="2"
-            android:hint="@string/carte_builder_menu_name"
-            android:inputType="text" />
-
-        <Spinner
-            android:id="@+id/carte_builder_categorie"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="3" />
-
-        <EditText
-            android:id="@+id/carte_builder_price"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="2"
-            android:hint="@string/carte_builder_price"
-            android:inputType="numberDecimal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp"
         android:layout_weight="1"
-        android:weightSum="3.5" >
+        android:orientation="horizontal"
+        android:weightSum="2" >
 
-        <TextView
+        <Button
+            android:id="@+id/carte_builder_set_menu"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1.5"
-            android:text="@string/carte_builder_add_meal_1" />
-
-        <EditText
-            android:id="@+id/carte_builder_meal_name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:hint="@string/carte_builder_meal_name"
-            android:inputType="text" />
+            android:text="@string/carte_builder_set_menu_title" />
 
-        <EditText
-            android:id="@+id/carte_builder_meal_price"
+        <Button
+            android:id="@+id/carte_builder_create_menu"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:hint="@string/carte_builder_meal_price"
-            android:inputType="text" />
+            android:text="@string/carte_builder_create_menu_title" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp"
         android:layout_weight="1"
-        android:weightSum="8" >
+        android:orientation="horizontal"
+        android:weightSum="2" >
 
-        <TextView
+        <Button
+            android:id="@+id/carte_builder_add_meal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="right"
-            android:layout_weight="7"
-            android:text="@string/carte_builder_add_meal_2" />
-
-        <EditText
-            android:id="@+id/carte_builder_add_meal_menu_name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:hint="@string/carte_builder_menu_name"
-            android:inputType="text" />
-    </LinearLayout>
+            android:text="@string/carte_builder_add_meal_title" />
 
-    <Button
-        android:layout_weight="0.1"
-        android:id="@+id/carte_builder_update"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/carte_builder_update" />
+        <Button
+            android:id="@+id/carte_builder_update"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/carte_builder_update" />
+    </LinearLayout>
 
 </LinearLayout>
