@@ -221,7 +221,7 @@ public class RestaurantOwner {
 	//		}
 	//		return true;
 	//	}
-
+	
 	public boolean setRestaurantCapacity(int capacity) {
 		if(capacity != restaurant.getRestaurantCapacity(false)){
 			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
@@ -740,6 +740,23 @@ public class RestaurantOwner {
 		}
 
 		//db.close();
+	}
+	
+	public boolean addRestaurantImage(String path){
+		if(path != null){
+			for(String currentImage : restaurant.getRestaurantImageList(false)){
+				if(path.equals(currentImage)) return true;
+			}
+			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Image + " ( " + MySQLiteHelper.Image_column[1] + ", " + MySQLiteHelper.Image_column[2] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", " + "'"+path+"'" + " ) ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Image + " ( " + MySQLiteHelper.Image_column[1] + ", " + MySQLiteHelper.Image_column[2] + ") VALUES (" + "'"+restaurant.getRestaurantName()+"'" + ", " + "'"+path+"'" + " ) ;");
+		}
+		else {
+			return false;
+		}
+		restaurant.addRestaurantImage(path);
+		return true;
 	}
 
 	public boolean addRestaurantAvantage(String avantage) {

@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,6 +34,8 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	String restoName;
 	String emailPerso;
 
+	private Uri mImageCaptureUri;
+	
 	//Elements of the view
 	private TextView email_perso;
 	private TextView email_public;
@@ -297,6 +301,11 @@ public class RestaurantForClient extends Activity implements LocationListener {
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
 		}
+		
+		//Ajout des images provenant de la base de donnée
+		for(String pathImage : r.getRestaurantImageList(false)){
+			addImageFromPath(pathImage);
+		}
 
 		ratingBar.setOnRatingBarChangeListener(ratingListener);
 
@@ -459,6 +468,23 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		c = new Client(sqliteHelper, emailPerso);
 		c.setRestaurantEnCours(r);
 		super.onStart();
+	}
+	
+	private void addImageFromPath(String path){
+		Bitmap bitmap   = null;
+ 
+        if (path == null)
+                path = mImageCaptureUri.getPath(); //from File Manager
+ 
+        if (path != null)
+                bitmap  = BitmapFactory.decodeFile(path);
+ 
+        ImageView image = new ImageView (this);
+		image.setImageBitmap(bitmap);
+		image.setPadding (20, 0, 20, 0);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
+		image.setLayoutParams(layoutParams);
+		listview.addView(image);
 	}
 
 }

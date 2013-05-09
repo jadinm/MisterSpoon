@@ -698,6 +698,14 @@ public class Restaurant {
 	public void removeRestaurantTypePaiements(int index){
 		this.typePaiements.remove(index);
 	}
+	
+	public void addRestaurantImage(String path){
+		this.imageList.add(path);
+	}
+	
+	public void removeRestaurantImage(int index){
+		this.imageList.remove(index);
+	}
 
 	public void addRestaurantAvantages(String avantage){
 		this.avantages.add(avantage);

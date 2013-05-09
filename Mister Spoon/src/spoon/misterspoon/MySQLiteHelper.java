@@ -221,7 +221,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		db.execSQL("INSERT INTO " + TABLE_Closing + "(" + Closing_column[1] + ", " + Closing_column[2] +")  VALUES('Creperie Bretonne','05-01'); ");
 		
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +") VALUES('Le Petit Vingtieme','pti1');");
+		/*db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +") VALUES('Le Petit Vingtieme','pti1');");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti2'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti3'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Le Petit Vingtieme','pti4'); ");
@@ -240,7 +240,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret2'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret3'); ");
 		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret4'); ");
-		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret5'); ");
+		db.execSQL("INSERT INTO " + TABLE_Image + "(" + Image_column[1] + ", " + Image_column[2] +")  VALUES('Creperie Bretonne','bret5'); ");*/
 		
 		db.execSQL("INSERT INTO " + TABLE_ImageMeal + "(" + ImageMeal_column[1] + ", " + ImageMeal_column[2] + ", " + ImageMeal_column[3] +") VALUES ('Crepe La tartiflette','Creperie Bretonne','bret1');");
 		

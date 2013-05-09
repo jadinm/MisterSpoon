@@ -380,6 +380,11 @@ public class Profil_Restaurant extends Activity {
 
 
 		}
+		
+		//Ajout des images provenant de la base de donnée
+		for(String pathImage : r.getRestaurant().getRestaurantImageList(false)){
+			addImageFromPath(pathImage);
+		}
 
 		/*for(String imageName : r.getRestaurant().getRestaurantImageList(false)) { TODO -> I don't know how to do this
 			ImageView image = new ImageView (this);
@@ -529,6 +534,23 @@ public class Profil_Restaurant extends Activity {
 
 	}
 	
+	private void addImageFromPath(String path){
+		Bitmap bitmap   = null;
+ 
+        if (path == null)
+                path = mImageCaptureUri.getPath(); //from File Manager
+ 
+        if (path != null)
+                bitmap  = BitmapFactory.decodeFile(path);
+ 
+        ImageView image = new ImageView (this);
+		image.setImageBitmap(bitmap);
+		image.setPadding (20, 0, 20, 0);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
+		image.setLayoutParams(layoutParams);
+		listview.addView(image);
+	}
+	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) return;
@@ -556,6 +578,7 @@ public class Profil_Restaurant extends Activity {
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
 		image.setLayoutParams(layoutParams);
 		listview.addView(image);
+		r.addRestaurantImage(path);
     }
 	
 	public String getRealPathFromURI(Uri contentUri) {
