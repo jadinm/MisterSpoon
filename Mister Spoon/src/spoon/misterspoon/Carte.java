@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class Carte {
 	//TODO Ultime todo mettre ingredient
@@ -111,8 +110,6 @@ public class Carte {
 		ArrayList<Menu> dessert = new ArrayList<Menu>();
 		ArrayList<Menu> boisson = new ArrayList<Menu>();
 		
-		Log.v("sort_begin", menuList.size() + "");
-		
 		for (int i = 0; i < menuList.size(); i++) {
 			if(menuList.get(i).getCategorie(false).equals(categorie[0]))
 				entree.add(menuList.get(i));
@@ -180,9 +177,7 @@ public class Carte {
 
 		for (int i = 0; i < menuList.size(); i++) {
 			ArrayList<Meal> meal = menuList.get(i).getMealList(false);
-			Log.v("method sort", meal.size()+"");
 			if (this.mealOrder.equals(orderMeal[0])) {
-				Log.v("sort","here");
 				for (int j = 0; j < meal.size(); j++) {
 					for (int k = j + 1; k < meal.size(); k++) {
 						if (meal.get(j).getMealName().toLowerCase().compareTo(meal.get(k).getMealName().toLowerCase()) > 0) {
@@ -194,7 +189,6 @@ public class Carte {
 				}
 			}
 			else if (this.mealOrder.equals(orderMeal[1])) {
-				Log.v("sort","No, there");
 				for (int j = 0; j < meal.size(); j++) {
 					for (int k = j + 1; k < meal.size(); k++) {
 						if (meal.get(j).getMealPrice(false) > meal.get(k).getMealPrice(false)) {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class Meal {
 
@@ -38,21 +37,18 @@ public class Meal {
 		// Select the price
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst()) {//If the information exists
-			Log.d("mealprice", cursor.getString(0));
 			this.mealprice = cursor.getDouble(0);
 		}
 		
 		// select stock
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst() && cursor.getString(0)!=null) {//If the information exists
-			Log.d("stock", cursor.getString(0));
 			this.stock = cursor.getInt(0);
 		}
 
 		// select description
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst()) {//If the information exists
-			//Log.d("description", cursor.getString(0));
 			this.description = cursor.getString(0);
 		}
 		

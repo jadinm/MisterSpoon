@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class Menu {
 	
@@ -30,7 +29,6 @@ public class Menu {
 		if (cursor.moveToFirst() && cursor.getString(0) != null) {//If the information exists
 			MenuPrice = cursor.getDouble(0);
 		}
-		Log.v("new Menu", "SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.Menu_column[2] + " = " + "'"+Categorie+"'" + " AND " + MySQLiteHelper.Menu_column[3] + " = " + "'"+restName+"'");
 		//MealList
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + " = " + "'"+MenuName+"'" + " AND " + MySQLiteHelper.Menu_column[2] + " = " + "'"+Categorie+"'" + " AND " + MySQLiteHelper.Menu_column[3] + " = " + "'"+restName+"'", null);
 		if (cursor.moveToFirst()) {//If the information exists

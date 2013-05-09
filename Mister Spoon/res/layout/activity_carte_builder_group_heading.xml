@@ -10,28 +10,31 @@
         android:id="@+id/carte_divider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/separator"
         android:focusable="false" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:weightSum="1.1" >
 
         <TextView
             android:id="@+id/carte_heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:focusable="false" />
+            android:focusable="false"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/carte_heading_check"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
             android:focusable="false" />
     </LinearLayout>
 

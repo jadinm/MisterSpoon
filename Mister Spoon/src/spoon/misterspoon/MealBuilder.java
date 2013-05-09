@@ -1,7 +1,6 @@
 package spoon.misterspoon;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class MealBuilder {
 

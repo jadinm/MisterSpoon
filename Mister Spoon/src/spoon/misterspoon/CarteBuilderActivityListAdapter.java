@@ -32,6 +32,9 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 	public ArrayList <Boolean> getIsCheckedList () {
 		return isCheckedList;
 	}
+	public ArrayList <Boolean> getIsCheckedMenuList () {
+		return isCheckedMenuList;
+	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
@@ -53,7 +56,7 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 			view = infalInflater.inflate(R.layout.activity_carte_child_row, null);
 		}
 		
-		isCheckedList.add(true);
+		isCheckedList.add(false);
 
 		int count = 0;
 		for (int i=0; i<groupPosition-1; i++) {
@@ -62,7 +65,6 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 		count = count + childPosition;
 		
 		CheckBox checkbox = (CheckBox) view.findViewById(R.id.carte_child_check);
-		checkbox.setSelected(true);
 		checkbox.setTag(Integer.valueOf(count));
 		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener () {
 
@@ -118,7 +120,7 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 			view = inf.inflate(R.layout.activity_carte_builder_group_heading, null);
 		}
 
-		isCheckedMenuList.add(true);
+		isCheckedMenuList.add(false);
 		
 		TextView menuName = (TextView) view.findViewById(R.id.carte_heading);
 		menuName.setText(menu.getMenuName());
@@ -126,7 +128,6 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 		menuName.setTypeface(null, Typeface.BOLD);
 		
 		CheckBox check = (CheckBox) view.findViewById(R.id.carte_heading_check);
-		check.setSelected(true);
 		check.setTag(Integer.valueOf(groupPosition));
 		check.setOnCheckedChangeListener(new OnCheckedChangeListener () {
 
