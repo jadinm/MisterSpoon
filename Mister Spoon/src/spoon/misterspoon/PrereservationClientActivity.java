@@ -1,6 +1,7 @@
 package spoon.misterspoon;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
 import android.app.Activity;
@@ -9,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,19 +19,18 @@ public class PrereservationClientActivity extends Activity {
 	
 	private Restaurant r;
 	private Client c;
-	private MySQLiteHelper sqliteHelper1 = new MySQLiteHelper(this);
 	String restoName;
 	String emailPerso;
 
-	public MySQLiteHelper sqliteHelper;
+	private Context context = this;
+	public MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 	
     private ArrayList<Meal> myCommand;
     private ArrayList<String> myCommandString;
     
     private Button preBook;
-	protected Context context;
 	private ListView commandListView;
-	private ArrayAdapter<String> adapter;
+	private PreReservationClientAdapter adapter;
 	private double prixTotal;
 	private TextView total;
 	
@@ -47,30 +46,41 @@ public class PrereservationClientActivity extends Activity {
 		//We get the intent sent by Login
 		Intent i = getIntent();
 		
-		//We take the informations about the person who's logged (!!!! label)
-		emailPerso = i.getStringExtra(Login.email);
-		//restoName = i.getStringExtra(RestaurantListActivity.RESTAURANT);
-		restoName = "Loungeatude";
+		emailPerso = i.getStringExtra(CarteActivity.CLIENT);
+		restoName = i.getStringExtra(CarteActivity.RESTAURANT);
 		//We create the object Restaurant associated with this email and all his informations
-		r = new Restaurant (sqliteHelper1, restoName);
-		c = new Client(sqliteHelper1, emailPerso);
+		r = new Restaurant (sqliteHelper, restoName);
+		c = new Client(sqliteHelper, emailPerso);
 		c.setRestaurantEnCours(r);
 		
-		myCommandString = (ArrayList<String>) i.getStringArrayListExtra("La ou je vais recuperer ma commande");//TODO
+		myCommand = new ArrayList<Meal>();
+
+		myCommandString = (ArrayList<String>) i.getStringArrayListExtra(CarteActivity.MEALLIST);
 		
 		prixTotal = 0;
 		
 		ListIterator<String> it = myCommandString.listIterator();
 		while (it.hasNext()) {
 			String mealName = (String) it.next();
-			Meal meal = new Meal(mealName, restoName, sqliteHelper1);
+			Meal meal = new Meal(mealName, restoName, sqliteHelper);
 			myCommand.add(meal);
 			prixTotal = prixTotal + meal.getMealPrice(false);
 		}
 		
+		List<PreReservationClientItem> preReservationClientItem_data = new ArrayList<PreReservationClientItem>();
+		
+
+		for(Meal meal : myCommand){
+			preReservationClientItem_data.add(new PreReservationClientItem(restoName,""+meal.getMealPrice(true),meal.getMealName()));
+		}
+
 		//TODO vérifier ceci :.
 		commandListView = (ListView) findViewById(R.id.lvListe);
-		adapter = new ArrayAdapter<String>(this, R.id.lvListe, myCommandString);//pas sur ici...
+		
+		View header = (View)getLayoutInflater().inflate(R.layout.prereservation_client_header, null);
+		commandListView.addHeaderView(header);
+		
+		adapter = new PreReservationClientAdapter(context, R.layout.prereservation_client_list_item, preReservationClientItem_data);
 		commandListView.setAdapter(adapter);
 		
 		total = (TextView) findViewById(R.id.prereservation_client_total);

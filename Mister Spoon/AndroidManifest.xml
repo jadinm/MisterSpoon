@@ -131,6 +131,14 @@
             android:configChanges="orientation|screenSize">
         </activity>
         
+        <!-- We declare the activity PrereservationClientActivity -->
+        <activity 
+            android:name="spoon.misterspoon.PrereservationClientActivity"
+            android:label="@string/prereservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
     </application>
 
 </manifest>

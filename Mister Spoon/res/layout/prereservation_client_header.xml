@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="3">
+     
+     <TextView android:id="@+id/prereservation_client_restaurant_header"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:focusable="true"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:text="@string/restaurant"
+        android:background="#336699" />
+     
+     <TextView android:id="@+id/prereservation_client_prix_header"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:focusable="true"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:text="@string/list_restaurant_editText_prix"
+        android:background="#336699" />
+     
+     <TextView android:id="@+id/prereservation_client_plat_header"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:focusable="true"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:text="@string/reservation_restaurant_quantite"
+        android:background="#336699" />
+     
+</LinearLayout>
