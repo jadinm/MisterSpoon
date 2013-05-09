@@ -290,6 +290,8 @@
     <string name="carte_builder_toast_create_menu">Votre menu n\'a pas pu être créé. Vérifiez que ce menu n\'existe pas déjà.</string>
     <string name="carte_builder_toast_add_meal">Votre plat n\'a pu être ajouté. Vérifiez que ce plat n\'est pas déjà présent dans le menu.</string>
     <string name="carte_builder_toast_set_menu">Votre menu n\'a pu être modifié. Vérifier qu\'un menu ne possède pas déjà ces informations.</string>
+    <string name="carte_builder_set_menu">Mettre à jour le menu :</string>
+    <string name="carte_builder_set_menu_2">avec les données suivantes :</string>
 
     
     <!-- Values for activity_restaurant -->
