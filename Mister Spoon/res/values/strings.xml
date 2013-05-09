@@ -117,6 +117,8 @@
     <string name="reservation_client_quantite">Plats</string>
 
     <!-- Values for profil_restaurant -->
+    <string name="profil_restaurant_add_image">Ajouter une image</string>
+    <string name="profil_restaurant_select_image">Sélectionner une image</string>
     <string name="profil_restaurant_fax">Fax :</string>
     <string name="profil_restaurant_tel">Tél :</string>
     <string name="profil_restaurant_web">Site Web :</string>
