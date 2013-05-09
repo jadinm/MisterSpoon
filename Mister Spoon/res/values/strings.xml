@@ -287,8 +287,8 @@
 
     
     <!-- Values for activity_restaurant -->
-    <string name="restaurant_avantages">Avantages :</string>
-    <string name="restaurant_cuisine">Cuisine :</string>
+    <string name="restaurant_avantages">Avantages</string>
+    <string name="restaurant_cuisine">Cuisine</string>
     <string name="restaurant_horaire">Horaire :</string>
     <string name="restaurant_closing_day">Jours de fermeture :</string>
 </resources>
