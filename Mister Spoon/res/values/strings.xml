@@ -103,6 +103,7 @@
     <string name="reservation_restaurant_telephone">Téléphone/GSM</string>
     <string name="reservation_restaurant_places">Places</string>
     <string name="reservation_restaurant_quantite">Plats</string>
+    <string name="reservation_restaurant_email">Email Client</string>
 
     <!-- Values for activity_prereservation_restaurant.xml -->
     <string name="prereservation_restaurant_title">Pré-réservations</string>
