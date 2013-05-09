@@ -284,6 +284,9 @@
     <string name="carte_builder_add_meal_2">au menu :</string>
     <string name="carte_builder_update">Mettre à jour la carte</string>
     <string name="carte_builder_alert_message">Voulez-vous continuer pour modifier les informations précises du plat?</string>
+    <string name="carte_builder_toast_create_menu">Votre menu n\'a pas pu être créé. Vérifiez que ce menu n\'existe pas déjà.</string>
+    <string name="carte_builder_toast_add_meal">Votre plat n\'a pu être ajouté. Vérifiez que ce plat n\'est pas déjà présent dans le menu.</string>
+    <string name="carte_builder_toast_set_menu">Votre menu n\'a pu être modifié. Vérifier qu\'un menu ne possède pas déjà ces informations.</string>
 
     
     <!-- Values for activity_restaurant -->
