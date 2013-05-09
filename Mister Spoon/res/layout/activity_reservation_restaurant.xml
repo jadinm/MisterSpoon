@@ -3,72 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-<!--  
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="5" >
 
-        <EditText
-            android:id="@+id/prereservation_restaurant_heure"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/prereservation_restaurant_heure"
-            android:inputType="time" />
-
-        <EditText
-            android:id="@+id/prereservation_restaurant_nom"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/prereservation_restaurant_nom"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/prereservation_restaurant_telephone"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/prereservation_restaurant_telephone"
-            android:inputType="phone" >
-
-            <requestFocus />
-        </EditText>
-
-        <EditText
-            android:id="@+id/prereservation_restaurant_places"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/prereservation_restaurant_places" />
-
-        <Spinner
-            android:id="@+id/prereservation_restaurant_platQte"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <ListView
+    <ExpandableListView
         android:id="@+id/reservation_restaurant_reservationList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:choiceMode="singleChoice"
-        android:gravity="center" >
-    </ListView>
-    
--->
-    
-    <ExpandableListView 
-        android:id="@+id/reservation_restaurant_reservationList"
-  		android:layout_width="match_parent" 
-  		android:layout_height="fill_parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

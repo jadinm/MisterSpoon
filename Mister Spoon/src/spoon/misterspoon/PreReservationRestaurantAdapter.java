@@ -36,6 +36,7 @@ public class PreReservationRestaurantAdapter extends ArrayAdapter<PreReservation
             
             holder = new PreReservationRestaurantItemHolder();
             holder.txtNom = (TextView)row.findViewById(R.id.prereservation_restaurant_item_nom);
+            holder.txtEmail = (TextView)row.findViewById(R.id.prereservation_restaurant_item_email);
             holder.txtTelephone = (TextView)row.findViewById(R.id.prereservation_restaurant_item_telephone);
             holder.spinnerPlat = (Spinner)row.findViewById(R.id.prereservation_restaurant_item_quantite);
             
@@ -49,6 +50,7 @@ public class PreReservationRestaurantAdapter extends ArrayAdapter<PreReservation
         
         PreReservationRestaurantItem preReservationRestaurantItem = data.get(position);
         holder.txtNom.setText(preReservationRestaurantItem.nom);
+        holder.txtEmail.setText(preReservationRestaurantItem.email);
         holder.txtTelephone.setText(preReservationRestaurantItem.telephone);
         ArrayAdapter<String> arrayAdapterQuantites = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,preReservationRestaurantItem.plat);
         arrayAdapterQuantites.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -60,6 +62,7 @@ public class PreReservationRestaurantAdapter extends ArrayAdapter<PreReservation
     static class PreReservationRestaurantItemHolder
     {
         TextView txtNom;
+        TextView txtEmail;
         TextView txtTelephone;
         Spinner spinnerPlat;
     }

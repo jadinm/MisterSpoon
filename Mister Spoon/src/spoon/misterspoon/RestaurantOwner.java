@@ -522,7 +522,7 @@ public class RestaurantOwner {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			preBooking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + "'"+restaurant.getRestaurantName()+"'" + " GROUP BY " + MySQLiteHelper.Order_column[2], null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + "=" + "'"+restaurant.getRestaurantName()+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+"NULL"+"'" + " GROUP BY " + MySQLiteHelper.Order_column[2], null);
 			if (cursor.moveToFirst()) {//If the information exists
 				ArrayList <Meal> commande;
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
@@ -540,6 +540,15 @@ public class RestaurantOwner {
 		}
 
 		return preBooking;
+	}
+	
+	public  void removeRestaurantPreReservation(String clientEmail, ArrayList<Meal> commande){
+		SQLiteDatabase dbw = sqliteHelper.getWritableDatabase();
+
+		for(Meal currentMeal : commande){
+			dbw.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " +  MySQLiteHelper.Order_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Order_column[4] + " = " + "'"+currentMeal.getMealName()+"'" +" ;");
+			MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'" + " AND " +  MySQLiteHelper.Order_column[2] + " = " + "'"+clientEmail+"'" + " AND " + MySQLiteHelper.Order_column[4] + " = " + "'"+currentMeal.getMealName()+"'" +" ;");
+		}
 	}
 
 	public void removeRestaurantPreReservation(PreBooking preBooking){
@@ -623,7 +632,6 @@ public class RestaurantOwner {
 					Time time = new Time (stime);
 
 					Commande = new ArrayList <Meal> ();
-					Log.v("YOUHOU",	"SELECT " + MySQLiteHelper.Order_column[2] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'"+ " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursor.getString(2)+"'");
 					Cursor tempCursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[2] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'"+ " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursor.getString(2)+"'", null);
 					if(tempCursor.moveToFirst()){
 						while(!tempCursor.isAfterLast() && currentClient.getEmail().equals(tempCursor.getString(0))) {//We take a command if it exists
