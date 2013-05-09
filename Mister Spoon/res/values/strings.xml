@@ -103,7 +103,7 @@
     <string name="reservation_restaurant_telephone">Téléphone/GSM</string>
     <string name="reservation_restaurant_places">Places</string>
     <string name="reservation_restaurant_quantite">Plats</string>
-    
+
     <!-- Values for activity_prereservation_restaurant.xml -->
     <string name="prereservation_restaurant_title">Pré-réservations</string>
 
@@ -114,7 +114,7 @@
     <string name="reservation_client_telephone">Téléphone</string>
     <string name="reservation_client_places">Places</string>
     <string name="reservation_client_quantite">Plats</string>
-    
+
     <!-- Values for profil_restaurant -->
     <string name="profil_restaurant_fax">Fax :</string>
     <string name="profil_restaurant_tel">Tél :</string>
@@ -218,9 +218,10 @@
     <string name="profil_restaurant_payments_alert_transfer_test">Virement</string>
     <!-- OK -->
 
-	<!-- Used for alertbox in PreReservationRestaurantActivity -->
-	<string name="prereservation_alert_title">Attention !</string>
-	<string name="prereservation_alert_message">Voulez-vous supprimer cette pré-réservation ?</string>
+
+    <!-- Used for alertbox in PreReservationRestaurantActivity -->
+    <string name="prereservation_alert_title">Attention !</string>
+    <string name="prereservation_alert_message">Voulez-vous supprimer cette pré-réservation ?</string>
 
     <!-- values for activity_meal.xml -->
     <string name="meal_title">Plat</string>
@@ -254,7 +255,7 @@
     <string name="reservation_client_date_button">Jour</string>
     <string name="reservation_client_time_text">Heure : </string>
     <string name="reservation_client_date_text">Séléctionnez Date : </string>
-    
+
     <!-- Values for activity_carte -->
     <string name="carte_title">Carte</string>
     <string name="carte_meal_price">Prix :</string>
@@ -273,33 +274,39 @@
     <string name="carte_alert_negative">Annuler</string>
     <string name="carte_alert_neutre">Cocher</string>
     <string name="carte_alert_positive">Infos</string>
-    
-    
-    
+
     <!-- Values for activity_carte_builder -->
+    <string name="carte_builder_alert_message">Voulez-vous continuer pour modifier les informations précises du plat?</string>
     <string name="carte_builder_title">Votre Carte</string>
+    <string name="carte_builder_create_menu_title">Créer un menu</string>
     <string name="carte_builder_create_menu">Créer le menu :</string>
     <string name="carte_builder_menu_name">Nom du menu :</string>
     <string name="carte_builder_price">Prix du menu :</string>
     <string name="carte_builder_add_meal_to_menu">avec comme premier plat :</string>
     <string name="carte_builder_add_menu_meal_name">Nom du plat :</string>
     <string name="carte_builder_add_menu_meal_price">Prix du plat :</string>
+    <string name="carte_builder_toast_create_menu">Votre menu n\'a pas pu être créé. Vérifiez que ce menu n\'existe pas déjà.</string>
+    <string name="carte_builder_add_meal_title">Ajouter un plat</string>
     <string name="carte_builder_add_meal_1">Ajouter le plat :</string>
     <string name="carte_builder_meal_name">Nom du plat :</string>
     <string name="carte_builder_meal_price">Prix du plat :</string>
     <string name="carte_builder_add_meal_2">au menu :</string>
-    <string name="carte_builder_update">Mettre à jour la carte</string>
-    <string name="carte_builder_alert_message">Voulez-vous continuer pour modifier les informations précises du plat?</string>
-    <string name="carte_builder_toast_create_menu">Votre menu n\'a pas pu être créé. Vérifiez que ce menu n\'existe pas déjà.</string>
     <string name="carte_builder_toast_add_meal">Votre plat n\'a pu être ajouté. Vérifiez que ce plat n\'est pas déjà présent dans le menu.</string>
-    <string name="carte_builder_toast_set_menu">Votre menu n\'a pu être modifié. Vérifier qu\'un menu ne possède pas déjà ces informations.</string>
+    <string name="carte_builder_set_menu_title">Mettre à jour un menu</string>
     <string name="carte_builder_set_menu">Mettre à jour le menu :</string>
+    <string name="carte_builder_set_menu_name_old">Ancien nom :</string>
     <string name="carte_builder_set_menu_2">avec les données suivantes :</string>
+    <string name="carte_builder_set_menu_name_new">Nouveau nom :</string>
+    <string name="carte_builder_set_menu_price_new">Nouveau prix :</string>
+    <string name="carte_builder_toast_set_menu">Votre menu n\'a pu être modifié. Vérifier qu\'un menu ne possède pas déjà ces informations.</string>
+    <string name="carte_builder_update">Supprimer</string>
+    <string name="carte_builder_toast_delete">Il n\'y a aucun élément décoché et donc aucun élément supprimé.</string>
+    <string name="carte_builder_change">Vos informations ont été correctement mises à jour</string>
 
-    
     <!-- Values for activity_restaurant -->
     <string name="restaurant_avantages">Avantages</string>
     <string name="restaurant_cuisine">Cuisine</string>
     <string name="restaurant_horaire">Horaire :</string>
     <string name="restaurant_closing_day">Jours de fermeture :</string>
+
 </resources>
