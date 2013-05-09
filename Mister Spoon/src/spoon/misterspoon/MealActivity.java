@@ -3,9 +3,14 @@ package spoon.misterspoon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,15 +28,14 @@ public class MealActivity extends Activity {
 	TextView mealDescription = null;
 	Button update = null;
 	
+	private Uri mImageCaptureUri;
+	private LinearLayout listview;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition ( 0 , R.anim.slide_up );
 		Utils.onActivityCreateSetTheme(this);
 		setContentView(R.layout.activity_meal);
-		
-		
-		
-		
 		
 		//We get the intent sent by Login
 		Intent i = getIntent();
@@ -52,6 +56,12 @@ public class MealActivity extends Activity {
 		
 
 		//We can now define all the widgets
+		
+		listview = (LinearLayout) findViewById(R.id.meal_gallery_layout);
+		//Ajout des images provenant de la base de donnée
+		for(String pathImage : meal.getImageList(false)){
+			addImageFromPath(pathImage);
+		}
 		
 		mealPrice = (TextView) findViewById(R.id.meal_price);
 		mealPrice.setText("Prix : "+meal.getMealPrice(false));
@@ -123,13 +133,27 @@ public class MealActivity extends Activity {
 				
 				Toast toasted = Toast.makeText(context, getString(R.string.profil_client_toast_uptodate), Toast.LENGTH_SHORT);
 				toasted.show();
-				
-				
-				
 			}
 			
 		});
 		
+	}
+	
+	private void addImageFromPath(String path){
+		Bitmap bitmap   = null;
+ 
+        if (path == null)
+                path = mImageCaptureUri.getPath(); //from File Manager
+ 
+        if (path != null)
+                bitmap  = BitmapFactory.decodeFile(path);
+ 
+        ImageView image = new ImageView (this);
+		image.setImageBitmap(bitmap);
+		image.setPadding (20, 0, 20, 0);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
+		image.setLayoutParams(layoutParams);
+		listview.addView(image);
 	}
 	
 	public void onPause(){

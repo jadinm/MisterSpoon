@@ -1,5 +1,7 @@
 package spoon.misterspoon;
 
+import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -10,6 +12,7 @@ public class Meal {
 
 	String mealname;
 	String restName;
+	ArrayList <String> imageList;
 	double mealprice;
 	int stock; 
 	String description = null;
@@ -29,20 +32,16 @@ public class Meal {
 		this.mealname = mealname;
 		this.restName = restName;
 		this.sqliteHelper = sqliteHelper;
+		this.imageList = new ArrayList <String> ();
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
-		Log.d("mealprice", "SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + "'"+mealname+"'" + " AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'");
-
 		// Select the price
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[3] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst()) {//If the information exists
 			Log.d("mealprice", cursor.getString(0));
 			this.mealprice = cursor.getDouble(0);
 		}
-		Log.d("mealprice", mealprice +"");
-
 		
-		Log.d("stock", "SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + "'"+mealname+"'" + " AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'");
 		// select stock
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[4] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst() && cursor.getString(0)!=null) {//If the information exists
@@ -50,18 +49,28 @@ public class Meal {
 			this.stock = cursor.getInt(0);
 		}
 
-		Log.d("stock", stock + "");
-
-		Log.d("description", "SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "=" + "'"+mealname+"'" + " AND " + MySQLiteHelper.Meal_column[2] + " = " + "'"+restName+"'");
 		// select description
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Meal_column[5] + " FROM " + MySQLiteHelper.TABLE_Meal + " WHERE " + MySQLiteHelper.Meal_column[1] + "= ? AND " + MySQLiteHelper.Meal_column[1] + " = " + "'"+restName+"'", new String []{mealname});
 		if (cursor.moveToFirst()) {//If the information exists
 			Log.d("description", cursor.getString(0));
 			this.description = cursor.getString(0);
 		}
+		
+		//"imageList"
+		cursor = db.rawQuery("SELECT " + MySQLiteHelper.ImageMeal_column[3] + " FROM " + MySQLiteHelper.TABLE_ImageMeal +" WHERE " + MySQLiteHelper.ImageMeal_column[1] + "= ? AND " + MySQLiteHelper.ImageMeal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
+		if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) {//If there is one element more to read
+				imageList.add(cursor.getString(0));
+				cursor.moveToNext();
+			}
+		}
 
 		//db.close();
 
+	}
+	
+	public void addImage(String path){
+		this.imageList.add(path);
 	}
 
 	/*
@@ -140,6 +149,27 @@ public class Meal {
 
 	public void setMealPrice (double mealPrice) {
 		this.mealprice = mealPrice;
+	}
+
+	public ArrayList <String> getImageList(boolean getFromDatabase) {
+		if (getFromDatabase) {
+
+			imageList = new ArrayList <String> ();
+
+			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.ImageMeal_column[3] + " FROM " + MySQLiteHelper.TABLE_ImageMeal + " WHERE " + MySQLiteHelper.ImageMeal_column[1] + "= ? AND " + MySQLiteHelper.ImageMeal_column[2] + " = " + "'"+restName+"'", new String []{mealname});
+			if (cursor.moveToFirst()) {
+				while (!cursor.isAfterLast()) {//If there is one element more to read
+					imageList.add(cursor.getString(0));
+					cursor.moveToNext();
+				}
+			}
+
+			//db.close();
+		}
+
+		return imageList;
 	}
 
 }

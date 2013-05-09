@@ -35,7 +35,6 @@ public class Profil_Restaurant extends Activity {
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 	
 	private Uri mImageCaptureUri;
-    private ImageView mImageView;
     
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_FILE = 2;

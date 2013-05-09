@@ -13,16 +13,27 @@ public class MealBuilder {
 		this.sqliteHelper = sqliteHelper;
 		this.owner = owner;
 		this.meal = meal;
-		if (meal == null) {
-			Log.d("Fuck", "Chieur");
-		}
 	}
 	
 	public Meal getMeal () {
-		if (meal == null) {
-			Log.d("Fuck", "Chieur");
-		}
 		return meal;
+	}
+	
+	public boolean addImage(String path){
+		if(path != null){
+			for(String currentImage : meal.getImageList(false)){
+				if(path.equals(currentImage)) return true;
+			}
+			SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_ImageMeal + " ( " + MySQLiteHelper.ImageMeal_column[1] + ", " + MySQLiteHelper.ImageMeal_column[2] + ", " + MySQLiteHelper.ImageMeal_column[3] + ") VALUES (" + "'"+meal.getMealName()+"'" + ", " + "'"+meal.getRestName()+"'" + ", " + "'"+path+"'" + " ) ;");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_ImageMeal + " ( " + MySQLiteHelper.ImageMeal_column[1] + ", " + MySQLiteHelper.ImageMeal_column[2] + ", " + MySQLiteHelper.ImageMeal_column[3] + ") VALUES (" + "'"+meal.getMealName()+"'" + ", " + "'"+meal.getRestName()+"'" + ", " + "'"+path+"'" + " ) ;");
+		}
+		else {
+			return false;
+		}
+		meal.addImage(path);
+		return true;
 	}
 
 	public void setMealName(String name){

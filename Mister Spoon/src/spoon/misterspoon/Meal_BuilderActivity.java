@@ -1,14 +1,26 @@
 package spoon.misterspoon;
 
+import java.io.File;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class Meal_BuilderActivity extends Activity {
@@ -20,12 +32,18 @@ public class Meal_BuilderActivity extends Activity {
 	
 	MealBuilder mealB;
 	
+	private Uri mImageCaptureUri;
+	private LinearLayout listview;
+    
+    private static final int PICK_FROM_CAMERA = 1;
+    private static final int PICK_FROM_FILE = 2;
+	
 	EditText mealPrice = null;
 	EditText mealStock = null;
 	EditText mealDescription = null;
 	EditText mealName = null;
 	Button update = null;
-	ImageView mealImage = null;
+	//ImageView mealImage = null;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,11 +81,61 @@ public class Meal_BuilderActivity extends Activity {
 		if (mealB.getMeal().getMealName() == null) {
 			Log.d("mealB.getMeal().getMealName() Is null","here");
 		}
+		
+		//For the image picker
+		final String [] items           = new String [] {"From Camera", "From SD Card"};
+		ArrayAdapter<String> adapter  = new ArrayAdapter<String> (this, android.R.layout.select_dialog_item,items);
+		AlertDialog.Builder builder     = new AlertDialog.Builder(this);
+
+		builder.setTitle(R.string.profil_restaurant_select_image);
+		builder.setAdapter( adapter, new DialogInterface.OnClickListener() {
+			public void onClick( DialogInterface dialog, int item ) {
+				if (item == 0) {
+					Intent intent    = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					File file        = new File(Environment.getExternalStorageDirectory(),
+							"tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+					mImageCaptureUri = Uri.fromFile(file);
+
+					try {
+						intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+						intent.putExtra("return-data", true);
+
+						startActivityForResult(intent, PICK_FROM_CAMERA);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					dialog.cancel();
+				} else {
+					Intent intent = new Intent();
+
+					intent.setType("image/*");
+					intent.setAction(Intent.ACTION_GET_CONTENT);
+
+					startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_FILE);
+				}
+			}
+		} );
+
+		final AlertDialog dialog = builder.create();
+
+		((Button) findViewById(R.id.meal_builder_add_image)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.show();
+			}
+		});
 
 		//We can now define all the widgets
-		mealImage = (ImageView) findViewById(R.id.meal_imageview);
+		listview = (LinearLayout) findViewById(R.id.meal_builder_gallery_layout);
+		//mealImage = (ImageView) findViewById(R.id.meal_imageview);
         //mealImage.setImageResource(R.drawable.imageduplat);
 		//TODO mettre images
+		
+		//Ajout des images provenant de la base de donnée
+		for(String pathImage : mealB.getMeal().getImageList(false)){
+			addImageFromPath(pathImage);
+		}
 		
         
 		mealName = (EditText) findViewById(R.id.meal_builder_name);
@@ -140,6 +208,66 @@ public class Meal_BuilderActivity extends Activity {
 		});
 		
 	}
+	
+	private void addImageFromPath(String path){
+		Bitmap bitmap   = null;
+ 
+        if (path == null)
+                path = mImageCaptureUri.getPath(); //from File Manager
+ 
+        if (path != null)
+                bitmap  = BitmapFactory.decodeFile(path);
+ 
+        ImageView image = new ImageView (this);
+		image.setImageBitmap(bitmap);
+		image.setPadding (20, 0, 20, 0);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
+		image.setLayoutParams(layoutParams);
+		listview.addView(image);
+	}
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) return;
+ 
+        Bitmap bitmap   = null;
+        String path     = "";
+ 
+        if (requestCode == PICK_FROM_FILE) {
+            mImageCaptureUri = data.getData();
+            path = getRealPathFromURI(mImageCaptureUri); //from Gallery
+ 
+            if (path == null)
+                path = mImageCaptureUri.getPath(); //from File Manager
+ 
+            if (path != null)
+                bitmap  = BitmapFactory.decodeFile(path);
+        } else {
+            path    = mImageCaptureUri.getPath();
+            bitmap  = BitmapFactory.decodeFile(path);
+        }
+ 
+        ImageView image = new ImageView (this);
+		image.setImageBitmap(bitmap);
+		image.setPadding (20, 0, 20, 0);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
+		image.setLayoutParams(layoutParams);
+		listview.addView(image);
+		mealB.addImage(path);
+    }
+	
+	public String getRealPathFromURI(Uri contentUri) {
+        String [] proj      = {MediaStore.Images.Media.DATA};
+        Cursor cursor       = managedQuery( contentUri, proj, null, null,null);
+ 
+        if (cursor == null) return null;
+ 
+        int column_index    = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+ 
+        cursor.moveToFirst();
+ 
+        return cursor.getString(column_index);
+    }
 	
 	public void onPause(){
 		super.onPause();
