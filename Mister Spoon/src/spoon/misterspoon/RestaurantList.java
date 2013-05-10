@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
-import android.util.Log;
 
 public class RestaurantList {
 
@@ -34,7 +33,6 @@ public class RestaurantList {
 		Cursor cursor = db.rawQuery(" SELECT R." + MySQLiteHelper.Restaurant_column[1] + ", R." + MySQLiteHelper.Restaurant_column[4] + ", R." + MySQLiteHelper.Restaurant_column[7] + " FROM " + MySQLiteHelper.TABLE_Restaurant + " R, " + MySQLiteHelper.TABLE_Address + " A WHERE R." + MySQLiteHelper.Restaurant_column[4] + " = A." + MySQLiteHelper.Address_column[1] + " AND A." + MySQLiteHelper.Address_column[4] + " = " + "'"+town+"'" , null);
 		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) {
-				Log.v("client", "FUCK");
 				filterList.add(new Restaurant(sqliteHelper, cursor.getString(0), new GPS (cursor.getString(1)), cursor.getInt(2)));
 				cursor.moveToNext();
 			}
@@ -62,7 +60,6 @@ public class RestaurantList {
 		ArrayList<String> nomRestaurants = new ArrayList<String>();
 		for(Restaurant resto : this.filterList){
 			nomRestaurants.add(resto.getRestaurantName());
-			Log.v("Resto", resto.getRestaurantName());
 		}
 		return nomRestaurants;
 	}
@@ -223,12 +220,8 @@ public class RestaurantList {
 		}
 
 		else if (Filter.equals(filterTable[2])) {
-			Log.v("prixFilter", this.filterList.size() + "");
 			for(int i = 0; i < this.filterList.size(); i++) {
-				Log.v("prixFilter", this.filterList.get(i).getRestaurantName());
-				Log.v("prixFilter", this.filterList.get(i).getRestaurantAveragePrice() + "");
 				if (this.filterList.get(i).getRestaurantAveragePrice() > (float) value) {
-					Log.v("prixFilter", "Je suis retiré");
 					this.removedRestaurant.add(this.filterList.get(i));
 					this.filterList.remove(i);
 					i--;//Because size decreases

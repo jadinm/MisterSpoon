@@ -1,6 +1,5 @@
 package spoon.misterspoon;
 
-import android.util.Log;
 
 
 public class OpenHour {
@@ -18,16 +17,12 @@ public class OpenHour {
 	}
 	
 	public OpenHour(String text) {//text must be got by the toString() method
-		Log.d("Profil_resto", text);
 		String []tmp = text.split(" ");
 
 
 		this.openDay   = tmp[1];
 		this.openTime  = new Time (tmp[3]);
 		this.closeTime = new Time (tmp[5]);
-		Log.d("Profil_resto", openDay);
-		Log.d("Profil_resto", openTime.toString());
-		Log.d("Profil_resto", closeTime.toString());
 		
 	}
 	

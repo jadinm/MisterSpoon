@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class Restaurant {
 
@@ -90,7 +89,6 @@ public class Restaurant {
 		//"email", "fax", "webSite"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Contact_column[2] + ", " + MySQLiteHelper.Contact_column[3] + ", " + MySQLiteHelper.Contact_column[4] + " FROM " + MySQLiteHelper.TABLE_Contact + " WHERE " + MySQLiteHelper.Contact_column[1] + " = " + "'"+phone+"'", null);
 		if (cursor.moveToFirst()) {
-			Log.v("Commande OK", "Im in");
 			fax = cursor.getString(0);
 			email = cursor.getString(1);
 			webSite = cursor.getString(2);
@@ -99,7 +97,6 @@ public class Restaurant {
 		//"numero", "rue", "ville"
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Address_column[2] + ", " + MySQLiteHelper.Address_column[3] + ", " + MySQLiteHelper.Address_column[4] + " FROM " + MySQLiteHelper.TABLE_Address + " WHERE " + MySQLiteHelper.Address_column[1] + " = " + "'"+position.toString()+"'", null);
 		if (cursor.moveToFirst()) {
-			Log.v("test_adresse_2", "ok");
 			if (cursor.getString(0)!=null) {
 				this.numero = cursor.getInt(0);
 			}
@@ -529,7 +526,6 @@ public class Restaurant {
 				while (!cursor.isAfterLast()) {//If there is one element more to read
 
 					OpenHour openHour = new OpenHour(cursor.getString(0), new Time(cursor.getString(1)), new Time (cursor.getString(2)));
-					Log.d("getRestaurantHoraire", openHour.toString());
 					horaire.add(openHour);
 					cursor.moveToNext();
 				}
@@ -751,7 +747,6 @@ public class Restaurant {
 		}
 
 		result = result/count;
-		Log.v("getRestaurantAveragePrice()", result + "");
 		return result;
 	}
 
@@ -759,18 +754,14 @@ public class Restaurant {
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		int count = 0; 
 		Cursor cucu = db.rawQuery("SELECT DISTINCT B.dateTime FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'" , null);
-		Log.v("Date" , "SELECT DISTINCT B.dateTime FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'");
 		if (cucu.moveToFirst()) {
 			while (!cucu.isAfterLast()) {
 				String datum = cucu.getString(0);
-				Log.v("datum" , datum);
 				String tmp [] = datum.split(" ");
-				Log.v(tmp[0] , tmp[1]);
 				Date restoDate = new Date(tmp[0]);
 				Time restoTime = new Time(tmp[1]);
 				if (restoDate.getDay().equals(date.getDay()) && restoDate.getMonth().equals(date.getMonth()) && restoTime.getHour()>time.getHour()+2 && restoTime.getHour()<time.getHour()-2) {
 					Cursor cursor = db.rawQuery("SELECT DISTINCT B.restNom, total(B.NbrReservation) AS total FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'" + "AND B.dateTime = " + "'"+datum+"'" , null);
-					Log.v("SQL 2" , "SELECT DISTINCT B.restNom, total(B.NbrReservation) AS total FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'" + "AND B.dateTime = " + "'"+datum+"'");
 					if(cursor.moveToFirst()) {
 						count = Integer.parseInt(cursor.getString(1));
 					}
@@ -778,7 +769,6 @@ public class Restaurant {
 				cucu.moveToNext();
 			}
 		}
-		Log.v("count" , count +"");
 		return count;
 	}
 }

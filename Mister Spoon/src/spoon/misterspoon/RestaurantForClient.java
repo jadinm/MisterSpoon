@@ -15,7 +15,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -560,7 +559,6 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private OnRatingBarChangeListener ratingListener = new OnRatingBarChangeListener() {
 
 		public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-			Log.v("Rating in RestoForClient", rating +"");
 			c.setNoteRestaurant(rating);
 			ratingBar.setEnabled(false);
 

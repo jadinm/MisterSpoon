@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -188,12 +187,6 @@ public class Profil_Restaurant extends Activity {
 
 		//We already fill the data of the Client if they exist
 
-		Log.d("Au départ, on a cet email", r.getEmail());//Debug
-		Log.d("Au départ, on a ce nom", r.getRestaurant().getRestaurantName());
-		Log.d("Au départ, on a cette coordonnée gps", r.getRestaurant().getRestaurantPosition(false).toString());
-		Log.d("Au départ, on a cette adresse", r.getRestaurant().getRestaurantNumero(false) + ", " + r.getRestaurant().getRestaurantRue(false) + ", " + r.getRestaurant().getRestaurantVille(false));
-		Log.d("Au départ, on a ce numéro", r.getRestaurant().getRestaurantPhone(false));
-		Log.d("Au départ, on a cette capacité", r.getRestaurant().getRestaurantCapacity(false) + "");
 
 
 		email_perso.setText(email_perso.getText() + " " + r.getEmail()); 

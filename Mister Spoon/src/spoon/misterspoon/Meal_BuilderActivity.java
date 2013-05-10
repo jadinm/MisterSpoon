@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -67,20 +66,9 @@ public class Meal_BuilderActivity extends Activity {
 		RestaurantOwner r = new RestaurantOwner(sqliteHelper , emailPerso);
 		mealB = new MealBuilder (sqliteHelper, new Meal (mealNom, r.getRestaurant().getRestaurantName(), sqliteHelper), r);
 		
-		Log.v("start",emailPerso);
-		Log.v("start",mealNom);
 		
 		setTitle(String.format(mealNom));
 
-		if (mealB == null) {
-			Log.d("mealB Is null","here");
-		}
-		if (mealB.getMeal() == null) {
-			Log.d("mealB.getMeal() Is null","here");
-		}
-		if (mealB.getMeal().getMealName() == null) {
-			Log.d("mealB.getMeal().getMealName() Is null","here");
-		}
 		
 		//For the image picker
 		final String [] items           = new String [] {"From Camera", "From SD Card"};
@@ -139,9 +127,6 @@ public class Meal_BuilderActivity extends Activity {
 		
         
 		mealName = (EditText) findViewById(R.id.meal_builder_name);
-		if (mealName == null) {
-			Log.d("mealB.mealName Is null","here");
-		}
 		mealPrice = (EditText) findViewById(R.id.meal_builder_price);
 		mealStock = (EditText) findViewById(R.id.meal_builder_stock);
 		mealDescription = (EditText) findViewById(R.id.meal_builder_description);

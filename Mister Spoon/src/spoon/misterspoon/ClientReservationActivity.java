@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 
@@ -36,10 +35,8 @@ public class ClientReservationActivity extends Activity {
 		
 		ReservationClientItem reservationClientItem_data[] = new ReservationClientItem[bookingList.size()];
 		
-		Log.v("Taille liste book : ",bookingList.size()+"");
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
-			Log.v("Taille liste commandes : ",bookingList.get(j).getCommande().size()+"");
 			for(Meal meal : bookingList.get(j).getCommande()){
 				commandList.add(Booking.nombrePlat(sql, meal.getMealName(), bookingList.get(j).getClient().getEmail()) + " x " + meal.getMealName());
 			}

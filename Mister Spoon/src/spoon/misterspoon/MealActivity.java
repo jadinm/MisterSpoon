@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,7 +49,6 @@ public class MealActivity extends Activity {
 		sqliteHelper= new MySQLiteHelper(this);
 		c = new Client (sqliteHelper, emailClient);
 		meal = new Meal (mealName, restoName, sqliteHelper);
-		Log.v("start",emailClient);
 		
 		setTitle(String.format(mealName));
 		

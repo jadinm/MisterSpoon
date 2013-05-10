@@ -11,7 +11,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -88,7 +87,6 @@ public class ReservationClientActivity extends Activity {
 			String mealName = (String) it.next();
 			Meal meal = new Meal(mealName, restoName, sqliteHelper);
 			prixTotal = prixTotal + meal.getMealPrice(false);
-			Log.v("Prix " , prixTotal +"");
 		}
 		
 		
@@ -146,8 +144,6 @@ public class ReservationClientActivity extends Activity {
 		
 		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
 		
-		Log.v("nbrPlace" , nbrPlaces +"");
-		
 		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);
 
 		book = (Button)findViewById(R.id.prereservation_client_reserve);
@@ -160,7 +156,7 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, "RŽservation prise envoyŽe au restorateur", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(context, "Rï¿½servation prise envoyï¿½e au restorateur", Toast.LENGTH_SHORT);
 			toast.show();
 			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
 			ArrayList<Meal> mealList = new ArrayList<Meal>();

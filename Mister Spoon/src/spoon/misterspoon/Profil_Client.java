@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -359,7 +358,6 @@ public class Profil_Client extends Activity {
 					toast.show();
 					return;
 				}
-				Log.v("hello","doubidou");
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 				 
 				//set title and message
