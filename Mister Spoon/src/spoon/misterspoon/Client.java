@@ -1089,8 +1089,8 @@ public class Client {
 				String MealName = (booking.getCommande().get(i)).getMealName();
 				int quantite = (booking.getCommande().get(i)).getMealStock(false);
 
-				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + "'"+email+"'" + ", '" + calendar.toString() + " " +  time.toString() + "', " + MealName + ", " + quantite + ");");
-				MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + "'"+email+"'" + ", ''" + calendar.toString() + " " +  time.toString() + "', " + MealName + ", " + quantite + ");");
+				db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", '" + calendar.toString() + " " +  time.toString() + "', " + "'"+MealName+"'" + ", " + quantite + ");");
+				MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", " + MySQLiteHelper.Order_column[3] + ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", ''" + calendar.toString() + " " +  time.toString() + "', " + "'"+MealName+"'" + ", " + quantite + ");");
 			}
 		}
 

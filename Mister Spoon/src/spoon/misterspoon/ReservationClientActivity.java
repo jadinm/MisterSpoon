@@ -160,8 +160,19 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, "NEXT ! ", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restorateur", Toast.LENGTH_SHORT);
 			toast.show();
+			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
+			ArrayList<Meal> mealList = new ArrayList<Meal>();
+			for (int l = 0; l<myCommandString.size(); l++) {
+				Meal meal = new Meal(myCommandString.get(l));
+				mealList.add(meal);
+			}
+			Booking b = new Booking(r,nbrPlaces, resTime, resDate ,mealList);
+			c.addBooking(b);
+			Client client = new Client(c.getEmail());
+			String CLIENT = "mail of client";
+			i.putExtra(CLIENT, client.getEmail());
 		}
 	};
 

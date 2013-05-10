@@ -319,9 +319,10 @@ public class CarteActivity extends Activity {
 			ArrayList <String> mealList = new ArrayList <String> ();
 			int count = 0;
 			for (int j=0; j<adapter.getGroupCount(); j++) {
-				for(int k=0; k<adapter.getChildrenCount(j); k++) {
+				for(int k=0; k<adapter.getChildrenCount(j); k++) { 
 					if (adapter.getIsCheckedList().get(count)) {//If it's checked
 						mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
+						
 					}
 					count++;
 				}

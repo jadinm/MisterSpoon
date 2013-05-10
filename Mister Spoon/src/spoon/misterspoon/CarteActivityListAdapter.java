@@ -78,7 +78,7 @@ public class CarteActivityListAdapter extends BaseExpandableListAdapter {
 		textView.setText(meal.getMealName());
 		
 		TextView price = (TextView) view.findViewById(R.id.carte_child_price);
-		price.setText(meal.getMealPrice() + " €");
+		price.setText(meal.getMealPrice() + " EUR");
 
 		return view;
 	}
