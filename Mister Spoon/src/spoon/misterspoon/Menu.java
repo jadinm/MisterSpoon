@@ -120,7 +120,7 @@ public class Menu {
 	}
 	
 	public void removeMeal(String mealName) {
-		MealList.remove(mealName);//TODO
+		MealList.remove(mealName);
 	}	
 	
 	

@@ -378,24 +378,10 @@ public class Profil_Restaurant extends Activity {
 			addImageFromPath(pathImage);
 		}
 
-		/*for(String imageName : r.getRestaurant().getRestaurantImageList(false)) { TODO -> I don't know how to do this
-			ImageView image = new ImageView (this);
-			if (imageName.equals("bret1")) {
-
-			}
-			else if (imageName.equals("bret2")) {
-
-			}
-			image.setImageDrawable(getResources().getDrawable(R.drawable.);
-			image.setPadding (20, 0, 20, 0);
-			listview.addView(image);
-		}*/
-
-
 
 		//We define all the listeners
 
-		cooks.setOnClickListener(cooksListener);//TODO
+		cooks.setOnClickListener(cooksListener);
 		advantages.setOnClickListener(advantagesListener);
 		payments.setOnClickListener(paymentsListener);
 		closingButton.setOnClickListener(closingListener);

@@ -84,7 +84,6 @@ public class PrereservationClientActivity extends Activity {
 			preReservationClientItem_data.add(new PreReservationClientItem(restoName,""+meal.getMealPrice(false),meal.getMealName(), meal.getMealStock(false) + ""));
 		}
 
-		//TODO vérifier ceci :.
 		commandListView = (ListView) findViewById(R.id.lvListe);
 
 		View header = (View)getLayoutInflater().inflate(R.layout.prereservation_client_header, null);
@@ -105,11 +104,11 @@ public class PrereservationClientActivity extends Activity {
 			public void onClick(View v) {
 
 				if (! c.preBook(myCommand)) {
-					Toast toast = Toast.makeText(context, "ERROR : Préréservation non effectuée !", Toast.LENGTH_SHORT);//TODO
+					Toast toast = Toast.makeText(context, "ERROR : Préréservation non effectuée !", Toast.LENGTH_SHORT);
 					toast.show();
 					return;
 				}
-				Toast toast = Toast.makeText(context, "Préréservation effectuée !", Toast.LENGTH_SHORT);//TODO
+				Toast toast = Toast.makeText(context, "Préréservation effectuée !", Toast.LENGTH_SHORT);
 				toast.show();
 				Intent i = new Intent(PrereservationClientActivity.this, Profil_Client.class);
 				i.putExtra(Login.email, c.getEmail());

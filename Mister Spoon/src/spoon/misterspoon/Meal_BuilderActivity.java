@@ -116,9 +116,6 @@ public class Meal_BuilderActivity extends Activity {
 
 		//We can now define all the widgets
 		listview = (LinearLayout) findViewById(R.id.meal_builder_gallery_layout);
-		//mealImage = (ImageView) findViewById(R.id.meal_imageview);
-        //mealImage.setImageResource(R.drawable.imageduplat);
-		//TODO mettre images
 		
 		//Ajout des images provenant de la base de donnée
 		for(String pathImage : mealB.getMeal().getImageList(false)){
