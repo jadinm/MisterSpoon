@@ -323,9 +323,6 @@ public class CarteActivity extends Activity {
 
 	private OnClickListener preBookingListener = new OnClickListener() {
 		public void onClick(View v) {
-			Intent i = new Intent(CarteActivity.this, PrereservationClientActivity.class);
-			i.putExtra(CLIENT, client.getEmail());
-			i.putExtra(RESTAURANT, restName);
 
 			ArrayList <String> mealList = new ArrayList <String> ();
 
@@ -336,6 +333,16 @@ public class CarteActivity extends Activity {
 					}
 				}
 			}
+			
+			if (mealList.size()==0) {
+				Toast.makeText(context, R.string.carte_toast_empty, Toast.LENGTH_SHORT).show();
+				return;
+			}
+			
+			
+			Intent i = new Intent(CarteActivity.this, PrereservationClientActivity.class);
+			i.putExtra(CLIENT, client.getEmail());
+			i.putExtra(RESTAURANT, restName);
 
 			i.putExtra(MEALLIST, mealList);
 			startActivity(i);

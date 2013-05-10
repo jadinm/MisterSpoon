@@ -5,6 +5,8 @@
     <string name="app_name">Mister Spoon</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Salut les amis !</string>
+    
+    <string name="carte_toast_empty">Veuillez choisir des plats à pré-réserver.</string>
 
     <!-- Values for activity_login -->
     <string name="fax">Fax :</string>
