@@ -38,10 +38,10 @@ public class Date {
 	
 	public String toString () {
 		
-		if(Integer.parseInt(month) < 10) {
+		if(Integer.parseInt(month) < 10 && month.length()==1) {
 			month = "0" + month;
 		}
-		if(Integer.parseInt(day) < 10) {
+		if(Integer.parseInt(day) < 10 && day.length()==1) {
 			day = "0" + day;
 		}
 		

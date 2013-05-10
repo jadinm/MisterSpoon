@@ -5,22 +5,31 @@ import java.util.Calendar;
 import java.util.ListIterator;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 
 public class ReservationClientActivity extends Activity {
@@ -28,8 +37,8 @@ public class ReservationClientActivity extends Activity {
 	private Restaurant r;
 	private Client c;
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
-	String restoName;
-	String emailPerso;
+	private String restoName;
+	private String emailPerso;
 
 	static final int DATE_DIALOG_ID = 1;
 	static final int TIME_DIALOG_ID = 2;
@@ -41,15 +50,20 @@ public class ReservationClientActivity extends Activity {
 	private int hours, min;
 	private Time resTime;
 	private Date resDate;
+	private TextView messageAlert;
+	private EditText editAlert;
 
 	private ArrayList<Meal> myCommand;
+	private ArrayList <reservationClientActivityItem> command;
+	
+	private LinearLayout persoAlert;
 
 	private Button book;
 	protected Context context = this;
 	private ArrayList<String> myCommandString;
 	private int nbrPlaces;
 	private ListView commandListView;
-	private ArrayAdapter<String> adapter;
+	private reservationClientActivityAdapter adapter;
 	private TextView total;
 	private TextView placesDispo;
 	private double prixTotal;
@@ -87,6 +101,7 @@ public class ReservationClientActivity extends Activity {
 			String mealName = (String) it.next();
 			Meal meal = new Meal(mealName, restoName, sqliteHelper);
 			prixTotal = prixTotal + meal.getMealPrice(false);
+			command.add(new reservationClientActivityItem(mealName, "1"));
 		}
 		
 		
@@ -94,8 +109,10 @@ public class ReservationClientActivity extends Activity {
 		
 
 		commandListView = (ListView) findViewById(R.id.meal_reservation_listing);
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myCommandString);//pas sur ici... TODO -> QUANTITE
+		adapter = new reservationClientActivityAdapter (context, command);
 		commandListView.setAdapter(adapter);
+		
+		commandListView.setOnItemClickListener(commandListViewListener);
 
 		total = (TextView) findViewById(R.id.prereservation_client_total);
 		total.setText(prixTotal + " EUR");
@@ -154,21 +171,125 @@ public class ReservationClientActivity extends Activity {
 
 	}
 	
+	private OnItemClickListener commandListViewListener = new OnItemClickListener(){
+		
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			
+			AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
+			if (persoAlert==null) {
+
+				persoAlert = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_reservation_client_alert_box, null);
+
+				messageAlert = (TextView) persoAlert.findViewById(R.id.reservation_client_alert_box_quantite_message);
+				editAlert = (EditText) persoAlert.findViewById(R.id.reservation_client_alert_box_edit);
+
+			}
+
+			if (persoAlert.getParent() == null) {
+
+				alert.setView(persoAlert);
+			} 
+			else {
+				persoAlert = null; //set it to null
+
+				persoAlert = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_set_menu, null);
+				
+				
+				
+				alert.setView(persoAlert);
+			}
+
+
+
+			alert.setTitle(getString(R.string.carte_builder_set_menu_title))
+			.setNegativeButton(getString(R.string.exit_cancel), null)
+			.setPositiveButton(getString(R.string.exit_confirm), new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick (DialogInterface arg0, int arg1) {//TODO
+
+					boolean success = true;
+
+					if (menuNameOld.getText().toString().length() > 0 && menuNameNew.getText().toString().length() > 0) {//We try to change the menu
+
+						if (! menuNameOld.getText().toString().equals(menuNameNew.getText().toString())) {//We try to set the name
+							
+							success = carteBuilder.setMenuName(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), menuNameNew.getText().toString());
+
+							if (!success) {
+								Toast.makeText(context, R.string.carte_builder_toast_set_menu, Toast.LENGTH_SHORT).show();
+								menuNameOld.setText("");
+								menuNameNew.setText("");
+								menuPriceNew.setText("");
+
+								return;
+							}
+
+						}
+						if (! ((String) categorieOld.getSelectedItem()).equals(((String) categorieNew.getSelectedItem())) && success) {//We try to change the categorie
+
+							
+							success = carteBuilder.setMenuCategorie(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), (String) categorieNew.getSelectedItem());
+
+							if (!success) {
+								Toast.makeText(context, R.string.carte_builder_toast_set_menu, Toast.LENGTH_SHORT).show();
+								menuNameOld.setText("");
+								menuNameNew.setText("");
+								menuPriceNew.setText("");
+
+								adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+								carteListView.setAdapter(adapter);
+
+								return;
+							}
+						}
+						if (menuPriceNew.getText().toString().length() > 0 && success) {
+							
+
+							carteBuilder.setMenuPrice(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), Double.parseDouble(menuPriceNew.getText().toString()));
+						}
+
+						Toast.makeText(context, R.string.carte_builder_change, Toast.LENGTH_SHORT).show();
+					}
+					else {
+						return;
+					}
+
+					adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+					carteListView.setAdapter(adapter);
+
+					menuNameOld.setText("");
+					menuNameNew.setText("");
+					menuPriceNew.setText("");
+					arg0.cancel();
+
+				}
+			}).create().show();
+		}
+		
+	};
+	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restorateur", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restaurateur", Toast.LENGTH_SHORT);
 			toast.show();
+			
 			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
+			
 			ArrayList<Meal> mealList = new ArrayList<Meal>();
-			for (int l = 0; l<myCommandString.size(); l++) {
-				Meal meal = new Meal(myCommandString.get(l));
+			for (int l = 0; l<command.size(); l++) {
+				Meal meal = new Meal(command.get(l).getMealName(), command);
 				mealList.add(meal);
 			}
 			Booking b = new Booking(r,nbrPlaces, resTime, resDate ,mealList);
 			c.addBooking(b);
 			Client client = new Client(c.getEmail());
-			String CLIENT = "mail of client";
-			i.putExtra(CLIENT, client.getEmail());
+			
+			
+			i.putExtra(Login.email, client.getEmail());
+			startActivity(i);
 		}
 	};
 
