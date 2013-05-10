@@ -41,7 +41,7 @@ public class PreReservationRestaurantActivity extends Activity {
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
 			for(Meal meal : bookingList.get(j).getCommande()){
-				commandList.add(meal.getMealName());
+				commandList.add(PreBooking.nombrePlat(sql, meal.getMealName(), bookingList.get(j).getClient().getEmail()) + " x " + meal.getMealName());
 			}
 			Client superClient = new Client(sql,bookingList.get(j).getClient().getEmail());
 			preReservationRestaurantItem_data.add(new PreReservationRestaurantItem(superClient.getName(true),superClient.getEmail(),superClient.getGsm(true), commandList));
@@ -70,7 +70,7 @@ public class PreReservationRestaurantActivity extends Activity {
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
 			for(Meal meal : bookingList.get(j).getCommande()){
-				commandList.add(meal.getMealName());
+				commandList.add(PreBooking.nombrePlat(sql, meal.getMealName(), bookingList.get(j).getClient().getEmail()) + " x " + meal.getMealName());
 			}
 			Client superClient = new Client(sql,bookingList.get(j).getClient().getEmail());
 			preReservationRestaurantItem_data.add(new PreReservationRestaurantItem(superClient.getName(true),superClient.getEmail(),superClient.getGsm(true), commandList));
@@ -94,7 +94,7 @@ public class PreReservationRestaurantActivity extends Activity {
 					PreReservationRestaurantItem currentItem = (PreReservationRestaurantItem) arg0.getItemAtPosition(arg2);
 					ArrayList<Meal> mealList = new ArrayList<Meal>(); 
 					for(String mealName : currentItem.plat){
-						mealList.add(new Meal(mealName));
+						mealList.add(new Meal(mealName.split(" x ")[1]));
 					}
 					restaurantOwner.removeRestaurantPreReservation(currentItem.email,mealList);
 					
