@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
-import android.util.Log;
 
 public class Client {
 
@@ -820,7 +819,6 @@ public class Client {
 			String MealName = (preBooking.getCommande().get(i)).getMealName();
 			int quantite = (preBooking.getCommande().get(i)).getMealStock(false);
 
-			Log.v("test","INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] + ", "  + MySQLiteHelper.Order_column[3] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES ('" + restNom + "', " + "'"+email+"'" + ", 'NULL', '" + MealName + "', " + quantite + ");");
 			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] + ", "  + MySQLiteHelper.Order_column[3] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES ('" + restNom + "', " + "'"+email+"'" + ", 'NULL', '" + MealName + "', " + quantite + ");");
 			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] + ", "  + MySQLiteHelper.Order_column[3] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"', 'NULL'" + ", '" + MealName + "', " + quantite + ");");
 		}
@@ -1008,8 +1006,6 @@ public class Client {
 	 */
 	public void addBooking (Booking booking) {
 		
-		Log.v("addBooking", "here");
-
 		if (booking == null) {//If the parameter is null
 			return ;
 		}
@@ -1026,8 +1022,7 @@ public class Client {
 
 		String restNom = booking.getRestaurant().getRestaurantName();
 		
-		Log.v("addBooking", "INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", '" + calendar.toString() + " " +  time.toString() + "');");
-
+		
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", '" + calendar.toString() + " " +  time.toString() + "');");
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", '" + calendar.toString() + " " +  time.toString() + "');");
 
@@ -1131,7 +1126,6 @@ public class Client {
 	 */
 	public boolean isReservationPossible (Booking booking) {
 		
-		Log.v("isReservationPossible", "before");
 
 		if (booking == null) {
 			return false;
@@ -1139,7 +1133,6 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
-		Log.v("isReservationPossible", "before-1");
 		
 		int count = booking.getRestaurant().getRestaurantBooking(booking.getRestaurant().getRestaurantName(), booking.getDate(), booking.getHeureReservation());
 
@@ -1147,12 +1140,10 @@ public class Client {
 		Cursor cursor2 = db.rawQuery("SELECT DISTINCT R.restNom FROM Restaurant R, Reservation B, Horaire H, Fermeture F WHERE R.restNom=B.restNom AND B.restNom=H.restNom AND ((R.capaTotale - "+ count +" >= "+ booking.getNombrePlaces() +")	OR (R.restNom not in (SELECT DISTINCT B.restNom FROM Reservation B WHERE B.dateTime= '" + booking.getHeureReservation() + "' GROUP BY B.restNom) AND R.capaTotale >= "+ booking.getNombrePlaces() +")) AND H.openHour <='" + booking.getHeureReservation() + "' AND H.closeHour > '" + booking.getHeureReservation() + "' AND R.restNom = H.restNom AND F.restNom = R.restNom AND F.date != strftime('%m-%d', 'now') AND H.jourOuverture in (SELECT case cast(strftime('%w','now') as INTEGER) when 0 then 'Dimanche' when 1 then 'Lundi' when 2 then 'Mardi' when 3 then 'Mercredi' when 4 then 'Jeudi' when 5 then 'Vendredi' else 'Samedi' end as DayOfWeek)", null);
 		if (cursor2.moveToNext()) {//If it's possible
 			db.close();
-			Log.v("isReservationPossible", "success");
 			return true;
 		}
 		else {
 			db.close();
-			Log.v("isReservationPossible", "wrong");
 			return false;
 		}		
 	}
@@ -1165,24 +1156,19 @@ public class Client {
 	 */
 	public boolean book (ArrayList <Meal> commande, int nbrPlaces, Time time, Date calendar) {
 		
-		Log.v("book", "before");
 
 		if (restaurantEnCours == null || time == null || nbrPlaces <= 0 || calendar == null) {//If the reservation has no sense
 			return false;
 		}
-		
-		Log.v("book", "before-1");
+	
 
 		Booking booking = new Booking (restaurantEnCours, nbrPlaces, time, calendar, commande);
 		if (!isReservationPossible(booking)) {
-			Log.v("book", "wrong");
 			return false;
 		}
 
 		this.addBooking(booking);
 		
-		Log.v("book", "success");
-
 		return true;
 	}
 	

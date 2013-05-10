@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class RestaurantOwner {
 
@@ -46,7 +45,6 @@ public class RestaurantOwner {
 		Cursor cursorDate = dbw.rawQuery("SELECT " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[1] + " = " + "'"+restaurant.getRestaurantName()+"'", null);
 		if(cursorDate.moveToFirst()){
 			while (!cursorDate.isAfterLast()){
-				Log.v("YABOU ! ", cursorDate.getString(0));
 				String tempDate [] = cursorDate.getString(0).split(" "); 
 				Date dateBooking = new Date(tempDate[0]);
 				if(dateBooking.compareTo(currentDate) < 0){
