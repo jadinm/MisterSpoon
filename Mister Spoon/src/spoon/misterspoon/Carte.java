@@ -73,18 +73,18 @@ public class Carte {
 	 */
 	public ArrayList<CarteActivityHeader> getFilterList() {
 		
-		ArrayList <CarteActivityHeader> menuList = new ArrayList <CarteActivityHeader> ();
+		ArrayList <CarteActivityHeader> menuListView = new ArrayList <CarteActivityHeader> ();
 		
 		
 		for (int i = 0; i<this.menuList.size(); i++) {
-			ArrayList <CarteActivityChild> mealList = new ArrayList <CarteActivityChild> ();
+			ArrayList <CarteActivityChild> mealListView = new ArrayList <CarteActivityChild> ();
 			for (int j = 0; j<this.menuList.get(i).getMealList(false).size(); j++) {
-				mealList.add(new CarteActivityChild(this.menuList.get(i).getMealList(false).get(j).getMealName(), this.menuList.get(i).getMealList(false).get(j).getMealPrice(false)));
+				mealListView.add(new CarteActivityChild(this.menuList.get(i).getMealList(false).get(j).getMealName(), this.menuList.get(i).getMealList(false).get(j).getMealPrice(false)));
 			}
-			menuList.add(new CarteActivityHeader (this.menuList.get(i).getMenuName(), mealList));
+			menuListView.add(new CarteActivityHeader (this.menuList.get(i).getMenuName(), mealListView));
 		}
 		
-		return menuList;
+		return menuListView;
 	}
 
 	public ArrayList<Meal> getPlatsFav() {

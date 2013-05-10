@@ -54,36 +54,36 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 		if (view == null) {
 			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.activity_carte_child_row, null);
-		}
-		
-		isCheckedList.add(false);
-
-		int count = 0;
-		for (int i=0; i<groupPosition-1; i++) {
-			count = count + getChildrenCount(i);
-		}
-		count = count + childPosition;
-		
-		CheckBox checkbox = (CheckBox) view.findViewById(R.id.carte_child_check);
-		checkbox.setTag(Integer.valueOf(count));
-		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener () {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
-				
-				final Integer position = (Integer) buttonView.getTag();
-				
-	            isCheckedList.set(position, isChecked);
-				
-			}
 			
-		});
-		
-		TextView textView = (TextView) view.findViewById(R.id.carte_child_text);
-		textView.setText(meal.getMealName());
-		
-		TextView price = (TextView) view.findViewById(R.id.carte_child_price);
-		price.setText(meal.getMealPrice() + " €");
+			isCheckedList.add(false);
+
+			int count = 0;
+			for (int i=0; i<groupPosition-1; i++) {
+				count = count + getChildrenCount(i);
+			}
+			count = count + childPosition;
+			
+			CheckBox checkbox = (CheckBox) view.findViewById(R.id.carte_child_check);
+			checkbox.setTag(Integer.valueOf(count));
+			checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener () {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+					
+					final Integer position = (Integer) buttonView.getTag();
+					
+		            isCheckedList.set(position, isChecked);
+					
+				}
+				
+			});
+			
+			TextView textView = (TextView) view.findViewById(R.id.carte_child_text);
+			textView.setText(meal.getMealName());
+			
+			TextView price = (TextView) view.findViewById(R.id.carte_child_price);
+			price.setText(meal.getMealPrice() + " €");
+		}
 
 		return view;
 	}
@@ -118,33 +118,33 @@ public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 		if (view == null) {
 			LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inf.inflate(R.layout.activity_carte_builder_group_heading, null);
-		}
-
-		isCheckedMenuList.add(false);
-		
-		TextView menuName = (TextView) view.findViewById(R.id.carte_heading);
-		menuName.setText(menu.getMenuName());
-		menuName.setGravity(Gravity.CENTER);
-		menuName.setTypeface(null, Typeface.BOLD);
-		
-		CheckBox check = (CheckBox) view.findViewById(R.id.carte_heading_check);
-		check.setTag(Integer.valueOf(groupPosition));
-		check.setOnCheckedChangeListener(new OnCheckedChangeListener () {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
-				
-				final Integer position = (Integer) buttonView.getTag();
-				
-	            isCheckedMenuList.set(position, isChecked);
-				
-			}
 			
-		});
-		
-		if (groupPosition==0) {//We don't show the first divider
-			ImageView image = (ImageView) view.findViewById(R.id.carte_divider);
-			image.setVisibility(View.GONE);
+			isCheckedMenuList.add(false);
+			
+			TextView menuName = (TextView) view.findViewById(R.id.carte_heading);
+			menuName.setText(menu.getMenuName());
+			menuName.setGravity(Gravity.CENTER);
+			menuName.setTypeface(null, Typeface.BOLD);
+			
+			CheckBox check = (CheckBox) view.findViewById(R.id.carte_heading_check);
+			check.setTag(Integer.valueOf(groupPosition));
+			check.setOnCheckedChangeListener(new OnCheckedChangeListener () {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+					
+					final Integer position = (Integer) buttonView.getTag();
+					
+		            isCheckedMenuList.set(position, isChecked);
+					
+				}
+				
+			});
+			
+			if (groupPosition==0) {//We don't show the first divider
+				ImageView image = (ImageView) view.findViewById(R.id.carte_divider);
+				image.setVisibility(View.GONE);
+			}
 		}
 
 		return view;

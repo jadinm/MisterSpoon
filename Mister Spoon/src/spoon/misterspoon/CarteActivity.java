@@ -14,9 +14,11 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -24,7 +26,10 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -107,7 +112,7 @@ public class CarteActivity extends Activity {
 
 		//ListView
 		adapter = new CarteActivityListAdapter(this, carte.getFilterList());
-		
+
 		carteListView.setAdapter(adapter);
 
 		//Listeners
@@ -118,6 +123,20 @@ public class CarteActivity extends Activity {
 
 		carteListView.setOnChildClickListener(carteListViewChild);
 
+		for (int j=0; j<adapter.getGroupCount(); j++) {
+			carteListView.expandGroup(j);
+		}
+
+		carteListView.setOnGroupClickListener(new OnGroupClickListener()
+		{
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, 
+					View v, int groupPosition, long id)
+			{
+				return true;
+			}
+		});
+
 		preBooking.setOnClickListener(preBookingListener);
 		booking.setOnClickListener(bookingListener);
 
@@ -126,20 +145,20 @@ public class CarteActivity extends Activity {
 	private OnChildClickListener carteListViewChild =  new OnChildClickListener() {
 
 		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-			
+
 			Log.v("listener", "we are here");
-			
+
 			Meal meal = carte.getMenuList().get(groupPosition).getMealList(false).get(childPosition);
-			
+
 			currentMeal = meal;
-			
+
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			
+
 			builder.setTitle(meal.getMealName());
 			builder.setMessage(getString(R.string.carte_alert_message));
-			
+
 			builder.setCancelable(true);//We can go back with the return button
-			
+
 			builder.setNegativeButton(getString(R.string.carte_alert_negative), new DialogInterface.OnClickListener() {
 
 				@Override
@@ -159,9 +178,9 @@ public class CarteActivity extends Activity {
 					return;
 				}
 			});
-			
+
 			AlertDialog alertDialog = builder.create();
-			
+
 			alertDialog.show();
 
 			return true;
@@ -194,6 +213,9 @@ public class CarteActivity extends Activity {
 
 			adapter = new CarteActivityListAdapter(context, carte.getFilterList());
 			carteListView.setAdapter(adapter);
+			for (int j=0; j<adapter.getGroupCount(); j++) {
+				carteListView.expandGroup(j);
+			}
 
 		}
 
@@ -216,9 +238,12 @@ public class CarteActivity extends Activity {
 			}
 
 			carte.sort();
-			
+
 			adapter = new CarteActivityListAdapter(context, carte.getFilterList());
 			carteListView.setAdapter(adapter);
+			for (int j=0; j<adapter.getGroupCount(); j++) {
+				carteListView.expandGroup(j);
+			}
 
 		}
 
@@ -234,9 +259,12 @@ public class CarteActivity extends Activity {
 
 			if (isChecked) {
 				carte.filter(Carte.filterMeal[1], 0);
-				
+
 				adapter = new CarteActivityListAdapter(context, carte.getFilterList());
 				carteListView.setAdapter(adapter);
+				for (int j=0; j<adapter.getGroupCount(); j++) {
+					carteListView.expandGroup(j);
+				}
 			}
 			else {
 				carte.resetfilterList();
@@ -245,9 +273,12 @@ public class CarteActivity extends Activity {
 				}
 
 				carte.sort();
-				
+
 				adapter = new CarteActivityListAdapter(context, carte.getFilterList());
 				carteListView.setAdapter(adapter);
+				for (int j=0; j<adapter.getGroupCount(); j++) {
+					carteListView.expandGroup(j);
+				}
 			}
 		}
 	};
@@ -258,9 +289,12 @@ public class CarteActivity extends Activity {
 
 			if (isChecked && prix_edit.getText().toString().length() > 0) {
 				carte.filter(Carte.filterMeal[0], Float.parseFloat(prix_edit.getText().toString()));
-				
+
 				adapter = new CarteActivityListAdapter(context, carte.getFilterList());
 				carteListView.setAdapter(adapter);
+				for (int j=0; j<adapter.getGroupCount(); j++) {
+					carteListView.expandGroup(j);
+				}
 			}
 			else if (isChecked && prix_edit.getText().toString().length() == 0) {
 
@@ -279,9 +313,12 @@ public class CarteActivity extends Activity {
 				}
 
 				carte.sort();
-				
+
 				adapter = new CarteActivityListAdapter(context, carte.getFilterList());
 				carteListView.setAdapter(adapter);
+				for (int j=0; j<adapter.getGroupCount(); j++) {
+					carteListView.expandGroup(j);
+				}
 			}
 		}
 	};
@@ -291,18 +328,17 @@ public class CarteActivity extends Activity {
 			Intent i = new Intent(CarteActivity.this, PrereservationClientActivity.class);
 			i.putExtra(CLIENT, client.getEmail());
 			i.putExtra(RESTAURANT, restName);
-			
+
 			ArrayList <String> mealList = new ArrayList <String> ();
-			int count = 0;
+
 			for (int j=0; j<adapter.getGroupCount(); j++) {
 				for(int k=0; k<adapter.getChildrenCount(j); k++) {
-					if (adapter.getIsCheckedList().get(count)) {//If it's checked
+					if (((CarteActivityChild) adapter.getChild(j, k)).isSelected()) {//If it's checked
 						mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
 					}
-					count++;
 				}
 			}
-			
+
 			i.putExtra(MEALLIST, mealList);
 			startActivity(i);
 			return;
@@ -315,19 +351,17 @@ public class CarteActivity extends Activity {
 			Intent i = new Intent(CarteActivity.this, ReservationClientActivity.class);
 			i.putExtra(CLIENT, client.getEmail());
 			i.putExtra(RESTAURANT, restName);
-			
+
 			ArrayList <String> mealList = new ArrayList <String> ();
-			int count = 0;
+
 			for (int j=0; j<adapter.getGroupCount(); j++) {
-				for(int k=0; k<adapter.getChildrenCount(j); k++) { 
-					if (adapter.getIsCheckedList().get(count)) {//If it's checked
+				for(int k=0; k<adapter.getChildrenCount(j); k++) {
+					if (((CarteActivityChild) adapter.getChild(j, k)).isSelected()) {//If it's checked
 						mealList.add(((CarteActivityChild) adapter.getChild(j, k)).getMealName());
-						
 					}
-					count++;
 				}
 			}
-			
+
 			i.putExtra(MEALLIST, mealList);
 			startActivity(i);
 		}
@@ -339,5 +373,158 @@ public class CarteActivity extends Activity {
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
 	}
 
+	public static class ViewHolder {
+		protected CheckBox cb;
+		protected TextView tx;
+		protected TextView price;
+	}
 
+	public class CarteActivityListAdapter extends BaseExpandableListAdapter {//Class for the expandableListView
+
+		private Context context;
+		private ArrayList<CarteActivityHeader> carte;
+		//private ArrayList<Boolean> isCheckedList;
+
+		public CarteActivityListAdapter(Context context, ArrayList<CarteActivityHeader> carte) {
+			this.context = context;
+			this.carte = carte;
+			//this.isCheckedList = new ArrayList <Boolean> ();
+		}
+
+		/*public ArrayList <Boolean> getIsCheckedList () {
+			return isCheckedList;
+		}*/
+
+		@Override
+		public Object getChild(int groupPosition, int childPosition) {
+			if (carte != null && carte.size() > groupPosition && carte.get(groupPosition) != null) {
+				if (carte.get(groupPosition).getMealList().size() >childPosition)
+					return carte.get(groupPosition).getMealList().get(childPosition);
+			}
+
+			return null;
+		}
+
+		@Override
+		public long getChildId(int groupPosition, int childPosition) {
+			return (long)(groupPosition*1024 + childPosition);
+		}
+
+		@Override
+		public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
+			View view = null;
+			if (convertView == null) {
+
+				view = getLayoutInflater().inflate(R.layout.activity_carte_child_row, null);
+
+				final ViewHolder childHolder = new ViewHolder();
+				childHolder.cb = (CheckBox) view.findViewById(R.id.carte_child_check);
+				childHolder.tx = (TextView) view.findViewById(R.id.carte_child_text);
+				childHolder.price = (TextView) view.findViewById(R.id.carte_child_price);
+
+				childHolder.cb
+				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(CompoundButton button, boolean isCheked) {
+
+						CarteActivityChild item = (CarteActivityChild) childHolder.cb.getTag();//We get back the object associated
+						item.setSelected(button.isChecked());
+
+					}
+				});
+
+				view.setTag(childHolder);//We associate the view with his viewHolder
+				childHolder.cb.setTag(carte.get(groupPosition).getMealList().get(childPosition));//We associate the checkBox with the "model" object
+
+
+			}
+			else {
+
+				view = convertView;
+				((ViewHolder) view.getTag()).cb.setTag(carte.get(groupPosition).getMealList().get(childPosition));//We re-associate the checkBox with another object
+			}
+
+			ViewHolder holder = (ViewHolder) view.getTag();
+			holder.cb.setSelected(carte.get(groupPosition).getMealList().get(childPosition).isSelected());//We change what we have to
+			holder.tx.setText(carte.get(groupPosition).getMealList().get(childPosition).getMealName());
+			holder.price.setText(carte.get(groupPosition).getMealList().get(childPosition).getMealPrice() + " EUR");
+
+			return view;
+
+		}
+
+		@Override
+		public int getChildrenCount(int groupPosition) {
+
+			if (carte != null && carte.size() > groupPosition && carte.get(groupPosition) != null) {
+				ArrayList<CarteActivityChild> mealList = carte.get(groupPosition).getMealList();
+				return mealList.size();
+			}
+			return 0;
+
+		}
+
+		@Override
+		public Object getGroup(int groupPosition) {
+			if (carte != null && carte.size() > groupPosition)
+				return carte.get(groupPosition);
+
+			return null;
+		}
+
+		@Override
+		public int getGroupCount() {
+			if (carte != null) {
+				return carte.size();
+			}
+			return 0;
+		}
+
+		@Override
+		public long getGroupId(int groupPosition) {
+			return (long) groupPosition*1024;
+		}
+
+		@Override
+		public View getGroupView(int groupPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
+			if (convertView == null) {
+				convertView = getLayoutInflater().inflate(R.layout.activity_carte_group_heading, null);
+			}
+
+			TextView tv = (TextView) convertView.findViewById(R.id.carte_heading);
+			tv.setText(carte.get(groupPosition).getMenuName());
+
+			//			CarteActivityHeader menu = (CarteActivityHeader) getGroup(groupPosition);
+			//
+			//			LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			//			view = inf.inflate(R.layout.activity_carte_group_heading, null);
+			//
+			//			TextView menuName = (TextView) view.findViewById(R.id.carte_heading);
+			//			menuName.setText(menu.getMenuName());
+			//			menuName.setGravity(Gravity.CENTER);
+			//			menuName.setTypeface(null, Typeface.BOLD);
+
+			if (groupPosition==0) {//We don't show the first divider
+				ImageView image = (ImageView) convertView.findViewById(R.id.carte_divider);
+				image.setVisibility(View.GONE);
+			}
+
+
+			return convertView;
+		}
+
+		@Override
+		public boolean hasStableIds() {
+			return true;
+		}
+
+		@Override
+		public boolean isChildSelectable(int groupPosition, int childPosition) {
+			return true;
+		}
+	}
 }
+
