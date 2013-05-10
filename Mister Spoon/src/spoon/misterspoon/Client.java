@@ -775,19 +775,26 @@ public class Client {
 
 			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " GROUP BY " + MySQLiteHelper.Order_column[1], null);
 			if (cursor.moveToFirst()) {//If the information exists
-				ArrayList <Meal> Commande;
+				ArrayList <Meal> commande = new ArrayList <Meal> ();
+				String previousResto = cursor.getString(0);
+				String currentResto = cursor.getString(0);
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
-					String currentResto = cursor.getString(0);
-					Commande = new ArrayList <Meal> ();
-					while(!cursor.isAfterLast() && currentResto == cursor.getString(0)) {
-						Commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
-						cursor.moveToNext();
+					currentResto = cursor.getString(0);
+					if(currentResto == previousResto) {
+						commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 					}
-					preBooking.add(new PreBooking(new Restaurant(currentResto), Commande));
+					else{
+						preBooking.add(new PreBooking(new Restaurant(currentResto), commande));
+						commande = new ArrayList <Meal> ();
+						commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));
+						previousResto = currentResto;
+					}
+					cursor.moveToNext();
 				}
+				preBooking.add(new PreBooking(new Restaurant(currentResto), commande));
 			}
 
-			db.close();
+			//db.close();
 		}
 
 		return preBooking;
@@ -938,12 +945,12 @@ public class Client {
 
 			Cursor cursor = db.rawQuery("SELECT DISTINCT P.platNom FROM Plat P, Commande C, (SELECT C.platNom, total(C.quantite) as quantite FROM Commande C WHERE C.restNom = "+ "'"+preBooking.getRestaurant().getRestaurantName()+"'" +" GROUP BY C.platNom) AS Somme WHERE P.platNom = " + "'"+currentMeal.getMealName()+"'" + " AND P.platNom = C.platNom AND P.RestNom = C.restNom AND  C.RestNom = " + "'"+preBooking.getRestaurant().getRestaurantName()+"'" + " AND P.platNom=Somme.platNom AND P.stock - Somme.quantite - " + currentMeal.getMealStock(false) + " >= 0 ", null);
 			if (!cursor.moveToFirst()) {//If there isn't enough stock for that meal
-				db.close();
+				//db.close();
 				return false;
 			}
 		}
 
-		db.close();
+		//db.close();
 
 		return true;
 
