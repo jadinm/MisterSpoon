@@ -4,7 +4,7 @@
     android:orientation="horizontal" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3">
+    android:weightSum="4">
      
      <TextView android:id="@+id/prereservation_client_restaurant_header"
         android:layout_width="wrap_content"
@@ -43,6 +43,19 @@
         android:textColor="#FFFFFF"
         android:padding="10dp"
         android:text="@string/reservation_restaurant_quantite"
+        android:background="#336699" />
+     
+     <TextView android:id="@+id/prereservation_client_quantite_header"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:focusable="true"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:text="@string/reservation_client_real_quantite"
         android:background="#336699" />
      
 </LinearLayout>

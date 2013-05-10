@@ -115,6 +115,7 @@
     <string name="reservation_client_telephone">Phone</string>
     <string name="reservation_client_places">Seats</string>
     <string name="reservation_client_quantite">Meals</string>
+    <string name="reservation_client_real_quantite">Quantities</string>
     <string name="reservation_client_echec">You wrote wrong data. Please check.</string>
     <string name="reservation_client_nbr_places">Number of seats :</string>
 

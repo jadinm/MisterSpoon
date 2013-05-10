@@ -115,6 +115,7 @@
     <string name="reservation_client_telephone">Téléphone</string>
     <string name="reservation_client_places">Places</string>
     <string name="reservation_client_quantite">Plats</string>
+    <string name="reservation_client_real_quantite">Quantités</string>
     <string name="reservation_client_echec">Vous avez entré de mauvaises données. Veuillez les vérifiez.</string>
     <string name="reservation_client_nbr_places">Nombre de places :</string>
 

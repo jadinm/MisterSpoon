@@ -820,8 +820,9 @@ public class Client {
 			String MealName = (preBooking.getCommande().get(i)).getMealName();
 			int quantite = (preBooking.getCommande().get(i)).getMealStock(false);
 
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES ('" + restNom + "', " + "'"+email+"'" + ", '" + MealName + "', " + quantite + ");");
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", '" + MealName + "', " + quantite + ");");
+			Log.v("test","INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] + ", "  + MySQLiteHelper.Order_column[3] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES ('" + restNom + "', " + "'"+email+"'" + ", 'NULL', '" + MealName + "', " + quantite + ");");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] + ", "  + MySQLiteHelper.Order_column[3] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES ('" + restNom + "', " + "'"+email+"'" + ", 'NULL', '" + MealName + "', " + quantite + ");");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] + ", "  + MySQLiteHelper.Order_column[3] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"', 'NULL'" + ", '" + MealName + "', " + quantite + ");");
 		}
 
 		db.close();

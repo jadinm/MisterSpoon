@@ -201,7 +201,7 @@ public class ReservationClientActivity extends Activity {
 			else {
 				persoAlert = null; //set it to null
 
-				persoAlert = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_set_menu, null);
+				persoAlert = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_reservation_client_alert_box, null);
 				
 				messageAlert = (TextView) persoAlert.findViewById(R.id.reservation_client_alert_box_quantite_message);
 				editAlert = (EditText) persoAlert.findViewById(R.id.reservation_client_alert_box_edit);

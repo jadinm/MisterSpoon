@@ -37,6 +37,7 @@ public class PreReservationClientAdapter extends ArrayAdapter<PreReservationClie
             holder.txtRestaurant = (TextView)row.findViewById(R.id.prereservation_client_item_restaurant);
             holder.txtPrix = (TextView)row.findViewById(R.id.prereservation_client_item_prix);
             holder.txtPlat = (TextView)row.findViewById(R.id.prereservation_client_item_plat);
+            holder.txtQuantite = (TextView)row.findViewById(R.id.prereservation_client_item_quantite);
             
             row.setTag(holder);
         }
@@ -49,6 +50,7 @@ public class PreReservationClientAdapter extends ArrayAdapter<PreReservationClie
         holder.txtRestaurant.setText(preReservationClientItem.restaurant);
         holder.txtPrix.setText(preReservationClientItem.prix);
         holder.txtPlat.setText(preReservationClientItem.plat);
+        holder.txtQuantite.setText(preReservationClientItem.quantite);
         
         return row;
     }
@@ -58,5 +60,6 @@ public class PreReservationClientAdapter extends ArrayAdapter<PreReservationClie
         TextView txtRestaurant;
         TextView txtPrix;
         TextView txtPlat;
+        TextView txtQuantite;
     }
 }
