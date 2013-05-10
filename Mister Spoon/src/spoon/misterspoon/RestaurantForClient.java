@@ -1,15 +1,15 @@
 package spoon.misterspoon;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,13 +18,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Bitmap; 
+import android.graphics.BitmapFactory;
+import android.widget.Adapter;
 
 public class RestaurantForClient extends Activity implements LocationListener {
 
@@ -33,9 +38,10 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private MySQLiteHelper sqliteHelper = new MySQLiteHelper(this);
 	String restoName;
 	String emailPerso;
+	String closingString;
 
-	private Uri mImageCaptureUri;
-	
+	private Uri mImageCaptureUri; 
+
 	//Elements of the view
 	private TextView email_perso;
 	private TextView email_public;
@@ -48,6 +54,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private TextView description;
 	private TextView longitude;
 	private TextView latitude;
+	private TextView horaire;
 
 	private LinearLayout listview;
 
@@ -56,12 +63,13 @@ public class RestaurantForClient extends Activity implements LocationListener {
 	private Button addResto;
 	private Button menu;
 	private Button gpsButton;
-	private Button prebook;
-	private Button book;
-
+	private Button avantages;
+	private Button cuisine;
+	private Button closingDay;
 	private LocationManager lManager;
 	private Location location;
 	private String choix_source = "";
+
 
 	//Useful for the alertBoxes
 	private Context context = this;
@@ -105,12 +113,14 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		description = (TextView) findViewById(R.id.restaurant_description);
 		longitude = (TextView) findViewById(R.id.gps_longitude);
 		latitude = (TextView) findViewById(R.id.gps_latitude);
+		horaire = (TextView) findViewById(R.id.restaurant_horaire);
 		ratingBar = (RatingBar) findViewById(R.id.restaurant_rating);
 		menu = (Button) findViewById(R.id.restaurant_carte);		
 		gpsButton = (Button) findViewById(R.id.profil_restaurant_gps);		
 		addResto = (Button) findViewById(R.id.restaurant_add);
-		prebook = (Button) findViewById(R.id.restaurant_prereservation);		
-		book = (Button) findViewById(R.id.restaurant_reservation);
+		avantages = (Button) findViewById(R.id.restaurant_client_avantages);
+		cuisine = (Button) findViewById(R.id.restaurant_client_cuisine);
+		closingDay = (Button) findViewById(R.id.restaurant_closing_day);
 
 		setTitle(String.format(restoName));
 
@@ -121,6 +131,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		town.setText(town.getText() + " " + r.getRestaurantVille(false));
 		longitude.setText(r.getRestaurantPosition(false).getLongitude()+ "");
 		latitude.setText(r.getRestaurantPosition(false).getLatitude() + "");
+
 
 		if (r.getRestaurantFax(false)!=null) {
 			fax.setText(fax.getText() + " " + r.getRestaurantFax(false));
@@ -152,6 +163,42 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		}
 		else {
 			description.setVisibility(0);
+		}
+
+
+		if (r.getRestaurantHoraire(false)!=null) {
+			String horaireString = new String();
+			ArrayList<String> horaireList = new ArrayList<String>();
+			ArrayList<Time> hourList = new ArrayList<Time>();
+			ArrayList<Time> closeHourList = new ArrayList<Time>();
+			hourList.add(r.getRestaurantHoraire(false).get(0).getOpenTime());
+			closeHourList.add(r.getRestaurantHoraire(false).get(0).getCloseTime());
+			horaireList.add(r.getRestaurantHoraire(false).get(0).getOpenDay());
+
+			for(int l = 0; l<r.getRestaurantHoraire(false).size(); l++) {
+				for(int j = 0; j<horaireList.size();j++) {
+					if ((!r.getRestaurantHoraire(false).get(l).getOpenDay().equals(horaireList.get(j))) && r.getRestaurantHoraire(false).get(l).getOpenTime().equals(hourList.get(j)) && r.getRestaurantHoraire(false).get(l).getCloseTime().equals(closeHourList.get(j))) {
+						horaireList.set(j, horaireList.get(j)+", "+r.getRestaurantHoraire(false).get(l).getOpenDay());
+						j = horaireList.size();
+					}
+					else if (j == (horaireList.size() - 1) && (!r.getRestaurantHoraire(false).get(l).getOpenDay().equals(horaireList.get(j)))){
+						hourList.add(r.getRestaurantHoraire(false).get(l).getOpenTime());
+						horaireList.add(r.getRestaurantHoraire(false).get(l).getOpenDay());
+						closeHourList.add(r.getRestaurantHoraire(false).get(l).getCloseTime());
+						j = horaireList.size();
+					}
+				}
+
+			}
+
+			for (int m = 0; m < horaireList.size(); m++) {
+				horaireString = horaireString + horaireList.get(m) + " - " + hourList.get(m).hourMin() + "/" + closeHourList.get(m).hourMin() + "\n";
+			}
+			horaire.setText(horaireString);
+
+		}
+		else {
+			horaire.setVisibility(0);
 		}
 
 
@@ -293,7 +340,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 
 
 		}
-		
+
 		else
 		{
 			ImageView image = new ImageView (this);
@@ -301,11 +348,11 @@ public class RestaurantForClient extends Activity implements LocationListener {
 			image.setPadding (20, 0, 20, 0);
 			listview.addView(image);
 		}
-		
+
 		//Ajout des images provenant de la base de donnée
 		for(String pathImage : r.getRestaurantImageList(false)){
 			addImageFromPath(pathImage);
-		}
+		} 
 
 		ratingBar.setOnRatingBarChangeListener(ratingListener);
 
@@ -330,29 +377,7 @@ public class RestaurantForClient extends Activity implements LocationListener {
 			}
 		});
 
-		prebook.setOnClickListener(new View.OnClickListener() {//launch another view
-			@Override
-			public void onClick(View v) {
-				Toast toast = Toast.makeText(context, "Un client veut lancer l'activit� preBooking", Toast.LENGTH_SHORT);
-				toast.show();
-				//TODO
-			}
-		});
 
-		book.setOnClickListener(new View.OnClickListener() {//launch another view
-			@Override
-			public void onClick(View v) {
-				
-				Intent intent = new Intent(RestaurantForClient.this, CarteActivity.class);
-				intent.putExtra(Login.email, c.getEmail());
-				intent.putExtra(RestaurantListActivity.RESTAURANT, r.getRestaurantName());
-				startActivity(intent);
-				
-				Toast toast = Toast.makeText(context, "Un client veut lancer l'activite Booking", Toast.LENGTH_SHORT);
-				toast.show();
-				//TODO
-			}
-		});
 
 		gpsButton.setOnClickListener(new View.OnClickListener() {//launch an alert box 
 			@Override
@@ -414,6 +439,122 @@ public class RestaurantForClient extends Activity implements LocationListener {
 			}
 		});
 
+
+		avantages.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+				//set title and message
+				alertDialogBuilder.setTitle(R.string.restaurant_avantages);
+
+
+				String[] stringArray = new String[r.getRestaurantAvantages(false).size()];
+				for (int i = 0; i < r.getRestaurantAvantages(false).size(); i++) {
+					stringArray[i] = r.getRestaurantAvantages(false).get(i);
+				}
+				alertDialogBuilder.setItems(stringArray, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+					}
+				});
+
+
+				alertDialogBuilder.setCancelable(true);//We can go back with the return button
+
+				//The other buttons
+				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
+						dialog.cancel();
+					}
+				});
+
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+			}
+		});
+
+		cuisine.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+				//set title and message
+				alertDialogBuilder.setTitle(R.string.restaurant_cuisine);
+
+
+				String[] stringArray = new String[r.getRestaurantCuisine(false).size()];
+				for (int i = 0; i < r.getRestaurantCuisine(false).size(); i++) {
+					stringArray[i] = r.getRestaurantCuisine(false).get(i);
+				}
+				alertDialogBuilder.setItems(stringArray, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+					}
+				});
+
+
+				// create alert dialog
+				alertDialogBuilder.setCancelable(true);//We can go back with the return button
+
+				//The other buttons
+				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
+						dialog.cancel();
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+
+				// show it
+				alertDialog.show();
+			}
+		});
+
+
+		closingDay.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+				//set title and message
+				alertDialogBuilder.setTitle(R.string.restaurant_closing_day);
+
+
+				String[] stringArray = new String[r.getRestaurantClosingDays(false).size()];
+				for (int i = 0; i < r.getRestaurantClosingDays(false).size(); i++) {
+					stringArray[i] = r.getRestaurantClosingDays(false).get(i).toString();
+				}
+				alertDialogBuilder.setItems(stringArray, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+					}
+				});
+
+
+				alertDialogBuilder.setCancelable(true);//We can go back with the return button
+
+				//The other buttons
+				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
+						dialog.cancel();
+					}
+				});
+
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+			}
+		});
+
+
 	}
 
 	private OnRatingBarChangeListener ratingListener = new OnRatingBarChangeListener() {
@@ -425,6 +566,10 @@ public class RestaurantForClient extends Activity implements LocationListener {
 
 		}
 	};
+
+
+
+
 
 	private void choisirSource() {
 		List <String> providers = lManager.getProviders(true);
@@ -469,22 +614,22 @@ public class RestaurantForClient extends Activity implements LocationListener {
 		c.setRestaurantEnCours(r);
 		super.onStart();
 	}
-	
+
 	private void addImageFromPath(String path){
 		Bitmap bitmap   = null;
- 
-        if (path == null)
-                path = mImageCaptureUri.getPath(); //from File Manager
- 
-        if (path != null)
-                bitmap  = BitmapFactory.decodeFile(path);
- 
-        ImageView image = new ImageView (this);
+
+		if (path == null)
+			path = mImageCaptureUri.getPath(); //from File Manager
+
+		if (path != null)
+			bitmap  = BitmapFactory.decodeFile(path);
+
+		ImageView image = new ImageView (this);
 		image.setImageBitmap(bitmap);
 		image.setPadding (20, 0, 20, 0);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(377, 377);
 		image.setLayoutParams(layoutParams);
 		listview.addView(image);
-	}
+	} 
 
 }

@@ -72,6 +72,29 @@ public class Time implements Comparable<Time> {
 		return shour + ":" + sminute + ":" + ssecond;
 	}
 	
+	public String hourMin() {
+		
+		String shour;
+		String sminute;
+		String ssecond;
+		
+		if (hour<10) {
+			shour = "0"+hour;
+		}
+		else {
+			shour = hour  + "";
+		}
+		if (minute<10) {
+			sminute = "0"+minute;
+		}
+		else {
+			sminute = minute  + "";
+		}
+		return shour + ":" + sminute;
+	}
+	
+	
+	
 	public boolean equals (Time time) {
 		
 		return (this.getHour()==time.getHour()) && (this.getMinute()==time.getMinute()) && (this.getSecond()==time.getSecond());
