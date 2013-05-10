@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class Restaurant {
 
@@ -754,20 +753,13 @@ public class Restaurant {
 	public int getRestaurantBooking(String restoName, Date date, Time time) {
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		int count = 0; 
-		Log.v("test", "SELECT DISTINCT B.dateTime FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'");
 		Cursor cucu = db.rawQuery("SELECT DISTINCT B.dateTime FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'" , null);
 		if (cucu.moveToFirst()) {
 			while (!cucu.isAfterLast()) {
-				Log.v("NULL", cucu.getString(0));
-				
 				String datum = cucu.getString(0);
 				String tmp [] = datum.split(" ");
 				Date restoDate = new Date(tmp[0]);
 				Time restoTime = new Time(tmp[1]);
-				
-				Log.v("NULL", restoName);
-				Log.v("NULL", date.toString());
-				Log.v("NULL", time.toString());
 				
 				if (restoDate.getDay().equals(date.getDay()) && restoDate.getMonth().equals(date.getMonth()) && restoTime.getHour()>time.getHour()+2 && restoTime.getHour()<time.getHour()-2) {
 					Cursor cursor = db.rawQuery("SELECT DISTINCT B.restNom, total(B.NbrReservation) AS total FROM Reservation B WHERE B.restNom = " + "'"+restoName+"'" + "AND B.dateTime = " + "'"+datum+"'" , null);
