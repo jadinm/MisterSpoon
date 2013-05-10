@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -146,7 +145,6 @@ public class CarteActivity extends Activity {
 
 		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-			Log.v("listener", "we are here");
 
 			Meal meal = carte.getMenuList().get(groupPosition).getMealList(false).get(childPosition);
 

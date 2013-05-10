@@ -2,7 +2,6 @@ package spoon.misterspoon;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class CarteBuilder {
 
@@ -19,8 +18,6 @@ public class CarteBuilder {
 
 	public boolean createMenu(String menuName, double price, String categorie, String firstMeal, double firstPrice) {
 		
-		Log.v("createMenu", menuName + " avec le prix " + price + ", avec la catégorie, on ajoute le plat " + firstMeal + ", au prix de " + firstPrice);
-
 		if (menuName == null) {return false;}
 		if (categorie == null) {return false;}
 
@@ -30,14 +27,11 @@ public class CarteBuilder {
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[1] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "= '" + menuName + "' AND " + MySQLiteHelper.Menu_column[3] + " = '" + restaurantOwner.getRestaurant().getRestaurantName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + categorie + "'", null);
 		if (cursor.moveToFirst()) {//If the information exists
-			Log.v("createMenu","Le menu existe déjà");
 			db.close();
 			return false;
 		}
 		cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[4] + "= '" + firstMeal + "' AND " + MySQLiteHelper.Menu_column[3] + " = '" + restaurantOwner.getRestaurant().getRestaurantName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + categorie + "'", null);
 		if (cursor.moveToFirst()) {//The first meal already exists
-			
-			Log.v("createMenu","Le plat existe déjà");
 			
 			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Menu + "(" + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] +", " + MySQLiteHelper.Menu_column[3] +", " + MySQLiteHelper.Menu_column[4] +")  VALUES('" + menuName + "', '"+ categorie +"', '"+ restName + "', '" + firstMeal+"'); ");
 			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Menu + "(" + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] +", " + MySQLiteHelper.Menu_column[3] +", " + MySQLiteHelper.Menu_column[4] +")  VALUES('" + menuName+ "', '"+categorie+"', '"+restName+"', '"+ firstMeal+"'); ");
@@ -53,8 +47,6 @@ public class CarteBuilder {
 			
 			return true;
 		}
-		
-		Log.v("createMenu","Le plat n'existe pas encore");
 		
 		
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Menu + "(" + MySQLiteHelper.Menu_column[1] + ", " + MySQLiteHelper.Menu_column[2] +", " + MySQLiteHelper.Menu_column[3] +", " + MySQLiteHelper.Menu_column[4] +")  VALUES('" + menuName + "', '"+ categorie +"', '"+ restName + "', '" + firstMeal+"'); ");
@@ -81,13 +73,11 @@ public class CarteBuilder {
 
 	public boolean setMenuName(Menu menuToChange, String name) {
 		
-		Log.v("setMenuName", menuToChange.getMenuName() + " avec le nouveau nom" + name);
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "='" + name + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "'", null);
 		if (cursor.moveToFirst()) {//If the information already exists
-			Log.v("setMenuName", "donnée impossible");
 			db.close();
 			return false;
 		}
@@ -107,7 +97,6 @@ public class CarteBuilder {
 
 	public void setMenuPrice(Menu menuToChange, double price) {
 		
-		Log.v("setMenuPrice", menuToChange.getMenuName() + " avec le nouveau prix " + price);
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_MenuPrice + " SET " + MySQLiteHelper.MenuPrice_column[4] + " = '" + price + "' WHERE " + MySQLiteHelper.MenuPrice_column[2] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.MenuPrice_column[1] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.MenuPrice_column[3] + "='" + menuToChange.getCategorie(false) + "';");
@@ -119,12 +108,10 @@ public class CarteBuilder {
 
 	public boolean setMenuCategorie(Menu menuToChange, String categorie) {
 		
-		Log.v("setMenuCategorie", menuToChange.getMenuName() + " avec la nouvelle catégorie " + categorie);
 		
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + categorie + "'", null);
 		if (cursor.moveToFirst()) {//If the information exists
-			Log.v("setMenuCategorie", "donnée impossible");
 			db.close();
 			return false;
 		}
@@ -133,7 +120,6 @@ public class CarteBuilder {
 		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_MenuPrice + " SET " + MySQLiteHelper.MenuPrice_column[3] + " = '" + categorie + "' WHERE " + MySQLiteHelper.MenuPrice_column[2] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.MenuPrice_column[1] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.MenuPrice_column[3] + "='" + menuToChange.getCategorie(false) + "';");
 		MySQLiteHelper.Additional_Orders.add("UPDATE " + MySQLiteHelper.TABLE_Menu + " SET " + MySQLiteHelper.Menu_column[2] + " = '" + categorie + "' WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "';");
 		db.execSQL("UPDATE " + MySQLiteHelper.TABLE_Menu + " SET " + MySQLiteHelper.Menu_column[2] + " = '" + categorie + "' WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "';");
-		Log.v("setMenuCategorie", "UPDATE " + MySQLiteHelper.TABLE_Menu + " SET " + MySQLiteHelper.Menu_column[2] + " = '" + categorie + "' WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "';");
 		db.close();
 
 		carte = new Carte (sqliteHelper, restaurantOwner.getRestaurant().getRestaurantName(), null);
@@ -143,12 +129,10 @@ public class CarteBuilder {
 
 	public boolean addMenuMeal(Menu menuToChange, String meal, double mealPrice) {
 		
-		Log.v("addMenuMeal", menuToChange.getMenuName() + " avec le plat " + meal + " au prix " + mealPrice);
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Menu_column[4] + " FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "' AND " + MySQLiteHelper.Menu_column[4] + "='" + meal + "'", null);
 		if (cursor.moveToFirst()) {//If the information exists
-			Log.v("addMenuMeal", "donnée impossible");
 			db.close();
 			return false;
 		}
@@ -171,7 +155,6 @@ public class CarteBuilder {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		
-		Log.v("removeMenuMeal", menuToChange.getMenuName() + " avec le plat " + mealName);
 
 		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[4] + "='" + mealName + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "' AND " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "';");
 		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[4] + "='" + mealName + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menuToChange.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menuToChange.getCategorie(false) + "' AND " + MySQLiteHelper.Menu_column[1] + "='" + menuToChange.getMenuName() + "';");
@@ -186,7 +169,6 @@ public class CarteBuilder {
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		
-		Log.v("removeMenu", menu.getMenuName());
 
 		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menu.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menu.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menu.getCategorie(false) + "';");
 		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[4] + "='" + menu.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menu.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menu.getCategorie(false) + "';");

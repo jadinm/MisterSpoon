@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -241,8 +240,6 @@ public class CarteBuilderActivity extends Activity {
 
 						if (! menuNameOld.getText().toString().equals(menuNameNew.getText().toString())) {//We try to set the name
 							
-							Log.v("setMenu", "On va modifier les noms");
-
 							success = carteBuilder.setMenuName(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), menuNameNew.getText().toString());
 
 							if (!success) {
@@ -257,7 +254,6 @@ public class CarteBuilderActivity extends Activity {
 						}
 						if (! ((String) categorieOld.getSelectedItem()).equals(((String) categorieNew.getSelectedItem())) && success) {//We try to change the categorie
 
-							Log.v("setMenu", "On va modifier les catégories");
 							
 							success = carteBuilder.setMenuCategorie(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), (String) categorieNew.getSelectedItem());
 
@@ -275,7 +271,6 @@ public class CarteBuilderActivity extends Activity {
 						}
 						if (menuPriceNew.getText().toString().length() > 0 && success) {
 							
-							Log.v("setMenu", "On va modifier le prix du menu");
 
 							carteBuilder.setMenuPrice(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), Double.parseDouble(menuPriceNew.getText().toString()));
 						}
