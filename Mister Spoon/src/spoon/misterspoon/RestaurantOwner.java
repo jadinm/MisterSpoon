@@ -623,8 +623,6 @@ public class RestaurantOwner {
 					ArrayList <Meal> Commande = new ArrayList<Meal>();
 					Client currentClient = new Client (cursor.getString(0));
 					int nbrReservation = cursor.getInt(1);
-					Log.v("mail" , currentClient.getEmail());
-
 
 					String temp [] = cursor.getString(2).split(" "); 
 					Date date = new Date(temp[0]);

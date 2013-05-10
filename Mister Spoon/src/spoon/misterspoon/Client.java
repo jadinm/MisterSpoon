@@ -987,35 +987,52 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			booking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT B." + MySQLiteHelper.Booking_column[1] + ", B." + MySQLiteHelper.Booking_column[3] + ", B." + MySQLiteHelper.Booking_column[4] + ", O." + MySQLiteHelper.Order_column[4] + ", O." + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Booking + " B, " + MySQLiteHelper.TABLE_Order + " O WHERE O." + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'" + " AND B." + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'" + " AND B." + MySQLiteHelper.Booking_column[1] + " = O." + MySQLiteHelper.Order_column[1] + " AND B." + MySQLiteHelper.Booking_column[4] + " = O." + MySQLiteHelper.Order_column[3] + " GROUP BY B." + MySQLiteHelper.Order_column[1], null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + " FROM " + MySQLiteHelper.TABLE_Booking + " WHERE " + MySQLiteHelper.Booking_column[2] + " = " + "'"+email+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
-				ArrayList <Meal> Commande;
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
+					ArrayList <Meal> Commande = new ArrayList<Meal>();
 
-					String currentResto = cursor.getString(0);
+					Restaurant currentRestaurant = new Restaurant (cursor.getString(0));
+					//String currentResto = cursor.getString(0);
 					int nbrPlaces = cursor.getInt(1);
 					
 					String temp [] = cursor.getString(2).split(" "); 
 					Date date = new Date (temp[0]);
-					String time = temp[1];
+					String stime = temp[1];
+					Time time = new Time (stime);
 
 					Commande = new ArrayList <Meal> ();
-					while(!cursor.isAfterLast() && currentResto == cursor.getString(0)) {//We take a command if it exists
-						if(cursor.getString(3)!=null) {
-							Commande.add(new Meal (cursor.getString(3), cursor.getInt(4)));//We stock the quantity of the meal with the instance variable "stock"
-							cursor.moveToNext();
+					Cursor tempCursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " +MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + " = " + "'"+email+"'"+ " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+cursor.getString(2)+"'", null);
+					if(tempCursor.moveToFirst()){
+						while(!tempCursor.isAfterLast() && currentRestaurant.getRestaurantName().equals(tempCursor.getString(0))) {//We take a command if it exists
+							if(tempCursor.getString(1)!=null) {
+								Commande.add(new Meal (tempCursor.getString(1), tempCursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
+								tempCursor.moveToNext();
+							}
 						}
 					}
+					booking.add(new Booking(currentRestaurant, nbrPlaces, time, date, Commande));
+					
 					cursor.moveToNext();
 
-					booking.add(new Booking(new Restaurant (currentResto), nbrPlaces, new Time(time), date , Commande));
 				}
 			}
 
-			db.close();
+			//db.close();
+		}
+		
+		ArrayList<Booking> tempBooking = booking;
+		for (int i = 0; i < tempBooking.size(); i++) {
+			for (int j = i + 1; j < tempBooking.size(); j++) {
+				if (tempBooking.get(i).getDate().compareTo(tempBooking.get(j).getDate()) > 0){
+					Booking temp = tempBooking.get(j);
+					tempBooking.set(j, tempBooking.get(i));
+					tempBooking.set(i, temp);
+				}
+			}
 		}
 
-		return booking;
+		return tempBooking;
 
 	}
 
