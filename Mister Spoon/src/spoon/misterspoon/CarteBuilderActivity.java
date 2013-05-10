@@ -10,13 +10,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CarteBuilderActivity extends Activity {
@@ -99,9 +107,23 @@ public class CarteBuilderActivity extends Activity {
 
 		//ExpandableListView
 		carteListView = (ExpandableListView) findViewById(R.id.carte_builder_list);
-		adapter = new CarteBuilderActivityListAdapter(this, carteBuilder.getCarte().getFilterList());
+		adapter = new CarteBuilderActivityListAdapter(this, carteBuilder.getFilterList());
 		carteListView.setAdapter(adapter);
 		carteListView.setOnChildClickListener(carteListViewChild);
+		
+		for (int j=0; j<adapter.getGroupCount(); j++) {
+			carteListView.expandGroup(j);
+		}
+		
+		carteListView.setOnGroupClickListener(new OnGroupClickListener()
+		{
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, 
+					View v, int groupPosition, long id)
+			{
+				return true;
+			}
+		});
 
 		//Listeners
 		setMenu.setOnClickListener(setMenuListener);
@@ -221,7 +243,7 @@ public class CarteBuilderActivity extends Activity {
 				adapterCategorieNew = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,categorieListNew);
 				adapterCategorieNew.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				categorieNew.setAdapter(adapterCategorieNew);
-				
+
 				alert.setView(setMenuLayout);
 			}
 
@@ -239,7 +261,7 @@ public class CarteBuilderActivity extends Activity {
 					if (menuNameOld.getText().toString().length() > 0 && menuNameNew.getText().toString().length() > 0) {//We try to change the menu
 
 						if (! menuNameOld.getText().toString().equals(menuNameNew.getText().toString())) {//We try to set the name
-							
+
 							success = carteBuilder.setMenuName(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), menuNameNew.getText().toString());
 
 							if (!success) {
@@ -254,7 +276,7 @@ public class CarteBuilderActivity extends Activity {
 						}
 						if (! ((String) categorieOld.getSelectedItem()).equals(((String) categorieNew.getSelectedItem())) && success) {//We try to change the categorie
 
-							
+
 							success = carteBuilder.setMenuCategorie(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), (String) categorieNew.getSelectedItem());
 
 							if (!success) {
@@ -263,14 +285,18 @@ public class CarteBuilderActivity extends Activity {
 								menuNameNew.setText("");
 								menuPriceNew.setText("");
 
-								adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+								adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getFilterList());
 								carteListView.setAdapter(adapter);
+								
+								for (int j=0; j<adapter.getGroupCount(); j++) {
+									carteListView.expandGroup(j);
+								}
 
 								return;
 							}
 						}
 						if (menuPriceNew.getText().toString().length() > 0 && success) {
-							
+
 
 							carteBuilder.setMenuPrice(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), Double.parseDouble(menuPriceNew.getText().toString()));
 						}
@@ -281,8 +307,11 @@ public class CarteBuilderActivity extends Activity {
 						return;
 					}
 
-					adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+					adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getFilterList());
 					carteListView.setAdapter(adapter);
+					for (int j=0; j<adapter.getGroupCount(); j++) {
+						carteListView.expandGroup(j);
+					}
 
 					menuNameOld.setText("");
 					menuNameNew.setText("");
@@ -297,13 +326,13 @@ public class CarteBuilderActivity extends Activity {
 	public OnClickListener createMenuListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
 			if (createMenuLayout == null) {
 
 				createMenuLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_create_menu, null);
-				
+
 				menuName = (EditText) createMenuLayout.findViewById(R.id.carte_builder_menu_name);
 				categorie = (Spinner) createMenuLayout.findViewById(R.id.carte_builder_categorie);
 				menuPrice = (EditText) createMenuLayout.findViewById(R.id.carte_builder_price);
@@ -318,15 +347,15 @@ public class CarteBuilderActivity extends Activity {
 				categorie.setAdapter(adapterCategorie);
 
 			}
-			
+
 			if (createMenuLayout.getParent()==null) {
 				alert.setView(createMenuLayout);
 			}
 			else {
 				createMenuLayout = null;
-				
+
 				createMenuLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_create_menu, null);
-				
+
 				menuName = (EditText) createMenuLayout.findViewById(R.id.carte_builder_menu_name);
 				categorie = (Spinner) createMenuLayout.findViewById(R.id.carte_builder_categorie);
 				menuPrice = (EditText) createMenuLayout.findViewById(R.id.carte_builder_price);
@@ -339,10 +368,10 @@ public class CarteBuilderActivity extends Activity {
 				adapterCategorie = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,categorieList);
 				adapterCategorie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				categorie.setAdapter(adapterCategorie);
-				
+
 				alert.setView(createMenuLayout);
 			}
-			
+
 			alert.setTitle(getString(R.string.carte_builder_create_menu_title))
 			.setNegativeButton(getString(R.string.exit_cancel), null)
 			.setPositiveButton(getString(R.string.exit_confirm), new DialogInterface.OnClickListener() {
@@ -383,8 +412,11 @@ public class CarteBuilderActivity extends Activity {
 					mealName_addMenuName.setText("");
 					mealPrice_addMenuName.setText("");
 
-					adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+					adapter = new CarteBuilderActivityListAdapter(context,  carteBuilder.getFilterList());
 					carteListView.setAdapter(adapter);
+					for (int j=0; j<adapter.getGroupCount(); j++) {
+						carteListView.expandGroup(j);
+					}
 
 					arg0.cancel();
 					return;
@@ -398,14 +430,14 @@ public class CarteBuilderActivity extends Activity {
 	public OnClickListener addMealListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
 
 			if (addMealLayout == null) {
-				
+
 				addMealLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_add_meal, null);
-				
+
 				mealName = (EditText) addMealLayout.findViewById(R.id.carte_builder_meal_name);
 				mealPrice = (EditText) addMealLayout.findViewById(R.id.carte_builder_meal_price);
 				menuName_addMealName = (EditText) addMealLayout.findViewById(R.id.carte_builder_add_meal_menu_name);
@@ -418,20 +450,20 @@ public class CarteBuilderActivity extends Activity {
 				adapterCategorie_addMealName = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,categorieList_addMealName);
 				adapterCategorie_addMealName.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				categorie_addMealName.setAdapter(adapterCategorie_addMealName);
-				
+
 				alert.setView(addMealLayout);
 
 			}
 			if (addMealLayout.getParent() == null) {
-				
+
 				alert.setView(addMealLayout);
 			}
 			else {
-				
+
 				addMealLayout = null;
-				
+
 				addMealLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_add_meal, null);
-				
+
 				mealName = (EditText) addMealLayout.findViewById(R.id.carte_builder_meal_name);
 				mealPrice = (EditText) addMealLayout.findViewById(R.id.carte_builder_meal_price);
 				menuName_addMealName = (EditText) addMealLayout.findViewById(R.id.carte_builder_add_meal_menu_name);
@@ -444,11 +476,11 @@ public class CarteBuilderActivity extends Activity {
 				adapterCategorie_addMealName = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,categorieList_addMealName);
 				adapterCategorie_addMealName.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				categorie_addMealName.setAdapter(adapterCategorie_addMealName);
-				
+
 				alert.setView(addMealLayout);
 			}
 
-			
+
 
 			alert.setTitle(getString(R.string.carte_builder_add_meal_title))
 			.setNegativeButton(getString(R.string.exit_cancel), null)
@@ -459,7 +491,7 @@ public class CarteBuilderActivity extends Activity {
 
 					boolean success = true;
 					if (mealName.getText().toString().length() > 0 && mealPrice.getText().toString().length() > 0 && menuName_addMealName.getText().toString().length() > 0) {
-						
+
 
 						success = carteBuilder.addMenuMeal(new Menu (sqliteHelper, menuName_addMealName.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorie_addMealName.getSelectedItem()), mealName.getText().toString(), Double.parseDouble(mealPrice.getText().toString()));
 
@@ -474,8 +506,11 @@ public class CarteBuilderActivity extends Activity {
 						}
 					}
 
-					adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+					adapter = new CarteBuilderActivityListAdapter(context,  carteBuilder.getFilterList());
 					carteListView.setAdapter(adapter);
+					for (int j=0; j<adapter.getGroupCount(); j++) {
+						carteListView.expandGroup(j);
+					}
 
 					arg0.cancel();
 					return;
@@ -491,28 +526,28 @@ public class CarteBuilderActivity extends Activity {
 		public void onClick(View v) {
 
 			/* Remove meal and remove meal */
-			int count = 0;
 			for (int j=0; j<adapter.getGroupCount(); j++) {
 				Menu menu = carteBuilder.getCarte().getMenuList().get(j);
-				if (adapter.getIsCheckedMenuList().get(j)) {//If we have to remove it, we do it in the database only (we recreate after that the list)
+				if (((CarteBuilderActivityHeader)adapter.getGroup(j)).isSelected()) {//If we have to remove it, we do it in the database only (we recreate after that the list)
 					carteBuilder.removeMenu(menu);
-					count = count + adapter.getChildrenCount(j);
 				}
 				else {
-					
+
 					for(int k=0; k<menu.getMealList(false).size(); k++) {
-						if (adapter.getIsCheckedList().get(count)) {//If we have to remove it, we do it in the database only (we recreate after that the list)
+						if (((CarteActivityChild)adapter.getChild(j, k)).isSelected()) {//If we have to remove it, we do it in the database only (we recreate after that the list)
 							carteBuilder.removeMenuMeal(menu, menu.getMealList(false).get(k).getMealName());
 						}
-						count++;
 					}
 				}
 			}
-			
+
 			carteBuilder = new CarteBuilder (sqliteHelper, r);//We recreate the list
-			
-			adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+
+			adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getFilterList());
 			carteListView.setAdapter(adapter);
+			for (int j=0; j<adapter.getGroupCount(); j++) {
+				carteListView.expandGroup(j);
+			}
 		}
 	};
 
@@ -522,12 +557,190 @@ public class CarteBuilderActivity extends Activity {
 
 		sqliteHelper = new MySQLiteHelper(this);
 		carteBuilder = new CarteBuilder(sqliteHelper, r);
-		adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
+		adapter = new CarteBuilderActivityListAdapter(context,  carteBuilder.getFilterList());
 		carteListView.setAdapter(adapter);
+		for (int j=0; j<adapter.getGroupCount(); j++) {
+			carteListView.expandGroup(j);
+		}
 	}
 
 	public void onPause(){
 		super.onPause();
 		overridePendingTransition ( R.anim.slide_out, R.anim.slide_up );
+	}
+	
+	public static class ViewHolder {
+		protected CheckBox cb;
+		protected TextView tx;
+		protected TextView price;
+	}
+	
+	public static class ViewGroupHolder {
+		protected CheckBox cb;
+		protected TextView tx;
+		protected ImageView image;
+	}
+
+	public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
+
+		private Context context;
+		private ArrayList<CarteBuilderActivityHeader> carte;
+
+		public CarteBuilderActivityListAdapter(Context context, ArrayList<CarteBuilderActivityHeader> carte) {
+			this.context = context;
+			this.carte = carte;
+		}
+
+		@Override
+		public Object getChild(int groupPosition, int childPosition) {
+			
+			if (carte != null && carte.size() > groupPosition && carte.get(groupPosition)!=null) {
+				if (carte.get(groupPosition).getMealList().size() > childPosition) {
+					return carte.get(groupPosition).getMealList().get(childPosition);
+				}
+			}
+			return null;
+		}
+
+		@Override
+		public long getChildId(int groupPosition, int childPosition) {
+			
+			return (long) 1024*groupPosition + childPosition;
+		}
+
+		@Override
+		public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+			
+			View view = null;
+			if (convertView == null) {
+				
+				view = getLayoutInflater().inflate(R.layout.activity_carte_child_row, null);
+				
+				final ViewHolder childHolder = new ViewHolder();
+				childHolder.cb = (CheckBox) view.findViewById(R.id.carte_child_check);
+				childHolder.tx = (TextView) view.findViewById(R.id.carte_child_text);
+				childHolder.price = (TextView) view.findViewById(R.id.carte_child_price);
+				
+				childHolder.cb
+				.setOnCheckedChangeListener(new OnCheckedChangeListener () {
+					
+					@Override
+					public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+						
+						CarteActivityChild item = (CarteActivityChild) childHolder.cb.getTag();
+						item.setSelected(button.isChecked());
+					}
+				});
+				
+				view.setTag(childHolder);
+				childHolder.cb.setTag(carte.get(groupPosition).getMealList().get(childPosition));
+				
+				
+			}
+			else {
+				
+				view = convertView;
+				((ViewHolder) view.getTag()).cb.setTag(carte.get(groupPosition).getMealList().get(childPosition));
+				
+			}
+			
+			ViewHolder holder = (ViewHolder) view.getTag();
+			holder.cb.setSelected(carte.get(groupPosition).getMealList().get(childPosition).isSelected());
+			
+			holder.tx.setText(carte.get(groupPosition).getMealList().get(childPosition).getMealName());
+			holder.price.setText(carte.get(groupPosition).getMealList().get(childPosition).getMealPrice() + " EUR");
+			
+			return view;
+		}
+
+		@Override
+		public int getChildrenCount(int groupPosition) {
+			
+			if (carte != null && carte.size() > groupPosition && carte.get(groupPosition)!=null) {
+				ArrayList<CarteActivityChild> mealList = carte.get(groupPosition).getMealList();
+				return mealList.size();
+			}
+			
+			return 0;
+
+		}
+
+		@Override
+		public Object getGroup(int groupPosition) {
+			
+			if (carte!=null && carte.size() > groupPosition) {
+				return carte.get(groupPosition);
+			}
+			return null;
+		}
+
+		@Override
+		public int getGroupCount() {
+			
+			if (carte!=null) {
+				return carte.size();
+			}
+			return 0;
+		}
+
+		@Override
+		public long getGroupId(int groupPosition) {
+			return (long) groupPosition*1024;
+		}
+
+		@Override
+		public View getGroupView(int groupPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+			
+			View view = null;
+			
+			if (convertView==null) {
+				
+				view = getLayoutInflater().inflate(R.layout.activity_carte_builder_group_heading, null);
+				
+				final ViewGroupHolder groupHolder = new ViewGroupHolder();
+				groupHolder.cb = (CheckBox) view.findViewById(R.id.carte_heading_check);
+				groupHolder.tx = (TextView) view.findViewById(R.id.carte_heading);
+				groupHolder.image = (ImageView) view.findViewById(R.id.carte_divider);
+				
+				groupHolder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener () {
+					
+					@Override
+					public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+						
+						CarteBuilderActivityHeader item = (CarteBuilderActivityHeader) groupHolder.cb.getTag();
+						item.setSelected(button.isChecked());
+					}
+				});
+				
+				view.setTag(groupHolder);
+				
+				groupHolder.cb.setTag(carte.get(groupPosition));
+			}
+			else {
+				
+				view = convertView;
+				((ViewGroupHolder) view.getTag()).cb.setTag(carte.get(groupPosition));
+			}
+			
+			ViewGroupHolder holder = (ViewGroupHolder) view.getTag();
+			holder.cb.setSelected(carte.get(groupPosition).isSelected());
+			holder.tx.setText(carte.get(groupPosition).getMenuName());
+			
+			if (groupPosition==0) {
+				holder.image.setVisibility(View.GONE);
+			}
+			
+			return view;
+		}
+
+		@Override
+		public boolean hasStableIds() {
+			return true;
+		}
+
+		@Override
+		public boolean isChildSelectable(int groupPosition, int childPosition) {
+			return true;
+		}
 	}
 }

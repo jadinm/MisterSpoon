@@ -1,5 +1,7 @@
 package spoon.misterspoon;
 
+import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -14,6 +16,22 @@ public class CarteBuilder {
 		this.restaurantOwner = r;
 		carte = new Carte (sqliteHelper, r.getRestaurant().getRestaurantName(), null);
 
+	}
+	
+	public ArrayList <CarteBuilderActivityHeader> getFilterList() {
+		
+		ArrayList <CarteBuilderActivityHeader> menuListView = new ArrayList <CarteBuilderActivityHeader> ();
+		
+		
+		for (int i = 0; i<this.carte.menuList.size(); i++) {
+			ArrayList <CarteActivityChild> mealListView = new ArrayList <CarteActivityChild> ();
+			for (int j = 0; j<this.carte.menuList.get(i).getMealList(false).size(); j++) {
+				mealListView.add(new CarteActivityChild(this.carte.menuList.get(i).getMealList(false).get(j).getMealName(), this.carte.menuList.get(i).getMealList(false).get(j).getMealPrice(false)));
+			}
+			menuListView.add(new CarteBuilderActivityHeader (this.carte.menuList.get(i).getMenuName(), mealListView));
+		}
+		
+		return menuListView;
 	}
 
 	public boolean createMenu(String menuName, double price, String categorie, String firstMeal, double firstPrice) {
@@ -171,7 +189,7 @@ public class CarteBuilder {
 		
 
 		MySQLiteHelper.Additional_Orders.add("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menu.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menu.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menu.getCategorie(false) + "';");
-		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[4] + "='" + menu.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menu.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menu.getCategorie(false) + "';");
+		db.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_Menu + " WHERE " + MySQLiteHelper.Menu_column[1] + "='" + menu.getMenuName() + "' AND " + MySQLiteHelper.Menu_column[3] + "='" + menu.getRestName() + "' AND " + MySQLiteHelper.Menu_column[2] + "='" + menu.getCategorie(false) + "';");
 
 		db.close();
 

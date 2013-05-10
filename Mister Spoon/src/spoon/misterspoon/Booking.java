@@ -2,9 +2,6 @@ package spoon.misterspoon;
 
 import java.util.ArrayList;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 public class Booking extends PreBooking {
 
 	private Time heureReservation;
