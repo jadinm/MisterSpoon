@@ -232,7 +232,7 @@ public class CarteBuilderActivity extends Activity {
 			.setPositiveButton(getString(R.string.exit_confirm), new DialogInterface.OnClickListener() {
 
 				@Override
-				public void onClick (DialogInterface arg0, int arg1) {//TODO
+				public void onClick (DialogInterface arg0, int arg1) {
 
 					boolean success = true;
 
@@ -348,7 +348,7 @@ public class CarteBuilderActivity extends Activity {
 			.setPositiveButton(getString(R.string.exit_confirm), new DialogInterface.OnClickListener() {
 
 				@Override
-				public void onClick (DialogInterface arg0, int arg1) {//TODO
+				public void onClick (DialogInterface arg0, int arg1) {
 
 					boolean success;
 					if (menuName.getText().toString().length() > 0 && mealName_addMenuName.getText().toString().length() > 0 && mealPrice_addMenuName.getText().toString().length() > 0) {
@@ -459,7 +459,7 @@ public class CarteBuilderActivity extends Activity {
 
 					boolean success = true;
 					if (mealName.getText().toString().length() > 0 && mealPrice.getText().toString().length() > 0 && menuName_addMealName.getText().toString().length() > 0) {
-						//TODO
+						
 
 						success = carteBuilder.addMenuMeal(new Menu (sqliteHelper, menuName_addMealName.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorie_addMealName.getSelectedItem()), mealName.getText().toString(), Double.parseDouble(mealPrice.getText().toString()));
 
@@ -486,7 +486,7 @@ public class CarteBuilderActivity extends Activity {
 		}
 	};
 
-	public OnClickListener updateListener = new OnClickListener() {//TODO
+	public OnClickListener updateListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 

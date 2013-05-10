@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class Carte {
-	//TODO Ultime todo mettre ingredient
 	static final String orderMeal[] = new String[]{"abc","prix"};
 	static final String categorie[] = new String[]{"entree","plat","dessert","boisson", "tout"};
 	static final String filterMeal[] = new String[]{"prix", "favori"};
