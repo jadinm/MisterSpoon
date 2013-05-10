@@ -25,7 +25,7 @@ public class ShowReservationClientActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition ( 0 , R.anim.slide_up );
-		setContentView(R.layout.activity_reservation_restaurant);
+		setContentView(R.layout.activity_client_reservation);
 		
 		Intent i = getIntent();
 		
