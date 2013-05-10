@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
+import android.util.Log;
 
 public class Client {
 
@@ -771,25 +772,25 @@ public class Client {
 			SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 			preBooking.clear();//We remove all the elements
 
-			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " GROUP BY " + MySQLiteHelper.Order_column[1], null);
+			Cursor cursor = db.rawQuery("SELECT " + MySQLiteHelper.Order_column[1] + ", " + MySQLiteHelper.Order_column[4] + ", " + MySQLiteHelper.Order_column[5] + " FROM " + MySQLiteHelper.TABLE_Order + " WHERE " + MySQLiteHelper.Order_column[2] + "=" + "'"+email+"'" + " AND " + MySQLiteHelper.Order_column[3] + " = " + "'"+"NULL"+"'", null);
 			if (cursor.moveToFirst()) {//If the information exists
 				ArrayList <Meal> commande = new ArrayList <Meal> ();
 				String previousResto = cursor.getString(0);
 				String currentResto = cursor.getString(0);
 				while (!cursor.isAfterLast()) {//As long as there is one element to read
 					currentResto = cursor.getString(0);
-					if(currentResto == previousResto) {
+					if(currentResto.equals(previousResto)) {
 						commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));//We stock the quantity of the meal with the instance variable "stock"
 					}
 					else{
-						preBooking.add(new PreBooking(new Restaurant(currentResto), commande));
+						preBooking.add(new PreBooking(new Restaurant(previousResto), commande));
 						commande = new ArrayList <Meal> ();
 						commande.add(new Meal (cursor.getString(1), cursor.getInt(2)));
 						previousResto = currentResto;
 					}
 					cursor.moveToNext();
 				}
-				preBooking.add(new PreBooking(new Restaurant(currentResto), commande));
+				preBooking.add(new PreBooking(new Restaurant(previousResto), commande));
 			}
 
 			//db.close();
