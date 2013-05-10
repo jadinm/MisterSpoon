@@ -48,6 +48,7 @@ public class ReservationClientActivity extends Activity {
 	private Date resDate;
 	private TextView messageAlert;
 	private EditText editAlert;
+	private TextView horaireRestaurant;
 	
 	private EditText nbrPlacesWanted;
 
@@ -68,6 +69,7 @@ public class ReservationClientActivity extends Activity {
 	private TextView placesDispo;
 	private double prixTotal;
 	private Date date;
+	private String horaireString;
 
 	
 	
@@ -125,7 +127,8 @@ public class ReservationClientActivity extends Activity {
 		
 		nbrPlacesWanted = (EditText) findViewById(R.id.reservation_client_nbr_places);
 		
-
+		horaireRestaurant = (TextView) findViewById(R.id.reservation_restaurant_client_horaire);
+		
 		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);
 		pickDate = (Button) findViewById(R.id.reservation_client_butt_date);
 
@@ -171,7 +174,38 @@ public class ReservationClientActivity extends Activity {
 		
 		book.setOnClickListener(bookListener);
 
-		
+		if (r.getRestaurantHoraire(false)!=null) {
+			horaireString = new String();
+			ArrayList<String> horaireList = new ArrayList<String>();
+			ArrayList<Time> hourList = new ArrayList<Time>();
+			ArrayList<Time> closeHourList = new ArrayList<Time>();
+			hourList.add(r.getRestaurantHoraire(false).get(0).getOpenTime());
+			closeHourList.add(r.getRestaurantHoraire(false).get(0).getCloseTime());
+			horaireList.add(r.getRestaurantHoraire(false).get(0).getOpenDay());
+			for(int l = 0; l<r.getRestaurantHoraire(false).size(); l++) {
+				for(int j = 0; j<horaireList.size();j++) {
+					if ((!r.getRestaurantHoraire(false).get(l).getOpenDay().equals(horaireList.get(j))) && r.getRestaurantHoraire(false).get(l).getOpenTime().equals(hourList.get(j)) && r.getRestaurantHoraire(false).get(l).getCloseTime().equals(closeHourList.get(j))) {
+						horaireList.set(j, horaireList.get(j)+", "+r.getRestaurantHoraire(false).get(l).getOpenDay());
+						j = horaireList.size();
+					}
+					else if (j == (horaireList.size() - 1) && (!r.getRestaurantHoraire(false).get(l).getOpenDay().equals(horaireList.get(j)))){
+						hourList.add(r.getRestaurantHoraire(false).get(l).getOpenTime());
+						horaireList.add(r.getRestaurantHoraire(false).get(l).getOpenDay());
+						closeHourList.add(r.getRestaurantHoraire(false).get(l).getCloseTime());
+						j = horaireList.size();
+					}
+				}
+
+			}
+			for (int m = 0; m < horaireList.size(); m++) {
+				horaireString = horaireString + horaireList.get(m) + " - " + hourList.get(m).hourMin() + "/" + closeHourList.get(m).hourMin() + "\n";
+			}
+			horaireRestaurant.setText(horaireString);
+
+		}
+		else {
+			horaireRestaurant.setVisibility(0);
+		}
 
 	}
 	
