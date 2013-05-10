@@ -144,8 +144,10 @@ public class ReservationClientActivity extends Activity {
 		month = cal.get(Calendar.MONTH);
 		day = cal.get(Calendar.DAY_OF_MONTH);
 		resDate = new Date(""+year, ""+(month+1), ""+day);
-
-		updateDate();
+		
+		hours = cal.get(Calendar.HOUR);
+		min = cal.get(Calendar.MINUTE);
+		resTime = new Time(hours, min, 0);
 
 		timeDisplay = (TextView)findViewById(R.id.reservation_client_text_time);
 		pickTime = (Button)findViewById(R.id.reservation_client_butt_time);
@@ -159,11 +161,7 @@ public class ReservationClientActivity extends Activity {
 			}
 
 		});
-
-		hours = cal.get(Calendar.HOUR);
-		min = cal.get(Calendar.MINUTE);
-		resTime = new Time(hours, min, 0);
-
+		updateDate();
 		updateTime();
 		
 		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
@@ -245,15 +243,23 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restaurateur", Toast.LENGTH_SHORT);
-			toast.show();
 			
 			for (int l = 0; l<command.size(); l++) {
 				mealList.get(l).setMealStock(Integer.parseInt(command.get(l).getMealQuantity()));
 			}
 
-			if (nbrPlacesWanted.getText().toString().length() > 0 && Integer.parseInt(nbrPlacesWanted.getText().toString()) - nbrPlaces >= 0 && !c.book(mealList, nbrPlaces, resTime, resDate)) {
+			if (nbrPlacesWanted.getText().toString().length() == 0) {
 				
+				Toast.makeText(context, R.string.reservation_client_echec, Toast.LENGTH_SHORT).show();//Error
+				return;
+			}
+			if(nbrPlaces - Integer.parseInt(nbrPlacesWanted.getText().toString()) < 0) {
+				Toast.makeText(context, R.string.reservation_client_echec, Toast.LENGTH_SHORT).show();//Error
+				return;
+			}
+			
+			boolean test = c.book(mealList, Integer.parseInt(nbrPlacesWanted.getText().toString()), resTime, resDate);
+			if (!test) {
 				Toast.makeText(context, R.string.reservation_client_echec, Toast.LENGTH_SHORT).show();//Error
 				return;
 			}
@@ -275,7 +281,7 @@ public class ReservationClientActivity extends Activity {
 	private void updateDate() {
 		dateDisplay.setText(getString(R.string.reservation_client_date_text) + " " +resDate.toString());
 		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
-		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);//TODO -> change strings
+		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);
 
 	}
 
@@ -285,7 +291,7 @@ public class ReservationClientActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker view, int yr, int monthOfYear,
 				int dayOfMonth) {
-			resDate = new Date(""+yr, ""+monthOfYear, ""+dayOfMonth);
+			resDate = new Date(""+yr, ""+(monthOfYear+1), ""+dayOfMonth);
 			updateDate();
 		}
 	};

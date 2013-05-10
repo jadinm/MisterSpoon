@@ -1006,6 +1006,8 @@ public class Client {
 	 * If the booking is already in the list, it isn't added to the list
 	 */
 	public void addBooking (Booking booking) {
+		
+		Log.v("addBooking", "here");
 
 		if (booking == null) {//If the parameter is null
 			return ;
@@ -1022,6 +1024,8 @@ public class Client {
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 
 		String restNom = booking.getRestaurant().getRestaurantName();
+		
+		Log.v("addBooking", "INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", '" + calendar.toString() + " " +  time.toString() + "');");
 
 		db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", '" + calendar.toString() + " " +  time.toString() + "');");
 		MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Booking + "(" + MySQLiteHelper.Booking_column[1] + ", " + MySQLiteHelper.Booking_column[2] + ", " + MySQLiteHelper.Booking_column[3] + ", " + MySQLiteHelper.Booking_column[4] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + "'"+nbrPlace+"'" + ", '" + calendar.toString() + " " +  time.toString() + "');");
@@ -1125,21 +1129,29 @@ public class Client {
 	 * @post : check if the preBooking is possible (if the schedule and the stocks match) and return true or false
 	 */
 	public boolean isReservationPossible (Booking booking) {
+		
+		Log.v("isReservationPossible", "before");
 
-		if (preBooking == null) {
+		if (booking == null) {
 			return false;
 		}
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
+		
+		Log.v("isReservationPossible", "before-1");
+		
+		int count = booking.getRestaurant().getRestaurantBooking(booking.getRestaurant().getRestaurantName(), booking.getDate(), booking.getHeureReservation());
 
 		//Test for the schedule
-		Cursor cursor2 = db.rawQuery("SELECT DISTINCT R.restNom FROM Restaurant R, Reservation B, Horaire H, Fermeture F, (SELECT R.restNom, total(B.NbrReservation) AS total FROM Restaurant R, Reservation B WHERE R.restNom = '" + booking.getRestaurant().getRestaurantName() + "' (R.restNom = B.restNom AND B.heure= '" + booking.getHeureReservation().toString() + "' ) GROUP BY B.restNom) AS TotalReservation WHERE R.restNom=B.restNom AND B.restNom=H.restNom AND ((R.restNom=TotalReservation.restNom AND R.capaTotale - TotalReservation.total >= "+ booking.getNombrePlaces() +")	OR (R.restNom not in (SELECT DISTINCT B.restNom FROM Reservation B WHERE B.heure= '" + booking.getHeureReservation() + "' GROUP BY B.restNom) AND R.capaTotale >= "+ booking.getNombrePlaces() +")) AND H.openHour <='" + booking.getHeureReservation() + "' AND H.closeHour > '" + booking.getHeureReservation() + "' AND R.restNom = H.restNom AND F.restNom = R.restNom AND F.date != strftime('%m-%d', 'now') AND H.jourOuverture in (SELECT case cast(strftime('%w','now') as INTEGER) when 0 then 'Dimanche' when 1 then 'Lundi' when 2 then 'Mardi' when 3 then 'Mercredi' when 4 then 'Jeudi' when 5 then 'Vendredi' else 'Samedi' end as DayOfWeek)", null);
+		Cursor cursor2 = db.rawQuery("SELECT DISTINCT R.restNom FROM Restaurant R, Reservation B, Horaire H, Fermeture F WHERE R.restNom=B.restNom AND B.restNom=H.restNom AND ((R.capaTotale - "+ count +" >= "+ booking.getNombrePlaces() +")	OR (R.restNom not in (SELECT DISTINCT B.restNom FROM Reservation B WHERE B.dateTime= '" + booking.getHeureReservation() + "' GROUP BY B.restNom) AND R.capaTotale >= "+ booking.getNombrePlaces() +")) AND H.openHour <='" + booking.getHeureReservation() + "' AND H.closeHour > '" + booking.getHeureReservation() + "' AND R.restNom = H.restNom AND F.restNom = R.restNom AND F.date != strftime('%m-%d', 'now') AND H.jourOuverture in (SELECT case cast(strftime('%w','now') as INTEGER) when 0 then 'Dimanche' when 1 then 'Lundi' when 2 then 'Mardi' when 3 then 'Mercredi' when 4 then 'Jeudi' when 5 then 'Vendredi' else 'Samedi' end as DayOfWeek)", null);
 		if (cursor2.moveToNext()) {//If it's possible
 			db.close();
+			Log.v("isReservationPossible", "success");
 			return true;
 		}
 		else {
 			db.close();
+			Log.v("isReservationPossible", "wrong");
 			return false;
 		}		
 	}
@@ -1151,17 +1163,24 @@ public class Client {
 	 * @post : try to book in a restaurant with the parameters asked and return true or false if it's a success or not
 	 */
 	public boolean book (ArrayList <Meal> commande, int nbrPlaces, Time time, Date calendar) {
+		
+		Log.v("book", "before");
 
-		if (restaurantEnCours == null || time == null || nbrPlaces <= 0 || calendar != null) {//If the reservation has no sense
+		if (restaurantEnCours == null || time == null || nbrPlaces <= 0 || calendar == null) {//If the reservation has no sense
 			return false;
 		}
+		
+		Log.v("book", "before-1");
 
 		Booking booking = new Booking (restaurantEnCours, nbrPlaces, time, calendar, commande);
 		if (!isReservationPossible(booking)) {
+			Log.v("book", "wrong");
 			return false;
 		}
 
 		this.addBooking(booking);
+		
+		Log.v("book", "success");
 
 		return true;
 	}

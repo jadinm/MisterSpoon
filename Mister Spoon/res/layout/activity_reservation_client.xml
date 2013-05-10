@@ -42,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:inputType="number"
         android:hint="@string/reservation_client_nbr_places"/>
 
     <LinearLayout
