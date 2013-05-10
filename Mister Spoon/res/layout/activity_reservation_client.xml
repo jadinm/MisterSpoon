@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
         android:weightSum="2" >
 
         <TextView
@@ -36,6 +36,13 @@
             android:layout_weight="1"
             android:text="@string/prereservation_client_places1" />
     </LinearLayout>
+    
+    <EditText 
+        android:id="@+id/reservation_client_nbr_places"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/reservation_client_nbr_places"/>
 
     <LinearLayout
         android:layout_width="fill_parent"

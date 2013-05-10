@@ -12,24 +12,21 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 public class ReservationClientActivity extends Activity {
@@ -52,8 +49,11 @@ public class ReservationClientActivity extends Activity {
 	private Date resDate;
 	private TextView messageAlert;
 	private EditText editAlert;
+	
+	private EditText nbrPlacesWanted;
 
 	private ArrayList <reservationClientActivityItem> command;
+	private ArrayList <Meal> mealList;
 	
 	private reservationClientActivityItem currentMeal;
 	
@@ -97,11 +97,15 @@ public class ReservationClientActivity extends Activity {
 
 		prixTotal = 0;
 		
+		mealList = new ArrayList <Meal> ();
+		command = new ArrayList <reservationClientActivityItem> ();
+		
 		ListIterator<String> it = myCommandString.listIterator();
 		while (it.hasNext()) {
 			String mealName = (String) it.next();
 			Meal meal = new Meal(mealName, restoName, sqliteHelper);
 			prixTotal = prixTotal + meal.getMealPrice(false);
+			mealList.add(meal);
 			command.add(new reservationClientActivityItem(mealName, "1"));
 		}
 		
@@ -116,9 +120,11 @@ public class ReservationClientActivity extends Activity {
 		commandListView.setOnItemClickListener(commandListViewListener);
 
 		total = (TextView) findViewById(R.id.prereservation_client_total);
-		total.setText(prixTotal + " EUR");
+		total.setText(getString(R.string.prereservation_client_total) + prixTotal + " EUR");
 
 		placesDispo = (TextView) findViewById(R.id.prereservation_client_places);
+		
+		nbrPlacesWanted = (EditText) findViewById(R.id.reservation_client_nbr_places);
 		
 
 		dateDisplay = (TextView) findViewById(R.id.reservation_client_text_date);
@@ -148,7 +154,7 @@ public class ReservationClientActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				showDialog(TIME_DIALOG_ID);//pourquoi il le barre ?
+				showDialog(TIME_DIALOG_ID);
 
 			}
 
@@ -212,8 +218,22 @@ public class ReservationClientActivity extends Activity {
 			.setPositiveButton(getString(R.string.exit_change), new DialogInterface.OnClickListener() {
 
 				@Override
-				public void onClick (DialogInterface arg0, int arg1) {//TODO
+				public void onClick (DialogInterface arg0, int arg1) {
 
+					
+					if (editAlert.getText().toString().length() > 0) {//We change
+						currentMeal.setMealQuantity(editAlert.getText().toString());
+					}
+					
+					adapter = new reservationClientActivityAdapter (context, command);//We redraw the list
+					commandListView.setAdapter(adapter);
+					
+					prixTotal = 0;//We modify the total
+					for(int i=0; i<mealList.size(); i++) {
+						prixTotal = prixTotal + mealList.get(i).getMealPrice(false) * Integer.parseInt(command.get(i).getMealQuantity());
+					}
+					
+					total.setText(getString(R.string.prereservation_client_total) + prixTotal + " EUR");
 					
 					arg0.cancel();
 
@@ -225,23 +245,23 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			/*Toast toast = Toast.makeText(context, "Réservation prise envoyée au restaurateur", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restaurateur", Toast.LENGTH_SHORT);
 			toast.show();
 			
-			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
-			
-			ArrayList<Meal> mealList = new ArrayList<Meal>();
 			for (int l = 0; l<command.size(); l++) {
-				Meal meal = new Meal(command.get(l).getMealName(), command);
-				mealList.add(meal);
+				mealList.get(l).setMealStock(Integer.parseInt(command.get(l).getMealQuantity()));
 			}
-			Booking b = new Booking(r,nbrPlaces, resTime, resDate ,mealList);
-			c.addBooking(b);
-			Client client = new Client(c.getEmail());
+
+			if (nbrPlacesWanted.getText().toString().length() > 0 && Integer.parseInt(nbrPlacesWanted.getText().toString()) - nbrPlaces >= 0 && !c.book(mealList, nbrPlaces, resTime, resDate)) {
+				
+				Toast.makeText(context, R.string.reservation_client_echec, Toast.LENGTH_SHORT).show();//Error
+				return;
+			}
 			
+			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);			
 			
-			i.putExtra(Login.email, client.getEmail());
-			startActivity(i);*/
+			i.putExtra(Login.email, c.getEmail());
+			startActivity(i);
 		}
 	};
 

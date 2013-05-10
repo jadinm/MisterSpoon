@@ -810,39 +810,6 @@ public class Client {
 			return ;
 		}
 
-		String RestaurantName = preBooking.getRestaurant().getRestaurantName();//Name of the restaurant where we are ordering
-
-		for (int i=0; i<this.preBooking.size(); i++) {
-
-			String IemeRestaurantName = this.preBooking.get(i).getRestaurant().getRestaurantName();//Name of the restaurant where we have ordered
-
-			if (IemeRestaurantName.equals(RestaurantName)) {//We compare the order
-
-				int counter = 0;//Count the number of same meals in their ordered
-
-				for (int j=0; j<this.preBooking.get(i).getCommande().size(); j++) {
-
-					Meal JemeMealOrdered = (this.preBooking.get(i)).getCommande().get(j);// Jth meal of one order already registered
-
-					boolean MealFound = false;
-
-					for (int k=0; k<preBooking.getCommande().size() && !MealFound; k++) {
-
-						Meal KemeMealOrdered = preBooking.getCommande().get(k);// Kth meal of the order not registered
-
-						if (JemeMealOrdered.getMealName().equals(KemeMealOrdered.getMealName()) && JemeMealOrdered.getMealStock(false) == KemeMealOrdered.getMealStock(false)) {//if it's the same meal in the same quantities
-							counter++;
-							MealFound = true;
-						}
-					}
-				}
-
-				if (counter == this.preBooking.get(i).getCommande().size()) {//All the order match -> the order is already in the list
-					return;
-				}
-			}
-		}
-
 		this.preBooking.add(preBooking);
 
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
@@ -853,8 +820,8 @@ public class Client {
 			String MealName = (preBooking.getCommande().get(i)).getMealName();
 			int quantite = (preBooking.getCommande().get(i)).getMealStock(false);
 
-			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + restNom + ", " + "'"+email+"'" + ", " + MealName + ", " + quantite + ");");
-			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", " + MealName + ", " + quantite + ");");
+			db.execSQL("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES ('" + restNom + "', " + "'"+email+"'" + ", '" + MealName + "', " + quantite + ");");
+			MySQLiteHelper.Additional_Orders.add("INSERT INTO " + MySQLiteHelper.TABLE_Order + "(" + MySQLiteHelper.Order_column[1] + ", "  + MySQLiteHelper.Order_column[2] +  ", "  + MySQLiteHelper.Order_column[4] + ", "  + MySQLiteHelper.Order_column[5] + ") VALUES (" + "'"+restNom+"'" + ", " + "'"+email+"'" + ", '" + MealName + "', " + quantite + ");");
 		}
 
 		db.close();
@@ -966,9 +933,6 @@ public class Client {
 		}
 
 		PreBooking preBooking = new PreBooking (restaurantEnCours, commande);
-		if (!isPreReservationPossible(preBooking)) {
-			return false;
-		}
 
 		this.addPreBooking(preBooking);
 
@@ -1052,44 +1016,6 @@ public class Client {
 		Time time = booking.getHeureReservation();//number of places we are reserving
 		Date calendar = booking.getDate();//the date
 
-		for (int i=0; i<this.booking.size(); i++) {//We test if the booking isn't already registered
-
-			String IemeRestaurantName = this.booking.get(i).getRestaurant().getRestaurantName();//Name of the restaurant where we have reserved
-			Time IemeTime = this.booking.get(i).getHeureReservation();//time when we have reserved
-			int IemeNbrPlace = this.booking.get(i).getNombrePlaces();//number of places we have reserved
-			Date Iemecalendar = this.booking.get(i).getDate();//the date
-
-			if (IemeRestaurantName.equals(RestaurantName) && time.equals(IemeTime) && nbrPlace==IemeNbrPlace && calendar.equals(Iemecalendar)) {//We compare reservations
-
-				int counter = 0;//Count the number of same meals in their ordered
-
-				if (this.booking.get(i).getCommande() != null && booking.getCommande() != null) {//If both have an order
-					for (int j=0; j<this.booking.get(i).getCommande().size(); j++) {
-
-						Meal JemeMealOrdered = (this.booking.get(i)).getCommande().get(j);// Jth meal of one order already registered
-
-						boolean MealFound = false;
-
-						for (int k=0; k<booking.getCommande().size() && !MealFound; k++) {
-
-							Meal KemeMealOrdered = booking.getCommande().get(k);// Kth meal of the order not registered
-
-							if (JemeMealOrdered.getMealName().equals(KemeMealOrdered.getMealName()) && JemeMealOrdered.getMealStock(false) == KemeMealOrdered.getMealStock(false)) {//if it's the same meal in the same quantities
-								counter++;
-								MealFound = true;
-							}
-						}
-					}
-
-					if (counter == this.booking.get(i).getCommande().size()) {//All the order match -> the reservation is already in the list
-						return;
-					}
-				}
-				else if (this.booking.get(i).getCommande() == null && booking.getCommande() == null) {//both have no order (and other informations are the same) -> the reservation is already in the list
-					return;
-				}
-			}
-		}
 
 		this.booking.add(booking);
 
@@ -1206,22 +1132,8 @@ public class Client {
 
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 
-		//Test for the stocks
-		if (booking.getCommande()!=null) {
-			for (int i=0; i<booking.getCommande().size(); i++) {
-
-				Meal currentMeal = booking.getCommande().get(i);
-
-				Cursor cursor = db.rawQuery("SELECT DISTINCT P.platNom FROM Plat P, Commande C, (SELECT C.platNom, total(C.quantite) as quantite FROM Commande C WHERE C.restNom = "+ booking.getRestaurant().getRestaurantName() +" GROUP BY C.platNom) AS Somme WHERE P.platNom = " + currentMeal.getMealName() + " AND P.platNom = C.platNom AND P.RestNom = C.restNom AND  C.RestNom = " + booking.getRestaurant().getRestaurantName() + " AND P.platNom=Somme.platNom AND P.stock - Somme.quantite - " + currentMeal.getMealStock(false) + " >= 0 ", null);
-				if (!cursor.moveToFirst()) {//If there isn't enough stock for that meal
-					db.close();
-					return false;
-				}
-			}
-		}
-
 		//Test for the schedule
-		Cursor cursor2 = db.rawQuery("SELECT DISTINCT R.restNom FROM Restaurant R, Reservation B, Horaire H, Fermeture F, (SELECT R.restNom, total(B.NbrReservation) AS total FROM Restaurant R, Reservation B WHERE R.restNom = '" + booking.getRestaurant().getRestaurantName() + "' (R.restNom = B.restNom AND B.heure= '" + booking.getHeureReservation().toString() + "' ) GROUP BY B.restNom) AS TotalReservation WHERE R.restNom=B.restNom AND B.restNom=H.restNom AND ((R.restNom=TotalReservation.restNom AND R.capaTotale - TotalReservation.total >= "+ booking.getNombrePlaces() +")	OR (R.restNom not in (SELECT DISTINCT B.restNom FROM Reservation B WHERE B.heure= '" + booking.getHeureReservation() + "' GROUP BY B.restNom) AND R.capaTotale >= "+ booking.getNombrePlaces() +")) AND H.openHour <=" + booking.getHeureReservation() + " AND H.closeHour > " + booking.getHeureReservation() + " AND R.restNom = H.restNom AND F.restNom = R.restNom AND F.date != strftime('%m-%d', 'now') AND H.jourOuverture in (SELECT case cast(strftime('%w','now') as INTEGER) when 0 then 'Dimanche' when 1 then 'Lundi' when 2 then 'Mardi' when 3 then 'Mercredi' when 4 then 'Jeudi' when 5 then 'Vendredi' else 'Samedi' end as DayOfWeek)", null);
+		Cursor cursor2 = db.rawQuery("SELECT DISTINCT R.restNom FROM Restaurant R, Reservation B, Horaire H, Fermeture F, (SELECT R.restNom, total(B.NbrReservation) AS total FROM Restaurant R, Reservation B WHERE R.restNom = '" + booking.getRestaurant().getRestaurantName() + "' (R.restNom = B.restNom AND B.heure= '" + booking.getHeureReservation().toString() + "' ) GROUP BY B.restNom) AS TotalReservation WHERE R.restNom=B.restNom AND B.restNom=H.restNom AND ((R.restNom=TotalReservation.restNom AND R.capaTotale - TotalReservation.total >= "+ booking.getNombrePlaces() +")	OR (R.restNom not in (SELECT DISTINCT B.restNom FROM Reservation B WHERE B.heure= '" + booking.getHeureReservation() + "' GROUP BY B.restNom) AND R.capaTotale >= "+ booking.getNombrePlaces() +")) AND H.openHour <='" + booking.getHeureReservation() + "' AND H.closeHour > '" + booking.getHeureReservation() + "' AND R.restNom = H.restNom AND F.restNom = R.restNom AND F.date != strftime('%m-%d', 'now') AND H.jourOuverture in (SELECT case cast(strftime('%w','now') as INTEGER) when 0 then 'Dimanche' when 1 then 'Lundi' when 2 then 'Mardi' when 3 then 'Mercredi' when 4 then 'Jeudi' when 5 then 'Vendredi' else 'Samedi' end as DayOfWeek)", null);
 		if (cursor2.moveToNext()) {//If it's possible
 			db.close();
 			return true;
