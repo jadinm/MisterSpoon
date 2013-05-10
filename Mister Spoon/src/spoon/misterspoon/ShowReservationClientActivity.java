@@ -89,65 +89,7 @@ public class ShowReservationClientActivity extends Activity {
 		return opReservationList;
 	}
 	
-	/*private OnChildClickListener reservationListViewChild =  new OnChildClickListener() {
-
-		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {//TODO launch an alert box
-			
-			ReservationRestaurantItem child = getOPReservationList().get(groupPosition).getReservationList().get(childPosition);
-			Meal meal = carte.getMenuList().get(groupPosition).getMealList(false).get(childPosition);
-			childView = (CheckBox) v.findViewById(R.id.carte_child_check);
-			
-			currentMeal = meal;
-			
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			
-			builder.setTitle(meal.getMealName() + " == " + child.getMealName() + "?");
-			builder.setMessage(getString(R.string.carte_alert_message));
-			
-			builder.setCancelable(true);//We can go back with the return button
-			
-			builder.setNegativeButton(getString(R.string.carte_alert_negative), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {
-					dialog.cancel();
-				}
-			});
-			builder.setNeutralButton(getString(R.string.carte_alert_neutre), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {//Check the ckeckbox
-					
-					if (childView.isChecked()) {
-						childView.setSelected(false);
-						dialog.cancel();
-						return;
-					}
-					childView.setSelected(true);
-					dialog.cancel();
-				}
-			});
-			builder.setPositiveButton(getString(R.string.carte_alert_positive), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick (DialogInterface dialog, int id) {//launch the last activity
-					Intent i = new Intent(CarteActivity.this, MealActivity.class);
-					i.putExtra(RESTAURANT, restName);
-					i.putExtra(MEAL, currentMeal.getMealName());
-					i.putExtra(CLIENT, client.getEmail());
-					startActivity(i);
-					return;
-				}
-			});
-			
-			AlertDialog alertDialog = builder.create();
-			
-			alertDialog.show();
-
-			return true;
-		}
-
-	};*/
+	
 	
 	public void onPause(){
 		super.onPause();

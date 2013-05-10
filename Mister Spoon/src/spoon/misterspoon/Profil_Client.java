@@ -352,7 +352,7 @@ public class Profil_Client extends Activity {
 		preBooking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Profil_Client.this, PreReservationProfilClientActivity.class);//TODO
+				Intent i = new Intent(Profil_Client.this, PreReservationProfilClientActivity.class);
 				i.putExtra(Login.email, c.getEmail());//TODO
 				startActivity(i);
 			}
@@ -363,7 +363,7 @@ public class Profil_Client extends Activity {
 			public void onClick(View v) {
 				//Toast toast = Toast.makeText(context, "Un client veut voir ses r�servations", Toast.LENGTH_SHORT);
 				//toast.show();
-				Intent i = new Intent(Profil_Client.this, ShowReservationClientActivity.class);//TODO
+				Intent i = new Intent(Profil_Client.this, ShowReservationClientActivity.class);
 				i.putExtra(Login.email, c.getEmail());//TODO
 				startActivity(i);
 			}
