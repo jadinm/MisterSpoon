@@ -53,8 +53,9 @@ public class ReservationClientActivity extends Activity {
 	private TextView messageAlert;
 	private EditText editAlert;
 
-	private ArrayList<Meal> myCommand;
 	private ArrayList <reservationClientActivityItem> command;
+	
+	private reservationClientActivityItem currentMeal;
 	
 	private LinearLayout persoAlert;
 
@@ -177,6 +178,8 @@ public class ReservationClientActivity extends Activity {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			
 			AlertDialog.Builder alert = new AlertDialog.Builder(context);
+			
+			currentMeal = command.get(arg2);
 
 			if (persoAlert==null) {
 
@@ -196,73 +199,22 @@ public class ReservationClientActivity extends Activity {
 
 				persoAlert = (LinearLayout) getLayoutInflater().inflate(R.layout.carte_builder_alert_box_set_menu, null);
 				
-				
+				messageAlert = (TextView) persoAlert.findViewById(R.id.reservation_client_alert_box_quantite_message);
+				editAlert = (EditText) persoAlert.findViewById(R.id.reservation_client_alert_box_edit);
 				
 				alert.setView(persoAlert);
 			}
 
 
 
-			alert.setTitle(getString(R.string.carte_builder_set_menu_title))
+			alert.setTitle(currentMeal.getMealName())
 			.setNegativeButton(getString(R.string.exit_cancel), null)
-			.setPositiveButton(getString(R.string.exit_confirm), new DialogInterface.OnClickListener() {
+			.setPositiveButton(getString(R.string.exit_change), new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick (DialogInterface arg0, int arg1) {//TODO
 
-					boolean success = true;
-
-					if (menuNameOld.getText().toString().length() > 0 && menuNameNew.getText().toString().length() > 0) {//We try to change the menu
-
-						if (! menuNameOld.getText().toString().equals(menuNameNew.getText().toString())) {//We try to set the name
-							
-							success = carteBuilder.setMenuName(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), menuNameNew.getText().toString());
-
-							if (!success) {
-								Toast.makeText(context, R.string.carte_builder_toast_set_menu, Toast.LENGTH_SHORT).show();
-								menuNameOld.setText("");
-								menuNameNew.setText("");
-								menuPriceNew.setText("");
-
-								return;
-							}
-
-						}
-						if (! ((String) categorieOld.getSelectedItem()).equals(((String) categorieNew.getSelectedItem())) && success) {//We try to change the categorie
-
-							
-							success = carteBuilder.setMenuCategorie(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), (String) categorieNew.getSelectedItem());
-
-							if (!success) {
-								Toast.makeText(context, R.string.carte_builder_toast_set_menu, Toast.LENGTH_SHORT).show();
-								menuNameOld.setText("");
-								menuNameNew.setText("");
-								menuPriceNew.setText("");
-
-								adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
-								carteListView.setAdapter(adapter);
-
-								return;
-							}
-						}
-						if (menuPriceNew.getText().toString().length() > 0 && success) {
-							
-
-							carteBuilder.setMenuPrice(new Menu (sqliteHelper, menuNameOld.getText().toString(), r.getRestaurant().getRestaurantName(), (String) categorieOld.getSelectedItem()), Double.parseDouble(menuPriceNew.getText().toString()));
-						}
-
-						Toast.makeText(context, R.string.carte_builder_change, Toast.LENGTH_SHORT).show();
-					}
-					else {
-						return;
-					}
-
-					adapter = new CarteBuilderActivityListAdapter(context, carteBuilder.getCarte().getFilterList());
-					carteListView.setAdapter(adapter);
-
-					menuNameOld.setText("");
-					menuNameNew.setText("");
-					menuPriceNew.setText("");
+					
 					arg0.cancel();
 
 				}
@@ -273,7 +225,7 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restaurateur", Toast.LENGTH_SHORT);
+			/*Toast toast = Toast.makeText(context, "Réservation prise envoyée au restaurateur", Toast.LENGTH_SHORT);
 			toast.show();
 			
 			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
@@ -289,7 +241,7 @@ public class ReservationClientActivity extends Activity {
 			
 			
 			i.putExtra(Login.email, client.getEmail());
-			startActivity(i);
+			startActivity(i);*/
 		}
 	};
 

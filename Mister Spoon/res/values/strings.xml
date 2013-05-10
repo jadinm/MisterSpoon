@@ -258,7 +258,10 @@
     <string name="reservation_client_date_button">Jour</string>
     <string name="reservation_client_time_text">Heure : </string>
     <string name="reservation_client_date_text">Séléctionnez Date : </string>
-
+    <string name="reservation_client_alert_box_quantite_message">Veuillez entrer la quantité souhaitée pour ce plat.</string>
+    <string name="exit_change">Modifier</string>
+    
+    
     <!-- Values for activity_carte -->
     <string name="carte_title">Carte</string>
     <string name="carte_meal_price">Prix :</string>
