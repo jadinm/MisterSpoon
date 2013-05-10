@@ -408,7 +408,7 @@ public class Profil_Client extends Activity {
 			public void onClick(View v) {
 				//Toast toast = Toast.makeText(context, "Un client veut voir ses r�servations", Toast.LENGTH_SHORT);
 				//toast.show();
-				Intent i = new Intent(Profil_Client.this, ClientReservationActivity.class);//TODO
+				Intent i = new Intent(Profil_Client.this, ShowReservationClientActivity.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
 				startActivity(i);
 			}

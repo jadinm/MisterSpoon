@@ -38,7 +38,15 @@ public class Date {
 	
 	public String toString () {
 		
+		if(Integer.parseInt(month) < 10) {
+			month = "0" + month;
+		}
+		if(Integer.parseInt(day) < 10) {
+			day = "0" + day;
+		}
+		
 		if (year==null) {
+			
 			return month + "-" + day;
 		}
 		

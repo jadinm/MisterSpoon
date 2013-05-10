@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-public class ClientReservationActivity extends Activity {
+public class ShowReservationClientActivity extends Activity {
 
 	Context context = this;
 	MySQLiteHelper sql = new MySQLiteHelper(this);
@@ -33,7 +33,7 @@ public class ClientReservationActivity extends Activity {
 		c = new Client(sql, emailClient);
 		bookingList = c.getBooking(true);
 		
-		ReservationClientItem reservationClientItem_data[] = new ReservationClientItem[bookingList.size()];
+		ShowReservationClientItem reservationClientItem_data[] = new ShowReservationClientItem[bookingList.size()];
 		
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
@@ -41,10 +41,10 @@ public class ClientReservationActivity extends Activity {
 				commandList.add(Booking.nombrePlat(sql, meal.getMealName(), bookingList.get(j).getClient().getEmail()) + " x " + meal.getMealName());
 			}
 			Restaurant superRest = new Restaurant(sql,bookingList.get(j).getRestaurant().getRestaurantName());
-			reservationClientItem_data[j] = new ReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(),superRest.getRestaurantPhone(true),bookingList.get(j).getNombrePlaces()+"", commandList);
+			reservationClientItem_data[j] = new ShowReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(),superRest.getRestaurantPhone(true),bookingList.get(j).getNombrePlaces()+"", commandList);
 		}
 		
-		ReservationClientActivityListAdapter adapter = new ReservationClientActivityListAdapter(this, getOPReservationList());
+		ShowReservationClientActivityListAdapter adapter = new ShowReservationClientActivityListAdapter(this, getOPReservationList());
 		
 		reservationList = (ExpandableListView) findViewById(R.id.reservation_client_reservationList);
 		
@@ -59,9 +59,9 @@ public class ClientReservationActivity extends Activity {
         //reservationList.setOnGroupClickListener(carteListViewGroup);
 	}
 	
-	private ArrayList<ReservationClientActivityHeader> getOPReservationList(){
-		ArrayList <ReservationClientActivityHeader> opReservationList = new ArrayList <ReservationClientActivityHeader>();
-		ArrayList <ReservationClientItem> reservationClientItem = new ArrayList <ReservationClientItem>();
+	private ArrayList<ShowReservationClientActivityHeader> getOPReservationList(){
+		ArrayList <ShowReservationClientActivityHeader> opReservationList = new ArrayList <ShowReservationClientActivityHeader>();
+		ArrayList <ShowReservationClientItem> reservationClientItem = new ArrayList <ShowReservationClientItem>();
 		for(int j = 0 ; j < bookingList.size() ; j++){
 			List<String> commandList = new ArrayList<String>();
 			for(Meal meal : bookingList.get(j).getCommande()){
@@ -69,20 +69,20 @@ public class ClientReservationActivity extends Activity {
 			}
 			Restaurant superRest = new Restaurant(sql,bookingList.get(j).getRestaurant().getRestaurantName());
 			if(j == 0){
-				reservationClientItem.add(new ReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(), superRest.getRestaurantPhone(false), bookingList.get(j).getNombrePlaces()+"", commandList));
+				reservationClientItem.add(new ShowReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(), superRest.getRestaurantPhone(false), bookingList.get(j).getNombrePlaces()+"", commandList));
 			}
 			else{
 				if(bookingList.get(j).getDate().compareTo(bookingList.get(j-1).getDate()) == 0){
-					reservationClientItem.add(new ReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(), superRest.getRestaurantPhone(false), bookingList.get(j).getNombrePlaces()+"", commandList));
+					reservationClientItem.add(new ShowReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(), superRest.getRestaurantPhone(false), bookingList.get(j).getNombrePlaces()+"", commandList));
 				}
 				else{
-					opReservationList.add(new ReservationClientActivityHeader(bookingList.get(j).getDate().toString(), reservationClientItem));
-					reservationClientItem = new ArrayList <ReservationClientItem>();
-					reservationClientItem.add(new ReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(), superRest.getRestaurantPhone(false), bookingList.get(j).getNombrePlaces()+"", commandList));
+					opReservationList.add(new ShowReservationClientActivityHeader(bookingList.get(j).getDate().toString(), reservationClientItem));
+					reservationClientItem = new ArrayList <ShowReservationClientItem>();
+					reservationClientItem.add(new ShowReservationClientItem(bookingList.get(j).getHeureReservation().getHour()+":"+bookingList.get(j).getHeureReservation().getMinute(), superRest.getRestaurantName(), superRest.getRestaurantPhone(false), bookingList.get(j).getNombrePlaces()+"", commandList));
 				}
 			}
 			if(j == bookingList.size()-1){
-				opReservationList.add(new ReservationClientActivityHeader(bookingList.get(j).getDate().toString(), reservationClientItem));
+				opReservationList.add(new ShowReservationClientActivityHeader(bookingList.get(j).getDate().toString(), reservationClientItem));
 			}
 		}
 		

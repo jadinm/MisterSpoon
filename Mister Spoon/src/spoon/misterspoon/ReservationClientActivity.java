@@ -77,7 +77,7 @@ public class ReservationClientActivity extends Activity {
 		c = new Client(sqliteHelper, emailPerso);
 		c.setRestaurantEnCours(r);
 
-		myCommandString = (ArrayList<String>) i.getStringArrayListExtra(CarteActivity.MEALLIST);//TODO
+		myCommandString = (ArrayList<String>) i.getStringArrayListExtra(CarteActivity.MEALLIST);
 		
 
 		prixTotal = 0;
@@ -94,7 +94,7 @@ public class ReservationClientActivity extends Activity {
 		
 
 		commandListView = (ListView) findViewById(R.id.meal_reservation_listing);
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myCommandString);//pas sur ici...
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myCommandString);//pas sur ici... TODO -> QUANTITE
 		commandListView.setAdapter(adapter);
 
 		total = (TextView) findViewById(R.id.prereservation_client_total);
@@ -156,7 +156,7 @@ public class ReservationClientActivity extends Activity {
 	
 	private OnClickListener bookListener = new OnClickListener() {
 		public void onClick(View v) {
-			Toast toast = Toast.makeText(context, "R�servation prise envoy�e au restorateur", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(context, "Réservation prise envoyée au restorateur", Toast.LENGTH_SHORT);
 			toast.show();
 			Intent i = new Intent(ReservationClientActivity.this, Profil_Client.class);
 			ArrayList<Meal> mealList = new ArrayList<Meal>();
@@ -182,7 +182,7 @@ public class ReservationClientActivity extends Activity {
 	private void updateDate() {
 		dateDisplay.setText(getString(R.string.reservation_client_date_text) + " " +resDate.toString());
 		nbrPlaces = r.getRestaurantCapacity(false) - r.getRestaurantBooking(restoName, resDate ,resTime);
-		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);
+		placesDispo.setText(getString(R.string.prereservation_client_places1) +" "+ nbrPlaces);//TODO -> change strings
 
 	}
 

@@ -2,7 +2,7 @@ package spoon.misterspoon;
 
 import java.util.List;
 
-public class ReservationClientItem {
+public class ShowReservationClientItem {
 	
 	private String heure;
 	private String nomRest;
@@ -10,11 +10,11 @@ public class ReservationClientItem {
 	private String places;
 	private List<String> plat;
 	
-	public ReservationClientItem(){
+	public ShowReservationClientItem(){
 		super();
 	}
 	
-	public ReservationClientItem (String heure, String nomRest, String telephone, String places, List<String> plat) {
+	public ShowReservationClientItem (String heure, String nomRest, String telephone, String places, List<String> plat) {
 		super();
 		this.heure = heure;
 		this.nomRest = nomRest;

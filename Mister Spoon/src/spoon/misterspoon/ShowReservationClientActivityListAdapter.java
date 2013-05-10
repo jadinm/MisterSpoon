@@ -12,18 +12,18 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ReservationClientActivityListAdapter extends BaseExpandableListAdapter {
+public class ShowReservationClientActivityListAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
-	private ArrayList<ReservationClientActivityHeader> reservation;
+	private ArrayList<ShowReservationClientActivityHeader> reservation;
 	
-	public ReservationClientActivityListAdapter(Context context, ArrayList<ReservationClientActivityHeader> reservation){
+	public ShowReservationClientActivityListAdapter(Context context, ArrayList<ShowReservationClientActivityHeader> reservation){
 		this.context = context;
 		this.reservation = reservation;
 	}
 	
 	public Object getChild(int groupPosition, int childPosition) {
-		ArrayList<ReservationClientItem> bookList = reservation.get(groupPosition).getReservationList();
+		ArrayList<ShowReservationClientItem> bookList = reservation.get(groupPosition).getReservationList();
 		return bookList.get(childPosition);
 	}
 	
@@ -33,7 +33,7 @@ public class ReservationClientActivityListAdapter extends BaseExpandableListAdap
 	
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-		ReservationClientItem book = (ReservationClientItem) getChild(groupPosition, childPosition);
+		ShowReservationClientItem book = (ShowReservationClientItem) getChild(groupPosition, childPosition);
 		if (view == null) {
 			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.reservation_client_list_item_view, null);
@@ -58,7 +58,7 @@ public class ReservationClientActivityListAdapter extends BaseExpandableListAdap
 	
 	public int getChildrenCount(int groupPosition) {
 
-		ArrayList<ReservationClientItem> bookList = reservation.get(groupPosition).getReservationList();
+		ArrayList<ShowReservationClientItem> bookList = reservation.get(groupPosition).getReservationList();
 		return bookList.size();
 
 	}
@@ -77,7 +77,7 @@ public class ReservationClientActivityListAdapter extends BaseExpandableListAdap
 	
 	public View getGroupView(int groupPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-		ReservationClientActivityHeader dateHeader = (ReservationClientActivityHeader) getGroup(groupPosition);
+		ShowReservationClientActivityHeader dateHeader = (ShowReservationClientActivityHeader) getGroup(groupPosition);
 		if (view == null) {
 			LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inf.inflate(R.layout.activity_reservation_client_group_heading, null);
