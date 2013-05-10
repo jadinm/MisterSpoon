@@ -352,54 +352,9 @@ public class Profil_Client extends Activity {
 		preBooking.setOnClickListener(new View.OnClickListener() {//launch another view
 			@Override
 			public void onClick(View v) {
-				
-				if (c.getPreBooking(true).size()==0) {//If there is no element to show
-					Toast toast = Toast.makeText(context, getString(R.string.profil_client_alert_null), Toast.LENGTH_SHORT);
-					toast.show();
-					return;
-				}
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-				 
-				//set title and message
-				alertDialogBuilder.setTitle(R.string.profil_client_allergy_list);
-				//alertDialogBuilder.setMessage(R.string.profil_client_alert_message);
-				//set the list of checkBoxes (items_test is useful when we change of language)
-				items = new String [c.getPreBooking(false).size()];
-				for(int i = 0 ; i < c.getPreBooking(false).size() ; i++){
-					items[i] = c.getPreBooking(false).get(i).getRestaurant().getRestaurantName();
-				}
-				
-				alertDialogBuilder.setItems(items, new DialogInterface.OnClickListener () {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				
-				alertDialogBuilder.setCancelable(true);//We can go back with the return button
-				
-				//The other buttons
-				alertDialogBuilder.setPositiveButton(R.string.profil_client_alert_back,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						dialog.cancel();
-					}
-				});
-				
-				alertDialogBuilder.setNegativeButton(R.string.profil_client_alert_update,new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {//Cancel the alert box
-						dialog.cancel();
-					}
-				});
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-		 
-				// show it
-				alertDialog.show();
-				/*Intent i = new Intent(Profil_Client.this, PreBooking_Client.class);//TODO
+				Intent i = new Intent(Profil_Client.this, PreReservationProfilClientActivity.class);//TODO
 				i.putExtra(Login.email, c.getEmail());//TODO
-				startActivity(i);*/
+				startActivity(i);
 			}
 		});
 		
