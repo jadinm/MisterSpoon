@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="spoon.misterspoon"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.9.3" >
     
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
     </uses-permission>
@@ -34,50 +34,127 @@
         <!-- We declare the activity Profil_Client -->
         <activity 
             android:name="spoon.misterspoon.Profil_Client"
-            android:label="@string/profil_client_title">
+            android:label="@string/profil_client_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity Profil_Restaurant -->
         <activity 
             android:name="spoon.misterspoon.Profil_Restaurant"
-            android:label="@string/profil_restaurant_title">
+            android:label="@string/profil_restaurant_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity CityListActivity -->
         <activity 
             android:name="spoon.misterspoon.CityListActivity"
-            android:label="@string/list_city_title">
+            android:label="@string/list_city_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity RestaurantListActivity -->
         <activity 
             android:name="spoon.misterspoon.RestaurantListActivity"
-            android:label="@string/list_restaurant_title">
+            android:label="@string/list_restaurant_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity Booking CHANGING NAME IN EVERY VIEW !!!!-->
         <activity 
             android:name="spoon.misterspoon.Booking"
-            android:label="@string/prereservation_client_title1"> 
+            android:label="@string/prereservation_client_title1"
+            android:configChanges="orientation|screenSize"> 
         </activity>
         
         <!-- We declare the activity Profil_Restaurant -->
         <activity 
             android:name="spoon.misterspoon.RestaurantForClient"
-            android:label="@string/resto_client_title">
+            android:label="@string/resto_client_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity MealActivity -->
         <activity 
             android:name="spoon.misterspoon.MealActivity"
-            android:label="@string/resto_client_title">
+            android:label="@string/resto_client_title"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        
+        <!-- We declare the activity Meal_BuilderActivity -->
+        <activity 
+            android:name="spoon.misterspoon.Meal_BuilderActivity"
+            android:label="@string/carte_title"
+            android:configChanges="orientation|screenSize">
         </activity>
         
         <!-- We declare the activity CarteActivity -->
         <activity 
             android:name="spoon.misterspoon.CarteActivity"
-            android:label="@string/carte_title">
+            android:label="@string/carte_title"
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
+        
+        <!-- We declare the activity ReservationRestaurantActivity -->
+        <activity 
+            android:name="spoon.misterspoon.ReservationRestaurantActivity"
+            android:label="@string/reservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
+        <!-- We declare the activity ClientReservationActivity -->
+        <activity 
+            android:name="spoon.misterspoon.ShowReservationClientActivity"
+            android:label="@string/reservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
+        <!-- We declare the activity PreReservationRestaurantActivity -->
+        <activity 
+            android:name="spoon.misterspoon.PreReservationRestaurantActivity"
+            android:label="@string/prereservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
+        <!-- We declare the activity CarteBuilderActivity -->
+        <activity 
+            android:name="spoon.misterspoon.CarteBuilderActivity"
+            android:label="@string/carte_builder_title"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        
+        <!-- We declare the activity Meal_BuilderActivity -->
+        <activity 
+            android:name="spoon.misterspoon.ReservationClientActivity"
+            android:label="@string/reservation_restaurant_title"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        
+        <!-- We declare the activity ClientReservationActivity -->
+        <activity 
+            android:name="spoon.misterspoon.ClientReservationActivity"
+            android:label="@string/reservation_restaurant_title"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        
+        <!-- We declare the activity PrereservationClientActivity -->
+        <activity 
+            android:name="spoon.misterspoon.PrereservationClientActivity"
+            android:label="@string/prereservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
+        <!-- We declare the activity PreReservationProfilClientActivity -->
+        <activity 
+            android:name="spoon.misterspoon.PreReservationProfilClientActivity"
+            android:label="@string/prereservation_restaurant_title"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize">
+        </activity>
+        
     </application>
 
 </manifest>
