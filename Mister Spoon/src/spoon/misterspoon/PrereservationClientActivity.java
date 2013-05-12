@@ -36,6 +36,7 @@ public class PrereservationClientActivity extends Activity {
 	
 	private Meal currentMeal;
 	private LinearLayout persoAlert;
+	@SuppressWarnings("unused")
 	private TextView messageAlert;
 	private EditText editAlert;
 

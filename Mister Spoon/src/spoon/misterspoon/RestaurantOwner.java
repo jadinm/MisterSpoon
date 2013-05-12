@@ -8,6 +8,7 @@ import java.util.Calendar;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+@SuppressWarnings("unused")
 public class RestaurantOwner {
 
 	public MySQLiteHelper sqliteHelper;

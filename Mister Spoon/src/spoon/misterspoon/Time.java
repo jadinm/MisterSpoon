@@ -76,6 +76,7 @@ public class Time implements Comparable<Time> {
 		
 		String shour;
 		String sminute;
+		@SuppressWarnings("unused")
 		String ssecond;
 		
 		if (hour<10) {

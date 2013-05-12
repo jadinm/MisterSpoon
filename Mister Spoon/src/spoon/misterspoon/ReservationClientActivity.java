@@ -46,6 +46,7 @@ public class ReservationClientActivity extends Activity {
 	private int hours, min;
 	private Time resTime;
 	private Date resDate;
+	@SuppressWarnings("unused")
 	private TextView messageAlert;
 	private EditText editAlert;
 	private TextView horaireRestaurant;
@@ -68,6 +69,7 @@ public class ReservationClientActivity extends Activity {
 	private TextView total;
 	private TextView placesDispo;
 	private double prixTotal;
+	@SuppressWarnings("unused")
 	private Date date;
 	private String horaireString;
 
@@ -134,6 +136,7 @@ public class ReservationClientActivity extends Activity {
 
 		pickDate.setOnClickListener( new View.OnClickListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				showDialog(DATE_DIALOG_ID);
@@ -156,6 +159,7 @@ public class ReservationClientActivity extends Activity {
 
 		pickTime.setOnClickListener( new View.OnClickListener () {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				showDialog(TIME_DIALOG_ID);

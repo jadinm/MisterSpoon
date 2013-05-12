@@ -1010,6 +1010,7 @@ public class Client {
 			return ;
 		}
 
+		@SuppressWarnings("unused")
 		String RestaurantName = booking.getRestaurant().getRestaurantName();//Name of the restaurant where we are reserving
 		int nbrPlace = booking.getNombrePlaces();//time when we are reserving
 		Time time = booking.getHeureReservation();//number of places we are reserving

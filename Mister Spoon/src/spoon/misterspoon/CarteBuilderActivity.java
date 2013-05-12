@@ -583,6 +583,7 @@ public class CarteBuilderActivity extends Activity {
 
 	public class CarteBuilderActivityListAdapter extends BaseExpandableListAdapter {
 
+		@SuppressWarnings("unused")
 		private Context context;
 		private ArrayList<CarteBuilderActivityHeader> carte;
 

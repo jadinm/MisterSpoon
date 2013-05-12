@@ -13,6 +13,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+@SuppressWarnings("unused")
 public class ReservationRestaurantActivityListAdapter extends BaseExpandableListAdapter {
 
 	private Context context;

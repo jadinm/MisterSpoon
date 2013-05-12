@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Adapter;
 
+@SuppressWarnings("unused")
 public class RestaurantForClient extends Activity implements LocationListener {
 
 	private Restaurant r;

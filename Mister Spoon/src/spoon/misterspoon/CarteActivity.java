@@ -386,6 +386,7 @@ public class CarteActivity extends Activity {
 
 	public class CarteActivityListAdapter extends BaseExpandableListAdapter {//Class for the expandableListView
 
+		@SuppressWarnings("unused")
 		private Context context;
 		private ArrayList<CarteActivityHeader> carte;
 		//private ArrayList<Boolean> isCheckedList;
